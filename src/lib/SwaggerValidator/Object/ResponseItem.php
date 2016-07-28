@@ -37,6 +37,11 @@ class ResponseItem extends \Swagger\Common\CollectionSwagger
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
+
+            if (substr($key, 0, strlen(\Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
+                continue;
+            }
+
             $value = $this->extractNonRecursiveReference($context, $value);
 
             $schemaKey = \Swagger\Common\FactorySwagger::KEY_SCHEMA;

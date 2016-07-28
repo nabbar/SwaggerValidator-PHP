@@ -56,6 +56,11 @@ class FactorySwagger
     const KEY_TYPE          = 'type';
 
     /**
+     * Constant for identify custom properties
+     */
+    const KEY_CUSTOM_PATTERN = 'x-';
+
+    /**
      * location parameters
      */
     const LOCATION_HEADER = 'header';

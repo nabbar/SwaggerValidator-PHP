@@ -35,6 +35,10 @@ class Swagger extends \Swagger\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
+            if (substr($key, 0, strlen(\Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
+                continue;
+            }
+
             if ($key == \Swagger\Common\FactorySwagger::KEY_DEFINITIONS) {
                 continue;
             }
