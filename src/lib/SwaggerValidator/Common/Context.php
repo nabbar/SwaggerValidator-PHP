@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of SwaggerCommonContext
@@ -329,7 +329,7 @@ class Context
 
     public function __toString()
     {
-        return \Swagger\Common\Collection::jsonEncode($this->__debugInfo());
+        return \SwaggerValidator\Common\Collection::jsonEncode($this->__debugInfo());
     }
 
     public function __debugInfo()
@@ -388,29 +388,29 @@ class Context
     public function setLocation($value = null)
     {
         switch (strtolower($value)) {
-            case \Swagger\Common\FactorySwagger::LOCATION_BODY:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
             case 'body':
-                $this->contextLocation = \Swagger\Common\FactorySwagger::LOCATION_BODY;
+                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY;
                 break;
 
-            case \Swagger\Common\FactorySwagger::LOCATION_FORM:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
             case 'formdata':
-                $this->contextLocation = \Swagger\Common\FactorySwagger::LOCATION_FORM;
+                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM;
                 break;
 
-            case \Swagger\Common\FactorySwagger::LOCATION_HEADER:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER:
             case 'header':
-                $this->contextLocation = \Swagger\Common\FactorySwagger::LOCATION_HEADER;
+                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER;
                 break;
 
-            case \Swagger\Common\FactorySwagger::LOCATION_PATH:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH:
             case 'path':
-                $this->contextLocation = \Swagger\Common\FactorySwagger::LOCATION_PATH;
+                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH;
                 break;
 
-            case \Swagger\Common\FactorySwagger::LOCATION_QUERY:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
             case 'query':
-                $this->contextLocation = \Swagger\Common\FactorySwagger::LOCATION_QUERY;
+                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY;
                 break;
 
             default:
@@ -668,28 +668,28 @@ class Context
         $this->contextDataValueExists = false;
         $this->contextDataValue       = null;
 
-        if ($paramName === \Swagger\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_REQUEST) {
+        if ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_REQUEST) {
             return $this->loadRequestBody();
         }
-        elseif ($paramName === \Swagger\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_RESPONSE) {
+        elseif ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_RESPONSE) {
             return $this->loadResponseBody();
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_HEADER) {
+        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
             return $this->loadRequestHeader($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_RESPONSE && $this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_HEADER) {
+        elseif ($this->__get('Type') === self::TYPE_RESPONSE && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
             return $this->loadResponseHeader($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_FORM) {
+        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM) {
             return $this->loadRequestFormData($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_PATH) {
+        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH) {
             return $this->loadRequestPath($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_QUERY) {
+        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY) {
             return $this->loadRequestQuery($paramName);
         }
-        elseif ($this->__get('Location') === \Swagger\Common\FactorySwagger::LOCATION_BODY && !$this->checkIsEmpty($this->__get('DataValue'))) {
+        elseif ($this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && !$this->checkIsEmpty($this->__get('DataValue'))) {
             if (is_array($this->__get('DataValue')) && array_key_exists($paramName, $this->__get('DataValue'))) {
                 $this->contextDataValueExists = true;
                 $value                        = $this->__get('DataValue');
@@ -891,7 +891,7 @@ class Context
                     }
                 }
                 else {
-                    $this->contextDataValue = \Swagger\Common\Collection::jsonEncode($this->__get('DataValue'));
+                    $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->__get('DataValue'));
 
                     if (json_last_error() !== JSON_ERROR_NONE) {
                         $this->contextDataValueEmpty = true;
@@ -1001,7 +1001,7 @@ class Context
                     }
                 }
                 else {
-                    $this->contextDataValue = \Swagger\Common\Collection::jsonEncode($this->__get('DataValue'));
+                    $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->__get('DataValue'));
 
                     if (json_last_error() !== JSON_ERROR_NONE) {
                         $this->contextDataValueEmpty = true;
@@ -1086,7 +1086,7 @@ class Context
 
             default:
                 $this->cleanParams();
-                \Swagger\Exception::throwNewException($messageException, $this, __FILE__, __LINE__);
+                \SwaggerValidator\Exception::throwNewException($messageException, $this, __FILE__, __LINE__);
         }
     }
 
@@ -1149,7 +1149,7 @@ class Context
      * Used to customizing log and more when a validation error is occured
      *
      * @param const $validationType
-     * @param \Swagger\Common\Context $swaggerContext
+     * @param \SwaggerValidator\Common\Context $swaggerContext
      */
     public function logValidationError($validationType, $method = null, $line = null)
     {
@@ -1175,9 +1175,9 @@ class Context
     public static function cleanCheckedDataName()
     {
         self::$contextValidatedParams = array(
-            \Swagger\Common\FactorySwagger::LOCATION_FORM  => array(),
-            \Swagger\Common\FactorySwagger::LOCATION_QUERY => array(),
-            \Swagger\Common\FactorySwagger::LOCATION_BODY  => false,
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
         );
     }
 
@@ -1189,10 +1189,10 @@ class Context
     public static function getCheckedMethodFormLocation($type, $location)
     {
         switch ($type . $location) {
-            case self::TYPE_REQUEST . \Swagger\Common\FactorySwagger::LOCATION_FORM:
+            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
                 return 'getRequestFormDataKey';
 
-            case self::TYPE_REQUEST . \Swagger\Common\FactorySwagger::LOCATION_QUERY:
+            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
                 return 'getRequestQueryKey';
         }
     }
@@ -1201,19 +1201,19 @@ class Context
     {
         if (!is_array(self::$contextValidatedParams)) {
             self::$contextValidatedParams = array(
-                \Swagger\Common\FactorySwagger::LOCATION_FORM  => array(),
-                \Swagger\Common\FactorySwagger::LOCATION_QUERY => array(),
-                \Swagger\Common\FactorySwagger::LOCATION_BODY  => false,
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
             );
         }
 
         switch ($location) {
-            case \Swagger\Common\FactorySwagger::LOCATION_FORM:
-            case \Swagger\Common\FactorySwagger::LOCATION_QUERY:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
                 self::$contextValidatedParams[$location][] = $name;
                 break;
 
-            case \Swagger\Common\FactorySwagger::LOCATION_BODY:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
                 self::$contextValidatedParams[$location] = true;
                 break;
         }

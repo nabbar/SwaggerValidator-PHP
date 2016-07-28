@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Object;
+namespace SwaggerValidator\Object;
 
 /**
  * Description of Swagger
  *
  * @author Nabbar
  */
-class Swagger extends \Swagger\Common\CollectionSwagger
+class Swagger extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     public function __construct()
@@ -23,7 +23,7 @@ class Swagger extends \Swagger\Common\CollectionSwagger
         parent::registerMandatoryKey('paths');
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -35,26 +35,26 @@ class Swagger extends \Swagger\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
-            if (substr($key, 0, strlen(\Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \Swagger\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
+            if (substr($key, 0, strlen(\SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
                 continue;
             }
 
-            if ($key == \Swagger\Common\FactorySwagger::KEY_DEFINITIONS) {
+            if ($key == \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS) {
                 continue;
             }
 
             $value      = $this->extractNonRecursiveReference($context, $value);
-            $this->$key = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
+            $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
     public function serialize()
     {
         return serialize(array(
             parent::serialize(),
-            serialize(\Swagger\Common\CollectionReference::getInstance())
+            serialize(\SwaggerValidator\Common\CollectionReference::getInstance())
         ));
     }
 
@@ -68,10 +68,10 @@ class Swagger extends \Swagger\Common\CollectionSwagger
 
     public function jsonSerialize()
     {
-        $keyDefinition = \Swagger\Common\FactorySwagger::KEY_DEFINITIONS;
+        $keyDefinition = \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS;
 
-        $doc                 = json_decode(\Swagger\Common\Collection::jsonEncode(parent::jsonSerialize()));
-        $doc->$keyDefinition = json_decode(\Swagger\Common\Collection::jsonEncode(\Swagger\Common\CollectionReference::getInstance()));
+        $doc                 = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::jsonSerialize()));
+        $doc->$keyDefinition = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(\SwaggerValidator\Common\CollectionReference::getInstance()));
 
         if (count(get_object_vars($doc->$keyDefinition)) < 2) {
             unset($doc->$keyDefinition);
@@ -80,9 +80,9 @@ class Swagger extends \Swagger\Common\CollectionSwagger
         return $doc;
     }
 
-    public function validate(\Swagger\Common\Context $context)
+    public function validate(\SwaggerValidator\Common\Context $context)
     {
-        \Swagger\Common\Context::cleanCheckedDataName();
+        \SwaggerValidator\Common\Context::cleanCheckedDataName();
 
         $this->checkSwaggerVersion($context->setDataPath('swagger')->setDataValue($this->swagger));
         $this->checkSchemes($context->setDataPath('schemes')->setDataValue($context->getBasePath()));
@@ -93,41 +93,41 @@ class Swagger extends \Swagger\Common\CollectionSwagger
         $context->setBasePath($ctxPath->getBasePath());
         $context->setRequestPath($ctxPath->getRequestPath());
 
-        if ($context->getType() === \Swagger\Common\Context::TYPE_REQUEST) {
+        if ($context->getType() === \SwaggerValidator\Common\Context::TYPE_REQUEST) {
             $this->checkConsume($context->setDataPath('consumes')->setDataValue(null));
         }
-        elseif ($context->getType() === \Swagger\Common\Context::TYPE_RESPONSE) {
+        elseif ($context->getType() === \SwaggerValidator\Common\Context::TYPE_RESPONSE) {
             $this->checkProduce($context->setDataPath('produces')->setDataValue(null));
         }
 
-        $keyPath = \Swagger\Common\FactorySwagger::KEY_PATHS;
+        $keyPath = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 
-        \Swagger\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
         $result = $this->$keyPath->validate($context->setDataPath($keyPath));
 
         if (!$result) {
             return false;
         }
 
-        if ($context->getMode() === \Swagger\Common\Context::MODE_PASS) {
+        if ($context->getMode() === \SwaggerValidator\Common\Context::MODE_PASS) {
             $context->cleanParams();
-            \Swagger\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
             return true;
         }
 
-        foreach (\Swagger\Common\Context::getCheckedDataName() as $location => $list) {
+        foreach (\SwaggerValidator\Common\Context::getCheckedDataName() as $location => $list) {
 
-            if ($location == \Swagger\Common\FactorySwagger::LOCATION_BODY && $list !== true) {
+            if ($location == \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $list !== true) {
                 $ctx = $context->setLocation($location)->setDataPath($location)->setDataCheck('exist');
                 $ctx->loadRequestBody();
 
                 if ($ctx->isDataExists()) {
-                    $ctx->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_TOOMANY, 'Body is given and not expected', __METHOD__, __LINE__);
+                    $ctx->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Body is given and not expected', __METHOD__, __LINE__);
                 }
             }
             else {
                 $ctx = $context->setLocation($location)->setDataCheck('exist');
-                $mtd = \Swagger\Common\Context::getCheckedMethodFormLocation($context->getType(), $location);
+                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($context->getType(), $location);
 
                 if (empty($mtd)) {
                     continue;
@@ -139,25 +139,25 @@ class Swagger extends \Swagger\Common\CollectionSwagger
                         continue;
                     }
 
-                    $ctx->setDataPath($paramName)->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_TOOMANY, $paramName . ' is given and not expected', __METHOD__, __LINE__);
+                    $ctx->setDataPath($paramName)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, $paramName . ' is given and not expected', __METHOD__, __LINE__);
                 }
             }
         }
 
-        \Swagger\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
-    protected function checkSwaggerVersion(\Swagger\Common\Context $context)
+    protected function checkSwaggerVersion(\SwaggerValidator\Common\Context $context)
     {
         if ($context->getDataValue() != '2.0') {
-            return $context->setValidationError(\Swagger\CustomIOHelper::VALIDATION_TYPE_SWAGGER_ERROR, 'Bad swagger version', __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\CustomIOHelper::VALIDATION_TYPE_SWAGGER_ERROR, 'Bad swagger version', __METHOD__, __LINE__);
         }
 
         return true;
     }
 
-    protected function checkSchemes(\Swagger\Common\Context $context)
+    protected function checkSchemes(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->schemes)) {
             return true;
@@ -169,10 +169,10 @@ class Swagger extends \Swagger\Common\CollectionSwagger
             }
         }
 
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Scheme requested is not allowed', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Scheme requested is not allowed', __METHOD__, __LINE__);
     }
 
-    protected function checkHost(\Swagger\Common\Context $context)
+    protected function checkHost(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->host)) {
             return true;
@@ -186,17 +186,17 @@ class Swagger extends \Swagger\Common\CollectionSwagger
             return true;
         }
 
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'HostName requested is not allowed', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'HostName requested is not allowed', __METHOD__, __LINE__);
     }
 
-    protected function checkBasePath(\Swagger\Common\Context $context)
+    protected function checkBasePath(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->basePath)) {
             return true;
         }
 
         if (substr($context->getDataValue(), 0, strlen($this->basePath)) != $this->basePath) {
-            return $context->setValidationError(\Swagger\CustomIOHelper::VALIDATION_TYPE_DATAVALUE, 'BasePath requested is not allowed', __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\CustomIOHelper::VALIDATION_TYPE_DATAVALUE, 'BasePath requested is not allowed', __METHOD__, __LINE__);
         }
 
         $context->setBasePath($this->basePath);
@@ -205,7 +205,7 @@ class Swagger extends \Swagger\Common\CollectionSwagger
         return $context;
     }
 
-    protected function checkConsume(\Swagger\Common\Context $context)
+    protected function checkConsume(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->consume)) {
             return true;
@@ -230,10 +230,10 @@ class Swagger extends \Swagger\Common\CollectionSwagger
             }
         }
 
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type requested is not allowed', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type requested is not allowed', __METHOD__, __LINE__);
     }
 
-    protected function checkProduce(\Swagger\Common\Context $context)
+    protected function checkProduce(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->produces)) {
             return true;
@@ -258,7 +258,7 @@ class Swagger extends \Swagger\Common\CollectionSwagger
             }
         }
 
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type responded is not allowed', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type responded is not allowed', __METHOD__, __LINE__);
     }
 
     public function getApiVersion()
@@ -294,23 +294,23 @@ class Swagger extends \Swagger\Common\CollectionSwagger
         return $version[3];
     }
 
-    public function getModel(\Swagger\Common\Context $context)
+    public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        $parameters   = \Swagger\Common\FactorySwagger::KEY_PARAMETERS;
-        $responses    = \Swagger\Common\FactorySwagger::KEY_RESPONSES;
-        $consumes     = \Swagger\Common\FactorySwagger::KEY_CONSUMES;
-        $produces     = \Swagger\Common\FactorySwagger::KEY_PRODUCES;
-        $paths        = \Swagger\Common\FactorySwagger::KEY_PATHS;
+        $parameters   = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+        $responses    = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+        $consumes     = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
+        $produces     = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
+        $paths        = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
         $generalItems = array(
             $parameters => array(),
             $responses  => array(),
         );
 
-        if (isset($this->$parameters) && is_object($this->$parameters) && ($this->$parameters instanceof \Swagger\Object\Parameters)) {
+        if (isset($this->$parameters) && is_object($this->$parameters) && ($this->$parameters instanceof \SwaggerValidator\Object\Parameters)) {
             $this->$parameters->getModel($context->setDataPath($parameters), $generalItems[$parameters]);
         }
 
-        if (isset($this->$responses) && is_object($this->$responses) && ($this->$responses instanceof \Swagger\Object\Responses)) {
+        if (isset($this->$responses) && is_object($this->$responses) && ($this->$responses instanceof \SwaggerValidator\Object\Responses)) {
             $this->$responses->getModel($context->setDataPath($responses), $generalItems[$responses]);
         }
 
@@ -322,7 +322,7 @@ class Swagger extends \Swagger\Common\CollectionSwagger
             $paramsResponses[$produces] = $this->$produces;
         }
 
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $this->$paths->getModel($context->setDataPath($paths), $generalItems);
     }
 

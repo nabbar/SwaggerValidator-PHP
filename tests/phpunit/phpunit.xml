@@ -35,9 +35,9 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../Swagger/</directory>
+            <directory suffix=".php">../src/lib/SwaggerValidator/</directory>
             <exclude>
-                <file>../Swagger/Example.php</file>
+                <file>../src/lib/SwaggerValidator/Example.php</file>
             </exclude>
         </whitelist>
     </filter>

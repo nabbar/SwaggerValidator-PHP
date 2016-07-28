@@ -1,13 +1,13 @@
 <?php
 
-namespace Swagger\DataType;
+namespace SwaggerValidator\DataType;
 
 /**
  * Abstract class used to check validation regardless JSON & Swagger validation schema
  * @see http://json-schema.org/latest/json-schema-validation.html
  * @author Nabbar
  */
-abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
+abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     /**
@@ -16,13 +16,13 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
      */
     private $jsonObject;
 
-    abstract protected function type(\Swagger\Common\Context $context, $valueParams);
+    abstract protected function type(\SwaggerValidator\Common\Context $context, $valueParams);
 
-    abstract protected function format(\Swagger\Common\Context $context, $valueParams);
+    abstract protected function format(\SwaggerValidator\Common\Context $context, $valueParams);
 
-    abstract protected function getExampleType(\Swagger\Common\Context $context);
+    abstract protected function getExampleType(\SwaggerValidator\Common\Context $context);
 
-    abstract protected function getExampleFormat(\Swagger\Common\Context $context);
+    abstract protected function getExampleFormat(\SwaggerValidator\Common\Context $context);
 
     public function jsonSerialize()
     {
@@ -33,7 +33,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return parent::jsonSerialize();
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -47,7 +47,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
             $this->$key = $value;
         }
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
     protected function storeJsonObject()
@@ -66,14 +66,14 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return false;
     }
 
-    public function pattern(\Swagger\Common\Context $context, $valueParams)
+    public function pattern(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('pattern')) {
             return true;
         }
 
         if (empty($this->pattern)) {
-            return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         $pattern = str_replace('~', '\~', $this->pattern);
@@ -81,7 +81,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return preg_match('~' . $pattern . '~', $valueParams);
     }
 
-    public function allowEmptyValue(\Swagger\Common\Context $context, $valueParams)
+    public function allowEmptyValue(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (isset($this->allowEmptyValue) && $this->allowEmptyValue == true) {
             return empty($valueParams);
@@ -100,9 +100,9 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return $this->__isset('default');
     }
 
-    public function getDefault(\Swagger\Common\Context $context)
+    public function getDefault(\SwaggerValidator\Common\Context $context)
     {
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $this->__get('default');
     }
 
@@ -111,9 +111,9 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return $this->__isset('example');
     }
 
-    public function getExample(\Swagger\Common\Context $context)
+    public function getExample(\SwaggerValidator\Common\Context $context)
     {
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $this->__get('example');
     }
 
@@ -122,7 +122,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return $this->__isset('enum') && is_array($this->enum);
     }
 
-    public function getModel(\Swagger\Common\Context $context)
+    public function getModel(\SwaggerValidator\Common\Context $context)
     {
         if ($this->hasExample()) {
             return $this->getExample($context);
@@ -141,32 +141,32 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         }
     }
 
-    public function enum(\Swagger\Common\Context $context, $valueParams)
+    public function enum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('enum')) {
             return true;
         }
         if (!is_array($this->enum)) {
-            return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         return in_array($valueParams, $this->enum);
     }
 
-    public function multipleOf(\Swagger\Common\Context $context, $valueParams)
+    public function multipleOf(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('multipleOf')) {
             return true;
         }
 
         if (!is_numeric($this->multipleOf) || $this->multipleOf <= 0) {
-            return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         return (($valueParams % $this->multipleOf) == 0);
     }
 
-    public function minimum(\Swagger\Common\Context $context, $valueParams)
+    public function minimum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('minimum')) {
             return true;
@@ -179,7 +179,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->minimum < $valueParams);
     }
 
-    public function maximum(\Swagger\Common\Context $context, $valueParams)
+    public function maximum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('maximum')) {
             return true;
@@ -192,7 +192,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->maximum > $valueParams);
     }
 
-    public function minLength(\Swagger\Common\Context $context, $valueParams)
+    public function minLength(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('minLength')) {
             return true;
@@ -201,7 +201,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->minLength <= strlen($valueParams));
     }
 
-    public function maxLength(\Swagger\Common\Context $context, $valueParams)
+    public function maxLength(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('maxLength')) {
             return true;
@@ -210,7 +210,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->maxLength >= strlen($valueParams));
     }
 
-    public function minItems(\Swagger\Common\Context $context, $valueParams)
+    public function minItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('minItems')) {
             return true;
@@ -219,7 +219,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->minItems <= count($valueParams));
     }
 
-    public function maxItems(\Swagger\Common\Context $context, $valueParams)
+    public function maxItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('maxItems')) {
             return true;
@@ -228,7 +228,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return ($this->maxItems >= count($valueParams));
     }
 
-    public function uniqueItems(\Swagger\Common\Context $context, $valueParams)
+    public function uniqueItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('uniqueItems') || $this->uniqueItems == false) {
             return true;
@@ -237,7 +237,7 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
         return (count(array_unique($valueParams)) == count($valueParams));
     }
 
-    public function collectionFormat(\Swagger\Common\Context $context, &$valueParams)
+    public function collectionFormat(\SwaggerValidator\Common\Context $context, &$valueParams)
     {
         if (!is_string($valueParams)) {
             return false;
@@ -267,8 +267,8 @@ abstract class TypeCommon extends \Swagger\Common\CollectionSwagger
             case 'multi':
                 // Corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz.
                 // This is valid only for parameters in "query" or "formData".
-                if (!in_array($context->getLocation(), array(\Swagger\Common\Context::LOCATION_QUERY, \Swagger\Common\Context::LOCATION_FORM))) {
-                    return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+                if (!in_array($context->getLocation(), array(\SwaggerValidator\Common\Context::LOCATION_QUERY, \SwaggerValidator\Common\Context::LOCATION_FORM))) {
+                    return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
                 }
 
                 /**

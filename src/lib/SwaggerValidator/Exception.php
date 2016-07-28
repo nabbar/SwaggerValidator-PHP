@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger;
+namespace SwaggerValidator;
 
 /**
  * Description of Exception
@@ -18,7 +18,7 @@ class Exception extends \Exception
 
     /**
      *
-     * @var \Swagger\Common\Context
+     * @var \SwaggerValidator\Common\Context
      */
     private $contextError;
 

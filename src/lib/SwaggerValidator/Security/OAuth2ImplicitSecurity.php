@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Security;
+namespace SwaggerValidator\Security;
 
 /**
  * Description of oauth2ImplicitSecurity
  *
  * @author Nabbar
  */
-class OAuth2ImplicitSecurity extends \Swagger\Common\CollectionSwagger
+class OAuth2ImplicitSecurity extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     public function __construct()
@@ -23,7 +23,7 @@ class OAuth2ImplicitSecurity extends \Swagger\Common\CollectionSwagger
         parent::registerMandatoryKey('authorizationUrl');
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -35,10 +35,10 @@ class OAuth2ImplicitSecurity extends \Swagger\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
             $value      = $this->extractNonRecursiveReference($context, $value);
-            $this->$key = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
+            $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
 }

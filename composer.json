@@ -24,10 +24,10 @@
     },
     "scripts": {
         "coverage": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit.xml --bootstrap tests/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
+            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
         ],
         "test": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit.xml --bootstrap tests/bootstrap.php"
+            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
         ]
     }
 }

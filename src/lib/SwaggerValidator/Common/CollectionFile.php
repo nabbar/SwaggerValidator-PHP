@@ -6,21 +6,21 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of ReferenceCollection
  *
  * @author Nabbar
  */
-class CollectionFile extends \Swagger\Common\Collection
+class CollectionFile extends \SwaggerValidator\Common\Collection
 {
 
     const ID_PREFIX = 'file:';
 
     /**
      *
-     * @var \Swagger\Common\CollectionFile
+     * @var \SwaggerValidator\Common\CollectionFile
      */
     private static $instance;
 
@@ -40,7 +40,7 @@ class CollectionFile extends \Swagger\Common\Collection
 
     /**
      *
-     * @return \Swagger\Common\CollectionFile
+     * @return \SwaggerValidator\Common\CollectionFile
      */
     public static function getInstance()
     {
@@ -54,7 +54,7 @@ class CollectionFile extends \Swagger\Common\Collection
     /**
      * replace the singleton of this collection
      */
-    public static function setInstance(\Swagger\Common\CollectionFile $instance)
+    public static function setInstance(\SwaggerValidator\Common\CollectionFile $instance)
     {
         self::$instance   = $instance;
         self::$fileIdList = array();
@@ -79,13 +79,13 @@ class CollectionFile extends \Swagger\Common\Collection
     /**
      * Return the content of the reference as object or mixed data
      * @param string $fileLink
-     * @return \Swagger\Common\ReferenceFile
-     * @throws \Swagger\Exception
+     * @return \SwaggerValidator\Common\ReferenceFile
+     * @throws \SwaggerValidator\Exception
      */
     public function __get($fileLink)
     {
         if (empty($fileLink)) {
-            \Swagger\Exception::throwNewException('Cannot find file link from ref : ' . $fileLink, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot find file link from ref : ' . $fileLink, __FILE__, __LINE__);
         }
 
         $id = self::getIdFromRef($fileLink);
@@ -94,7 +94,7 @@ class CollectionFile extends \Swagger\Common\Collection
             $this->__set($fileLink);
         }
 
-        \Swagger\Common\Context::logLoadFile(self::getRefFromId($id), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logLoadFile(self::getRefFromId($id), __METHOD__, __LINE__);
 
         return parent::__get($id);
     }
@@ -107,16 +107,16 @@ class CollectionFile extends \Swagger\Common\Collection
             $ref = self::getRefFromId($id);
         }
 
-        if (!is_object($value) || !($value instanceof \Swagger\Common\ReferenceFile)) {
-            $value = new \Swagger\Common\ReferenceFile($ref);
+        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
+            $value = new \SwaggerValidator\Common\ReferenceFile($ref);
         }
 
-        if (is_object($value) && ($value instanceof \Swagger\Common\ReferenceFile)) {
+        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
             $value->extractAllReference();
             return parent::__set($id, $value);
         }
 
-        \Swagger\Exception::throwNewException('Cannot register file from ref : ' . $ref, __FILE__, __LINE__);
+        \SwaggerValidator\Exception::throwNewException('Cannot register file from ref : ' . $ref, __FILE__, __LINE__);
     }
 
     public function jsonSerialize()
@@ -137,8 +137,8 @@ class CollectionFile extends \Swagger\Common\Collection
     /**
      * Return the content of the reference as object or mixed data
      * @param string $fileLink
-     * @return \Swagger\Common\ReferenceFile
-     * @throws \Swagger\Exception
+     * @return \SwaggerValidator\Common\ReferenceFile
+     * @throws \SwaggerValidator\Exception
      */
     public function get($fileLink)
     {

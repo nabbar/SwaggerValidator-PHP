@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of CollectionSwagger
  *
  * @author Nabbar
  */
-abstract class CollectionSwagger extends \Swagger\Common\Collection
+abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 {
 
     /**
@@ -27,7 +27,7 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
     /**
      * @param string $jsonData The Json Data to be unserialized
      */
-    abstract public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData);
+    abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
 
     protected function callException($message, $context = null)
     {
@@ -50,7 +50,7 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
             $line = $oneTrace['line'];
         }
 
-        \Swagger\Common\Factory::getInstance()->call('Exception', 'throwNewException', true, $message, array('context' => $context, 'trace' => $trace), $file, $line);
+        \SwaggerValidator\Common\Factory::getInstance()->call('Exception', 'throwNewException', true, $message, array('context' => $context, 'trace' => $trace), $file, $line);
     }
 
     protected function buildException($message, $context = null)
@@ -74,7 +74,7 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
             $line = $oneTrace['line'];
         }
 
-        \Swagger\Exception::throwNewException($message, array('context' => $context, 'trace' => $trace), $file, $line);
+        \SwaggerValidator\Exception::throwNewException($message, array('context' => $context, 'trace' => $trace), $file, $line);
     }
 
     /**
@@ -109,20 +109,20 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
         return array_pop($classPart);
     }
 
-    protected function extractNonRecursiveReference(\Swagger\Common\Context $context, &$jsonData)
+    protected function extractNonRecursiveReference(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
-        if (!is_object($jsonData) || !property_exists($jsonData, \Swagger\Common\FactorySwagger::KEY_REFERENCE)) {
+        if (!is_object($jsonData) || !property_exists($jsonData, \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE)) {
             return $jsonData;
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            \Swagger\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
-        $key = \Swagger\Common\FactorySwagger::KEY_REFERENCE;
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
         $ref = $jsonData->$key;
 
-        return \Swagger\Common\CollectionReference::getInstance()->get($ref)->getJson($context->setExternalRef($ref));
+        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($ref)->getJson($context->setExternalRef($ref));
     }
 
     protected function registerRecursiveDefinitions(&$jsonData)
@@ -142,8 +142,8 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
         }
 
         foreach (array_keys(get_object_vars($jsonData)) as $key) {
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
-                \Swagger\Common\CollectionReference::registerDefinition($jsonData->$key);
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($jsonData->$key);
             }
             elseif (is_array($jsonData->$key)) {
                 return $this->registerRecursiveDefinitionsFromArray($jsonData->$key);
@@ -161,8 +161,8 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
         }
 
         foreach (array_keys($jsonData) as $key) {
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
-                \Swagger\Common\CollectionReference::registerDefinition($jsonData[$key]);
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($jsonData[$key]);
             }
             elseif (is_array($jsonData[$key])) {
                 return $this->registerRecursiveDefinitionsFromArray($jsonData[$key]);
@@ -177,7 +177,7 @@ abstract class CollectionSwagger extends \Swagger\Common\Collection
      * Return the content of the reference as object or mixed data
      * @param string $key
      * @return mixed
-     * @throws \Swagger\Exception
+     * @throws \SwaggerValidator\Exception
      */
     public function get($key)
     {

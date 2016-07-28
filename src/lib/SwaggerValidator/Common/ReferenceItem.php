@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of ReferenceItem
@@ -53,10 +53,10 @@ class ReferenceItem
 
         foreach ($array as $key => $value) {
 
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
-                $value     = \Swagger\Common\CollectionReference::getIdFromRef($value);
-                \Swagger\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
+                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
+                \SwaggerValidator\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {
@@ -81,10 +81,10 @@ class ReferenceItem
 
         foreach (get_object_vars($stdClass) as $key => $value) {
 
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
-                $value     = \Swagger\Common\CollectionReference::getIdFromRef($value);
-                \Swagger\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
+                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
+                \SwaggerValidator\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {
@@ -103,12 +103,12 @@ class ReferenceItem
         return $refList;
     }
 
-    public function getJson(\Swagger\Common\Context $context)
+    public function getJson(\SwaggerValidator\Common\Context $context)
     {
         return $this->contents;
     }
 
-    public function getObject(\Swagger\Common\Context $context)
+    public function getObject(\SwaggerValidator\Common\Context $context)
     {
         if (!is_object($this->object)) {
             $this->jsonUnSerialize($context, true);
@@ -117,9 +117,9 @@ class ReferenceItem
         return $this->object;
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $force = false)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $force = false)
     {
-        $this->object = new \Swagger\DataType\TypeObject();
+        $this->object = new \SwaggerValidator\DataType\TypeObject();
         $this->object->jsonUnSerialize($context, $this->contents);
     }
 

@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\DataType;
+namespace SwaggerValidator\DataType;
 
 /**
  * Description of TypeArrayItems
  *
  * @author Nabbar
  */
-class TypeArrayItems extends \Swagger\DataType\TypeCommon
+class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
 {
 
     public function __construct()
@@ -23,7 +23,7 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
 
     public function jsonSerialize()
     {
-        $keySchema = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
+        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 
         if (isset($this->$keySchema) && is_object($this->$keySchema)) {
             return json_decode(self::jsonEncode($this->$keySchema));
@@ -39,7 +39,7 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
         return $result;
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -48,26 +48,26 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
             $this->buildException('Mismatching type of JSON Data received', $context);
         }
 
-        $keyType   = \Swagger\Common\FactorySwagger::KEY_TYPE;
-        $keySchema = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
-        $keyRef    = \Swagger\Common\FactorySwagger::KEY_REFERENCE;
-        $keyAllOf  = \Swagger\Common\FactorySwagger::KEY_ALLOF;
-        $keyAnyOf  = \Swagger\Common\FactorySwagger::KEY_ANYOF;
-        $keyOneOf  = \Swagger\Common\FactorySwagger::KEY_ONEOF;
+        $keyType   = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
+        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
+        $keyRef    = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
+        $keyAllOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ALLOF;
+        $keyAnyOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
+        $keyOneOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ONEOF;
 
         if (is_object($jsonData) && property_exists($jsonData, $keyType)) {
-            $this->$keySchema = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
+            $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
             return;
         }
 
         if (is_object($jsonData) && (property_exists($jsonData, $keyAllOf) || property_exists($jsonData, $keyAnyOf) || property_exists($jsonData, $keyOneOf))) {
-            $this->$keySchema = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
+            $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
             return;
         }
 
         if (is_object($jsonData) && property_exists($jsonData, $keyRef)) {
             $this->registerRecursiveDefinitions($jsonData);
-            $this->$keySchema = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), null, $jsonData);
+            $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), null, $jsonData);
             return;
         }
 
@@ -77,17 +77,17 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
 
         foreach ($jsonData as $key => $value) {
             $this->registerRecursiveDefinitions($value);
-            $this->$key = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
+            $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
-    public function validate(\Swagger\Common\Context $context, $valueParams = null)
+    public function validate(\SwaggerValidator\Common\Context $context, $valueParams = null)
     {
         $result    = true;
         $lastKey   = null;
-        $keySchema = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
+        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 
         if (isset($this->$keySchema) && is_object($this->$keySchema)) {
             $lastKey = $keySchema;
@@ -101,7 +101,7 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
                 $lastKey = $key;
 
                 if (!array_key_exists($key, $context->getDataValue())) {
-                    $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Item "' . $key . '" not found in an array', __METHOD__, __LINE__);
+                    $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Item "' . $key . '" not found in an array', __METHOD__, __LINE__);
                 }
 
                 $value = $myArrayValue[$key];
@@ -110,7 +110,7 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
                     $result = $result && $this->$key->validate($context->setDataPath($key)->setDataValue($value));
                 }
                 elseif ($this->$key != $value) {
-                    $result = $result && $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Item "' . $key . '" does not matching the awaiting value', __METHOD__, __LINE__);
+                    $result = $result && $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Item "' . $key . '" does not matching the awaiting value', __METHOD__, __LINE__);
                 }
             }
         }
@@ -125,17 +125,17 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
                 $result = $result && $this->$lastKey->validate($context->setDataPath($key)->setDataValue($value));
             }
             elseif ($this->$lastKey != $value) {
-                $result = $result && $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Item "' . $key . '" does not matching the awaiting value', __METHOD__, __LINE__);
+                $result = $result && $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Item "' . $key . '" does not matching the awaiting value', __METHOD__, __LINE__);
             }
         }
 
-        \Swagger\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
         return $result;
     }
 
-    public function countItems(\Swagger\Common\Context $context, $additionItems = true, $valueParams = null)
+    public function countItems(\SwaggerValidator\Common\Context $context, $additionItems = true, $valueParams = null)
     {
-        $keySchema = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
+        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 
         if (isset($this->$keySchema)) {
             return true;
@@ -149,27 +149,27 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
         }
 
         print "Calling with args : " . print_r(func_get_args(), true) . "\n\n";
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATASIZE, 'The items number does not match the awaiting', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'The items number does not match the awaiting', __METHOD__, __LINE__);
     }
 
-    protected function type(\Swagger\Common\Context $context, $valueParams)
+    protected function type(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         return true;
     }
 
-    protected function format(\Swagger\Common\Context $context, $valueParams)
+    protected function format(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         return true;
     }
 
-    protected function getExampleFormat(\Swagger\Common\Context $context)
+    protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
         return $this->getExampleType($context);
     }
 
-    protected function getExampleType(\Swagger\Common\Context $context)
+    protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        $keySchema = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
+        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
         $result    = array();
 
         if (isset($this->$keySchema) && is_object($this->$keySchema)) {
@@ -185,7 +185,7 @@ class TypeArrayItems extends \Swagger\DataType\TypeCommon
             }
         }
 
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $result;
     }
 

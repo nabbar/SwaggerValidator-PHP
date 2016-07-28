@@ -6,19 +6,19 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of Factory
  *
  * @author Nabbar
  */
-class Factory extends \Swagger\Common\Collection
+class Factory extends \SwaggerValidator\Common\Collection
 {
 
     /**
      *
-     * @var \Swagger\Common\Factory
+     * @var \SwaggerValidator\Common\Factory
      */
     private static $instance;
 
@@ -32,7 +32,7 @@ class Factory extends \Swagger\Common\Collection
 
     /**
      * get the singleton of this collection
-     * @return \Swagger\Common\Factory
+     * @return \SwaggerValidator\Common\Factory
      */
     public static function getInstance()
     {
@@ -46,7 +46,7 @@ class Factory extends \Swagger\Common\Collection
     /**
      * replace the singleton of this collection
      */
-    public static function setInstance(\Swagger\Common\Factory $instance)
+    public static function setInstance(\SwaggerValidator\Common\Factory $instance)
     {
         self::$instance = $instance;
     }
@@ -66,11 +66,11 @@ class Factory extends \Swagger\Common\Collection
      */
     private function getClass($type)
     {
-        $collType = \Swagger\Common\CollectionType::getInstance();
+        $collType = \SwaggerValidator\Common\CollectionType::getInstance();
         $class    = $collType->$type;
 
         if (empty($class)) {
-            \Swagger\Exception::throwNewException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
         }
 
         return $class;
@@ -202,7 +202,7 @@ class Factory extends \Swagger\Common\Collection
 
     public function normalizeType($type)
     {
-        return \Swagger\Common\CollectionType::getInstance()->normalizeType($type);
+        return \SwaggerValidator\Common\CollectionType::getInstance()->normalizeType($type);
     }
 
     /**
@@ -212,7 +212,7 @@ class Factory extends \Swagger\Common\Collection
      */
     public static function registerType($type, $nameSpace)
     {
-        $collType = \Swagger\Common\CollectionType::getInstance();
+        $collType = \SwaggerValidator\Common\CollectionType::getInstance();
         $class    = $collType->normalizeType($type);
 
         return $collType->$class = $nameSpace;

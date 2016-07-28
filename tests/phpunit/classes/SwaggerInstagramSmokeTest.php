@@ -14,16 +14,16 @@ class SwaggerInstagramSmokeTest extends genericTestClass
         $this->swaggerBuild();
         $this->loadModel();
 
-        $keyLocationPath   = \Swagger\Common\FactorySwagger::LOCATION_PATH;
-        $keyLocationQuery  = \Swagger\Common\FactorySwagger::LOCATION_QUERY;
-        $keyLocationForm   = \Swagger\Common\FactorySwagger::LOCATION_FORM;
-        $keyLocationHeader = \Swagger\Common\FactorySwagger::LOCATION_HEADER;
-        $keyLocationBody   = \Swagger\Common\FactorySwagger::LOCATION_BODY;
+        $keyLocationPath   = \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH;
+        $keyLocationQuery  = \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY;
+        $keyLocationForm   = \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM;
+        $keyLocationHeader = \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER;
+        $keyLocationBody   = \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY;
 
-        $keyParameters = \Swagger\Common\FactorySwagger::KEY_PARAMETERS;
-        $keyResponses  = \Swagger\Common\FactorySwagger::KEY_RESPONSES;
-        $keyHeaders    = \Swagger\Common\FactorySwagger::KEY_HEADERS;
-        $keySchema     = \Swagger\Common\FactorySwagger::KEY_SCHEMA;
+        $keyParameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+        $keyResponses  = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+        $keyHeaders    = \SwaggerValidator\Common\FactorySwagger::KEY_HEADERS;
+        $keySchema     = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 
         $queryString = null;
         $headers     = array();
@@ -94,7 +94,7 @@ class SwaggerInstagramSmokeTest extends genericTestClass
             }
 
             $context = $this->mockContextRequest($path, $queryString, $method, $headers, $bodyRaw, $postForm);
-            $context->setMode(\Swagger\Common\Context::MODE_DENY);
+            $context->setMode(\SwaggerValidator\Common\Context::MODE_DENY);
 
             $this->assertTrue($this->swaggerObject->validate($context), $testKey);
 
@@ -123,7 +123,7 @@ class SwaggerInstagramSmokeTest extends genericTestClass
                 }
 
                 $context = $this->mockContextResponse($path, $method, $headers, $bodyRaw);
-                $context->setMode(\Swagger\Common\Context::MODE_DENY);
+                $context->setMode(\SwaggerValidator\Common\Context::MODE_DENY);
 
                 $this->assertTrue($this->swaggerObject->validate($context), $testKey);
             }
