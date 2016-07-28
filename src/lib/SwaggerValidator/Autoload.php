@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger;
+namespace SwaggerValidator;
 
 /**
  * Description of SwaggerCommonAutoload
@@ -62,7 +62,7 @@ final class Autoload
      */
     final public static function autoloadSource($className)
     {
-        $thisClass = 'Swagger';
+        $thisClass = trim(__NAMESPACE__, '\\');
         $baseDir   = __DIR__;
 
         if (substr($baseDir, -strlen($thisClass)) === $thisClass) {

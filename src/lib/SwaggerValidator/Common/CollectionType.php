@@ -6,74 +6,74 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of CollectionType
  *
  * @author Nabbar
  */
-class CollectionType extends \Swagger\Common\Collection
+class CollectionType extends \SwaggerValidator\Common\Collection
 {
 
     /**
      * Helpers
      */
-    const IOHelper  = '\\Swagger\\CustomIOHelper';
-    const Exception = '\\Swagger\\Exception';
+    const IOHelper  = '\\SwaggerValidator\\CustomIOHelper';
+    const Exception = '\\SwaggerValidator\\Exception';
 
     /**
      * Swagger Standard Objects
      */
-    const Swagger             = '\\Swagger\\Object\\Swagger';
-    const Contact             = '\\Swagger\\Object\\Contact';
-    const Definitions         = '\\Swagger\\Object\\Definitions';
-    const ExternalDocs        = '\\Swagger\\Object\\ExternalDocs';
-    const HeaderItem          = '\\Swagger\\Object\\HeaderItem';
-    const Headers             = '\\Swagger\\Object\\Headers';
-    const Info                = '\\Swagger\\Object\\Info';
-    const Reference           = '\\Swagger\\Object\\Reference';
-    const License             = '\\Swagger\\Object\\License';
-    const Operation           = '\\Swagger\\Object\\Operation';
-    const ParameterBody       = '\\Swagger\\Object\\ParameterBody';
-    const Parameters          = '\\Swagger\\Object\\Parameters';
-    const PathItem            = '\\Swagger\\Object\\PathItem';
-    const Paths               = '\\Swagger\\Object\\Paths';
-    const ResponseItem        = '\\Swagger\\Object\\ResponseItem';
-    const Responses           = '\\Swagger\\Object\\Responses';
-    const Security            = '\\Swagger\\Object\\Security';
-    const SecurityItem        = '\\Swagger\\Object\\SecurityItem';
-    const SecurityDefinitions = '\\Swagger\\Object\\SecurityDefinitions';
-    const SecurityRequirement = '\\Swagger\\Object\\SecurityRequirement';
+    const Swagger             = '\\SwaggerValidator\\Object\\Swagger';
+    const Contact             = '\\SwaggerValidator\\Object\\Contact';
+    const Definitions         = '\\SwaggerValidator\\Object\\Definitions';
+    const ExternalDocs        = '\\SwaggerValidator\\Object\\ExternalDocs';
+    const HeaderItem          = '\\SwaggerValidator\\Object\\HeaderItem';
+    const Headers             = '\\SwaggerValidator\\Object\\Headers';
+    const Info                = '\\SwaggerValidator\\Object\\Info';
+    const Reference           = '\\SwaggerValidator\\Object\\Reference';
+    const License             = '\\SwaggerValidator\\Object\\License';
+    const Operation           = '\\SwaggerValidator\\Object\\Operation';
+    const ParameterBody       = '\\SwaggerValidator\\Object\\ParameterBody';
+    const Parameters          = '\\SwaggerValidator\\Object\\Parameters';
+    const PathItem            = '\\SwaggerValidator\\Object\\PathItem';
+    const Paths               = '\\SwaggerValidator\\Object\\Paths';
+    const ResponseItem        = '\\SwaggerValidator\\Object\\ResponseItem';
+    const Responses           = '\\SwaggerValidator\\Object\\Responses';
+    const Security            = '\\SwaggerValidator\\Object\\Security';
+    const SecurityItem        = '\\SwaggerValidator\\Object\\SecurityItem';
+    const SecurityDefinitions = '\\SwaggerValidator\\Object\\SecurityDefinitions';
+    const SecurityRequirement = '\\SwaggerValidator\\Object\\SecurityRequirement';
 
     /**
      * Swagger Primitive Datatype Object
      */
-    const TypeArray            = '\\Swagger\\DataType\\TypeArray';
-    const TypeArrayItems       = '\\Swagger\\DataType\\TypeArrayItems';
-    const TypeBoolean          = '\\Swagger\\DataType\\TypeBoolean';
-    const TypeCombined         = '\\Swagger\\DataType\\TypeCombined';
-    const TypeFile             = '\\Swagger\\DataType\\TypeFile';
-    const TypeInteger          = '\\Swagger\\DataType\\TypeInteger';
-    const TypeNumber           = '\\Swagger\\DataType\\TypeNumber';
-    const TypeObject           = '\\Swagger\\DataType\\TypeObject';
-    const TypeObjectProperties = '\\Swagger\\DataType\\TypeObject';
-    const TypeString           = '\\Swagger\\DataType\\TypeString';
+    const TypeArray            = '\\SwaggerValidator\\DataType\\TypeArray';
+    const TypeArrayItems       = '\\SwaggerValidator\\DataType\\TypeArrayItems';
+    const TypeBoolean          = '\\SwaggerValidator\\DataType\\TypeBoolean';
+    const TypeCombined         = '\\SwaggerValidator\\DataType\\TypeCombined';
+    const TypeFile             = '\\SwaggerValidator\\DataType\\TypeFile';
+    const TypeInteger          = '\\SwaggerValidator\\DataType\\TypeInteger';
+    const TypeNumber           = '\\SwaggerValidator\\DataType\\TypeNumber';
+    const TypeObject           = '\\SwaggerValidator\\DataType\\TypeObject';
+    const TypeObjectProperties = '\\SwaggerValidator\\DataType\\TypeObject';
+    const TypeString           = '\\SwaggerValidator\\DataType\\TypeString';
 
     /**
      * Security Definition Object
      */
-    const ApiKeySecurity               = '\\Swagger\\Security\\ApiKeySecurity';
-    const BasicAuthenticationSecurity  = '\\Swagger\\Security\\BasicAuthenticationSecurity';
-    const OAuth2AccessCodeSecurity     = '\\Swagger\\Security\\OAuth2AccessCodeSecurity';
-    const OAuth2ApplicationSecurity    = '\\Swagger\\Security\\OAuth2ApplicationSecurity';
-    const OAuth2ImplicitSecurity       = '\\Swagger\\Security\\OAuth2ImplicitSecurity';
-    const OAuth2PasswordSecurity       = '\\Swagger\\Security\\OAuth2PasswordSecurity';
-    const OAuth2PasswordSecurityScopes = '\\Swagger\\Security\\OAuth2PasswordSecurityScopes';
+    const ApiKeySecurity               = '\\SwaggerValidator\\Security\\ApiKeySecurity';
+    const BasicAuthenticationSecurity  = '\\SwaggerValidator\\Security\\BasicAuthenticationSecurity';
+    const OAuth2AccessCodeSecurity     = '\\SwaggerValidator\\Security\\OAuth2AccessCodeSecurity';
+    const OAuth2ApplicationSecurity    = '\\SwaggerValidator\\Security\\OAuth2ApplicationSecurity';
+    const OAuth2ImplicitSecurity       = '\\SwaggerValidator\\Security\\OAuth2ImplicitSecurity';
+    const OAuth2PasswordSecurity       = '\\SwaggerValidator\\Security\\OAuth2PasswordSecurity';
+    const OAuth2PasswordSecurityScopes = '\\SwaggerValidator\\Security\\OAuth2PasswordSecurityScopes';
 
     /**
      *
-     * @var \Swagger\Common\CollectionType
+     * @var \SwaggerValidator\Common\CollectionType
      */
     private static $instance;
 
@@ -87,7 +87,7 @@ class CollectionType extends \Swagger\Common\Collection
 
     /**
      * get the singleton of this collection
-     * @return \Swagger\Common\CollectionType
+     * @return \SwaggerValidator\Common\CollectionType
      */
     public static function getInstance()
     {
@@ -101,7 +101,7 @@ class CollectionType extends \Swagger\Common\Collection
     /**
      * replace the singleton of this collection
      */
-    public static function setInstance(\Swagger\Common\CollectionType $instance)
+    public static function setInstance(\SwaggerValidator\Common\CollectionType $instance)
     {
         self::$instance = $instance;
     }

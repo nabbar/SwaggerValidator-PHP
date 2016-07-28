@@ -2,5 +2,5 @@
 
 include_once 'Swagger.php';
 
-\Swagger\Swagger::setSwaggerFile("swagger_example.json");
-$swagger = \Swagger\Swagger::load();
+\SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
+$swagger = \SwaggerValidator\Swagger::load();

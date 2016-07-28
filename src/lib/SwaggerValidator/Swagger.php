@@ -6,15 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace Swagger;
+namespace SwaggerValidator;
 
 if (file_exists('SwaggerValidator.phar')) {
     require_once "phar://SwaggerValidator.phar";
-    \Swagger\Autoload::registerAutoloader();
+    \SwaggerValidator\Autoload::registerAutoloader();
 }
 else {
     require_once 'Autoload.php';
-    \Swagger\Autoload::registerAutoloader();
+    \SwaggerValidator\Autoload::registerAutoloader();
 }
 
 /**
@@ -71,31 +71,31 @@ class Swagger
         return self::$swaggerFile;
     }
 
-    public static function load()
+    public static function load(\SwaggerValidator\Common\Context $context)
     {
         if (self::$cacheEnable !== true || !file_exists(self::$cachePath)) {
-            return self::regenSwagger();
+            return self::regenSwagger($context);
         }
 
         if ((filemtime(self::$cachePath) + self::$cacheLifeTime) < time() && self::$cacheLifeTime > 0) {
-            return self::regenSwagger();
+            return self::regenSwagger($context);
         }
 
-        return self::loadCache();
+        return self::loadCache($context);
     }
 
-    protected static function regenSwagger()
+    protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
-        $context = new \Swagger\Common\Context();
-        $fileObj = \Swagger\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
+        $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
 
-        if (!is_object($fileObj) && ($fileObj instanceof \Swagger\Common\ReferenceFile)) {
-            \Swagger\Exception::throwNewException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
+        if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
+            \SwaggerValidator\Exception::throwNewException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
         }
 
-        $swagger = \Swagger\Common\Factory::getInstance()->get('Swagger');
-        if (!is_object($swagger) && ($swagger instanceof \Swagger\Object\Swagger)) {
-            \Swagger\Exception::throwNewException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
+        $swagger = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
+
+        if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
+            \SwaggerValidator\Exception::throwNewException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
         }
 
         $swagger->jsonUnSerialize($context, $fileObj->fileObj);
@@ -107,18 +107,31 @@ class Swagger
         return self::storeCache($swagger);
     }
 
-    protected static function loadCache($param)
+    protected static function loadCache(\SwaggerValidator\Common\Context $context)
     {
         $swagger = unserialize(base64_decode(trim(file_get_contents(self::$cachePath))));
 
-        if (!is_object($swagger) && ($swagger instanceof \Swagger\Object\Swagger)) {
-            return self::regenSwagger();
+        if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
+            return self::regenSwagger($context);
         }
+
+        return $swagger;
     }
 
-    protected static function storeCache(\Swagger\Object\Swagger $swagger)
+    protected static function storeCache(\SwaggerValidator\Object\Swagger $swagger)
     {
-        file_put_contents(self::$cachePath, base64_decode(serialize(file_get_contents($swagger))));
+        if (self::$cacheEnable !== true) {
+            return $swagger;
+        }
+
+        if (!file_exists(self::$cachePath) && !touch(self::$cachePath)) {
+            self::$cacheEnable = false;
+            return $swagger;
+        }
+
+        file_put_contents(self::$cachePath, base64_decode(serialize($swagger)));
+        touch(self::$cachePath);
+
         return $swagger;
     }
 

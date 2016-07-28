@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Object;
+namespace SwaggerValidator\Object;
 
 /**
  * Description of HeaderItem
  *
  * @author Nabbar
  */
-class HeaderItem extends \Swagger\Common\CollectionSwagger
+class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     public function __construct()
@@ -21,7 +21,7 @@ class HeaderItem extends \Swagger\Common\CollectionSwagger
 
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -32,12 +32,12 @@ class HeaderItem extends \Swagger\Common\CollectionSwagger
         }
 
         $header     = $this->extractNonRecursiveReference($context, $jsonData);
-        $this->item = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $key, $header);
+        $this->item = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $key, $header);
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
-    public function getModel(\Swagger\Common\Context $context)
+    public function getModel(\SwaggerValidator\Common\Context $context)
     {
         return $this->item->getModel($context);
     }

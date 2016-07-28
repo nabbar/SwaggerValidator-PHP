@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\DataType;
+namespace SwaggerValidator\DataType;
 
 /**
  * Description of string
  *
  * @author Nabbar
  */
-class TypeString extends \Swagger\DataType\TypeCommon
+class TypeString extends \SwaggerValidator\DataType\TypeCommon
 {
 
     const PATTERN_BYTE     = '^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$';
@@ -28,22 +28,22 @@ class TypeString extends \Swagger\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
-    public function validate(\Swagger\Common\Context $context)
+    public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!$this->__isset('type')) {
-            return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
-        if ($this->type != \Swagger\Common\FactorySwagger::TYPE_STRING) {
-            return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+        if ($this->type != \SwaggerValidator\Common\FactorySwagger::TYPE_STRING) {
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         if (!$this->type($context, $context->getDataValue())) {
-            return $context->setDataCheck('type')->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATATYPE, $context->getDataPath() . ' is not a valid string !!', __METHOD__, __LINE__);
+            return $context->setDataCheck('type')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, $context->getDataPath() . ' is not a valid string !!', __METHOD__, __LINE__);
         }
 
         if (!$this->pattern($context, $context->getDataValue())) {
-            return $context->setDataCheck('pattern')->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_PATTERN, null, __METHOD__, __LINE__);
+            return $context->setDataCheck('pattern')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, null, __METHOD__, __LINE__);
         }
 
         if (!$this->format($context, $context->getDataValue())) {
@@ -51,15 +51,15 @@ class TypeString extends \Swagger\DataType\TypeCommon
         }
 
         if (!$this->enum($context, $context->getDataValue())) {
-            return $context->setDataCheck('enum')->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATAVALUE, null, __METHOD__, __LINE__);
+            return $context->setDataCheck('enum')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, null, __METHOD__, __LINE__);
         }
 
         // completer les test integer
-        \Swagger\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
-    protected function type(\Swagger\Common\Context $context, $valueParams)
+    protected function type(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (is_string($valueParams)) {
             return true;
@@ -70,7 +70,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
         return false;
     }
 
-    protected function format(\Swagger\Common\Context $context, $valueParams)
+    protected function format(\SwaggerValidator\Common\Context $context, $valueParams)
     {
         if (!$this->__isset('format')) {
             return true;
@@ -143,16 +143,16 @@ class TypeString extends \Swagger\DataType\TypeCommon
             return true;
         }
 
-        return $context->setValidationError(\Swagger\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
     }
 
-    protected function getExampleFormat(\Swagger\Common\Context $context)
+    protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
         if ($this->format == 'byte') {
             /**
              * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return base64_encode('ceci est un test 1234567890');
         }
 
@@ -160,7 +160,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * @todo get an example or regex for validation format
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return 0xa125d1f15b51;
         }
 
@@ -168,7 +168,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return date('Y-m-d');
         }
 
@@ -176,7 +176,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return date('c');
         }
 
@@ -184,7 +184,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return 'pwdExample1';
         }
 
@@ -192,7 +192,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return 'http://localhost/path/script.php?query#fragment';
         }
 
@@ -200,7 +200,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return '127.0.0.1';
         }
 
@@ -208,7 +208,7 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return '::1';
         }
 
@@ -216,16 +216,16 @@ class TypeString extends \Swagger\DataType\TypeCommon
             /**
              * default format for string... but if type is not string then error on swagger
              */
-            \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
             return 'This is an example of string type and format string';
         }
 
         return $this->getExampleType($context);
     }
 
-    protected function getExampleType(\Swagger\Common\Context $context)
+    protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return 'This is a basic example of string type';
     }
 

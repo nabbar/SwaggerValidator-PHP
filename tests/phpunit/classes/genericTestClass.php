@@ -16,13 +16,13 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var \Swagger\Object\Swagger
+     * @var \SwaggerValidator\Object\Swagger
      */
     public $swaggerObject;
 
     /**
      *
-     * @var \Swagger\Common\ReferenceFile
+     * @var \SwaggerValidator\Common\ReferenceFile
      */
     public $swaggerFileObject;
 
@@ -68,34 +68,34 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \Swagger\Common\CollectionReference::prune();
-        \Swagger\Common\CollectionFile::prune();
-        \Swagger\Common\CollectionType::pruneInstance();
-        \Swagger\Common\Factory::pruneInstance();
-        \Swagger\Common\FactorySwagger::pruneInstance();
+        \SwaggerValidator\Common\CollectionReference::prune();
+        \SwaggerValidator\Common\CollectionFile::prune();
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+        \SwaggerValidator\Common\FactorySwagger::pruneInstance();
 
-        \Swagger\Common\Context::setConfig('log', 'loadFile', false);
-        \Swagger\Common\Context::setConfig('log', 'loadRef', false);
-        \Swagger\Common\Context::setConfig('log', 'replaceRef', false);
-        \Swagger\Common\Context::setConfig('log', 'decode', false);
-        \Swagger\Common\Context::setConfig('log', 'validate', false);
-        \Swagger\Common\Context::setConfig('log', 'model', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'loadFile', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'loadRef', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'replaceRef', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'decode', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'validate', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'model', false);
     }
 
     public static function tearDownAfterClass()
     {
-        \Swagger\Common\CollectionReference::prune();
-        \Swagger\Common\CollectionFile::prune();
-        \Swagger\Common\CollectionType::pruneInstance();
-        \Swagger\Common\Factory::pruneInstance();
-        \Swagger\Common\FactorySwagger::pruneInstance();
+        \SwaggerValidator\Common\CollectionReference::prune();
+        \SwaggerValidator\Common\CollectionFile::prune();
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+        \SwaggerValidator\Common\FactorySwagger::pruneInstance();
 
-        \Swagger\Common\Context::setConfig('log', 'loadFile', false);
-        \Swagger\Common\Context::setConfig('log', 'loadRef', false);
-        \Swagger\Common\Context::setConfig('log', 'replaceRef', false);
-        \Swagger\Common\Context::setConfig('log', 'decode', false);
-        \Swagger\Common\Context::setConfig('log', 'validate', false);
-        \Swagger\Common\Context::setConfig('log', 'model', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'loadFile', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'loadRef', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'replaceRef', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'decode', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'validate', false);
+        \SwaggerValidator\Common\Context::setConfig('log', 'model', false);
     }
 
     public function swaggerBuild()
@@ -103,10 +103,10 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($this->swaggerFilePath);
         $this->assertFileExists($this->swaggerFilePath);
 
-        $this->swaggerFileObject = \Swagger\Common\CollectionFile::getInstance()->get($this->swaggerFilePath);
+        $this->swaggerFileObject = \SwaggerValidator\Common\CollectionFile::getInstance()->get($this->swaggerFilePath);
 
         $this->assertInternalType('object', $this->swaggerFileObject);
-        $this->assertInstanceOf('\Swagger\Common\ReferenceFile', $this->swaggerFileObject);
+        $this->assertInstanceOf('\SwaggerValidator\Common\ReferenceFile', $this->swaggerFileObject);
 
         $this->assertObjectHasAttribute('fileUri', $this->swaggerFileObject);
         $this->assertNotEmpty($this->swaggerFileObject->fileUri);
@@ -126,15 +126,15 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         $this->assertObjectHasAttribute('baseType', $this->swaggerFileObject);
         $this->assertNotEmpty($this->swaggerFileObject->baseType);
 
-        $this->swaggerObject = new \Swagger\Object\Swagger();
+        $this->swaggerObject = new \SwaggerValidator\Object\Swagger();
 
         $this->assertInternalType('object', $this->swaggerObject);
-        $this->assertInstanceOf('\Swagger\Object\Swagger', $this->swaggerObject);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Swagger', $this->swaggerObject);
 
         $this->swaggerObject->jsonUnSerialize($this->swaggerGetContext(), $this->swaggerFileObject->fileObj);
 
         $this->assertInternalType('object', $this->swaggerObject);
-        $this->assertInstanceOf('\Swagger\Object\Swagger', $this->swaggerObject);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Swagger', $this->swaggerObject);
 
         $this->assertTrue(isset($this->swaggerObject->swagger));
         $this->assertNotEmpty($this->swaggerObject->swagger);
@@ -145,13 +145,13 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($this->swaggerObject->info);
 
         $this->assertInternalType('object', $this->swaggerObject->info);
-        $this->assertInstanceOf('\Swagger\Object\Info', $this->swaggerObject->info);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Info', $this->swaggerObject->info);
 
         $this->assertTrue(isset($this->swaggerObject->paths));
         $this->assertNotEmpty($this->swaggerObject->paths);
 
         $this->assertInternalType('object', $this->swaggerObject->paths);
-        $this->assertInstanceOf('\Swagger\Object\Paths', $this->swaggerObject->paths);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Paths', $this->swaggerObject->paths);
 
         $schemes = $this->swaggerObject->schemes;
         if (!empty($schemes)) {
@@ -177,10 +177,10 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public function swaggerGetContext($mode = null, $type = null)
     {
-        $context = new \Swagger\Common\Context($mode, $type);
+        $context = new \SwaggerValidator\Common\Context($mode, $type);
 
         $this->assertInternalType('object', $context);
-        $this->assertInstanceOf('\Swagger\Common\Context', $context);
+        $this->assertInstanceOf('\SwaggerValidator\Common\Context', $context);
 
         return $context;
     }
@@ -190,13 +190,13 @@ class genericTestClass extends PHPUnit_Framework_TestCase
      */
     public function loadModel()
     {
-        $keyParameters = \Swagger\Common\FactorySwagger::KEY_PARAMETERS;
-        $keyResponses  = \Swagger\Common\FactorySwagger::KEY_RESPONSES;
-        $keyConsumes   = \Swagger\Common\FactorySwagger::KEY_CONSUMES;
-        $keyProduces   = \Swagger\Common\FactorySwagger::KEY_PRODUCES;
+        $keyParameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+        $keyResponses  = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+        $keyConsumes   = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
+        $keyProduces   = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
 
         $this->assertInternalType('object', $this->swaggerObject);
-        $this->assertInstanceOf('\Swagger\Object\Swagger', $this->swaggerObject);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Swagger', $this->swaggerObject);
 
         $model = $this->swaggerObject->getModel($this->swaggerGetContext());
 
@@ -290,7 +290,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
             }
         }
 
-        $context = new \Swagger\Common\Context();
+        $context = new \SwaggerValidator\Common\Context();
         $context->mock(array(
             'Scheme'         => $this->scheme,
             'Host'           => $this->host,
@@ -303,7 +303,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
             'REQUEST_METHOD' => $method,
                 ) + $header);
 
-        $context->setType(\Swagger\Common\Context::TYPE_REQUEST);
+        $context->setType(\SwaggerValidator\Common\Context::TYPE_REQUEST);
 
         return $context;
     }
@@ -323,7 +323,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
             $header['Content-Length'] = strlen($bodyRaw);
         }
 
-        $context = new \Swagger\Common\Context();
+        $context = new \SwaggerValidator\Common\Context();
         $context->mock(array(
             'Scheme'         => $this->scheme,
             'Host'           => $this->host,
@@ -336,7 +336,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
             'REQUEST_METHOD' => $method,
                 ) + $header);
 
-        $context->setType(\Swagger\Common\Context::TYPE_RESPONSE);
+        $context->setType(\SwaggerValidator\Common\Context::TYPE_RESPONSE);
 
         return $context;
     }

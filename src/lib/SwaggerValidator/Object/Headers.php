@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Object;
+namespace SwaggerValidator\Object;
 
 /**
  * Description of Headers
  *
  * @author Nabbar
  */
-class Headers extends \Swagger\Common\CollectionSwagger
+class Headers extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     public function __construct()
@@ -21,7 +21,7 @@ class Headers extends \Swagger\Common\CollectionSwagger
 
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
             $this->buildException('Mismatching type of JSON Data received', $context);
@@ -33,19 +33,19 @@ class Headers extends \Swagger\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
             $value      = $this->extractNonRecursiveReference($context, $value);
-            $this->$key = \Swagger\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
+            $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \Swagger\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
-    public function validate(\Swagger\Common\Context $context)
+    public function validate(\SwaggerValidator\Common\Context $context)
     {
         $check = true;
 
         foreach ($this->keys() as $key) {
-            if (is_object($this->$key) && ($this->$key instanceof \Swagger\Object\HeaderItem)) {
-                \Swagger\Common\Context::addCheckedDataName(\Swagger\Common\FactorySwagger::LOCATION_HEADER, $key);
+            if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\HeaderItem)) {
+                \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER, $key);
                 $check = $check && $this->$key->validate($context->setDataPath($key));
             }
         }
@@ -53,18 +53,18 @@ class Headers extends \Swagger\Common\CollectionSwagger
         return $check;
     }
 
-    public function getModel(\Swagger\Common\Context $context, $globalResponse = array())
+    public function getModel(\SwaggerValidator\Common\Context $context, $globalResponse = array())
     {
         foreach ($this->keys() as $key) {
 
-            if (!is_object($this->$key) || !($this->$key instanceof \Swagger\Object\HeaderItem)) {
+            if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\HeaderItem)) {
                 continue;
             }
 
             $globalResponse[$key] = $this->$key->getModel($context->setDataPath($key));
         }
 
-        \Swagger\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $globalResponse;
     }
 

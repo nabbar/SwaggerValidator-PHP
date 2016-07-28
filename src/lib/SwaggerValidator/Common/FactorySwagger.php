@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of FactorySwagger
@@ -54,6 +54,11 @@ class FactorySwagger
     const KEY_SCHEMA        = 'schema';
     const KEY_SCOPE         = 'scopes';
     const KEY_TYPE          = 'type';
+
+    /**
+     * Constant for identify custom properties
+     */
+    const KEY_CUSTOM_PATTERN = 'x-';
 
     /**
      * location parameters
@@ -115,7 +120,7 @@ class FactorySwagger
 
     /**
      *
-     * @var \Swagger\Common\FactorySwagger
+     * @var \SwaggerValidator\Common\FactorySwagger
      */
     private static $instance;
 
@@ -129,7 +134,7 @@ class FactorySwagger
 
     /**
      * get the singleton of this collection
-     * @return \Swagger\Common\FactorySwagger
+     * @return \SwaggerValidator\Common\FactorySwagger
      */
     public static function getInstance()
     {
@@ -143,7 +148,7 @@ class FactorySwagger
     /**
      * replace the singleton of this collection
      */
-    public static function setInstance(\Swagger\Common\FactorySwagger $instance)
+    public static function setInstance(\SwaggerValidator\Common\FactorySwagger $instance)
     {
         self::$instance = $instance;
     }
@@ -156,7 +161,7 @@ class FactorySwagger
         self::$instance = null;
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context, $originType, $originKey, &$jsonData)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
         $keyType = self::KEY_TYPE;
 
@@ -173,32 +178,32 @@ class FactorySwagger
         }
 
         if (is_object($jsonData) && property_exists($jsonData, self::KEY_REFERENCE)) {
-            return $this->returnBuildObject($context, \Swagger\Common\Factory::getInstance()->Reference, $originType, $originKey, $jsonData);
+            return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->Reference, $originType, $originKey, $jsonData);
         }
 
         if (is_object($jsonData) && $originType !== 'Swagger' && $originType !== 'TypeObject') {
-            \Swagger\Exception::throwNewException('Cannot identify the object builder for the given JSON Data', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot identify the object builder for the given JSON Data', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
         elseif (is_object($jsonData) && $originType === 'TypeObject') {
-            return $this->returnBuildObject($context, \Swagger\Common\Factory::getInstance()->TypeObject, $originType, $originKey, $jsonData);
+            return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->TypeObject, $originType, $originKey, $jsonData);
         }
 
         return $jsonData;
     }
 
-    protected function returnBuildObject(\Swagger\Common\Context $context, \Swagger\Common\CollectionSwagger $object, $originType, $originKey, &$jsonData)
+    protected function returnBuildObject(\SwaggerValidator\Common\Context $context, \SwaggerValidator\Common\CollectionSwagger $object, $originType, $originKey, &$jsonData)
     {
         $object->jsonUnSerialize($context, $jsonData);
         $missingKey = $object->checkMandatoryKey();
 
         if ($missingKey !== true) {
-            \Swagger\Exception::throwNewException('Missing Key "' . $missingKey . '" from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'SwaggerObject' => $object), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Missing Key "' . $missingKey . '" from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'SwaggerObject' => $object), __FILE__, __LINE__);
         }
 
         return $object;
     }
 
-    protected function buildObjectFromOriginObject(\Swagger\Common\Context $context, $originType, $originKey, &$jsonData)
+    protected function buildObjectFromOriginObject(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
         $keyIn   = self::KEY_IN;
         $keyName = self::KEY_NAME;
@@ -206,27 +211,27 @@ class FactorySwagger
 
         if (!empty(self::$originObjectToChildObject[$originType])) {
             $type   = self::$originObjectToChildObject[$originType];
-            $object = \Swagger\Common\Factory::getInstance()->$type;
+            $object = \SwaggerValidator\Common\Factory::getInstance()->$type;
         }
 
         switch ($originType) {
             case 'Parameters':
                 if (!is_object($jsonData) || !property_exists($jsonData, $keyIn)) {
-                    \Swagger\Exception::throwNewException('Parameters Item have no "in" keys', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    \SwaggerValidator\Exception::throwNewException('Parameters Item have no "in" keys', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
 
                 if ($jsonData->$keyIn == self::LOCATION_BODY) {
-                    $object = \Swagger\Common\Factory::getInstance()->ParameterBody;
+                    $object = \SwaggerValidator\Common\Factory::getInstance()->ParameterBody;
                 }
                 else {
                     $objectType       = $this->getPrimitiveType($context, $jsonData);
-                    $object           = \Swagger\Common\Factory::getInstance()->$objectType;
+                    $object           = \SwaggerValidator\Common\Factory::getInstance()->$objectType;
                     $object->$keyName = $originKey;
                 }
                 break;
 
             case 'Headers':
-                $object           = \Swagger\Common\Factory::getInstance()->HeaderItem;
+                $object           = \SwaggerValidator\Common\Factory::getInstance()->HeaderItem;
                 $object->$keyName = $originKey;
                 break;
 
@@ -236,7 +241,7 @@ class FactorySwagger
 
             case 'TypeArray':
                 if ($originKey === 'items') {
-                    $object = \Swagger\Common\Factory::getInstance()->TypeArrayItems;
+                    $object = \SwaggerValidator\Common\Factory::getInstance()->TypeArrayItems;
                 }
                 else {
                     return $jsonData;
@@ -245,40 +250,40 @@ class FactorySwagger
         }
 
         if (empty($object)) {
-            \Swagger\Exception::throwNewException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         return $this->returnBuildObject($context, $object, $originType, $originKey, $jsonData);
     }
 
-    protected function buildObjectFromOriginKey(\Swagger\Common\Context $context, $originType, $originKey, &$jsonData)
+    protected function buildObjectFromOriginKey(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
         $object = null;
 
         if (!empty(self::$keyToObject[$originKey])) {
             $type   = self::$keyToObject[$originKey];
-            $object = \Swagger\Common\Factory::getInstance()->$type;
+            $object = \SwaggerValidator\Common\Factory::getInstance()->$type;
         }
 
         switch ($originKey) {
             case self::KEY_SCHEMA:
                 if (!is_object($jsonData)) {
-                    \Swagger\Exception::throwNewException('Cannot build an object schema with an non object JSON Data from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    \SwaggerValidator\Exception::throwNewException('Cannot build an object schema with an non object JSON Data from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
                 if (property_exists($jsonData, self::KEY_ALLOF) || property_exists($jsonData, self::KEY_ANYOF) || property_exists($jsonData, self::KEY_ONEOF) || property_exists($jsonData, self::KEY_NOT)) {
-                    $object = \Swagger\Common\Factory::getInstance()->TypeCombined;
+                    $object = \SwaggerValidator\Common\Factory::getInstance()->TypeCombined;
                 }
                 elseif (is_object($jsonData) && property_exists($jsonData, self::KEY_TYPE)) {
                     return $this->buildPrimitive($context, $originType, $originKey, $jsonData);
                 }
                 else {
-                    $object = \Swagger\Common\Factory::getInstance()->TypeObject;
+                    $object = \SwaggerValidator\Common\Factory::getInstance()->TypeObject;
                 }
                 break;
 
             case self::KEY_SCOPE:
                 if (in_array($originType, self::$securityObjectHasScope)) {
-                    $object = \Swagger\Common\Factory::getInstance()->OAuth2PasswordSecurityScopes;
+                    $object = \SwaggerValidator\Common\Factory::getInstance()->OAuth2PasswordSecurityScopes;
                 }
                 else {
                     return $this->jsonUnSerialize($context, $originType, null, $jsonData);
@@ -287,29 +292,29 @@ class FactorySwagger
         }
 
         if (empty($object)) {
-            \Swagger\Exception::throwNewException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         return $this->returnBuildObject($context, $object, $originType, $originKey, $jsonData);
     }
 
-    protected function buildPrimitive(\Swagger\Common\Context $context, $originType, $originKey, &$jsonData)
+    protected function buildPrimitive(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
         $typeObj = $this->getPrimitiveType($context, $jsonData);
 
         if (empty($typeObj)) {
-            \Swagger\Exception::throwNewException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
-        return $this->returnBuildObject($context, \Swagger\Common\Factory::getInstance()->$typeObj, $originType, $originKey, $jsonData);
+        return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->$typeObj, $originType, $originKey, $jsonData);
     }
 
-    protected function getPrimitiveType(\Swagger\Common\Context $context, &$jsonData)
+    protected function getPrimitiveType(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         $keyType = self::KEY_TYPE;
 
         if (!is_object($jsonData) || !property_exists($jsonData, $keyType)) {
-            \Swagger\Exception::throwNewException('Primitive type must have a "type" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Primitive type must have a "type" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $keyType = self::KEY_TYPE;
@@ -337,63 +342,63 @@ class FactorySwagger
                 return 'TypeString';
 
             default:
-                \Swagger\Exception::throwNewException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                \SwaggerValidator\Exception::throwNewException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
     }
 
-    protected function extractReference(\Swagger\Common\Context $context, &$jsonData)
+    protected function extractReference(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (!is_object($jsonData) || !property_exists($jsonData, self::KEY_REFERENCE)) {
             return $jsonData;
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            \Swagger\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $key = self::KEY_REFERENCE;
         $ref = $jsonData->$key;
 
-        return \Swagger\Common\CollectionReference::getInstance()->get($ref);
+        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($ref);
     }
 
-    protected function SecurityDefinition(\Swagger\Common\Context $context, &$jsonData)
+    protected function SecurityDefinition(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         $typeKey = self::KEY_TYPE;
         $flowKey = self::KEY_FLOW;
 
         if (!is_object($jsonData) || !property_exists($jsonData, $typeKey)) {
-            \Swagger\Exception::throwNewException('Security Definitions Items must having a "' . $typeKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Security Definitions Items must having a "' . $typeKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         switch ($jsonData->$typeKey) {
             case 'basic':
-                return \Swagger\Common\Factory::getInstance()->BasicAuthenticationSecurity;
+                return \SwaggerValidator\Common\Factory::getInstance()->BasicAuthenticationSecurity;
 
             case 'apiKey':
-                return \Swagger\Common\Factory::getInstance()->ApiKeySecurity;
+                return \SwaggerValidator\Common\Factory::getInstance()->ApiKeySecurity;
 
             case 'oauth2':
                 if (!property_exists($jsonData, $flowKey)) {
-                    \Swagger\Exception::throwNewException('Security Definitions Items as type "' . $jsonData->$typeKey . '" must having a "' . $flowKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    \SwaggerValidator\Exception::throwNewException('Security Definitions Items as type "' . $jsonData->$typeKey . '" must having a "' . $flowKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
 
                 switch ($jsonData->$flowKey) {
                     case 'implicit' :
-                        return \Swagger\Common\Factory::getInstance()->OAuth2ImplicitSecurity;
+                        return \SwaggerValidator\Common\Factory::getInstance()->OAuth2ImplicitSecurity;
 
                     case 'password' :
-                        return \Swagger\Common\Factory::getInstance()->OAuth2PasswordSecurity;
+                        return \SwaggerValidator\Common\Factory::getInstance()->OAuth2PasswordSecurity;
 
                     case 'application' :
-                        return \Swagger\Common\Factory::getInstance()->OAuth2ApplicationSecurity;
+                        return \SwaggerValidator\Common\Factory::getInstance()->OAuth2ApplicationSecurity;
 
                     case 'accessCode' :
-                        return \Swagger\Common\Factory::getInstance()->OAuth2AccessCodeSecurity;
+                        return \SwaggerValidator\Common\Factory::getInstance()->OAuth2AccessCodeSecurity;
                 }
         }
 
-        \Swagger\Exception::throwNewException('Cannot build a non unknown security definition', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+        \SwaggerValidator\Exception::throwNewException('Cannot build a non unknown security definition', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
     }
 
 }

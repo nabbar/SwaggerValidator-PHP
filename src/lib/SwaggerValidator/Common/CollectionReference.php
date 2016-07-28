@@ -6,21 +6,21 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of ReferenceCollection
  *
  * @author Nabbar
  */
-class CollectionReference extends \Swagger\Common\Collection
+class CollectionReference extends \SwaggerValidator\Common\Collection
 {
 
     const ID_PREFIX = 'id:';
 
     /**
      *
-     * @var \Swagger\Common\CollectionReference
+     * @var \SwaggerValidator\Common\CollectionReference
      */
     private static $instance;
 
@@ -46,7 +46,7 @@ class CollectionReference extends \Swagger\Common\Collection
 
     /**
      * get the singleton of this collection
-     * @return \Swagger\Common\CollectionReference
+     * @return \SwaggerValidator\Common\CollectionReference
      */
     public static function getInstance()
     {
@@ -60,7 +60,7 @@ class CollectionReference extends \Swagger\Common\Collection
     /**
      * replace the singleton of this collection
      */
-    public static function setInstance(\Swagger\Common\CollectionReference $instance)
+    public static function setInstance(\SwaggerValidator\Common\CollectionReference $instance)
     {
         self::$instance  = $instance;
         self::$refIdList = array();
@@ -93,7 +93,7 @@ class CollectionReference extends \Swagger\Common\Collection
             $this->__set($ref);
         }
 
-        \Swagger\Common\Context::logLoadRef(self::getRefFromId($id), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logLoadRef(self::getRefFromId($id), __METHOD__, __LINE__);
         return parent::__get($id);
     }
 
@@ -105,19 +105,19 @@ class CollectionReference extends \Swagger\Common\Collection
             $ref = self::getRefFromId($id);
         }
 
-        if (!is_object($value) || !($value instanceof \Swagger\Common\ReferenceItem)) {
-            $link = \Swagger\Common\CollectionFile::getReferenceFileLink($ref);
-            $fRef = \Swagger\Common\CollectionFile::getReferenceInnerPath($ref);
-            $file = \Swagger\Common\CollectionFile::getInstance()->$link;
+        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
+            $link = \SwaggerValidator\Common\CollectionFile::getReferenceFileLink($ref);
+            $fRef = \SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($ref);
+            $file = \SwaggerValidator\Common\CollectionFile::getInstance()->$link;
 
-            if (!is_object($file) || !($file instanceof \Swagger\Common\ReferenceFile)) {
-                \Swagger\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, __FILE__, __LINE__);
+            if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
+                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, __FILE__, __LINE__);
             }
 
-            $value = new \Swagger\Common\ReferenceItem($file->$fRef);
+            $value = new \SwaggerValidator\Common\ReferenceItem($file->$fRef);
         }
 
-        if (is_object($value) && ($value instanceof \Swagger\Common\ReferenceItem)) {
+        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
             /**
              * Register the item before cleanning ref, to prevent circular reference
              */
@@ -130,7 +130,7 @@ class CollectionReference extends \Swagger\Common\Collection
             return parent::__set($id, $value);
         }
 
-        \Swagger\Exception::throwNewException('Cannot register item from ref : ' . $ref, __FILE__, __LINE__);
+        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, __FILE__, __LINE__);
     }
 
     public function jsonSerialize()
@@ -140,7 +140,7 @@ class CollectionReference extends \Swagger\Common\Collection
         $result = new \stdClass();
 
         foreach ($this->keys() as $key) {
-            $result->$key = json_decode(\Swagger\Common\Collection::jsonEncode($this->$key->getObject(new \Swagger\Common\Context())));
+            $result->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key->getObject(new \SwaggerValidator\Common\Context())));
         }
 
         $result->fullRealRef = array_flip(self::$refIdDefinitions);
@@ -169,8 +169,8 @@ class CollectionReference extends \Swagger\Common\Collection
     /**
      * Return the content of the reference as object or mixed data
      * @param string $ref
-     * @return \Swagger\Common\ReferenceItem
-     * @throws \Swagger\Exception
+     * @return \SwaggerValidator\Common\ReferenceItem
+     * @throws \SwaggerValidator\Exception
      */
     public function get($ref)
     {
@@ -256,7 +256,7 @@ class CollectionReference extends \Swagger\Common\Collection
         return self::$refIdDefinitions;
     }
 
-    public function jsonUnSerialize(\Swagger\Common\Context $context)
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context)
     {
         foreach ($this->keys() as $key) {
             $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));

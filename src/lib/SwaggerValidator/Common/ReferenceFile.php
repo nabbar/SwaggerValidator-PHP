@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Swagger\Common;
+namespace SwaggerValidator\Common;
 
 /**
  * Description of ReferenceFile
@@ -62,13 +62,13 @@ class ReferenceFile
             $this->basePath .= $part['path'];
         }
         else {
-            \Swagger\Exception::throwNewException('Pathtype not well formatted : ' . $filepath, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Pathtype not well formatted : ' . $filepath, __FILE__, __LINE__);
         }
 
         $contents = file_get_contents($this->fileUri);
 
         if (empty($contents)) {
-            \Swagger\Exception::throwNewException('Cannot read contents for file : ' . $filepath, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot read contents for file : ' . $filepath, __FILE__, __LINE__);
         }
 
         $this->fileTime = $this->getFileTime();
@@ -76,10 +76,10 @@ class ReferenceFile
         $this->fileObj  = json_decode($contents, false);
 
         if (empty($this->fileObj)) {
-            \Swagger\Exception::throwNewException('Cannot decode contents for file : ' . $filepath, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot decode contents for file : ' . $filepath, __FILE__, __LINE__);
         }
 
-        \Swagger\Common\Context::logLoadFile($this->fileUri, __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logLoadFile($this->fileUri, __METHOD__, __LINE__);
     }
 
     public function __get($name)
@@ -169,11 +169,11 @@ class ReferenceFile
         $refList = array();
 
         foreach ($array as $key => $value) {
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \Swagger\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }
@@ -198,11 +198,11 @@ class ReferenceFile
         $refList = array();
 
         foreach (get_object_vars($stdClass) as $key => $value) {
-            if ($key === \Swagger\Common\FactorySwagger::KEY_REFERENCE) {
+            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \Swagger\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }
@@ -224,8 +224,8 @@ class ReferenceFile
 
     public function getCanonical($fullRef)
     {
-        $fileLink = \Swagger\Common\CollectionFile::getReferenceFileLink($fullRef);
-        $innerRef = \Swagger\Common\CollectionFile::getReferenceInnerPath($fullRef);
+        $fileLink = \SwaggerValidator\Common\CollectionFile::getReferenceFileLink($fullRef);
+        $innerRef = \SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($fullRef);
 
         if (!empty($fileLink)) {
             $fileLink = $this->getFileLink($fileLink);
@@ -282,7 +282,7 @@ class ReferenceFile
             return realpath($this->basePath . $filepath);
         }
         else {
-            \Swagger\Exception::throwNewException('Cannot load file from ref : ' . $filepath, __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot load file from ref : ' . $filepath, __FILE__, __LINE__);
         }
 
         return false;
