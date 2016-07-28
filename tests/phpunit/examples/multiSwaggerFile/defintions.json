@@ -1,0 +1,916 @@
+{
+    "Tweets": {
+        "type": "object",
+        "properties": {
+            "contributors": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Contributors"
+                }
+            },
+            "coordinates": {
+                "$ref": "#/Coordinates"
+            },
+            "created_at": {
+                "type": "string"
+            },
+            "current_user_retweet": {
+                "$ref": "#/Tweets"
+            },
+            "entities": {
+                "$ref": "#/Entities"
+            },
+            "favorite_count": {
+                "type": "integer"
+            },
+            "favorited": {
+                "type": "boolean"
+            },
+            "filter_level": {
+                "type": "string"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "in_reply_to_screen_name": {
+                "type": "string"
+            },
+            "in_reply_to_status_id": {
+                "type": "integer"
+            },
+            "in_reply_to_status_id_str": {
+                "type": "string"
+            },
+            "in_reply_to_user_id": {
+                "type": "integer"
+            },
+            "in_reply_to_user_id_str": {
+                "type": "string"
+            },
+            "lang": {
+                "type": "string"
+            },
+            "place": {
+                "$ref": "#/Places"
+            },
+            "possibly_sensitive": {
+                "type": "boolean"
+            },
+            "quoted_status_id": {
+                "type": "integer"
+            },
+            "quoted_status_id_str": {
+                "type": "string"
+            },
+            "quoted_status": {
+                "$ref": "#/Tweets"
+            },
+            "scopes": {
+                "type": "object",
+                "additionalProperties": {}
+            },
+            "retweet_count": {
+                "type": "integer"
+            },
+            "retweeted": {
+                "type": "boolean"
+            },
+            "retweeted_status": {
+                "$ref": "#/Tweets"
+            },
+            "source": {
+                "type": "string"
+            },
+            "text": {
+                "type": "string"
+            },
+            "truncated": {
+                "type": "string"
+            },
+            "user": {
+                "$ref": "#/Users"
+            },
+            "withheld_copyright": {
+                "type": "boolean"
+            },
+            "withheld_countries": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "withheld_scope": {
+                "type": "string"
+            }
+        }
+    },
+    "Contributors": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "screen_name": {
+                "type": "string"
+            }
+        }
+    },
+    "Coordinates": {
+        "type": "object",
+        "properties": {
+            "coordinates": {
+                "type": "array",
+                "items": {
+                    "type": "number"
+                }
+            },
+            "type": {
+                "type": "string"
+            }
+        }
+    },
+    "Users": {
+        "type": "object",
+        "properties": {
+            "contributors_enabled": {
+                "type": "boolean"
+            },
+            "created_at": {
+                "type": "string"
+            },
+            "default_profile": {
+                "type": "boolean"
+            },
+            "default_profile_image": {
+                "type": "boolean"
+            },
+            "description": {
+                "type": "string"
+            },
+            "entities": {
+                "$ref": "#/Entities"
+            },
+            "favorites_count": {
+                "type": "integer"
+            },
+            "follow_request_sent": {
+                "type": "boolean"
+            },
+            "following": {
+                "type": "boolean"
+            },
+            "followers_count": {
+                "type": "integer"
+            },
+            "friends_count": {
+                "type": "integer"
+            },
+            "geo_enabled": {
+                "type": "boolean"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "is_translator": {
+                "type": "boolean"
+            },
+            "lang": {
+                "type": "string"
+            },
+            "listed_count": {
+                "type": "integer"
+            },
+            "location": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "notifications": {
+                "type": "boolean"
+            },
+            "profile_background_color": {
+                "type": "string"
+            },
+            "profile_background_image_url": {
+                "type": "string"
+            },
+            "profile_background_image_url_https": {
+                "type": "string"
+            },
+            "profile_background_tile": {
+                "type": "string"
+            },
+            "profile_banner_url": {
+                "type": "string"
+            },
+            "profile_image_url": {
+                "type": "string"
+            },
+            "profile_image_url_https": {
+                "type": "string"
+            },
+            "profile_link_color": {
+                "type": "string"
+            },
+            "profile_sidebar_border_color": {
+                "type": "string"
+            },
+            "profile_sidebar_fill_color": {
+                "type": "string"
+            },
+            "profile_text_color": {
+                "type": "string"
+            },
+            "profile_use_background_image": {
+                "type": "boolean"
+            },
+            "protected": {
+                "type": "boolean"
+            },
+            "screen_name": {
+                "type": "string"
+            },
+            "show_all_inline_media": {
+                "type": "boolean"
+            },
+            "status": {
+                "$ref": "#/Tweets"
+            },
+            "statuses_count": {
+                "type": "integer"
+            },
+            "time_zone": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            },
+            "utc_offset": {
+                "type": "integer"
+            },
+            "verified": {
+                "type": "boolean"
+            },
+            "withheld_in_countries": {
+                "type": "string"
+            },
+            "withheld_scope": {
+                "type": "string"
+            }
+        }
+    },
+    "Entities": {
+        "type": "object",
+        "properties": {
+            "hashtags": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Hashtags"
+                }
+            },
+            "media": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Media"
+                }
+            },
+            "urls": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/URL"
+                }
+            },
+            "user_mentions": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/User_Mention"
+                }
+            }
+        }
+    },
+    "Hashtags": {
+        "type": "object",
+        "properties": {
+            "indices": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            },
+            "text": {
+                "type": "string"
+            }
+        }
+    },
+    "Media": {
+        "type": "object",
+        "properties": {
+            "display_url": {
+                "type": "string"
+            },
+            "expanded_url": {
+                "type": "string"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "indices": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            },
+            "media_url": {
+                "type": "string"
+            },
+            "media_url_https": {
+                "type": "string"
+            },
+            "sizes": {
+                "$ref": "#/Sizes"
+            },
+            "source_status_id": {
+                "type": "integer"
+            },
+            "source_status_id_str": {
+                "type": "integer"
+            },
+            "type": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "Size": {
+        "type": "object",
+        "properties": {
+            "h": {
+                "type": "integer"
+            },
+            "resize": {
+                "type": "string"
+            },
+            "w": {
+                "type": "integer"
+            }
+        }
+    },
+    "Sizes": {
+        "type": "object",
+        "properties": {
+            "thumb": {
+                "$ref": "#/Size"
+            },
+            "large": {
+                "$ref": "#/Size"
+            },
+            "medium": {
+                "$ref": "#/Size"
+            },
+            "small": {
+                "$ref": "#/Size"
+            }
+        }
+    },
+    "URL": {
+        "type": "object",
+        "properties": {
+            "display_url": {
+                "type": "string"
+            },
+            "expanded_url": {
+                "type": "string"
+            },
+            "indices": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "User_Mention": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "indices": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            },
+            "name": {
+                "type": "string"
+            },
+            "screen_name": {
+                "type": "string"
+            }
+        }
+    },
+    "Places": {
+        "type": "object",
+        "properties": {
+            "attributes": {
+                "type": "object",
+                "additionalProperties": {}
+            },
+            "bounding_box": {
+                "$ref": "#/Bounding_box"
+            },
+            "country": {
+                "type": "string"
+            },
+            "country_code": {
+                "type": "string"
+            },
+            "full_name": {
+                "type": "string"
+            },
+            "id": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "place_type": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "Bounding_box": {
+        "type": "object",
+        "properties": {
+            "coordinates": {
+                "type": "array",
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            },
+            "type": {
+                "type": "string"
+            }
+        }
+    },
+    "Lists": {
+        "type": "object",
+        "properties": {
+            "created_at": {
+                "type": "string"
+            },
+            "slug": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "mode": {
+                "type": "string"
+            },
+            "following": {
+                "type": "boolean"
+            },
+            "user": {
+                "$ref": "#/Users"
+            },
+            "member_count": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "subscriber_count": {
+                "type": "integer"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "uri": {
+                "type": "string"
+            }
+        }
+    },
+    "Cursor_lists": {
+        "type": "object",
+        "properties": {
+            "previous_cursor": {
+                "type": "integer"
+            },
+            "lists": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Lists"
+                }
+            },
+            "previous_cursor_str": {
+                "type": "string"
+            },
+            "next_cursor": {
+                "type": "integer"
+            },
+            "next_cursor_str": {
+                "type": "string"
+            }
+        }
+    },
+    "Cursor_users": {
+        "type": "object",
+        "properties": {
+            "previous_cursor": {
+                "type": "integer"
+            },
+            "users": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Users"
+                }
+            },
+            "previous_cursor_str": {
+                "type": "string"
+            },
+            "next_cursor": {
+                "type": "integer"
+            },
+            "next_cursor_str": {
+                "type": "string"
+            }
+        }
+    },
+    "Cursor_ids": {
+        "type": "object",
+        "properties": {
+            "previous_cursor": {
+                "type": "integer"
+            },
+            "users": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            },
+            "previous_cursor_str": {
+                "type": "string"
+            },
+            "next_cursor": {
+                "type": "integer"
+            },
+            "next_cursor_str": {
+                "type": "string"
+            }
+        }
+    },
+    "Messages": {
+        "type": "object",
+        "properties": {
+            "created_at": {
+                "type": "string"
+            },
+            "entities": {
+                "$ref": "#/Entities"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "id_string": {
+                "type": "string"
+            },
+            "recipient": {
+                "$ref": "#/Users"
+            },
+            "recipient_id": {
+                "type": "integer"
+            },
+            "recipient_screen_name": {
+                "type": "string"
+            },
+            "sender": {
+                "$ref": "#/Users"
+            },
+            "sender_id": {
+                "type": "integer"
+            },
+            "sender_screen_name": {
+                "type": "string"
+            },
+            "text": {
+                "type": "string"
+            }
+        }
+    },
+    "Query": {
+        "type": "object",
+        "properties": {
+            "created_at": {
+                "type": "string"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "id_str": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "position": {
+                "type": "string"
+            },
+            "query": {
+                "type": "string"
+            }
+        }
+    },
+    "Friendship": {
+        "type": "object",
+        "properties": {
+            "relationship": {
+                "$ref": "#/Targets"
+            },
+            "source": {
+                "$ref": "#/Source"
+            }
+        }
+    },
+    "Targets": {
+        "type": "object",
+        "properties": {
+            "target": {
+                "$ref": "#/Target"
+            }
+        }
+    },
+    "Target": {
+        "type": "object",
+        "properties": {
+            "id_str": {
+                "type": "string"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "followed_by": {
+                "type": "boolean"
+            },
+            "screen_name": {
+                "type": "string"
+            },
+            "following": {
+                "type": "boolean"
+            }
+        }
+    },
+    "Source": {
+        "type": "object",
+        "properties": {
+            "can_dm": {
+                "type": "boolean"
+            },
+            "blocking": {
+                "type": "boolean"
+            },
+            "id_str": {
+                "type": "boolean"
+            },
+            "all_replies": {
+                "type": "boolean"
+            },
+            "want_retweets": {
+                "type": "boolean"
+            },
+            "id": {
+                "type": "integer"
+            },
+            "marked_spam": {
+                "type": "boolean"
+            },
+            "followed_by": {
+                "type": "boolean"
+            },
+            "notifications_enable": {
+                "type": "boolean"
+            },
+            "screen_name": {
+                "type": "string"
+            },
+            "following": {
+                "type": "boolean"
+            }
+        }
+    },
+    "Settings": {
+        "type": "object",
+        "properties": {
+            "sleep_time": {
+                "$ref": "#/Sleep"
+            },
+            "use_cookie_personalization": {
+                "type": "boolean"
+            },
+            "trend_location": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Location"
+                }
+            },
+            "language": {
+                "type": "string"
+            },
+            "discoverable_by_email": {
+                "type": "boolean"
+            },
+            "always_use_https": {
+                "type": "boolean"
+            },
+            "protected": {
+                "type": "boolean"
+            },
+            "geo_enabled": {
+                "type": "boolean"
+            },
+            "show_all_inline_media": {
+                "type": "boolean"
+            },
+            "screen_name": {
+                "type": "string"
+            }
+        }
+    },
+    "Sleep": {
+        "type": "object",
+        "properties": {
+            "end_time": {
+                "type": "string"
+            },
+            "enabled": {
+                "type": "boolean"
+            },
+            "start_time": {
+                "type": "string"
+            }
+        }
+    },
+    "Location": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "placeType": {
+                "$ref": "#/PlaceType"
+            },
+            "woeid": {
+                "type": "integer"
+            },
+            "country": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            },
+            "countryCode": {
+                "type": "string"
+            },
+            "parentid": {
+                "type": "integer"
+            }
+        }
+    },
+    "PlaceType": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "code": {
+                "type": "integer"
+            }
+        }
+    },
+    "TrendInfo": {
+        "type": "object",
+        "properties": {
+            "as_of": {
+                "type": "string"
+            },
+            "created_at": {
+                "type": "string"
+            },
+            "locations": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Location"
+                }
+            },
+            "trends": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/Trends"
+                }
+            }
+        }
+    },
+    "Trends": {
+        "type": "object",
+        "properties": {
+            "events": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "promoted_content": {
+                "type": "string"
+            },
+            "query": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "Help_Config": {
+        "type": "object",
+        "properties": {
+            "dm_text_character_limit": {
+                "type": "integer"
+            },
+            "characters_reserved_per_media": {
+                "type": "integer"
+            },
+            "max_media_per_upload": {
+                "type": "integer"
+            },
+            "non_username_paths": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "photo_size_limit": {
+                "type": "integer"
+            },
+            "photo_sizes": {
+                "$ref": "#/Sizes"
+            }
+        }
+    },
+    "Help_Language": {
+        "type": "object",
+        "properties": {
+            "code": {
+                "type": "string"
+            },
+            "status": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            }
+        }
+    },
+    "Help_Privacy": {
+        "type": "object",
+        "properties": {
+            "privacy": {
+                "type": "string"
+            }
+        }
+    },
+    "Help_Tos": {
+        "type": "object",
+        "properties": {
+            "Tos": {
+                "type": "string"
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.1",
+        "title": "Twitter REST API"
+    },
+    "host": "api.twitter.com",
+    "basePath": "/1.1",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "oauth": {
+            "type": "oauth2",
+            "flow": "implicit",
+            "authorizationUrl": "https://twitter.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token",
+            "scopes": {
+                "basic": "to read any and all data related to twitter\n"
+            }
+        }
+    },
+    "security": [
+        {
+            "oauth": [
+                "basic"
+            ]
+        }
+    ],
+    "paths": {
+        "$ref": "multiSwaggerFile/paths.json#/"
+    }
+}
