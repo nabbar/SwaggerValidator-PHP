@@ -18,7 +18,8 @@
         "phpunit/php-text-template": ">=1.2",
         "phpunit/php-code-coverage": ">=2.1",
         "phpunit/php-timer": ">=1.0",
-        "phpunit/phpunit-mock-objects": ">=2.3"
+        "phpunit/phpunit-mock-objects": ">=2.3",
+        "phpdocumentor/phpdocumentor": ">=2.0"
     },
     "scripts": {
         "Coverage": [

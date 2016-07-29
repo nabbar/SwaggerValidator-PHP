@@ -1,16 +1,31 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2016 Nicolas JUHEL <swaggervalidator@nabbar.com>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
+/**
+ * Builder for PHAR archive
+ *
+ * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
+ * @version 1.0.0
+ */
 define('REPOS_PATH_ROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_SRC', REPOS_PATH_ROOT . 'src' . DIRECTORY_SEPARATOR);
-define('REPOS_PATH_BIN', REPOS_PATH_SRC . 'bin' . DIRECTORY_SEPARATOR);
-define('REPOS_PATH_LIB', REPOS_PATH_SRC . 'lib' . DIRECTORY_SEPARATOR);
-define('SWAGGER_PATH_ROOT', REPOS_PATH_LIB . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
+define('REPOS_PATH_BIN', REPOS_PATH_ROOT . 'bin' . DIRECTORY_SEPARATOR);
+define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
 
 function getPrivateKey($pharPath)
 {
