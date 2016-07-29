@@ -6,25 +6,11 @@
  * and open the template in the editor.
  */
 
-function readline($prompt = '')
-{
-    echo $prompt;
-    return rtrim(fgets(STDIN), "\n");
-}
-
-function getPath()
-{
-    $path = dirname(dirname(__FILE__));
-    $path = str_replace(DIRECTORY_SEPARATOR, '/', $path);
-    $path = str_replace('//', '/', $path . '/Swagger');
-    $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
-
-    if (substr($path, -1, 1) != DIRECTORY_SEPARATOR) {
-        $path .= DIRECTORY_SEPARATOR;
-    }
-
-    return $path;
-}
+define('REPOS_PATH_ROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
+define('REPOS_PATH_SRC', REPOS_PATH_ROOT . 'src' . DIRECTORY_SEPARATOR);
+define('REPOS_PATH_BIN', REPOS_PATH_SRC . 'bin' . DIRECTORY_SEPARATOR);
+define('REPOS_PATH_LIB', REPOS_PATH_SRC . 'lib' . DIRECTORY_SEPARATOR);
+define('SWAGGER_PATH_ROOT', REPOS_PATH_LIB . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
 
 function getPrivateKey($pharPath)
 {
@@ -51,19 +37,18 @@ if (!Phar::canWrite()) {
     die("\n\n\t\t" . 'cannot write phar : change the ini phar.readonly to 0 !!' . "\n\n");
 }
 
-$pharPath = dirname(__FILE__) . '/SwaggerValidator-' . readline('Version : v') . '.phar';
+$pharPath = REPOS_PATH_BIN . 'SwaggerValidator.phar';
 $phar     = new Phar($pharPath, 0, 'SwaggerValidator.phar');
 
 //$phar->buildFromDirectory(getPath());
-$list    = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(getPath(), FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS));
+$list    = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath(SWAGGER_PATH_ROOT), FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS));
 $files   = array();
-$base    = getPath();
 $exclude = array(
-    '/example.php',
+    '/Example.php',
 );
 
 foreach ($list as $key => $value) {
-    $key = str_replace($base, '', $key);
+    $key = str_replace(realpath(SWAGGER_PATH_ROOT), '', $key);
 
     if (in_array($key, $exclude)) {
         continue;
@@ -76,6 +61,6 @@ ksort($files, SORT_NATURAL);
 
 $phar->buildFromIterator(new ArrayIterator($files));
 $phar->setDefaultStub('Swagger.php');
-$phar->setSignatureAlgorithm(Phar::OPENSSL, getPrivateKey($pharPath));
+//$phar->setSignatureAlgorithm(Phar::OPENSSL, getPrivateKey($pharPath));
 
 

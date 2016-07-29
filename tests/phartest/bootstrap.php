@@ -11,6 +11,4 @@ define('REPOS_PATH_LIB', REPOS_PATH_SRC . 'lib' . DIRECTORY_SEPARATOR);
 define('SWAGGER_PATH_ROOT', REPOS_PATH_LIB . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'genericTestClass.php';
-
-require_once SWAGGER_PATH_ROOT . 'Autoload.php';
-\SwaggerValidator\Autoload::registerAutoloader();
+require_once REPOS_PATH_BIN . 'SwaggerValidator.phar';

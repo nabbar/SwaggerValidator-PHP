@@ -2,18 +2,20 @@
     "name": "Swagger/Validator",
     "version": "1.0.0",
     "require": {
-        "php": ">5.3.3",
+        "php": ">5.3.10",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-pcre": "*",
         "ext-reflection": "*",
         "ext-spl": "*",
-        "phpunit/php-file-iterator": "~1.4",
-        "phpunit/php-text-template": "~1.2",
-        "phpunit/php-code-coverage": "~2.1",
-        "phpunit/php-timer": "^1.0.6",
-        "phpunit/phpunit-mock-objects": "~2.3",
-        "phpspec/prophecy": "^1.3.1",
+        "phpunit/phpunit": ">4.8",
+        "phpunit/php-invoker": ">=1.1",
+        "phpunit/php-file-iterator": ">=1.4",
+        "phpunit/php-text-template": ">=1.2",
+        "phpunit/php-code-coverage": ">=2.1",
+        "phpunit/php-timer": ">=1.0",
+        "phpunit/phpunit-mock-objects": ">=2.3",
+        "phpspec/prophecy": ">=1.3.1",
         "symfony/yaml": "~2.1|~3.0",
         "sebastian/comparator": "~1.1",
         "sebastian/diff": "~1.2",
@@ -23,11 +25,29 @@
         "sebastian/version": "~1.0"
     },
     "scripts": {
-        "coverage": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
+        "Coverage": [
+            "composer install",
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
+        ],
+        "Phpunit": [
+            "composer install",
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
+        ],
+        "PharBuilder": [
+            "composer install",
+            "php -d phar.readonly=0 -f tests/pharBuilder/makePhar.php"
+        ],
+        "PharTest": [
+            "composer install",
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
+        ],
+        "build": [
+            "@Phpunit",
+            "@PharBuilder",
+            "@PharTest"
         ],
         "test": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
+            "@Phpunit"
         ]
     }
 }
