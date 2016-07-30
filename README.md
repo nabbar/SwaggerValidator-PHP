@@ -49,5 +49,43 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 
   
 ## **Installation Guide**
-...comming soon...
+- Install into a git repository as submodule : 
+```sh
+git submodule init
+git submodule add --branch v1.0.x http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git src/lib/SwaggerValidator
+git submodule update
+```
+
+- Install by cloning git : 
+```sh
+git clone --branch v1.0.x http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git SwaggerValidator
+```
+
+- Install with composer : 
+Add this repository into composer
+```json
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git"
+        }
+    ],
+```
+And this require : 
+```json
+    "require": {
+        "SwaggerValidator":">=1.0.0"
+    },
+```
+
+- Install with phar : 
+```sh
+wget http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/raw/v1.0.x/bin/SwaggerValidator.phar 
+```
+
+  
+## **Example & Docs**
+ - **Examples in Snippets** : http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/snippets/1 
+ - **Documentation** : [generated](http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/blob/v1.0.x/doc/README.md)
+
 
