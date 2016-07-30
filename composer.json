@@ -34,7 +34,8 @@
         "phpunit/php-code-coverage": ">=2.1",
         "phpunit/php-timer": ">=1.0",
         "phpunit/phpunit-mock-objects": ">=2.3",
-        "phpdocumentor/phpdocumentor": ">=2.0"
+        "phpdocumentor/phpdocumentor": ">=2.0",
+        "evert/phpdoc-md" : ">=0.2"
     },
     "scripts": {
         "Coverage": [
@@ -50,7 +51,10 @@
             "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
         ],
         "PhpDoc": [
-            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc --directory ./src/SwaggerValidator --target ./doc --encoding UTF-8 --ignore ./src/SwaggerValidator/Example.php --validate --progressbar --defaultpackagename SwaggerValidator --title \"Swagger Validator PHP\" --template \"clean\" --cache-folder ./doc/.cache"
+            "rm -vrf doc/; mkdir -vp doc;mkdir -vp temp;",
+            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc -c ./phpdoc.xml --target ./doc --validate --progressbar --cache-folder ./temp",
+            "vendor/evert/phpdoc-md/bin/phpdocmd doc/structure.xml doc/",
+            "rm -vrf doc/structure.xml temp/; mv doc/ApiIndex.md doc/Index.md; ls -al doc/"
         ],
         "build": [
             "composer install --dev",
