@@ -20,7 +20,41 @@
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-include_once 'Swagger.php';
+if (file_exists('bin/SwaggerValidator.phar')) {
+    //using phar package
+    include_once 'phar://bin/SwaggerValidator.phar';
+}
+else {
+    // using source package
+    include_once 'Swagger.php';
+}
 
 \SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
 $swagger = \SwaggerValidator\Swagger::load();
+
+/**
+ * Validate request in Deny Mode (like strict : generate error if request is in error)
+ */
+$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_DENY));
+
+/**
+ * Validate request in Pass Mode (like ignore & clean : clean not validated parameters in request)
+ */
+$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_PASS));
+
+/**
+ * Validate response in Deny Mode (like strict : generate error if request is in error)
+ */
+$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_DENY));
+
+/**
+ * Validate response in Pass Mode (like ignore & clean : clean not validated element in response)
+ */
+$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_PASS));
+
+/**
+ * Generate an array for each operation with request & response model
+ * use example in the sagger primitive type to define example
+ * or less the swagger validator generate example contents
+ */
+$swagger->getModel(new \SwaggerValidator\Common\Context());

@@ -44,10 +44,6 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
-            if (substr($key, 0, strlen(\SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
-                continue;
-            }
-
             if (!preg_match('/^([0-9]{3})$|^(' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT . ')$/', $key)) {
                 $this->buildException('Invalid Key "' . $key . '" for a response item', array('context' => $context, 'JSON Data' => $jsonData));
             }

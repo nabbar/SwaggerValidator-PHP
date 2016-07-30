@@ -36,11 +36,34 @@ else {
 class Swagger
 {
 
+    /**
+     * flag to store capability of using cache file
+     * @var boolean
+     */
     private static $cacheEnable;
+
+    /**
+     * Path for the cache file
+     * @var string
+     */
     private static $cachePath;
+
+    /**
+     * Timestamp addition to check if the modify time of the cache file is out or not
+     * @var integer
+     */
     private static $cacheLifeTime;
+
+    /**
+     * the swagger json definition file path or file url
+     * @var string
+     */
     private static $swaggerFile;
 
+    /**
+     * Store the cache path and check if the file cache can enabled or not
+     * @param string $pathCacheFile
+     */
     public static function setCachePath($pathCacheFile)
     {
         if (!empty($pathCacheFile) && file_exists($pathCacheFile)) {
@@ -57,31 +80,57 @@ class Swagger
         }
     }
 
+    /**
+     * return the cache file path
+     * @return string|null
+     */
     public static function getCachePath()
     {
         return self::$cachePath;
     }
 
+    /**
+     * Store the number of second for available lifetime for cache file
+     * @param integer $maxTimeStamp
+     */
     public static function setCacheLifeTime($maxTimeStamp)
     {
         self::$cacheLifeTime = (int) $maxTimeStamp;
     }
 
+    /**
+     * return the value of the cache lifetime
+     * @return integer
+     */
     public static function getCacheLifeTime()
     {
-        return self::$cacheLifeTime;
+        return (int) self::$cacheLifeTime;
     }
 
+    /**
+     * The pathfile or url to the swagger file definition
+     * For multi file specify only the main definition file (other references must be in relative path based of location of each current file)
+     * @param string $pathFileSwagger
+     */
     public static function setSwaggerFile($pathFileSwagger)
     {
         self::$swaggerFile = $pathFileSwagger;
     }
 
+    /**
+     * Return the path/url of the Swagger Definition File
+     * @return string|null
+     */
     public static function getSwaggerFile()
     {
         return self::$swaggerFile;
     }
 
+    /**
+     * Load the Swagger Object from the cache file or create a new
+     * @param \SwaggerValidator\Common\Context $context
+     * @return \SwaggerValidator\Object\Swagger
+     */
     public static function load(\SwaggerValidator\Common\Context $context)
     {
         if (self::$cacheEnable !== true || !file_exists(self::$cachePath)) {
@@ -95,6 +144,11 @@ class Swagger
         return self::loadCache($context);
     }
 
+    /**
+     * Return a Swagger Object new object
+     * @param \SwaggerValidator\Common\Context $context
+     * @return \SwaggerValidator\Object\Swagger
+     */
     protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
         $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
@@ -118,6 +172,11 @@ class Swagger
         return self::storeCache($swagger);
     }
 
+    /**
+     * load cache file or call regen file cache
+     * @param \SwaggerValidator\Common\Context $context
+     * @return \SwaggerValidator\Object\Swagger
+     */
     protected static function loadCache(\SwaggerValidator\Common\Context $context)
     {
         $swagger = unserialize(base64_decode(trim(file_get_contents(self::$cachePath))));
@@ -129,6 +188,11 @@ class Swagger
         return $swagger;
     }
 
+    /**
+     * store the new swagger object is available
+     * @param \SwaggerValidator\Object\Swagger $swagger
+     * @return \SwaggerValidator\Object\Swagger
+     */
     protected static function storeCache(\SwaggerValidator\Object\Swagger $swagger)
     {
         if (self::$cacheEnable !== true) {

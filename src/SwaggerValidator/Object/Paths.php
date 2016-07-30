@@ -44,10 +44,6 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
-            if (substr($key, 0, strlen(\SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
-                continue;
-            }
-
             $value      = $this->extractNonRecursiveReference($context, $value);
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }

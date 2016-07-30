@@ -146,8 +146,6 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function jsonSerialize()
     {
-        $this->cleanReferenceDefinitions();
-
         $result = new \stdClass();
 
         foreach ($this->keys() as $key) {
@@ -161,8 +159,6 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function serialize()
     {
-        $this->cleanReferenceDefinitions();
-
         return serialize(array(
             self::$refIdList,
             parent::serialize(),
@@ -260,6 +256,15 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             }
         }
         self::$refIdList = self::$refIdDefinitions;
+    }
+
+    public function unserializeReferenceDefinitions(\SwaggerValidator\Common\Context $context)
+    {
+        foreach ($this->keys() as $key) {
+            if (in_array($key, self::$refIdDefinitions)) {
+                $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));
+            }
+        }
     }
 
     public static function getDefinitions()

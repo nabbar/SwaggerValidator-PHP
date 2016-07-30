@@ -152,6 +152,22 @@ Methods
 
 
 
+### getCleanClass
+
+    mixed SwaggerValidator\Common\ReferenceItem::getCleanClass($class)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $class **mixed**
+
+
+
 ### jsonUnSerialize
 
     mixed SwaggerValidator\Common\ReferenceItem::jsonUnSerialize(\SwaggerValidator\Common\Context $context, $force)

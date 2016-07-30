@@ -221,246 +221,246 @@ Properties
 
 ### $config
 
-    private array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'decode' => true, 'validate' => true, 'model' => true))
+    protected array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'decode' => true, 'validate' => true, 'model' => true))
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 * This property is **static**.
 
 
 ### $contextMode
 
-    private string $contextMode
+    protected string $contextMode
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextType
 
-    private string $contextType
+    protected string $contextType
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextLocation
 
-    private string $contextLocation
+    protected string $contextLocation
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextScheme
 
-    private string $contextScheme
+    protected string $contextScheme
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextHost
 
-    private string $contextHost
+    protected string $contextHost
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextBasePath
 
-    private string $contextBasePath
+    protected string $contextBasePath
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextRequestPath
 
-    private string $contextRequestPath
+    protected string $contextRequestPath
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextRoutePath
 
-    private string $contextRoutePath
+    protected string $contextRoutePath
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextMethod
 
-    private string $contextMethod
+    protected string $contextMethod
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataPath
 
-    private array $contextDataPath
+    protected array $contextDataPath
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataCheck
 
-    private array $contextDataCheck
+    protected array $contextDataCheck
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataValue
 
-    private mixed $contextDataValue
+    protected mixed $contextDataValue
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataValueExists
 
-    private boolean $contextDataValueExists
+    protected boolean $contextDataValueExists
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataValueEmpty
 
-    private boolean $contextDataValueEmpty
+    protected boolean $contextDataValueEmpty
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataDecodeError
 
-    private array $contextDataDecodeError
+    protected array $contextDataDecodeError
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextDataType
 
-    private string $contextDataType
+    protected string $contextDataType
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextOther
 
-    private array $contextOther
+    protected array $contextOther
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextExternalRef
 
-    private array $contextExternalRef
+    protected array $contextExternalRef
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextIsCombined
 
-    private boolean $contextIsCombined
+    protected boolean $contextIsCombined
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $contextValidatedParams
 
-    private array $contextValidatedParams = array()
+    protected array $contextValidatedParams = array()
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 * This property is **static**.
 
 
 ### $mockedData
 
-    private array $mockedData = array()
+    protected array $mockedData = array()
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 Methods

@@ -49,4 +49,11 @@ class Info extends \SwaggerValidator\Common\CollectionSwagger
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
+    public function getApiVersion()
+    {
+        if (isset($this->version) && is_string($this->version)) {
+            return $this->version;
+        }
+    }
+
 }

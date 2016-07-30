@@ -19,9 +19,9 @@ Properties
 
 ### $cacheEnable
 
-    private mixed $cacheEnable
+    private boolean $cacheEnable
 
-
+flag to store capability of using cache file
 
 
 
@@ -31,9 +31,9 @@ Properties
 
 ### $cachePath
 
-    private mixed $cachePath
+    private string $cachePath
 
-
+Path for the cache file
 
 
 
@@ -43,9 +43,9 @@ Properties
 
 ### $cacheLifeTime
 
-    private mixed $cacheLifeTime
+    private integer $cacheLifeTime
 
-
+Timestamp addition to check if the modify time of the cache file is out or not
 
 
 
@@ -55,9 +55,9 @@ Properties
 
 ### $swaggerFile
 
-    private mixed $swaggerFile
+    private string $swaggerFile
 
-
+the swagger json definition file path or file url
 
 
 
@@ -71,9 +71,9 @@ Methods
 
 ### setCachePath
 
-    mixed SwaggerValidator\Swagger::setCachePath($pathCacheFile)
+    mixed SwaggerValidator\Swagger::setCachePath(string $pathCacheFile)
 
-
+Store the cache path and check if the file cache can enabled or not
 
 
 
@@ -82,15 +82,15 @@ Methods
 
 
 #### Arguments
-* $pathCacheFile **mixed**
+* $pathCacheFile **string**
 
 
 
 ### getCachePath
 
-    mixed SwaggerValidator\Swagger::getCachePath()
+    string|null SwaggerValidator\Swagger::getCachePath()
 
-
+return the cache file path
 
 
 
@@ -102,9 +102,9 @@ Methods
 
 ### setCacheLifeTime
 
-    mixed SwaggerValidator\Swagger::setCacheLifeTime($maxTimeStamp)
+    mixed SwaggerValidator\Swagger::setCacheLifeTime(integer $maxTimeStamp)
 
-
+Store the number of second for available lifetime for cache file
 
 
 
@@ -113,15 +113,15 @@ Methods
 
 
 #### Arguments
-* $maxTimeStamp **mixed**
+* $maxTimeStamp **integer**
 
 
 
 ### getCacheLifeTime
 
-    mixed SwaggerValidator\Swagger::getCacheLifeTime()
+    integer SwaggerValidator\Swagger::getCacheLifeTime()
 
-
+return the value of the cache lifetime
 
 
 
@@ -133,9 +133,10 @@ Methods
 
 ### setSwaggerFile
 
-    mixed SwaggerValidator\Swagger::setSwaggerFile($pathFileSwagger)
+    mixed SwaggerValidator\Swagger::setSwaggerFile(string $pathFileSwagger)
 
-
+The pathfile or url to the swagger file definition
+For multi file specify only the main definition file (other references must be in relative path based of location of each current file)
 
 
 
@@ -144,15 +145,15 @@ Methods
 
 
 #### Arguments
-* $pathFileSwagger **mixed**
+* $pathFileSwagger **string**
 
 
 
 ### getSwaggerFile
 
-    mixed SwaggerValidator\Swagger::getSwaggerFile()
+    string|null SwaggerValidator\Swagger::getSwaggerFile()
 
-
+Return the path/url of the Swagger Definition File
 
 
 
@@ -164,9 +165,9 @@ Methods
 
 ### load
 
-    mixed SwaggerValidator\Swagger::load(\SwaggerValidator\Common\Context $context)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::load(\SwaggerValidator\Common\Context $context)
 
-
+Load the Swagger Object from the cache file or create a new
 
 
 
@@ -181,9 +182,9 @@ Methods
 
 ### regenSwagger
 
-    mixed SwaggerValidator\Swagger::regenSwagger(\SwaggerValidator\Common\Context $context)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::regenSwagger(\SwaggerValidator\Common\Context $context)
 
-
+Return a Swagger Object new object
 
 
 
@@ -198,9 +199,9 @@ Methods
 
 ### loadCache
 
-    mixed SwaggerValidator\Swagger::loadCache(\SwaggerValidator\Common\Context $context)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::loadCache(\SwaggerValidator\Common\Context $context)
 
-
+load cache file or call regen file cache
 
 
 
@@ -215,9 +216,9 @@ Methods
 
 ### storeCache
 
-    mixed SwaggerValidator\Swagger::storeCache(\SwaggerValidator\Object\Swagger $swagger)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::storeCache(\SwaggerValidator\Object\Swagger $swagger)
 
-
+store the new swagger object is available
 
 
 

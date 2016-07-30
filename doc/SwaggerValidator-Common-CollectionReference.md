@@ -359,6 +359,22 @@ Return the content of the reference as object or mixed data
 
 
 
+### unserializeReferenceDefinitions
+
+    mixed SwaggerValidator\Common\CollectionReference::unserializeReferenceDefinitions(\SwaggerValidator\Common\Context $context)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
 ### getDefinitions
 
     mixed SwaggerValidator\Common\CollectionReference::getDefinitions()

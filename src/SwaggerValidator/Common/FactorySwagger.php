@@ -89,6 +89,7 @@ class FactorySwagger
         'contact'             => 'Contact',
         'definitions'         => 'Definitions',
         'externalDocs'        => 'ExternalDocs',
+        'headers'             => 'Headers',
         'info'                => 'Info',
         'license'             => 'License',
         'paths'               => 'Paths',
@@ -174,13 +175,24 @@ class FactorySwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
-        $keyType = self::KEY_TYPE;
+        $keyType   = self::KEY_TYPE;
+        $keyCustom = self::KEY_CUSTOM_PATTERN;
+        $notCustom = array(
+            'Parameters', 'ParameterBody', 'Headers'
+        );
 
-        if (array_key_exists($originKey, self::$keyToObject)) {
+        if (!empty($originType) && !empty($originKey) && !in_array($originType, $notCustom) && substr($originKey, 0, strlen($keyCustom)) === $keyCustom) {
+            return $jsonData;
+        }
+        elseif (empty($originType) && !empty($originKey) && substr($originKey, 0, strlen($keyCustom)) === $keyCustom) {
+            return $jsonData;
+        }
+
+        if (!empty($originKey) && array_key_exists($originKey, self::$keyToObject)) {
             return $this->buildObjectFromOriginKey($context, $originType, $originKey, $jsonData);
         }
 
-        if (array_key_exists($originType, self::$originObjectToChildObject)) {
+        if (!empty($originType) && array_key_exists($originType, self::$originObjectToChildObject)) {
             return $this->buildObjectFromOriginObject($context, $originType, $originKey, $jsonData);
         }
 
@@ -193,7 +205,7 @@ class FactorySwagger
         }
 
         if (is_object($jsonData) && $originType !== 'Swagger' && $originType !== 'TypeObject') {
-            \SwaggerValidator\Exception::throwNewException('Cannot identify the object builder for the given JSON Data', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            \SwaggerValidator\Exception::throwNewException('Cannot identify the object builder for the given JSON Data', array('originType' => $originType, 'originKey' => $originKey, 'context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
         elseif (is_object($jsonData) && $originType === 'TypeObject') {
             return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->TypeObject, $originType, $originKey, $jsonData);

@@ -1,6 +1,7 @@
 {
     "/statuses/mentions_timeline": {
         "get": {
+            "x-method": "test method",
             "description": "Returns the 20 most recent mentions for the authenticating user",
             "security": [
                 {
@@ -32,6 +33,12 @@
             "responses": {
                 "200": {
                     "description": "Success",
+                    "headers": {
+                        "X-TokeTest": {
+                            "type": "string",
+                            "description": "A test string in header to check the feature"
+                        }
+                    },
                     "schema": {
                         "type": "array",
                         "items": {

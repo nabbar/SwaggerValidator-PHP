@@ -71,7 +71,7 @@ class Context
     /**
      * @var array
      */
-    private static $config = array(
+    protected static $config = array(
         'mode' => array(
             self::TYPE_REQUEST  => self::MODE_DENY,
             self::TYPE_RESPONSE => self::MODE_PASS,
@@ -90,127 +90,127 @@ class Context
      *
      * @var string
      */
-    private $contextMode;
+    protected $contextMode;
 
     /**
      *
      * @var string
      */
-    private $contextType;
+    protected $contextType;
 
     /**
      *
      * @var string
      */
-    private $contextLocation;
+    protected $contextLocation;
 
     /**
      *
      * @var string
      */
-    private $contextScheme;
+    protected $contextScheme;
 
     /**
      *
      * @var string
      */
-    private $contextHost;
+    protected $contextHost;
 
     /**
      *
      * @var string
      */
-    private $contextBasePath;
+    protected $contextBasePath;
 
     /**
      *
      * @var string
      */
-    private $contextRequestPath;
+    protected $contextRequestPath;
 
     /**
      *
      * @var string
      */
-    private $contextRoutePath;
+    protected $contextRoutePath;
 
     /**
      *
      * @var string
      */
-    private $contextMethod;
+    protected $contextMethod;
 
     /**
      *
      * @var array
      */
-    private $contextDataPath;
+    protected $contextDataPath;
 
     /**
      *
      * @var array
      */
-    private $contextDataCheck;
+    protected $contextDataCheck;
 
     /**
      *
      * @var mixed
      */
-    private $contextDataValue;
+    protected $contextDataValue;
 
     /**
      *
      * @var boolean
      */
-    private $contextDataValueExists;
+    protected $contextDataValueExists;
 
     /**
      *
      * @var boolean
      */
-    private $contextDataValueEmpty;
+    protected $contextDataValueEmpty;
 
     /**
      *
      * @var array
      */
-    private $contextDataDecodeError;
+    protected $contextDataDecodeError;
 
     /**
      *
      * @var string
      */
-    private $contextDataType;
+    protected $contextDataType;
 
     /**
      *
      * @var array
      */
-    private $contextOther;
+    protected $contextOther;
 
     /**
      *
      * @var array
      */
-    private $contextExternalRef;
+    protected $contextExternalRef;
 
     /**
      *
      * @var boolean
      */
-    private $contextIsCombined;
+    protected $contextIsCombined;
 
     /**
      *
      * @var array
      */
-    private static $contextValidatedParams = array();
+    protected static $contextValidatedParams = array();
 
     /**
      *
      * @var array
      */
-    private $mockedData = array();
+    protected $mockedData = array();
 
     /**
      *

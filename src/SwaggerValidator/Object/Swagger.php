@@ -34,6 +34,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         parent::registerMandatoryKey('paths');
     }
 
+    /**
+     * Unserialize the JSON mixed data to this swagger object type
+     * @param \SwaggerValidator\Common\Context $context
+     * @param \stdClass $jsonData
+     */
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
@@ -46,10 +51,6 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
-            if (substr($key, 0, strlen(\SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
-                continue;
-            }
-
             if ($key == \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS) {
                 continue;
             }
@@ -58,9 +59,18 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
+        \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
+        \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
+        \SwaggerValidator\Common\CollectionReference::getInstance()->cleanReferenceDefinitions();
+        \SwaggerValidator\Common\CollectionReference::getInstance()->jsonUnSerialize($context);
+
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
+    /**
+     * Override the serialize function
+     * @return string
+     */
     public function serialize()
     {
         return serialize(array(
@@ -69,6 +79,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         ));
     }
 
+    /**
+     * Override the unserialze function
+     * @param string $data
+     */
     public function unserialize($data)
     {
         list($wagger, $reference) = unserialize($data);
@@ -77,6 +91,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         parent::unserialize($wagger);
     }
 
+    /**
+     * Method call when a json_encode of an instance of this object is used
+     * @return \stdClass
+     */
     public function jsonSerialize()
     {
         $keyDefinition = \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS;
@@ -91,15 +109,27 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $doc;
     }
 
+    /**
+     * Validate the Request or Response
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::cleanCheckedDataName();
 
+        $context->loadUri();
+        $context->loadMethod();
+
         $this->checkSwaggerVersion($context->setDataPath('swagger')->setDataValue($this->swagger));
-        $this->checkSchemes($context->setDataPath('schemes')->setDataValue($context->getBasePath()));
+        $this->checkSchemes($context->setDataPath('schemes')->setDataValue($context->getScheme()));
         $this->checkHost($context->setDataPath('host')->setDataValue($context->getHost()));
 
         $ctxPath = $this->checkBasePath($context->setDataPath('basePath')->setDataValue($context->getBasePath()));
+
+        if (!is_object($ctxPath) || !($ctxPath instanceof \SwaggerValidator\Common\Context)) {
+            return false;
+        }
 
         $context->setBasePath($ctxPath->getBasePath());
         $context->setRequestPath($ctxPath->getRequestPath());
@@ -159,6 +189,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return true;
     }
 
+    /**
+     * Check the Swagger Version for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     protected function checkSwaggerVersion(\SwaggerValidator\Common\Context $context)
     {
         if ($context->getDataValue() != '2.0') {
@@ -168,6 +203,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return true;
     }
 
+    /**
+     * Check the scheme used in the request URL for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     protected function checkSchemes(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->schemes)) {
@@ -183,6 +223,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Scheme requested is not allowed', __METHOD__, __LINE__);
     }
 
+    /**
+     * Check the host used in the request URL for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     protected function checkHost(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->host)) {
@@ -200,10 +245,15 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'HostName requested is not allowed', __METHOD__, __LINE__);
     }
 
+    /**
+     * Check the basePath used in the request URL for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return \SwaggerValidator\Common\Context
+     */
     protected function checkBasePath(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->basePath)) {
-            return true;
+            return $context;
         }
 
         if (substr($context->getDataValue(), 0, strlen($this->basePath)) != $this->basePath) {
@@ -216,6 +266,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $context;
     }
 
+    /**
+     * Check the Content-Type used in the request regarding the consume definition for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     protected function checkConsume(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->consume)) {
@@ -244,6 +299,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type requested is not allowed', __METHOD__, __LINE__);
     }
 
+    /**
+     * Check the Content-Type return in the response regarding the produce definition for validate method
+     * @param \SwaggerValidator\Common\Context $context
+     * @return boolean
+     */
     protected function checkProduce(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->produces)) {
@@ -272,11 +332,19 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Content-Type responded is not allowed', __METHOD__, __LINE__);
     }
 
+    /**
+     * Retrieve the Complete Version of the current API
+     * @return string
+     */
     public function getApiVersion()
     {
         return $this->info->getApiVersion();
     }
 
+    /**
+     * Extract the Major part of the version for the current API
+     * @return string
+     */
     public function getApiVersionMajor()
     {
         $version = explode('.', $this->getApiVersion(), 4);
@@ -284,6 +352,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $version[0];
     }
 
+    /**
+     * Extract the Minor part of the version for the current API
+     * @return string
+     */
     public function getApiVersionMinor()
     {
         $version = explode('.', $this->getApiVersion(), 4);
@@ -291,6 +363,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $version[1];
     }
 
+    /**
+     * Extract the Build part of the version for the current API
+     * @return string
+     */
     public function getApiVersionBuild()
     {
         $version = explode('.', $this->getApiVersion(), 4);
@@ -298,6 +374,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $version[2];
     }
 
+    /**
+     * Extract the Patch part of the version for the current API
+     * @return string
+     */
     public function getApiVersionPatch()
     {
         $version = explode('.', $this->getApiVersion(), 4);
@@ -305,6 +385,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         return $version[3];
     }
 
+    /**
+     * Build a model following current definition instancied
+     * @param \SwaggerValidator\Common\Context $context
+     * @return array
+     */
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
         $parameters   = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
