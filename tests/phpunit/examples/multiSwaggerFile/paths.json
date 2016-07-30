@@ -32,6 +32,12 @@
             "responses": {
                 "200": {
                     "description": "Success",
+                    "headers": {
+                        "X-TokeTest": {
+                            "type": "string",
+                            "description": "A test string in header to check the feature"
+                        }
+                    },
                     "schema": {
                         "type": "array",
                         "items": {
