@@ -15,16 +15,6 @@
     "suppot": {
         "email": "swaggervalidator@nabbar.com"
     },
-    "dist": {
-        "type": "git",
-        "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git",
-        "reference": "*-stable"
-    },
-    "source": {
-        "type": "git",
-        "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git",
-        "reference": "master"
-    },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
