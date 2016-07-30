@@ -1,4 +1,4 @@
-[![Dependency Status](https://gemnasium.com/badges/103bbb652356914f092036025f0d5922.svg)](https://gemnasium.com/af3a2a2213b87f7bbd238a5f1303a2aa)  |  [![Code Climate](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)  |  [![Issue Count](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/issue_count.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)
+[![Dependency Status](https://gemnasium.com/badges/103bbb652356914f092036025f0d5922.svg)](https://gemnasium.com/af3a2a2213b87f7bbd238a5f1303a2aa)  ~  [![Code Climate](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)  ~  [![Issue Count](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/issue_count.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)
 
 # **Swagger Validator _PHP_**
 
