@@ -1,7 +1,7 @@
 {
-    "name": "SwaggerValidator",
+    "name": "SwaggerValidator-PHP",
     "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
-    "version": "1.0.1",
+    "version": "1.0.0-p1",
     "type": "library",
     "keywords": ["swagger, validator, php, parser, security, api, restfull"],
     "license": "Apache-2.0",
@@ -34,7 +34,8 @@
         "phpunit/php-timer": ">=1.0",
         "phpunit/phpunit-mock-objects": ">=2.3",
         "phpdocumentor/phpdocumentor": ">=2.0",
-        "evert/phpdoc-md" : ">=0.2"
+        "evert/phpdoc-md" : ">=0.2",
+        "codeclimate/php-test-reporter": "dev-master"
     },
     "scripts": {
         "Coverage": [

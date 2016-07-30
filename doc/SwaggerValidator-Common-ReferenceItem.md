@@ -170,7 +170,7 @@ Methods
 
 ### jsonUnSerialize
 
-    mixed SwaggerValidator\Common\ReferenceItem::jsonUnSerialize(\SwaggerValidator\Common\Context $context, $force)
+    mixed SwaggerValidator\Common\ReferenceItem::jsonUnSerialize(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -181,6 +181,5 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
-* $force **mixed**
 
 

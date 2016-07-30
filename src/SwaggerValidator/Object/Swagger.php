@@ -277,21 +277,28 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             return true;
         }
 
-        $headers       = apache_request_headers();
+        $headers       = $context->getRequestHeader();
         $contentType   = null;
-        $contentLength = null;
+        $contentLength = 0;
 
         if (array_key_exists('Content-Type', $headers)) {
             $contentType = explode(';', $headers['Content-Type']);
             $contentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($contentType));
         }
 
-        if (empty($contentType)) {
+        if (array_key_exists('Content-Length', $headers)) {
+            $contentLength = (int) $headers['Content-Length'];
+        }
+
+        if (empty($contentType) && $contentLength === 0) {
             return true;
         }
 
         foreach ($this->consume as $oneContentType) {
-            if (strtolower($context->getDataValue()) && strtolower($oneContentType)) {
+            $oneContentType = explode(';', $oneContentType);
+            $oneContentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($oneContentType));
+
+            if (strtolower($contentType) && strtolower($oneContentType)) {
                 return true;
             }
         }
@@ -310,7 +317,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             return true;
         }
 
-        $headers       = apache_response_headers();
+        $headers       = $context->getResponseHeader();
         $contentType   = null;
         $contentLength = null;
 
@@ -319,12 +326,19 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             $contentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($contentType));
         }
 
-        if (empty($contentType)) {
+        if (array_key_exists('Content-Length', $headers)) {
+            $contentLength = (int) $headers['Content-Length'];
+        }
+
+        if (empty($contentType) && $contentLength === 0) {
             return true;
         }
 
         foreach ($this->produces as $oneContentType) {
-            if (strtolower($context->getDataValue()) && strtolower($oneContentType)) {
+            $oneContentType = explode(';', $oneContentType);
+            $oneContentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($oneContentType));
+
+            if (strtolower($contentType) && strtolower($oneContentType)) {
                 return true;
             }
         }
