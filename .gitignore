@@ -1,6 +1,5 @@
 vendor/
-tests/metrics/*
-tests/metrics/*.
-tests/metrics/*.*
+tests/metric*/*/*
+tests/metric*/*
 composer.lock
-
+#build*/*
