@@ -54,6 +54,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
+        \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
+        \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
+        \SwaggerValidator\Common\CollectionReference::getInstance()->cleanReferenceDefinitions();
+        \SwaggerValidator\Common\CollectionReference::getInstance()->jsonUnSerialize($context);
+
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 

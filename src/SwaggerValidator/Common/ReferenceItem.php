@@ -128,10 +128,20 @@ class ReferenceItem
         return $this->object;
     }
 
+    protected function getCleanClass($class)
+    {
+        $classPart = explode('\\', $class);
+        return array_pop($classPart);
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $force = false)
     {
-        $this->object = new \SwaggerValidator\DataType\TypeObject();
-        $this->object->jsonUnSerialize($context, $this->contents);
+        if (is_object($this->contents) && ($this->contents instanceof \stdClass) && property_exists($this->contents, \SwaggerValidator\Common\FactorySwagger::KEY_TYPE)) {
+            $this->object = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA, $this->contents);
+        }
+        else {
+            $this->object = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, null, null, $this->contents);
+        }
     }
 
 }
