@@ -1,7 +1,7 @@
 {
     "name": "SwaggerValidator",
     "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
-    "version": "1.0.1-dev",
+    "version": "1.0.0-dev",
     "type": "library",
     "keywords": ["swagger, validator, php, parser, security, api, restfull"],
     "license": "Apache-2.0",
@@ -14,15 +14,6 @@
     ],
     "suppot": {
         "email": "swaggervalidator@nabbar.com"
-    },
-    "dist": {
-        "type": "vcs",
-        "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/raw/v1.0.x-stable/bin/SwaggerValidator.phar"
-    },
-    "source": {
-        "type": "vcs",
-        "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git",
-        "reference": "master"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
