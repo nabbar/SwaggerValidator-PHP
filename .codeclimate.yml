@@ -1,0 +1,35 @@
+JavaScript: false
+Ruby: true
+Python: false
+PHP: true
+
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+    # ... CONFIG CONTENT ...
+    exclude_fingerprints:
+    - 76c112c9507ab128765341298ecd6357
+    - b7d4f063c55c4d9ec76db0f96fcf7e3c
+    - 173b13479e6c1511c82345eefdbb5984
+    - 0492c8204eb5003410274fc50cda3797
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+
+ratings:
+  paths:
+  - src/**
+  - src/SwaggerValidator/**
+  - "**.php"
+
+exclude_paths:
+- tests/**/*
+- vendor/**/*
+- bin/**/*
+- doc/**/*
+
+ 

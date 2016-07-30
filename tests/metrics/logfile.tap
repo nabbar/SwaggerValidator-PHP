@@ -1,7 +1,0 @@
-TAP version 13
-ok 1 - SwaggerInstagramSmokeTest::testSmokeModel
-ok 2 - SwaggerMultiFileSmokeTest::testSmokeModel
-ok 3 - SwaggerPetStoreFullSmokeTest::testSmokeModel
-ok 4 - SwaggerPetStoreHerokuSmokeTest::testSmokeModel
-ok 5 - SwaggerTwitterSmokeTest::testSmokeModel
-1..5
