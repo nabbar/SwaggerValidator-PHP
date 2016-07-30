@@ -50,7 +50,7 @@
             "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
         ],
         "PhpDoc": [
-            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc --directory ./src/SwaggerValidator --target ./doc --encoding UTF-8 --ignore ./src/SwaggerValidator/Example.php --validate --progressbar --defaultpackagename SwaggerValidator --title \"Swagger Validator PHP\""
+            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc --directory ./src/SwaggerValidator --target ./doc --encoding UTF-8 --ignore ./src/SwaggerValidator/Example.php --validate --progressbar --defaultpackagename SwaggerValidator --title \"Swagger Validator PHP\" --template \"clean\" --cache-folder ./doc/.cache"
         ],
         "build": [
             "composer install --dev",
