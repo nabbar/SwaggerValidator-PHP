@@ -284,7 +284,7 @@ class Context
             return $name;
         }
 
-        return $property = 'context' . strtoupper(substr($name, 0, 1)) . substr($name, 1);
+        return 'context' . strtoupper(substr($name, 0, 1)) . substr($name, 1);
     }
 
     public function __get($name)
@@ -305,7 +305,7 @@ class Context
             $method_name = 'set' . substr($this->formatVarName($name), 7);
 
             if (method_exists($this, $method_name)) {
-                $this->$method($value);
+                $this->$method_name($value);
             }
             else {
                 throw new Exception('Cannot find this Method : ' . $method_name);
@@ -347,7 +347,7 @@ class Context
     {
         $properties = get_object_vars($this);
 
-        foreach ($properties as $key => $value) {
+        foreach (array_keys($properties) as $key) {
             if (substr($key, 0, 7) != 'context' && $key != 'mockedData') {
                 unset($properties[$key]);
             }
@@ -639,20 +639,20 @@ class Context
         if ($this->__get('DataValueExists') === false) {
             $this->contextDataValueEmpty = true;
         }
-        elseif (is_object($this->__get('DataValue'))) {
+        elseif (is_object($this->getDataValue())) {
             $this->contextDataValueEmpty = false;
         }
-        elseif (is_array($this->__get('DataValue'))) {
+        elseif (is_array($this->getDataValue())) {
             $this->contextDataValueEmpty = false;
         }
-        elseif (is_string($this->__get('DataValue'))) {
-            $this->contextDataValueEmpty = (bool) (strlen($this->__get('DataValue')) == 0);
+        elseif (is_string($this->getDataValue())) {
+            $this->contextDataValueEmpty = (bool) (strlen($this->getDataValue()) == 0);
         }
-        elseif (is_numeric($this->__get('DataValue'))) {
+        elseif (is_numeric($this->getDataValue())) {
             $this->contextDataValueEmpty = false;
         }
         else {
-            $this->contextDataValueEmpty = (bool) $this->checkIsEmpty($this->__get('DataValue'));
+            $this->contextDataValueEmpty = (bool) $this->checkIsEmpty($this->getDataValue());
         }
     }
 
@@ -671,44 +671,42 @@ class Context
 
     public function dataLoad()
     {
-        $method    = $this->__get('Method');
-        $location  = $this->__get('Location');
         $paramName = $this->__get('DataPath');
         $paramName = array_pop($paramName);
 
         $this->contextDataValueExists = false;
         $this->contextDataValue       = null;
 
-        if ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_REQUEST) {
+        if ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->getType() === self::TYPE_REQUEST) {
             return $this->loadRequestBody();
         }
-        elseif ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->__get('Type') === self::TYPE_RESPONSE) {
+        elseif ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->getType() === self::TYPE_RESPONSE) {
             return $this->loadResponseBody();
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
+        elseif ($this->getType() === self::TYPE_REQUEST && $this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
             return $this->loadRequestHeader($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_RESPONSE && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
+        elseif ($this->getType() === self::TYPE_RESPONSE && $this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER) {
             return $this->loadResponseHeader($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM) {
+        elseif ($this->getType() === self::TYPE_REQUEST && $this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM) {
             return $this->loadRequestFormData($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH) {
+        elseif ($this->getType() === self::TYPE_REQUEST && $this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH) {
             return $this->loadRequestPath($paramName);
         }
-        elseif ($this->__get('Type') === self::TYPE_REQUEST && $this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY) {
+        elseif ($this->getType() === self::TYPE_REQUEST && $this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY) {
             return $this->loadRequestQuery($paramName);
         }
-        elseif ($this->__get('Location') === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && !$this->checkIsEmpty($this->__get('DataValue'))) {
-            if (is_array($this->__get('DataValue')) && array_key_exists($paramName, $this->__get('DataValue'))) {
+        elseif ($this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && !$this->checkIsEmpty($this->getDataValue())) {
+            if (is_array($this->getDataValue()) && array_key_exists($paramName, $this->getDataValue())) {
                 $this->contextDataValueExists = true;
-                $value                        = $this->__get('DataValue');
+                $value                        = $this->getDataValue();
                 $this->contextDataValue       = $value[$paramName];
             }
-            elseif (is_object($this->__get('DataValue')) && property_exists($this->__get('DataValue'), $paramName)) {
+            elseif (is_object($this->getDataValue()) && property_exists($this->getDataValue(), $paramName)) {
                 $this->contextDataValueExists = true;
-                $this->contextDataValue       = $this->__get('DataValue')->$paramName;
+                $this->contextDataValue       = $this->getDataValue()->$paramName;
             }
         }
 
@@ -866,72 +864,11 @@ class Context
 
         switch (strtolower($contentType)) {
             case 'json' :
-                $this->contextDataType        = self::CONTENT_TYPE_JSON;
-                $contents                     = $this->getRequestBodyRawData();
-                $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-                $this->contextDataValue       = json_decode($contents, false);
-
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    $this->contextDataValueEmpty = true;
-                    $this->contextDataValue      = null;
-                    if (function_exists('json_last_error_msg')) {
-                        $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => json_last_error_msg()));
-                    }
-                    else {
-                        $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => null));
-                    }
-                }
-                else {
-                    $this->checkDataIsEmpty();
-                }
+                $this->buildBodyJson($this->getRequestBodyRawData());
                 break;
 
             case 'xml' :
-                $this->contextDataType        = self::CONTENT_TYPE_XML;
-                $contents                     = $this->getRequestBodyRawData();
-                $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-                $this->contextDataValue       = simplexml_load_string($contents);
-
-                if ($this->contextDataValue === false) {
-                    $this->contextDataValueEmpty  = true;
-                    $this->contextDataValue       = null;
-                    $this->contextDataDecodeError = array();
-
-                    foreach (libxml_get_errors() as $error) {
-                        $this->contextDataDecodeError[] = array('code' => $error->$code, 'message' => $error->message);
-                    }
-                }
-                else {
-                    $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->__get('DataValue'));
-
-                    if (json_last_error() !== JSON_ERROR_NONE) {
-                        $this->contextDataValueEmpty = true;
-                        $this->contextDataValue      = null;
-                        if (function_exists('json_last_error_msg')) {
-                            $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
-                        }
-                        else {
-                            $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
-                        }
-                    }
-                    else {
-                        $this->contextDataValue = json_decode($this->__get('DataValue'), false);
-
-                        if (json_last_error() !== JSON_ERROR_NONE) {
-                            $this->contextDataValueEmpty = true;
-                            $this->contextDataValue      = null;
-                            if (function_exists('json_last_error_msg')) {
-                                $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
-                            }
-                            else {
-                                $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
-                            }
-                        }
-                        else {
-                            $this->checkDataIsEmpty();
-                        }
-                    }
-                }
+                $this->buildBodyXml($this->getRequestBodyRawData());
                 break;
 
             default:
@@ -976,72 +913,11 @@ class Context
 
         switch (strtolower($contentType)) {
             case 'json' :
-                $this->contextDataType        = self::CONTENT_TYPE_JSON;
-                $contents                     = $this->getResponseBodyRawData();
-                $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-                $this->contextDataValue       = json_decode($contents, false);
-
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    $this->contextDataValueEmpty = true;
-                    $this->contextDataValue      = null;
-                    if (function_exists('json_last_error_msg')) {
-                        $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => json_last_error_msg()));
-                    }
-                    else {
-                        $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => null));
-                    }
-                }
-                else {
-                    $this->checkDataIsEmpty();
-                }
+                $this->buildBodyJson($this->getResponseBodyRawData());
                 break;
 
             case 'xml' :
-                $this->contextDataType        = self::CONTENT_TYPE_XML;
-                $contents                     = $this->getResponseBodyRawData();
-                $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-                $this->contextDataValue       = simplexml_load_string($contents);
-
-                if ($this->contextDataValue === false) {
-                    $this->contextDataValueEmpty  = true;
-                    $this->contextDataValue       = null;
-                    $this->contextDataDecodeError = array();
-
-                    foreach (libxml_get_errors() as $error) {
-                        $this->contextDataDecodeError[] = array('code' => $error->$code, 'message' => $error->message);
-                    }
-                }
-                else {
-                    $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->__get('DataValue'));
-
-                    if (json_last_error() !== JSON_ERROR_NONE) {
-                        $this->contextDataValueEmpty = true;
-                        $this->contextDataValue      = null;
-                        if (function_exists('json_last_error_msg')) {
-                            $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
-                        }
-                        else {
-                            $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
-                        }
-                    }
-                    else {
-                        $this->contextDataValue = json_decode($this->__get('DataValue'), false);
-
-                        if (json_last_error() !== JSON_ERROR_NONE) {
-                            $this->contextDataValueEmpty = true;
-                            $this->contextDataValue      = null;
-                            if (function_exists('json_last_error_msg')) {
-                                $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
-                            }
-                            else {
-                                $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
-                            }
-                        }
-                        else {
-                            $this->checkDataIsEmpty();
-                        }
-                    }
-                }
+                $this->buildBodyXml($this->getResponseBodyRawData());
                 break;
 
             default:
@@ -1061,6 +937,75 @@ class Context
         }
 
         return file_get_contents("php://output");
+    }
+
+    protected function buildBodyJson($contents)
+    {
+        $this->contextDataType        = self::CONTENT_TYPE_JSON;
+        $this->contextDataValueExists = (bool) (strlen($contents) > 0);
+        $this->contextDataValue       = json_decode($contents, false);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $this->contextDataValueEmpty = true;
+            $this->contextDataValue      = null;
+            if (function_exists('json_last_error_msg')) {
+                $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => json_last_error_msg()));
+            }
+            else {
+                $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => null));
+            }
+        }
+        else {
+            $this->checkDataIsEmpty();
+        }
+    }
+
+    protected function buildBodyXml($contents)
+    {
+        $this->contextDataType        = self::CONTENT_TYPE_XML;
+        $this->contextDataValueExists = (bool) (strlen($contents) > 0);
+        $this->contextDataValue       = simplexml_load_string($contents);
+
+        if ($this->contextDataValue === false) {
+            $this->contextDataValueEmpty  = true;
+            $this->contextDataValue       = null;
+            $this->contextDataDecodeError = array();
+
+            foreach (libxml_get_errors() as $error) {
+                $this->contextDataDecodeError[] = array('code' => $error->$code, 'message' => $error->message);
+            }
+        }
+        else {
+            $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $this->contextDataValueEmpty = true;
+                $this->contextDataValue      = null;
+                if (function_exists('json_last_error_msg')) {
+                    $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
+                }
+                else {
+                    $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
+                }
+            }
+            else {
+                $this->contextDataValue = json_decode($this->getDataValue(), false);
+
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $this->contextDataValueEmpty = true;
+                    $this->contextDataValue      = null;
+                    if (function_exists('json_last_error_msg')) {
+                        $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
+                    }
+                    else {
+                        $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
+                    }
+                }
+                else {
+                    $this->checkDataIsEmpty();
+                }
+            }
+        }
     }
 
     public function setValidationError($valitionType, $messageException = null, $method = null, $line = null)

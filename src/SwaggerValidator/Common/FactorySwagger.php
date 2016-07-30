@@ -233,8 +233,7 @@ class FactorySwagger
         $object  = null;
 
         if (!empty(self::$originObjectToChildObject[$originType])) {
-            $type   = self::$originObjectToChildObject[$originType];
-            $object = \SwaggerValidator\Common\Factory::getInstance()->$type;
+            $object = \SwaggerValidator\Common\Factory::getInstance()->get(self::$originObjectToChildObject[$originType]);
         }
 
         switch ($originType) {
@@ -284,8 +283,7 @@ class FactorySwagger
         $object = null;
 
         if (!empty(self::$keyToObject[$originKey])) {
-            $type   = self::$keyToObject[$originKey];
-            $object = \SwaggerValidator\Common\Factory::getInstance()->$type;
+            $object = \SwaggerValidator\Common\Factory::getInstance()->get(self::$keyToObject[$originKey]);
         }
 
         switch ($originKey) {

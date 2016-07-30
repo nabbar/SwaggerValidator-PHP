@@ -1342,6 +1342,38 @@ Methods
 
 
 
+### buildBodyJson
+
+    mixed SwaggerValidator\Common\Context::buildBodyJson($contents)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $contents **mixed**
+
+
+
+### buildBodyXml
+
+    mixed SwaggerValidator\Common\Context::buildBodyXml($contents)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $contents **mixed**
+
+
+
 ### setValidationError
 
     mixed SwaggerValidator\Common\Context::setValidationError($valitionType, $messageException, $method, $line)

@@ -91,8 +91,6 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
     {
         $headersKey = \SwaggerValidator\Common\FactorySwagger::KEY_HEADERS;
         $schemaKey  = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
-        $headers    = array();
-        $schema     = null;
 
         if (!array_key_exists($headersKey, $globalResponse)) {
             $globalResponse[$headersKey] = array();
