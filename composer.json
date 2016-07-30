@@ -34,7 +34,8 @@
         "phpunit/php-timer": ">=1.0",
         "phpunit/phpunit-mock-objects": ">=2.3",
         "phpdocumentor/phpdocumentor": ">=2.0",
-        "evert/phpdoc-md" : ">=0.2"
+        "evert/phpdoc-md" : ">=0.2",
+        "codeclimate/php-test-reporter": "dev-master"
     },
     "scripts": {
         "Coverage": [
