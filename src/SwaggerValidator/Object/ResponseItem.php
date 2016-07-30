@@ -75,9 +75,12 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
         $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 
         if ($this->has($keySchema) && is_object($this->$keySchema) && $this->$keySchema instanceof \SwaggerValidator\Common\CollectionSwagger) {
-            $ctx   = $context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY);
+
+            $ctx = $context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY);
             $ctx->dataLoad();
+
             \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
+
             $check = $check && $this->$keySchema->validate($ctx);
         }
 
