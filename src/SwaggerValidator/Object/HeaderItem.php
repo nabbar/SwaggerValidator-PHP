@@ -43,14 +43,35 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         $header     = $this->extractNonRecursiveReference($context, $jsonData);
-        $this->item = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $key, $header);
+        $this->item = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $this->name, $header);
 
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
+    public function validate(\SwaggerValidator\Common\Context $context)
+    {
+        if (isset($this->item)) {
+
+            $context->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER);
+            $context->dataLoad();
+
+            return $this->item->validate($context);
+        }
+
+        $this->buildException('Cannot find a well formed item in the headeritem object', $context);
+    }
+
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        return $this->item->getModel($context);
+        if (isset($this->item)) {
+
+            $context->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER);
+            $context->dataLoad();
+
+            return $this->item->getModel($context);
+        }
+
+        $this->buildException('Cannot find a well formed item in the headeritem object', $context);
     }
 
 }

@@ -1,6 +1,7 @@
 {
     "/statuses/mentions_timeline": {
         "get": {
+            "x-method": "test method",
             "description": "Returns the 20 most recent mentions for the authenticating user",
             "security": [
                 {

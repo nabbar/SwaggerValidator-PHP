@@ -49,10 +49,6 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
-            if (substr($key, 0, strlen(\SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN)) == \SwaggerValidator\Common\FactorySwagger::KEY_CUSTOM_PATTERN) {
-                continue;
-            }
-
             $value = $this->extractNonRecursiveReference($context, $value);
 
             $schemaKey = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
@@ -103,7 +99,7 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
             $globalResponse[$schemaKey] = null;
         }
 
-        if (isset($this->$headersKey) && is_object($this->$headersKey) && ($this->$headersKey instanceof \SwaggerValidator\Object\HeaderItem)) {
+        if (isset($this->$headersKey) && is_object($this->$headersKey) && ($this->$headersKey instanceof \SwaggerValidator\Object\Headers)) {
             $globalResponse[$headersKey] = $this->$headersKey->getModel($context->setDataPath($headersKey), $globalResponse[$headersKey]);
         }
 
