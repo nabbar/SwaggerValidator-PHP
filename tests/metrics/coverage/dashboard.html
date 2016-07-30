@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /repos/SwaggerValidator/src/SwaggerValidator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/nv.d3.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="index.html">/repos/SwaggerValidator/src/SwaggerValidator</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Common/Collection.php.html#16">Collection</a></td><td class="text-right">34%</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#16">TypeNumber</a></td><td class="text-right">35%</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#16">TypeString</a></td><td class="text-right">36%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#16">CollectionSwagger</a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#10">TypeCommon</a></td><td class="text-right">43%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#16">TypeCombined</a></td><td class="text-right">46%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#16">TypeArrayItems</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#16">Factory</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#16">Context</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#16">CollectionReference</a></td><td class="text-right">51%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#16">CollectionType</a></td><td class="text-right">52%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#16">TypeObject</a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="Autoload.php.html#16">Autoload</a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#16">CollectionFile</a></td><td class="text-right">58%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#16">ReferenceFile</a></td><td class="text-right">59%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#16">Swagger</a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Object/Reference.php.html#16">Reference</a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#16">TypeFile</a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#16">TypeArray</a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#16">TypeBoolean</a></td><td class="text-right">65%</td></tr>
+       <tr><td><a href="Object/SecurityItem.php.html#16">SecurityItem</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Object/SecurityDefinitions.php.html#16">SecurityDefinitions</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Object/License.php.html#16">License</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Object/Info.php.html#16">Info</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Object/Contact.php.html#16">Contact</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#16">TypeInteger</a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#16">FactorySwagger</a></td><td class="text-right">69%</td></tr>
+       <tr><td><a href="Security/OAuth2PasswordSecurityScopes.php.html#16">OAuth2PasswordSecurityScopes</a></td><td class="text-right">69%</td></tr>
+       <tr><td><a href="Object/Responses.php.html#16">Responses</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Security/OAuth2ImplicitSecurity.php.html#16">OAuth2ImplicitSecurity</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Security/ApiKeySecurity.php.html#16">ApiKeySecurity</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#16">PathItem</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/Paths.php.html#16">Paths</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/Security.php.html#16">Security</a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#16">ReferenceItem</a></td><td class="text-right">78%</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#16">ResponseItem</a></td><td class="text-right">82%</td></tr>
+       <tr><td><a href="Object/Operation.php.html#16">Operation</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Object/ParameterBody.php.html#16">ParameterBody</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#16">Parameters</a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Common/Context.php.html#16">Context</a></td><td class="text-right">6131</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#10">TypeCommon</a></td><td class="text-right">826</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#16">TypeCombined</a></td><td class="text-right">635</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#16">CollectionSwagger</a></td><td class="text-right">482</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#16">TypeString</a></td><td class="text-right">461</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#16">TypeArrayItems</a></td><td class="text-right">411</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#16">Swagger</a></td><td class="text-right">358</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#16">TypeObject</a></td><td class="text-right">299</td></tr>
+       <tr><td><a href="Common/Collection.php.html#16">Collection</a></td><td class="text-right">280</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#16">CollectionReference</a></td><td class="text-right">248</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#16">ReferenceFile</a></td><td class="text-right">225</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#16">TypeNumber</a></td><td class="text-right">222</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#16">FactorySwagger</a></td><td class="text-right">215</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#16">CollectionFile</a></td><td class="text-right">112</td></tr>
+       <tr><td><a href="Common/Factory.php.html#16">Factory</a></td><td class="text-right">99</td></tr>
+       <tr><td><a href="Object/Paths.php.html#16">Paths</a></td><td class="text-right">71</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#16">CollectionType</a></td><td class="text-right">66</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#16">TypeInteger</a></td><td class="text-right">64</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#16">TypeArray</a></td><td class="text-right">57</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#16">PathItem</a></td><td class="text-right">46</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#16">ResponseItem</a></td><td class="text-right">33</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#16">Parameters</a></td><td class="text-right">32</td></tr>
+       <tr><td><a href="Object/Operation.php.html#16">Operation</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#16">TypeBoolean</a></td><td class="text-right">26</td></tr>
+       <tr><td><a href="Object/Responses.php.html#16">Responses</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#16">ReferenceItem</a></td><td class="text-right">23</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#16">TypeFile</a></td><td class="text-right">21</td></tr>
+       <tr><td><a href="Autoload.php.html#16">Autoload</a></td><td class="text-right">17</td></tr>
+       <tr><td><a href="Object/Reference.php.html#16">Reference</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Object/ParameterBody.php.html#16">ParameterBody</a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Object/SecurityDefinitions.php.html#16">SecurityDefinitions</a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Object/SecurityItem.php.html#16">SecurityItem</a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Object/License.php.html#16">License</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Object/Info.php.html#16">Info</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Object/Contact.php.html#16">Contact</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Security/OAuth2PasswordSecurityScopes.php.html#16">OAuth2PasswordSecurityScopes</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Security/OAuth2ImplicitSecurity.php.html#16">OAuth2ImplicitSecurity</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Security/ApiKeySecurity.php.html#16">ApiKeySecurity</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Object/Security.php.html#16">Security</a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Common/Context.php.html#1154"><abbr title="Context::logValidationError">logValidationError</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1167"><abbr title="Context::cleanParams">cleanParams</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#49"><abbr title="Factory::setInstance">setInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1143"><abbr title="Context::logDebug">logDebug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1055"><abbr title="Context::setValidationError">setValidationError</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#621"><abbr title="Context::isDataEmpty">isDataEmpty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#822"><abbr title="Context::loadResponseHeader">loadResponseHeader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#108"><abbr title="Factory::call">call</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#158"><abbr title="Factory::__set">__set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#213"><abbr title="Factory::registerType">registerType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#151"><abbr title="FactorySwagger::setInstance">setInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#188"><abbr title="Factory::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#178"><abbr title="Factory::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#168"><abbr title="Factory::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#173"><abbr title="Factory::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#597"><abbr title="Context::getDataCheck">getDataCheck</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#576"><abbr title="Context::getLastExternalRef">getLastExternalRef</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#454"><abbr title="Context::loadMethod">loadMethod</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#476"><abbr title="Context::getRoutePath">getRoutePath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#492"><abbr title="Context::setScheme">setScheme</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#428"><abbr title="Context::setMethod">setMethod</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#335"><abbr title="Context::__debugInfo">__debugInfo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#311"><abbr title="Context::__unset">__unset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#330"><abbr title="Context::__toString">__toString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#498"><abbr title="Context::getScheme">getScheme</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#503"><abbr title="Context::setHost">setHost</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#541"><abbr title="Context::getCombined">getCombined</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#571"><abbr title="Context::getExternalRef">getExternalRef</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#535"><abbr title="Context::setCombined">setCombined</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#530"><abbr title="Context::getContext">getContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#514"><abbr title="Context::loadUri">loadUri</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#524"><abbr title="Context::addContext">addContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#349"><abbr title="FactorySwagger::extractReference">extractReference</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#291"><abbr title="ReferenceFile::getUrlLink">getUrlLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#117"><abbr title="TypeObject::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Reference.php.html#28"><abbr title="Reference::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Reference.php.html#38"><abbr title="Reference::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#99"><abbr title="TypeNumber::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#64"><abbr title="TypeFile::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#54"><abbr title="TypeFile::format">format</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#59"><abbr title="TypeFile::type">type</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Reference.php.html#46"><abbr title="Reference::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#53"><abbr title="Swagger::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#283"><abbr title="Swagger::getApiVersionBuild">getApiVersionBuild</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#290"><abbr title="Swagger::getApiVersionPatch">getApiVersionPatch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#276"><abbr title="Swagger::getApiVersionMinor">getApiVersionMinor</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#269"><abbr title="Swagger::getApiVersionMajor">getApiVersionMajor</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#69"><abbr title="Swagger::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#264"><abbr title="Swagger::getApiVersion">getApiVersion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#231"><abbr title="TypeCommon::uniqueItems">uniqueItems</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#204"><abbr title="TypeCommon::maxLength">maxLength</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#160"><abbr title="TypeArrayItems::format">format</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#165"><abbr title="TypeArrayItems::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#47"><abbr title="TypeBoolean::format">format</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#155"><abbr title="TypeArrayItems::type">type</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#111"><abbr title="TypeArray::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#27"><abbr title="ReferenceItem::__get">__get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#106"><abbr title="TypeArray::format">format</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#71"><abbr title="TypeBoolean::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#110"><abbr title="TypeCombined::validateAnyOf">validateAnyOf</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#182"><abbr title="TypeCommon::maximum">maximum</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#195"><abbr title="TypeCommon::minLength">minLength</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#84"><abbr title="TypeCommon::allowEmptyValue">allowEmptyValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#53"><abbr title="TypeCommon::storeJsonObject">storeJsonObject</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#148"><abbr title="TypeCombined::validateOneOf">validateOneOf</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#27"><abbr title="TypeCommon::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Context.php.html#291"><abbr title="Context::__set">__set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#198"><abbr title="Factory::set">set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#32"><abbr title="CollectionSwagger::callException">callException</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#56"><abbr title="CollectionSwagger::buildException">buildException</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#259"><abbr title="CollectionReference::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#57"><abbr title="CollectionFile::setInstance">setInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#69"><abbr title="CollectionFile::__isset">__isset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#199"><abbr title="Collection::jsonEncodePretty">jsonEncodePretty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#193"><abbr title="Collection::jsonEncode">jsonEncode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#143"><abbr title="Collection::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#83"><abbr title="CollectionReference::__unset">__unset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#180"><abbr title="Collection::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#188"><abbr title="Collection::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#254"><abbr title="CollectionReference::getDefinitions">getDefinitions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#74"><abbr title="CollectionFile::__unset">__unset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#132"><abbr title="CollectionFile::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#136"><abbr title="CollectionReference::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#148"><abbr title="CollectionFile::set">set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#63"><abbr title="CollectionReference::setInstance">setInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#78"><abbr title="CollectionReference::__isset">__isset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#151"><abbr title="CollectionReference::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#161"><abbr title="CollectionReference::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#244"><abbr title="CollectionReference::cleanReferenceDefinitions">cleanReferenceDefinitions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#122"><abbr title="CollectionFile::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#127"><abbr title="CollectionFile::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#180"><abbr title="CollectionReference::set">set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#138"><abbr title="Collection::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#152"><abbr title="Collection::all">all</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#166"><abbr title="CollectionType::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#176"><abbr title="CollectionType::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#161"><abbr title="CollectionType::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#144"><abbr title="CollectionType::__set">__set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#104"><abbr title="CollectionType::setInstance">setInstance</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#84"><abbr title="Collection::offsetUnset">offsetUnset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#186"><abbr title="CollectionType::set">set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#203"><abbr title="CollectionType::normalizeKey">normalizeKey</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Autoload.php.html#92"><abbr title="Autoload::registerAutoloader">registerAutoloader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Autoload.php.html#40"><abbr title="Autoload::autoloadPhar">autoloadPhar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#64"><abbr title="Collection::__unset">__unset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#74"><abbr title="Collection::offsetSet">offsetSet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#79"><abbr title="Collection::offsetExists">offsetExists</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#187"><abbr title="CollectionSwagger::set">set</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#156"><abbr title="CollectionType::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#115"><abbr title="Collection::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#97"><abbr title="Collection::getIterator">getIterator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#182"><abbr title="CollectionSwagger::get">get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#89"><abbr title="Collection::offsetGet">offsetGet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#240"><abbr title="TypeCommon::collectionFormat">collectionFormat</abbr></a></td><td class="text-right">8%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#208"><abbr title="Swagger::checkConsume">checkConsume</abbr></a></td><td class="text-right">12%</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#67"><abbr title="TypeNumber::format">format</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#94"><abbr title="ReferenceFile::getFileTime">getFileTime</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#149"><abbr title="TypeString::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">21%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#192"><abbr title="CollectionFile::getRefFromId">getRefFromId</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#61"><abbr title="Swagger::unserialize">unserialize</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#73"><abbr title="TypeString::format">format</abbr></a></td><td class="text-right">30%</td></tr>
+       <tr><td><a href="Common/Context.php.html#944"><abbr title="Context::loadResponseBody">loadResponseBody</abbr></a></td><td class="text-right">30%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#156"><abbr title="TypeCommon::multipleOf">multipleOf</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#24"><abbr title="TypeArrayItems::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#136"><abbr title="TypeArrayItems::countItems">countItems</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#69"><abbr title="TypeCommon::pattern">pattern</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="Common/Context.php.html#834"><abbr title="Context::loadRequestBody">loadRequestBody</abbr></a></td><td class="text-right">36%</td></tr>
+       <tr><td><a href="Common/Context.php.html#648"><abbr title="Context::getResponseStatus">getResponseStatus</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#128"><abbr title="CollectionSwagger::registerRecursiveDefinitions">registerRecursiveDefinitions</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#55"><abbr title="TypeNumber::type">type</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#169"><abbr title="TypeCommon::minimum">minimum</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="Object/Responses.php.html#51"><abbr title="Responses::validate">validate</abbr></a></td><td class="text-right">42%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#68"><abbr title="TypeCombined::validate">validate</abbr></a></td><td class="text-right">42%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#86"><abbr title="TypeArrayItems::validate">validate</abbr></a></td><td class="text-right">43%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#365"><abbr title="FactorySwagger::SecurityDefinition">SecurityDefinition</abbr></a></td><td class="text-right">44%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#170"><abbr title="TypeArrayItems::getExampleType">getExampleType</abbr></a></td><td class="text-right">46%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#29"><abbr title="ReferenceFile::__construct">__construct</abbr></a></td><td class="text-right">47%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1100"><abbr title="Context::logLoadRef">logLoadRef</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#157"><abbr title="CollectionSwagger::registerRecursiveDefinitionsFromArray">registerRecursiveDefinitionsFromArray</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#208"><abbr title="CollectionReference::getRefFromId">getRefFromId</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#62"><abbr title="TypeString::type">type</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#84"><abbr title="CollectionSwagger::registerMandatoryKey">registerMandatoryKey</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1093"><abbr title="Context::logLoadFile">logLoadFile</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1107"><abbr title="Context::logReplaceRef">logReplaceRef</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1114"><abbr title="Context::logDecode">logDecode</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#236"><abbr title="Swagger::checkProduce">checkProduce</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#273"><abbr title="ReferenceFile::getFilePath">getFilePath</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1128"><abbr title="Context::logModel">logModel</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1121"><abbr title="Context::logValidate">logValidate</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#24"><abbr title="TypeInteger::validate">validate</abbr></a></td><td class="text-right">52%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#174"><abbr title="TypeCombined::getModel">getModel</abbr></a></td><td class="text-right">54%</td></tr>
+       <tr><td><a href="Common/Context.php.html#707"><abbr title="Context::getRequestFormDataKey">getRequestFormDataKey</abbr></a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="Common/Context.php.html#368"><abbr title="Context::setType">setType</abbr></a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="Common/Context.php.html#348"><abbr title="Context::setMode">setMode</abbr></a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#59"><abbr title="TypeInteger::type">type</abbr></a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="Object/Paths.php.html#117"><abbr title="Paths::getModel">getModel</abbr></a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#175"><abbr title="Swagger::checkHost">checkHost</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#122"><abbr title="CollectionType::__get">__get</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#31"><abbr title="TypeString::validate">validate</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#160"><abbr title="Swagger::checkSchemes">checkSchemes</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#24"><abbr title="TypeNumber::validate">validate</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#42"><abbr title="TypeArray::validate">validate</abbr></a></td><td class="text-right">58%</td></tr>
+       <tr><td><a href="Object/Responses.php.html#24"><abbr title="Responses::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">58%</td></tr>
+       <tr><td><a href="Common/Context.php.html#661"><abbr title="Context::dataLoad">dataLoad</abbr></a></td><td class="text-right">59%</td></tr>
+       <tr><td><a href="Common/Context.php.html#257"><abbr title="Context::getConfig">getConfig</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1222"><abbr title="Context::mock">mock</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#24"><abbr title="TypeBoolean::validate">validate</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1200"><abbr title="Context::addCheckedDataName">addCheckedDataName</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#301"><abbr title="FactorySwagger::buildPrimitive">buildPrimitive</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#95"><abbr title="CollectionSwagger::checkMandatoryKey">checkMandatoryKey</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#167"><abbr title="ReferenceFile::extractReferenceArray">extractReferenceArray</abbr></a></td><td class="text-right">61%</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#24"><abbr title="TypeFile::validate">validate</abbr></a></td><td class="text-right">61%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#153"><abbr title="ReferenceFile::extractAllReference">extractAllReference</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#251"><abbr title="ReferenceFile::getFileLink">getFileLink</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#36"><abbr title="ReferenceItem::extractAllReferences">extractAllReferences</abbr></a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#24"><abbr title="TypeCombined::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#36"><abbr title="TypeCommon::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#101"><abbr title="TypeObject::jsonUnSerializeProperties">jsonUnSerializeProperties</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Object/Contact.php.html#24"><abbr title="Contact::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#25"><abbr title="TypeArray::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Object/Info.php.html#24"><abbr title="Info::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Object/License.php.html#24"><abbr title="License::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Object/Paths.php.html#24"><abbr title="Paths::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Object/Operation.php.html#24"><abbr title="Operation::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Object/SecurityItem.php.html#24"><abbr title="SecurityItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#24"><abbr title="PathItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Object/SecurityDefinitions.php.html#24"><abbr title="SecurityDefinitions::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#163"><abbr title="TypeObject::validate">validate</abbr></a></td><td class="text-right">65%</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#50"><abbr title="ReferenceItem::extractReferenceArray">extractReferenceArray</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#123"><abbr title="ReferenceFile::getReference">getReference</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#185"><abbr title="CollectionReference::getIdFromRef">getIdFromRef</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#97"><abbr title="TypeArray::type">type</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Autoload.php.html#27"><abbr title="Autoload::autoload">autoload</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Security/OAuth2PasswordSecurityScopes.php.html#24"><abbr title="OAuth2PasswordSecurityScopes::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Security/ApiKeySecurity.php.html#26"><abbr title="ApiKeySecurity::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Factory.php.html#67"><abbr title="Factory::getClass">getClass</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#222"><abbr title="TypeCommon::maxItems">maxItems</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#213"><abbr title="TypeCommon::minItems">minItems</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#270"><abbr title="Context::formatVarName">formatVarName</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#194"><abbr title="FactorySwagger::returnBuildObject">returnBuildObject</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Security/OAuth2ImplicitSecurity.php.html#26"><abbr title="OAuth2ImplicitSecurity::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#174"><abbr title="CollectionFile::getIdFromRef">getIdFromRef</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1236"><abbr title="Context::getEnv">getEnv</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1046"><abbr title="Context::getResponseBodyRawData">getResponseBodyRawData</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#102"><abbr title="CollectionFile::__set">__set</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#582"><abbr title="Context::checkExternalRef">checkExternalRef</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#244"><abbr title="Context::setConfig">setConfig</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Common/Context.php.html#935"><abbr title="Context::getRequestBodyRawData">getRequestBodyRawData</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#42"><abbr title="TypeArrayItems::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">67%</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#24"><abbr title="ResponseItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#26"><abbr title="Swagger::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#192"><abbr title="Swagger::checkBasePath">checkBasePath</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#69"><abbr title="PathItem::getModel">getModel</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#78"><abbr title="TypeInteger::format">format</abbr></a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#24"><abbr title="Parameters::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#52"><abbr title="TypeBoolean::type">type</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#164"><abbr title="CollectionFile::getReferenceInnerPath">getReferenceInnerPath</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#151"><abbr title="Swagger::checkSwaggerVersion">checkSwaggerVersion</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#81"><abbr title="Parameters::checkExistsEmptyValidate">checkExistsEmptyValidate</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#312"><abbr title="FactorySwagger::getPrimitiveType">getPrimitiveType</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/ParameterBody.php.html#25"><abbr title="ParameterBody::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Object/Security.php.html#24"><abbr title="Security::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#112"><abbr title="CollectionSwagger::extractNonRecursiveReference">extractNonRecursiveReference</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#42"><abbr title="TypeObject::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#85"><abbr title="CollectionFile::__get">__get</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#129"><abbr title="TypeCombined::validateAllOf">validateAllOf</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="Common/Context.php.html#737"><abbr title="Context::loadRequestPath">loadRequestPath</abbr></a></td><td class="text-right">78%</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#153"><abbr title="CollectionFile::getReferenceFileLink">getReferenceFileLink</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#206"><abbr title="FactorySwagger::buildObjectFromOriginObject">buildObjectFromOriginObject</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#100"><abbr title="CollectionReference::__set">__set</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Common/Context.php.html#279"><abbr title="Context::__get">__get</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#144"><abbr title="TypeCommon::enum">enum</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#225"><abbr title="CollectionReference::registerDefinition">registerDefinition</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Object/Operation.php.html#72"><abbr title="Operation::validateResponse">validateResponse</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#234"><abbr title="TypeObject::getModel">getModel</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Common/Context.php.html#209"><abbr title="Context::__construct">__construct</abbr></a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#259"><abbr title="FactorySwagger::buildObjectFromOriginKey">buildObjectFromOriginKey</abbr></a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#58"><abbr title="ResponseItem::validate">validate</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Common/Context.php.html#1189"><abbr title="Context::getCheckedMethodFormLocation">getCheckedMethodFormLocation</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Object/Operation.php.html#84"><abbr title="Operation::getModel">getModel</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#164"><abbr title="FactorySwagger::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Common/Collection.php.html#39"><abbr title="Collection::__get">__get</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#83"><abbr title="Swagger::validate">validate</abbr></a></td><td class="text-right">88%</td></tr>
+       <tr><td><a href="Common/Context.php.html#388"><abbr title="Context::setLocation">setLocation</abbr></a></td><td class="text-right">88%</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#113"><abbr title="TypeInteger::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataType/TypeString.php.html#73"><abbr title="TypeString::format">format</abbr></a></td><td class="text-right">140</td></tr>
+       <tr><td><a href="Common/Context.php.html#1055"><abbr title="Context::setValidationError">setValidationError</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#117"><abbr title="TypeObject::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Common/Context.php.html#944"><abbr title="Context::loadResponseBody">loadResponseBody</abbr></a></td><td class="text-right">79</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#86"><abbr title="TypeArrayItems::validate">validate</abbr></a></td><td class="text-right">75</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#67"><abbr title="TypeNumber::format">format</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Common/Context.php.html#428"><abbr title="Context::setMethod">setMethod</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#148"><abbr title="TypeCombined::validateOneOf">validateOneOf</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#240"><abbr title="TypeCommon::collectionFormat">collectionFormat</abbr></a></td><td class="text-right">71</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#149"><abbr title="TypeString::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">69</td></tr>
+       <tr><td><a href="Common/Context.php.html#834"><abbr title="Context::loadRequestBody">loadRequestBody</abbr></a></td><td class="text-right">65</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#174"><abbr title="TypeCombined::getModel">getModel</abbr></a></td><td class="text-right">62</td></tr>
+       <tr><td><a href="Common/Context.php.html#661"><abbr title="Context::dataLoad">dataLoad</abbr></a></td><td class="text-right">50</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#56"><abbr title="CollectionSwagger::buildException">buildException</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#32"><abbr title="CollectionSwagger::callException">callException</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Object/Paths.php.html#117"><abbr title="Paths::getModel">getModel</abbr></a></td><td class="text-right">41</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#208"><abbr title="Swagger::checkConsume">checkConsume</abbr></a></td><td class="text-right">39</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#68"><abbr title="TypeCombined::validate">validate</abbr></a></td><td class="text-right">38</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#163"><abbr title="TypeObject::validate">validate</abbr></a></td><td class="text-right">35</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#365"><abbr title="FactorySwagger::SecurityDefinition">SecurityDefinition</abbr></a></td><td class="text-right">31</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#99"><abbr title="TypeNumber::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#110"><abbr title="TypeCombined::validateAnyOf">validateAnyOf</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#29"><abbr title="ReferenceFile::__construct">__construct</abbr></a></td><td class="text-right">28</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#42"><abbr title="TypeArray::validate">validate</abbr></a></td><td class="text-right">27</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#42"><abbr title="TypeArrayItems::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">22</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#69"><abbr title="PathItem::getModel">getModel</abbr></a></td><td class="text-right">21</td></tr>
+       <tr><td><a href="Common/Context.php.html#291"><abbr title="Context::__set">__set</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Common/Context.php.html#335"><abbr title="Context::__debugInfo">__debugInfo</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Common/Context.php.html#311"><abbr title="Context::__unset">__unset</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Common/Factory.php.html#108"><abbr title="Factory::call">call</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#349"><abbr title="FactorySwagger::extractReference">extractReference</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Common/Collection.php.html#115"><abbr title="Collection::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#182"><abbr title="TypeCommon::maximum">maximum</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#78"><abbr title="TypeInteger::format">format</abbr></a></td><td class="text-right">19</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#42"><abbr title="TypeObject::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">16</td></tr>
+       <tr><td><a href="Object/Operation.php.html#84"><abbr title="Operation::getModel">getModel</abbr></a></td><td class="text-right">15</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#24"><abbr title="TypeCombined::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#24"><abbr title="TypeInteger::validate">validate</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#94"><abbr title="ReferenceFile::getFileTime">getFileTime</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#259"><abbr title="FactorySwagger::buildObjectFromOriginKey">buildObjectFromOriginKey</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#236"><abbr title="Swagger::checkProduce">checkProduce</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#157"><abbr title="CollectionSwagger::registerRecursiveDefinitionsFromArray">registerRecursiveDefinitionsFromArray</abbr></a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#136"><abbr title="TypeArrayItems::countItems">countItems</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#164"><abbr title="FactorySwagger::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#83"><abbr title="Swagger::validate">validate</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#231"><abbr title="TypeCommon::uniqueItems">uniqueItems</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Common/Factory.php.html#158"><abbr title="Factory::__set">__set</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#244"><abbr title="CollectionReference::cleanReferenceDefinitions">cleanReferenceDefinitions</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#144"><abbr title="CollectionType::__set">__set</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#84"><abbr title="TypeCommon::allowEmptyValue">allowEmptyValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Autoload.php.html#40"><abbr title="Autoload::autoloadPhar">autoloadPhar</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#206"><abbr title="FactorySwagger::buildObjectFromOriginObject">buildObjectFromOriginObject</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="DataType/TypeFile.php.html#24"><abbr title="TypeFile::validate">validate</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#170"><abbr title="TypeArrayItems::getExampleType">getExampleType</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#312"><abbr title="FactorySwagger::getPrimitiveType">getPrimitiveType</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="Common/Context.php.html#388"><abbr title="Context::setLocation">setLocation</abbr></a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#24"><abbr title="TypeNumber::validate">validate</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#31"><abbr title="TypeString::validate">validate</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#192"><abbr title="CollectionFile::getRefFromId">getRefFromId</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#24"><abbr title="Parameters::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#128"><abbr title="CollectionSwagger::registerRecursiveDefinitions">registerRecursiveDefinitions</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#123"><abbr title="ReferenceFile::getReference">getReference</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#24"><abbr title="ResponseItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#100"><abbr title="CollectionReference::__set">__set</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Common/Context.php.html#209"><abbr title="Context::__construct">__construct</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Object/ResponseItem.php.html#58"><abbr title="ResponseItem::validate">validate</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#156"><abbr title="TypeCommon::multipleOf">multipleOf</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="DataType/TypeArrayItems.php.html#24"><abbr title="TypeArrayItems::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Common/Context.php.html#737"><abbr title="Context::loadRequestPath">loadRequestPath</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Object/Responses.php.html#24"><abbr title="Responses::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#52"><abbr title="TypeBoolean::type">type</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#169"><abbr title="TypeCommon::minimum">minimum</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#102"><abbr title="CollectionFile::__set">__set</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#26"><abbr title="Swagger::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#160"><abbr title="Swagger::checkSchemes">checkSchemes</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#175"><abbr title="Swagger::checkHost">checkHost</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/Context.php.html#1200"><abbr title="Context::addCheckedDataName">addCheckedDataName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataType/TypeBoolean.php.html#24"><abbr title="TypeBoolean::validate">validate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#167"><abbr title="ReferenceFile::extractReferenceArray">extractReferenceArray</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#251"><abbr title="ReferenceFile::getFileLink">getFileLink</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/Paths.php.html#24"><abbr title="Paths::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/SecurityDefinitions.php.html#24"><abbr title="SecurityDefinitions::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/Operation.php.html#24"><abbr title="Operation::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/SecurityItem.php.html#24"><abbr title="SecurityItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/PathItem.php.html#24"><abbr title="PathItem::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#204"><abbr title="TypeCommon::maxLength">maxLength</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#208"><abbr title="CollectionReference::getRefFromId">getRefFromId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#195"><abbr title="TypeCommon::minLength">minLength</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#291"><abbr title="ReferenceFile::getUrlLink">getUrlLink</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/Context.php.html#822"><abbr title="Context::loadResponseHeader">loadResponseHeader</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#69"><abbr title="Swagger::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/Collection.php.html#64"><abbr title="Collection::__unset">__unset</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#259"><abbr title="CollectionReference::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#136"><abbr title="CollectionReference::jsonSerialize">jsonSerialize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#27"><abbr title="ReferenceItem::__get">__get</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#50"><abbr title="ReferenceItem::extractReferenceArray">extractReferenceArray</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#185"><abbr title="CollectionReference::getIdFromRef">getIdFromRef</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#69"><abbr title="TypeCommon::pattern">pattern</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#59"><abbr title="TypeInteger::type">type</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Object/ParameterBody.php.html#25"><abbr title="ParameterBody::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="DataType/TypeCombined.php.html#129"><abbr title="TypeCombined::validateAllOf">validateAllOf</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Common/CollectionType.php.html#122"><abbr title="CollectionType::__get">__get</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Common/Collection.php.html#39"><abbr title="Collection::__get">__get</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Common/Context.php.html#257"><abbr title="Context::getConfig">getConfig</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Common/Context.php.html#648"><abbr title="Context::getResponseStatus">getResponseStatus</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="DataType/TypeNumber.php.html#55"><abbr title="TypeNumber::type">type</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/Contact.php.html#24"><abbr title="Contact::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#101"><abbr title="TypeObject::jsonUnSerializeProperties">jsonUnSerializeProperties</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/Info.php.html#24"><abbr title="Info::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#25"><abbr title="TypeArray::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#36"><abbr title="TypeCommon::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/License.php.html#24"><abbr title="License::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/Responses.php.html#51"><abbr title="Responses::validate">validate</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/Context.php.html#244"><abbr title="Context::setConfig">setConfig</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Security/OAuth2PasswordSecurityScopes.php.html#24"><abbr title="OAuth2PasswordSecurityScopes::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Security/OAuth2ImplicitSecurity.php.html#26"><abbr title="OAuth2ImplicitSecurity::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Security/ApiKeySecurity.php.html#26"><abbr title="ApiKeySecurity::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#174"><abbr title="CollectionFile::getIdFromRef">getIdFromRef</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/Parameters.php.html#81"><abbr title="Parameters::checkExistsEmptyValidate">checkExistsEmptyValidate</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#112"><abbr title="CollectionSwagger::extractNonRecursiveReference">extractNonRecursiveReference</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Object/Security.php.html#24"><abbr title="Security::jsonUnSerialize">jsonUnSerialize</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#273"><abbr title="ReferenceFile::getFilePath">getFilePath</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/Context.php.html#279"><abbr title="Context::__get">__get</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="DataType/TypeObject.php.html#234"><abbr title="TypeObject::getModel">getModel</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/CollectionReference.php.html#225"><abbr title="CollectionReference::registerDefinition">registerDefinition</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Common/Context.php.html#707"><abbr title="Context::getRequestFormDataKey">getRequestFormDataKey</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/Context.php.html#368"><abbr title="Context::setType">setType</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/Context.php.html#348"><abbr title="Context::setMode">setMode</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#95"><abbr title="CollectionSwagger::checkMandatoryKey">checkMandatoryKey</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/Context.php.html#1222"><abbr title="Context::mock">mock</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/ReferenceItem.php.html#36"><abbr title="ReferenceItem::extractAllReferences">extractAllReferences</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/ReferenceFile.php.html#153"><abbr title="ReferenceFile::extractAllReference">extractAllReference</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#192"><abbr title="Swagger::checkBasePath">checkBasePath</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#85"><abbr title="CollectionFile::__get">__get</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#144"><abbr title="TypeCommon::enum">enum</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/Context.php.html#1189"><abbr title="Context::getCheckedMethodFormLocation">getCheckedMethodFormLocation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="DataType/TypeInteger.php.html#113"><abbr title="TypeInteger::getExampleFormat">getExampleFormat</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Common/Context.php.html#1121"><abbr title="Context::logValidate">logValidate</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1114"><abbr title="Context::logDecode">logDecode</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="DataType/TypeString.php.html#62"><abbr title="TypeString::type">type</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1093"><abbr title="Context::logLoadFile">logLoadFile</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/CollectionSwagger.php.html#84"><abbr title="CollectionSwagger::registerMandatoryKey">registerMandatoryKey</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1100"><abbr title="Context::logLoadRef">logLoadRef</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1107"><abbr title="Context::logReplaceRef">logReplaceRef</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1128"><abbr title="Context::logModel">logModel</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#301"><abbr title="FactorySwagger::buildPrimitive">buildPrimitive</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#582"><abbr title="Context::checkExternalRef">checkExternalRef</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#935"><abbr title="Context::getRequestBodyRawData">getRequestBodyRawData</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#213"><abbr title="TypeCommon::minItems">minItems</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1236"><abbr title="Context::getEnv">getEnv</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#270"><abbr title="Context::formatVarName">formatVarName</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="DataType/TypeCommon.php.html#222"><abbr title="TypeCommon::maxItems">maxItems</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Context.php.html#1046"><abbr title="Context::getResponseBodyRawData">getResponseBodyRawData</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/Factory.php.html#67"><abbr title="Factory::getClass">getClass</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/FactorySwagger.php.html#194"><abbr title="FactorySwagger::returnBuildObject">returnBuildObject</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Autoload.php.html#27"><abbr title="Autoload::autoload">autoload</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="DataType/TypeArray.php.html#97"><abbr title="TypeArray::type">type</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#164"><abbr title="CollectionFile::getReferenceInnerPath">getReferenceInnerPath</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Object/Swagger.php.html#151"><abbr title="Swagger::checkSwaggerVersion">checkSwaggerVersion</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Common/CollectionFile.php.html#153"><abbr title="CollectionFile::getReferenceFileLink">getReferenceFileLink</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Object/Operation.php.html#72"><abbr title="Operation::validateResponse">validateResponse</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.2.4</a> using <a href="https://secure.php.net/" target="_top">PHP 5.4.45-0+deb7u4</a> and <a href="https://phpunit.de/">PHPUnit 4.8.27</a> at Fri Jul 29 22:48:54 UTC 2016.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="js/jquery.min.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="js/holder.min.js" type="text/javascript"></script>
+  <script src="js/d3.min.js" type="text/javascript"></script>
+  <script src="js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([0,0,0,0,3,4,8,13,7,4,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([113,1,3,3,7,10,27,47,16,18,7,123], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[57.142857142857,10,"<a href=\"Autoload.php.html#16\">Autoload<\/a>"],[34.69387755102,30,"<a href=\"Common\/Collection.php.html#16\">Collection<\/a>"],[58.208955223881,33,"<a href=\"Common\/CollectionFile.php.html#16\">CollectionFile<\/a>"],[51.923076923077,43,"<a href=\"Common\/CollectionReference.php.html#16\">CollectionReference<\/a>"],[40,45,"<a href=\"Common\/CollectionSwagger.php.html#16\">CollectionSwagger<\/a>"],[52.941176470588,21,"<a href=\"Common\/CollectionType.php.html#16\">CollectionType<\/a>"],[50.987432675045,224,"<a href=\"Common\/Context.php.html#16\">Context<\/a>"],[50.877192982456,25,"<a href=\"Common\/Factory.php.html#16\">Factory<\/a>"],[69.032258064516,70,"<a href=\"Common\/FactorySwagger.php.html#16\">FactorySwagger<\/a>"],[59.333333333333,51,"<a href=\"Common\/ReferenceFile.php.html#16\">ReferenceFile<\/a>"],[78.947368421053,20,"<a href=\"Common\/ReferenceItem.php.html#16\">ReferenceItem<\/a>"],[64.150943396226,26,"<a href=\"DataType\/TypeArray.php.html#16\">TypeArray<\/a>"],[48.979591836735,52,"<a href=\"DataType\/TypeArrayItems.php.html#16\">TypeArrayItems<\/a>"],[65.51724137931,16,"<a href=\"DataType\/TypeBoolean.php.html#16\">TypeBoolean<\/a>"],[46.969696969697,62,"<a href=\"DataType\/TypeCombined.php.html#16\">TypeCombined<\/a>"],[43.518518518519,65,"<a href=\"DataType\/TypeCommon.php.html#10\">TypeCommon<\/a>"],[63.636363636364,13,"<a href=\"DataType\/TypeFile.php.html#16\">TypeFile<\/a>"],[68.421052631579,32,"<a href=\"DataType\/TypeInteger.php.html#16\">TypeInteger<\/a>"],[35.555555555556,27,"<a href=\"DataType\/TypeNumber.php.html#16\">TypeNumber<\/a>"],[55.555555555556,53,"<a href=\"DataType\/TypeObject.php.html#16\">TypeObject<\/a>"],[36.986301369863,41,"<a href=\"DataType\/TypeString.php.html#16\">TypeString<\/a>"],[66.666666666667,5,"<a href=\"Object\/Contact.php.html#16\">Contact<\/a>"],[66.666666666667,5,"<a href=\"Object\/Info.php.html#16\">Info<\/a>"],[66.666666666667,5,"<a href=\"Object\/License.php.html#16\">License<\/a>"],[84.615384615385,28,"<a href=\"Object\/Operation.php.html#16\">Operation<\/a>"],[85.185185185185,10,"<a href=\"Object\/ParameterBody.php.html#16\">ParameterBody<\/a>"],[88.405797101449,31,"<a href=\"Object\/Parameters.php.html#16\">Parameters<\/a>"],[75,31,"<a href=\"Object\/PathItem.php.html#16\">PathItem<\/a>"],[75,43,"<a href=\"Object\/Paths.php.html#16\">Paths<\/a>"],[62.962962962963,9,"<a href=\"Object\/Reference.php.html#16\">Reference<\/a>"],[82.258064516129,29,"<a href=\"Object\/ResponseItem.php.html#16\">ResponseItem<\/a>"],[70,17,"<a href=\"Object\/Responses.php.html#16\">Responses<\/a>"],[76.923076923077,5,"<a href=\"Object\/Security.php.html#16\">Security<\/a>"],[66.666666666667,6,"<a href=\"Object\/SecurityDefinitions.php.html#16\">SecurityDefinitions<\/a>"],[66.666666666667,6,"<a href=\"Object\/SecurityItem.php.html#16\">SecurityItem<\/a>"],[60.240963855422,68,"<a href=\"Object\/Swagger.php.html#16\">Swagger<\/a>"],[75,5,"<a href=\"Security\/ApiKeySecurity.php.html#16\">ApiKeySecurity<\/a>"],[75,5,"<a href=\"Security\/OAuth2ImplicitSecurity.php.html#16\">OAuth2ImplicitSecurity<\/a>"],[69.230769230769,5,"<a href=\"Security\/OAuth2PasswordSecurityScopes.php.html#16\">OAuth2PasswordSecurityScopes<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[66.666666666667,2,"<a href=\"Autoload.php.html#27\">Autoload::autoload<\/a>"],[0,3,"<a href=\"Autoload.php.html#40\">Autoload::autoloadPhar<\/a>"],[100,4,"<a href=\"Autoload.php.html#63\">Autoload::autoloadSource<\/a>"],[0,1,"<a href=\"Autoload.php.html#92\">Autoload::registerAutoloader<\/a>"],[100,1,"<a href=\"Common\/Collection.php.html#34\">Collection::__isset<\/a>"],[87.5,5,"<a href=\"Common\/Collection.php.html#39\">Collection::__get<\/a>"],[100,2,"<a href=\"Common\/Collection.php.html#57\">Collection::__set<\/a>"],[0,2,"<a href=\"Common\/Collection.php.html#64\">Collection::__unset<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#74\">Collection::offsetSet<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#79\">Collection::offsetExists<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#84\">Collection::offsetUnset<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#89\">Collection::offsetGet<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#97\">Collection::getIterator<\/a>"],[100,1,"<a href=\"Common\/Collection.php.html#105\">Collection::count<\/a>"],[100,1,"<a href=\"Common\/Collection.php.html#110\">Collection::setJSONIsArray<\/a>"],[0,4,"<a href=\"Common\/Collection.php.html#115\">Collection::jsonSerialize<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#138\">Collection::serialize<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#143\">Collection::unserialize<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#152\">Collection::all<\/a>"],[100,1,"<a href=\"Common\/Collection.php.html#161\">Collection::keys<\/a>"],[100,1,"<a href=\"Common\/Collection.php.html#171\">Collection::has<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#180\">Collection::remove<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#188\">Collection::clear<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#193\">Collection::jsonEncode<\/a>"],[0,1,"<a href=\"Common\/Collection.php.html#199\">Collection::jsonEncodePretty<\/a>"],[100,1,"<a href=\"Common\/CollectionFile.php.html#36\">CollectionFile::__construct<\/a>"],[100,2,"<a href=\"Common\/CollectionFile.php.html#45\">CollectionFile::getInstance<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#57\">CollectionFile::setInstance<\/a>"],[100,1,"<a href=\"Common\/CollectionFile.php.html#63\">CollectionFile::prune<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#69\">CollectionFile::__isset<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#74\">CollectionFile::__unset<\/a>"],[77.777777777778,3,"<a href=\"Common\/CollectionFile.php.html#85\">CollectionFile::__get<\/a>"],[66.666666666667,6,"<a href=\"Common\/CollectionFile.php.html#102\">CollectionFile::__set<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#122\">CollectionFile::jsonSerialize<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#127\">CollectionFile::serialize<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#132\">CollectionFile::unserialize<\/a>"],[100,1,"<a href=\"Common\/CollectionFile.php.html#143\">CollectionFile::get<\/a>"],[0,1,"<a href=\"Common\/CollectionFile.php.html#148\">CollectionFile::set<\/a>"],[80,2,"<a href=\"Common\/CollectionFile.php.html#153\">CollectionFile::getReferenceFileLink<\/a>"],[75,2,"<a href=\"Common\/CollectionFile.php.html#164\">CollectionFile::getReferenceInnerPath<\/a>"],[66.666666666667,4,"<a href=\"Common\/CollectionFile.php.html#174\">CollectionFile::getIdFromRef<\/a>"],[25,4,"<a href=\"Common\/CollectionFile.php.html#192\">CollectionFile::getRefFromId<\/a>"],[100,1,"<a href=\"Common\/CollectionReference.php.html#42\">CollectionReference::__construct<\/a>"],[100,2,"<a href=\"Common\/CollectionReference.php.html#51\">CollectionReference::getInstance<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#63\">CollectionReference::setInstance<\/a>"],[100,1,"<a href=\"Common\/CollectionReference.php.html#72\">CollectionReference::prune<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#78\">CollectionReference::__isset<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#83\">CollectionReference::__unset<\/a>"],[100,2,"<a href=\"Common\/CollectionReference.php.html#88\">CollectionReference::__get<\/a>"],[80.952380952381,9,"<a href=\"Common\/CollectionReference.php.html#100\">CollectionReference::__set<\/a>"],[0,2,"<a href=\"Common\/CollectionReference.php.html#136\">CollectionReference::jsonSerialize<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#151\">CollectionReference::serialize<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#161\">CollectionReference::unserialize<\/a>"],[100,1,"<a href=\"Common\/CollectionReference.php.html#175\">CollectionReference::get<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#180\">CollectionReference::set<\/a>"],[66.666666666667,5,"<a href=\"Common\/CollectionReference.php.html#185\">CollectionReference::getIdFromRef<\/a>"],[50,4,"<a href=\"Common\/CollectionReference.php.html#208\">CollectionReference::getRefFromId<\/a>"],[83.333333333333,4,"<a href=\"Common\/CollectionReference.php.html#225\">CollectionReference::registerDefinition<\/a>"],[0,3,"<a href=\"Common\/CollectionReference.php.html#244\">CollectionReference::cleanReferenceDefinitions<\/a>"],[0,1,"<a href=\"Common\/CollectionReference.php.html#254\">CollectionReference::getDefinitions<\/a>"],[0,2,"<a href=\"Common\/CollectionReference.php.html#259\">CollectionReference::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Common\/CollectionSwagger.php.html#25\">CollectionSwagger::__construct<\/a>"],[100,1,"<a href=\"Common\/CollectionSwagger.php.html#30\">CollectionSwagger::jsonUnSerialize<\/a>"],[0,6,"<a href=\"Common\/CollectionSwagger.php.html#32\">CollectionSwagger::callException<\/a>"],[0,6,"<a href=\"Common\/CollectionSwagger.php.html#56\">CollectionSwagger::buildException<\/a>"],[50,2,"<a href=\"Common\/CollectionSwagger.php.html#84\">CollectionSwagger::registerMandatoryKey<\/a>"],[60,3,"<a href=\"Common\/CollectionSwagger.php.html#95\">CollectionSwagger::checkMandatoryKey<\/a>"],[100,1,"<a href=\"Common\/CollectionSwagger.php.html#106\">CollectionSwagger::getCleanClass<\/a>"],[75,4,"<a href=\"Common\/CollectionSwagger.php.html#112\">CollectionSwagger::extractNonRecursiveReference<\/a>"],[40,5,"<a href=\"Common\/CollectionSwagger.php.html#128\">CollectionSwagger::registerRecursiveDefinitions<\/a>"],[91.666666666667,7,"<a href=\"Common\/CollectionSwagger.php.html#138\">CollectionSwagger::registerRecursiveDefinitionsFromObject<\/a>"],[50,7,"<a href=\"Common\/CollectionSwagger.php.html#157\">CollectionSwagger::registerRecursiveDefinitionsFromArray<\/a>"],[0,1,"<a href=\"Common\/CollectionSwagger.php.html#182\">CollectionSwagger::get<\/a>"],[0,1,"<a href=\"Common\/CollectionSwagger.php.html#187\">CollectionSwagger::set<\/a>"],[100,1,"<a href=\"Common\/CollectionType.php.html#83\">CollectionType::__construct<\/a>"],[100,2,"<a href=\"Common\/CollectionType.php.html#92\">CollectionType::getInstance<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#104\">CollectionType::setInstance<\/a>"],[100,1,"<a href=\"Common\/CollectionType.php.html#112\">CollectionType::pruneInstance<\/a>"],[57.142857142857,4,"<a href=\"Common\/CollectionType.php.html#122\">CollectionType::__get<\/a>"],[0,3,"<a href=\"Common\/CollectionType.php.html#144\">CollectionType::__set<\/a>"],[100,1,"<a href=\"Common\/CollectionType.php.html#151\">CollectionType::__isset<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#156\">CollectionType::jsonSerialize<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#161\">CollectionType::serialize<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#166\">CollectionType::unserialize<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#176\">CollectionType::get<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#186\">CollectionType::set<\/a>"],[100,2,"<a href=\"Common\/CollectionType.php.html#191\">CollectionType::normalizeType<\/a>"],[0,1,"<a href=\"Common\/CollectionType.php.html#203\">CollectionType::normalizeKey<\/a>"],[84,9,"<a href=\"Common\/Context.php.html#209\">Context::__construct<\/a>"],[66.666666666667,4,"<a href=\"Common\/Context.php.html#244\">Context::setConfig<\/a>"],[60,4,"<a href=\"Common\/Context.php.html#257\">Context::getConfig<\/a>"],[66.666666666667,2,"<a href=\"Common\/Context.php.html#270\">Context::formatVarName<\/a>"],[83.333333333333,4,"<a href=\"Common\/Context.php.html#279\">Context::__get<\/a>"],[0,4,"<a href=\"Common\/Context.php.html#291\">Context::__set<\/a>"],[100,2,"<a href=\"Common\/Context.php.html#305\">Context::__isset<\/a>"],[0,4,"<a href=\"Common\/Context.php.html#311\">Context::__unset<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#330\">Context::__toString<\/a>"],[0,4,"<a href=\"Common\/Context.php.html#335\">Context::__debugInfo<\/a>"],[55.555555555556,3,"<a href=\"Common\/Context.php.html#348\">Context::setMode<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#363\">Context::getMode<\/a>"],[55.555555555556,3,"<a href=\"Common\/Context.php.html#368\">Context::setType<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#383\">Context::getType<\/a>"],[88.461538461538,11,"<a href=\"Common\/Context.php.html#388\">Context::setLocation<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#423\">Context::getLocation<\/a>"],[0,8,"<a href=\"Common\/Context.php.html#428\">Context::setMethod<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#449\">Context::getMethod<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#454\">Context::loadMethod<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#459\">Context::setBasePath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#465\">Context::getBasePath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#470\">Context::setRoutePath<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#476\">Context::getRoutePath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#481\">Context::setRequestPath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#487\">Context::getRequestPath<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#492\">Context::setScheme<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#498\">Context::getScheme<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#503\">Context::setHost<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#509\">Context::getHost<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#514\">Context::loadUri<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#524\">Context::addContext<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#530\">Context::getContext<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#535\">Context::setCombined<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#541\">Context::getCombined<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#546\">Context::setDataPath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#555\">Context::getDataPath<\/a>"],[100,2,"<a href=\"Common\/Context.php.html#560\">Context::setExternalRef<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#571\">Context::getExternalRef<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#576\">Context::getLastExternalRef<\/a>"],[66.666666666667,2,"<a href=\"Common\/Context.php.html#582\">Context::checkExternalRef<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#591\">Context::setDataCheck<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#597\">Context::getDataCheck<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#602\">Context::setDataValue<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#611\">Context::getDataValue<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#616\">Context::isDataExists<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#621\">Context::isDataEmpty<\/a>"],[100,6,"<a href=\"Common\/Context.php.html#626\">Context::checkDataIsEmpty<\/a>"],[40,3,"<a href=\"Common\/Context.php.html#648\">Context::getResponseStatus<\/a>"],[59.375,21,"<a href=\"Common\/Context.php.html#661\">Context::dataLoad<\/a>"],[55.555555555556,3,"<a href=\"Common\/Context.php.html#707\">Context::getRequestFormDataKey<\/a>"],[100,3,"<a href=\"Common\/Context.php.html#723\">Context::loadRequestFormData<\/a>"],[78.260869565217,8,"<a href=\"Common\/Context.php.html#737\">Context::loadRequestPath<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#785\">Context::getRequestQueryKey<\/a>"],[100,2,"<a href=\"Common\/Context.php.html#795\">Context::loadRequestQuery<\/a>"],[100,2,"<a href=\"Common\/Context.php.html#810\">Context::loadRequestHeader<\/a>"],[0,2,"<a href=\"Common\/Context.php.html#822\">Context::loadResponseHeader<\/a>"],[36.111111111111,14,"<a href=\"Common\/Context.php.html#834\">Context::loadRequestBody<\/a>"],[66.666666666667,2,"<a href=\"Common\/Context.php.html#935\">Context::getRequestBodyRawData<\/a>"],[30.555555555556,14,"<a href=\"Common\/Context.php.html#944\">Context::loadResponseBody<\/a>"],[66.666666666667,2,"<a href=\"Common\/Context.php.html#1046\">Context::getResponseBodyRawData<\/a>"],[0,11,"<a href=\"Common\/Context.php.html#1055\">Context::setValidationError<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1093\">Context::logLoadFile<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1100\">Context::logLoadRef<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1107\">Context::logReplaceRef<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1114\">Context::logDecode<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1121\">Context::logValidate<\/a>"],[50,2,"<a href=\"Common\/Context.php.html#1128\">Context::logModel<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#1143\">Context::logDebug<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#1154\">Context::logValidationError<\/a>"],[0,1,"<a href=\"Common\/Context.php.html#1167\">Context::cleanParams<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#1175\">Context::cleanCheckedDataName<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#1184\">Context::getCheckedDataName<\/a>"],[85.714285714286,3,"<a href=\"Common\/Context.php.html#1189\">Context::getCheckedMethodFormLocation<\/a>"],[60,5,"<a href=\"Common\/Context.php.html#1200\">Context::addCheckedDataName<\/a>"],[60,3,"<a href=\"Common\/Context.php.html#1222\">Context::mock<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#1231\">Context::checkIsEmpty<\/a>"],[66.666666666667,2,"<a href=\"Common\/Context.php.html#1236\">Context::getEnv<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#1245\">Context::getRequestHeader<\/a>"],[100,1,"<a href=\"Common\/Context.php.html#1250\">Context::getResponseHeader<\/a>"],[100,1,"<a href=\"Common\/Factory.php.html#28\">Factory::__construct<\/a>"],[100,2,"<a href=\"Common\/Factory.php.html#37\">Factory::getInstance<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#49\">Factory::setInstance<\/a>"],[100,1,"<a href=\"Common\/Factory.php.html#57\">Factory::pruneInstance<\/a>"],[66.666666666667,2,"<a href=\"Common\/Factory.php.html#67\">Factory::getClass<\/a>"],[100,2,"<a href=\"Common\/Factory.php.html#84\">Factory::__get<\/a>"],[0,4,"<a href=\"Common\/Factory.php.html#108\">Factory::call<\/a>"],[100,2,"<a href=\"Common\/Factory.php.html#135\">Factory::invoke<\/a>"],[0,3,"<a href=\"Common\/Factory.php.html#158\">Factory::__set<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#168\">Factory::jsonSerialize<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#173\">Factory::serialize<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#178\">Factory::unserialize<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#188\">Factory::get<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#198\">Factory::set<\/a>"],[100,1,"<a href=\"Common\/Factory.php.html#203\">Factory::normalizeType<\/a>"],[0,1,"<a href=\"Common\/Factory.php.html#213\">Factory::registerType<\/a>"],[100,1,"<a href=\"Common\/FactorySwagger.php.html#130\">FactorySwagger::__construct<\/a>"],[100,2,"<a href=\"Common\/FactorySwagger.php.html#139\">FactorySwagger::getInstance<\/a>"],[0,1,"<a href=\"Common\/FactorySwagger.php.html#151\">FactorySwagger::setInstance<\/a>"],[100,1,"<a href=\"Common\/FactorySwagger.php.html#159\">FactorySwagger::pruneInstance<\/a>"],[86.666666666667,12,"<a href=\"Common\/FactorySwagger.php.html#164\">FactorySwagger::jsonUnSerialize<\/a>"],[66.666666666667,2,"<a href=\"Common\/FactorySwagger.php.html#194\">FactorySwagger::returnBuildObject<\/a>"],[80,11,"<a href=\"Common\/FactorySwagger.php.html#206\">FactorySwagger::buildObjectFromOriginObject<\/a>"],[84.615384615385,13,"<a href=\"Common\/FactorySwagger.php.html#259\">FactorySwagger::buildObjectFromOriginKey<\/a>"],[60,2,"<a href=\"Common\/FactorySwagger.php.html#301\">FactorySwagger::buildPrimitive<\/a>"],[75,10,"<a href=\"Common\/FactorySwagger.php.html#312\">FactorySwagger::getPrimitiveType<\/a>"],[0,4,"<a href=\"Common\/FactorySwagger.php.html#349\">FactorySwagger::extractReference<\/a>"],[44.444444444444,11,"<a href=\"Common\/FactorySwagger.php.html#365\">FactorySwagger::SecurityDefinition<\/a>"],[47.222222222222,11,"<a href=\"Common\/ReferenceFile.php.html#29\">ReferenceFile::__construct<\/a>"],[100,2,"<a href=\"Common\/ReferenceFile.php.html#85\">ReferenceFile::__get<\/a>"],[14.285714285714,4,"<a href=\"Common\/ReferenceFile.php.html#94\">ReferenceFile::getFileTime<\/a>"],[66.666666666667,8,"<a href=\"Common\/ReferenceFile.php.html#123\">ReferenceFile::getReference<\/a>"],[62.5,3,"<a href=\"Common\/ReferenceFile.php.html#153\">ReferenceFile::extractAllReference<\/a>"],[61.111111111111,5,"<a href=\"Common\/ReferenceFile.php.html#167\">ReferenceFile::extractReferenceArray<\/a>"],[100,5,"<a href=\"Common\/ReferenceFile.php.html#196\">ReferenceFile::extractReferenceObject<\/a>"],[92.307692307692,3,"<a href=\"Common\/ReferenceFile.php.html#225\">ReferenceFile::getCanonical<\/a>"],[62.5,5,"<a href=\"Common\/ReferenceFile.php.html#251\">ReferenceFile::getFileLink<\/a>"],[50,3,"<a href=\"Common\/ReferenceFile.php.html#273\">ReferenceFile::getFilePath<\/a>"],[0,2,"<a href=\"Common\/ReferenceFile.php.html#291\">ReferenceFile::getUrlLink<\/a>"],[100,1,"<a href=\"Common\/ReferenceItem.php.html#22\">ReferenceItem::__construct<\/a>"],[0,2,"<a href=\"Common\/ReferenceItem.php.html#27\">ReferenceItem::__get<\/a>"],[62.5,3,"<a href=\"Common\/ReferenceItem.php.html#36\">ReferenceItem::extractAllReferences<\/a>"],[66.666666666667,5,"<a href=\"Common\/ReferenceItem.php.html#50\">ReferenceItem::extractReferenceArray<\/a>"],[100,5,"<a href=\"Common\/ReferenceItem.php.html#78\">ReferenceItem::extractReferenceObject<\/a>"],[100,1,"<a href=\"Common\/ReferenceItem.php.html#106\">ReferenceItem::getJson<\/a>"],[100,2,"<a href=\"Common\/ReferenceItem.php.html#111\">ReferenceItem::getObject<\/a>"],[100,1,"<a href=\"Common\/ReferenceItem.php.html#120\">ReferenceItem::jsonUnSerialize<\/a>"],[100,1,"<a href=\"DataType\/TypeArray.php.html#19\">TypeArray::__construct<\/a>"],[63.636363636364,4,"<a href=\"DataType\/TypeArray.php.html#25\">TypeArray::jsonUnSerialize<\/a>"],[58.620689655172,14,"<a href=\"DataType\/TypeArray.php.html#42\">TypeArray::validate<\/a>"],[66.666666666667,2,"<a href=\"DataType\/TypeArray.php.html#97\">TypeArray::type<\/a>"],[0,1,"<a href=\"DataType\/TypeArray.php.html#106\">TypeArray::format<\/a>"],[0,1,"<a href=\"DataType\/TypeArray.php.html#111\">TypeArray::getExampleFormat<\/a>"],[100,3,"<a href=\"DataType\/TypeArray.php.html#116\">TypeArray::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeArrayItems.php.html#19\">TypeArrayItems::__construct<\/a>"],[33.333333333333,4,"<a href=\"DataType\/TypeArrayItems.php.html#24\">TypeArrayItems::jsonSerialize<\/a>"],[67.741935483871,15,"<a href=\"DataType\/TypeArrayItems.php.html#42\">TypeArrayItems::jsonUnSerialize<\/a>"],[43.75,18,"<a href=\"DataType\/TypeArrayItems.php.html#86\">TypeArrayItems::validate<\/a>"],[33.333333333333,5,"<a href=\"DataType\/TypeArrayItems.php.html#136\">TypeArrayItems::countItems<\/a>"],[0,1,"<a href=\"DataType\/TypeArrayItems.php.html#155\">TypeArrayItems::type<\/a>"],[0,1,"<a href=\"DataType\/TypeArrayItems.php.html#160\">TypeArrayItems::format<\/a>"],[0,1,"<a href=\"DataType\/TypeArrayItems.php.html#165\">TypeArrayItems::getExampleFormat<\/a>"],[46.153846153846,6,"<a href=\"DataType\/TypeArrayItems.php.html#170\">TypeArrayItems::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeBoolean.php.html#19\">TypeBoolean::__construct<\/a>"],[60,5,"<a href=\"DataType\/TypeBoolean.php.html#24\">TypeBoolean::validate<\/a>"],[0,1,"<a href=\"DataType\/TypeBoolean.php.html#47\">TypeBoolean::format<\/a>"],[75,7,"<a href=\"DataType\/TypeBoolean.php.html#52\">TypeBoolean::type<\/a>"],[0,1,"<a href=\"DataType\/TypeBoolean.php.html#71\">TypeBoolean::getExampleFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeBoolean.php.html#77\">TypeBoolean::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeCombined.php.html#19\">TypeCombined::__construct<\/a>"],[63.636363636364,10,"<a href=\"DataType\/TypeCombined.php.html#24\">TypeCombined::jsonUnSerialize<\/a>"],[42.857142857143,12,"<a href=\"DataType\/TypeCombined.php.html#68\">TypeCombined::validate<\/a>"],[0,5,"<a href=\"DataType\/TypeCombined.php.html#110\">TypeCombined::validateAnyOf<\/a>"],[77.777777777778,5,"<a href=\"DataType\/TypeCombined.php.html#129\">TypeCombined::validateAllOf<\/a>"],[0,8,"<a href=\"DataType\/TypeCombined.php.html#148\">TypeCombined::validateOneOf<\/a>"],[54.545454545455,21,"<a href=\"DataType\/TypeCombined.php.html#174\">TypeCombined::getModel<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#19\">TypeCommon::type<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#21\">TypeCommon::format<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#23\">TypeCommon::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#25\">TypeCommon::getExampleFormat<\/a>"],[0,1,"<a href=\"DataType\/TypeCommon.php.html#27\">TypeCommon::jsonSerialize<\/a>"],[63.636363636364,4,"<a href=\"DataType\/TypeCommon.php.html#36\">TypeCommon::jsonUnSerialize<\/a>"],[0,1,"<a href=\"DataType\/TypeCommon.php.html#53\">TypeCommon::storeJsonObject<\/a>"],[100,2,"<a href=\"DataType\/TypeCommon.php.html#60\">TypeCommon::isRequired<\/a>"],[33.333333333333,3,"<a href=\"DataType\/TypeCommon.php.html#69\">TypeCommon::pattern<\/a>"],[0,3,"<a href=\"DataType\/TypeCommon.php.html#84\">TypeCommon::allowEmptyValue<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#93\">TypeCommon::hasFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#98\">TypeCommon::hasDefault<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#103\">TypeCommon::getDefault<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#109\">TypeCommon::hasExample<\/a>"],[100,1,"<a href=\"DataType\/TypeCommon.php.html#114\">TypeCommon::getExample<\/a>"],[100,2,"<a href=\"DataType\/TypeCommon.php.html#120\">TypeCommon::hasEnum<\/a>"],[100,5,"<a href=\"DataType\/TypeCommon.php.html#125\">TypeCommon::getModel<\/a>"],[83.333333333333,3,"<a href=\"DataType\/TypeCommon.php.html#144\">TypeCommon::enum<\/a>"],[33.333333333333,4,"<a href=\"DataType\/TypeCommon.php.html#156\">TypeCommon::multipleOf<\/a>"],[40,4,"<a href=\"DataType\/TypeCommon.php.html#169\">TypeCommon::minimum<\/a>"],[0,4,"<a href=\"DataType\/TypeCommon.php.html#182\">TypeCommon::maximum<\/a>"],[0,2,"<a href=\"DataType\/TypeCommon.php.html#195\">TypeCommon::minLength<\/a>"],[0,2,"<a href=\"DataType\/TypeCommon.php.html#204\">TypeCommon::maxLength<\/a>"],[66.666666666667,2,"<a href=\"DataType\/TypeCommon.php.html#213\">TypeCommon::minItems<\/a>"],[66.666666666667,2,"<a href=\"DataType\/TypeCommon.php.html#222\">TypeCommon::maxItems<\/a>"],[0,3,"<a href=\"DataType\/TypeCommon.php.html#231\">TypeCommon::uniqueItems<\/a>"],[8.3333333333333,9,"<a href=\"DataType\/TypeCommon.php.html#240\">TypeCommon::collectionFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeFile.php.html#19\">TypeFile::__construct<\/a>"],[61.538461538462,8,"<a href=\"DataType\/TypeFile.php.html#24\">TypeFile::validate<\/a>"],[0,1,"<a href=\"DataType\/TypeFile.php.html#54\">TypeFile::format<\/a>"],[0,1,"<a href=\"DataType\/TypeFile.php.html#59\">TypeFile::type<\/a>"],[0,1,"<a href=\"DataType\/TypeFile.php.html#64\">TypeFile::getExampleFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeFile.php.html#69\">TypeFile::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeInteger.php.html#19\">TypeInteger::__construct<\/a>"],[52.941176470588,8,"<a href=\"DataType\/TypeInteger.php.html#24\">TypeInteger::validate<\/a>"],[55.555555555556,4,"<a href=\"DataType\/TypeInteger.php.html#59\">TypeInteger::type<\/a>"],[72.222222222222,15,"<a href=\"DataType\/TypeInteger.php.html#78\">TypeInteger::format<\/a>"],[88.888888888889,3,"<a href=\"DataType\/TypeInteger.php.html#113\">TypeInteger::getExampleFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeInteger.php.html#131\">TypeInteger::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeNumber.php.html#19\">TypeNumber::__construct<\/a>"],[57.142857142857,7,"<a href=\"DataType\/TypeNumber.php.html#24\">TypeNumber::validate<\/a>"],[40,3,"<a href=\"DataType\/TypeNumber.php.html#55\">TypeNumber::type<\/a>"],[14.285714285714,10,"<a href=\"DataType\/TypeNumber.php.html#67\">TypeNumber::format<\/a>"],[0,5,"<a href=\"DataType\/TypeNumber.php.html#99\">TypeNumber::getExampleFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeNumber.php.html#118\">TypeNumber::getExampleType<\/a>"],[100,1,"<a href=\"DataType\/TypeObject.php.html#37\">TypeObject::__construct<\/a>"],[76.923076923077,14,"<a href=\"DataType\/TypeObject.php.html#42\">TypeObject::jsonUnSerialize<\/a>"],[63.636363636364,4,"<a href=\"DataType\/TypeObject.php.html#101\">TypeObject::jsonUnSerializeProperties<\/a>"],[0,10,"<a href=\"DataType\/TypeObject.php.html#117\">TypeObject::jsonSerialize<\/a>"],[65.853658536585,20,"<a href=\"DataType\/TypeObject.php.html#163\">TypeObject::validate<\/a>"],[83.333333333333,4,"<a href=\"DataType\/TypeObject.php.html#234\">TypeObject::getModel<\/a>"],[100,1,"<a href=\"DataType\/TypeString.php.html#26\">TypeString::__construct<\/a>"],[57.142857142857,7,"<a href=\"DataType\/TypeString.php.html#31\">TypeString::validate<\/a>"],[50,2,"<a href=\"DataType\/TypeString.php.html#62\">TypeString::type<\/a>"],[30.434782608696,19,"<a href=\"DataType\/TypeString.php.html#73\">TypeString::format<\/a>"],[21.428571428571,11,"<a href=\"DataType\/TypeString.php.html#149\">TypeString::getExampleFormat<\/a>"],[100,1,"<a href=\"DataType\/TypeString.php.html#226\">TypeString::getExampleType<\/a>"],[100,1,"<a href=\"Object\/Contact.php.html#19\">Contact::__construct<\/a>"],[63.636363636364,4,"<a href=\"Object\/Contact.php.html#24\">Contact::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/Info.php.html#19\">Info::__construct<\/a>"],[63.636363636364,4,"<a href=\"Object\/Info.php.html#24\">Info::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/License.php.html#19\">License::__construct<\/a>"],[63.636363636364,4,"<a href=\"Object\/License.php.html#24\">License::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/Operation.php.html#19\">Operation::__construct<\/a>"],[64.285714285714,5,"<a href=\"Object\/Operation.php.html#24\">Operation::jsonUnSerialize<\/a>"],[100,2,"<a href=\"Object\/Operation.php.html#47\">Operation::validate<\/a>"],[100,3,"<a href=\"Object\/Operation.php.html#58\">Operation::validateRequest<\/a>"],[83.333333333333,2,"<a href=\"Object\/Operation.php.html#72\">Operation::validateResponse<\/a>"],[86.206896551724,15,"<a href=\"Object\/Operation.php.html#84\">Operation::getModel<\/a>"],[100,1,"<a href=\"Object\/ParameterBody.php.html#19\">ParameterBody::__construct<\/a>"],[75,5,"<a href=\"Object\/ParameterBody.php.html#25\">ParameterBody::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/ParameterBody.php.html#48\">ParameterBody::validate<\/a>"],[100,1,"<a href=\"Object\/ParameterBody.php.html#54\">ParameterBody::getModel<\/a>"],[100,2,"<a href=\"Object\/ParameterBody.php.html#60\">ParameterBody::isRequired<\/a>"],[100,1,"<a href=\"Object\/Parameters.php.html#19\">Parameters::__construct<\/a>"],[72.727272727273,9,"<a href=\"Object\/Parameters.php.html#24\">Parameters::jsonUnSerialize<\/a>"],[100,9,"<a href=\"Object\/Parameters.php.html#55\">Parameters::validate<\/a>"],[75,4,"<a href=\"Object\/Parameters.php.html#81\">Parameters::checkExistsEmptyValidate<\/a>"],[100,8,"<a href=\"Object\/Parameters.php.html#96\">Parameters::getModel<\/a>"],[100,1,"<a href=\"Object\/PathItem.php.html#19\">PathItem::__construct<\/a>"],[64.285714285714,5,"<a href=\"Object\/PathItem.php.html#24\">PathItem::jsonUnSerialize<\/a>"],[92.307692307692,9,"<a href=\"Object\/PathItem.php.html#47\">PathItem::validate<\/a>"],[71.875,16,"<a href=\"Object\/PathItem.php.html#69\">PathItem::getModel<\/a>"],[100,1,"<a href=\"Object\/Paths.php.html#19\">Paths::__construct<\/a>"],[64.285714285714,5,"<a href=\"Object\/Paths.php.html#24\">Paths::jsonUnSerialize<\/a>"],[91.111111111111,20,"<a href=\"Object\/Paths.php.html#47\">Paths::validate<\/a>"],[56.25,17,"<a href=\"Object\/Paths.php.html#117\">Paths::getModel<\/a>"],[100,1,"<a href=\"Object\/Reference.php.html#23\">Reference::__construct<\/a>"],[0,1,"<a href=\"Object\/Reference.php.html#28\">Reference::jsonSerialize<\/a>"],[0,1,"<a href=\"Object\/Reference.php.html#38\">Reference::serialize<\/a>"],[0,1,"<a href=\"Object\/Reference.php.html#46\">Reference::unserialize<\/a>"],[100,2,"<a href=\"Object\/Reference.php.html#51\">Reference::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/Reference.php.html#68\">Reference::validate<\/a>"],[100,2,"<a href=\"Object\/Reference.php.html#74\">Reference::getModel<\/a>"],[100,1,"<a href=\"Object\/ResponseItem.php.html#19\">ResponseItem::__construct<\/a>"],[68.181818181818,8,"<a href=\"Object\/ResponseItem.php.html#24\">ResponseItem::jsonUnSerialize<\/a>"],[85.714285714286,9,"<a href=\"Object\/ResponseItem.php.html#58\">ResponseItem::validate<\/a>"],[91.666666666667,11,"<a href=\"Object\/ResponseItem.php.html#80\">ResponseItem::getModel<\/a>"],[100,1,"<a href=\"Object\/Responses.php.html#19\">Responses::__construct<\/a>"],[58.823529411765,6,"<a href=\"Object\/Responses.php.html#24\">Responses::jsonUnSerialize<\/a>"],[42.857142857143,3,"<a href=\"Object\/Responses.php.html#51\">Responses::validate<\/a>"],[93.333333333333,7,"<a href=\"Object\/Responses.php.html#68\">Responses::getModel<\/a>"],[100,1,"<a href=\"Object\/Security.php.html#19\">Security::__construct<\/a>"],[75,4,"<a href=\"Object\/Security.php.html#24\">Security::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/SecurityDefinitions.php.html#19\">SecurityDefinitions::__construct<\/a>"],[64.285714285714,5,"<a href=\"Object\/SecurityDefinitions.php.html#24\">SecurityDefinitions::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/SecurityItem.php.html#19\">SecurityItem::__construct<\/a>"],[64.285714285714,5,"<a href=\"Object\/SecurityItem.php.html#24\">SecurityItem::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Object\/Swagger.php.html#19\">Swagger::__construct<\/a>"],[68.75,6,"<a href=\"Object\/Swagger.php.html#26\">Swagger::jsonUnSerialize<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#53\">Swagger::serialize<\/a>"],[25,1,"<a href=\"Object\/Swagger.php.html#61\">Swagger::unserialize<\/a>"],[0,2,"<a href=\"Object\/Swagger.php.html#69\">Swagger::jsonSerialize<\/a>"],[88.372093023256,12,"<a href=\"Object\/Swagger.php.html#83\">Swagger::validate<\/a>"],[75,2,"<a href=\"Object\/Swagger.php.html#151\">Swagger::checkSwaggerVersion<\/a>"],[57.142857142857,5,"<a href=\"Object\/Swagger.php.html#160\">Swagger::checkSchemes<\/a>"],[57.142857142857,5,"<a href=\"Object\/Swagger.php.html#175\">Swagger::checkHost<\/a>"],[71.428571428571,3,"<a href=\"Object\/Swagger.php.html#192\">Swagger::checkBasePath<\/a>"],[12.5,7,"<a href=\"Object\/Swagger.php.html#208\">Swagger::checkConsume<\/a>"],[50,7,"<a href=\"Object\/Swagger.php.html#236\">Swagger::checkProduce<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#264\">Swagger::getApiVersion<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#269\">Swagger::getApiVersionMajor<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#276\">Swagger::getApiVersionMinor<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#283\">Swagger::getApiVersionBuild<\/a>"],[0,1,"<a href=\"Object\/Swagger.php.html#290\">Swagger::getApiVersionPatch<\/a>"],[90.909090909091,11,"<a href=\"Object\/Swagger.php.html#297\">Swagger::getModel<\/a>"],[100,1,"<a href=\"Security\/ApiKeySecurity.php.html#19\">ApiKeySecurity::__construct<\/a>"],[66.666666666667,4,"<a href=\"Security\/ApiKeySecurity.php.html#26\">ApiKeySecurity::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Security\/OAuth2ImplicitSecurity.php.html#19\">OAuth2ImplicitSecurity::__construct<\/a>"],[66.666666666667,4,"<a href=\"Security\/OAuth2ImplicitSecurity.php.html#26\">OAuth2ImplicitSecurity::jsonUnSerialize<\/a>"],[100,1,"<a href=\"Security\/OAuth2PasswordSecurityScopes.php.html#19\">OAuth2PasswordSecurityScopes::__construct<\/a>"],[66.666666666667,4,"<a href=\"Security\/OAuth2PasswordSecurityScopes.php.html#24\">OAuth2PasswordSecurityScopes::jsonUnSerialize<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

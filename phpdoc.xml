@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Swagger Validator PHP</title>
+    <parser>
+        <target>./doc</target>
+        <encoding>utf8</encoding>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>phpdoc-md</target>
+    </transformer>
+    <transformations>
+        <template name="xml" />
+    </transformations>
+    <files>
+        <directory>./src/SwaggerValidator</directory>
+        <ignore>./src/SwaggerValidator/Example.php</ignore>
+        <ignore>./src/SwaggerValidator/Compat.php</ignore>
+        <ignore>./src/SwaggerValidator/Autoload.php</ignore>
+    </files>
+</phpdoc>

@@ -1,33 +1,71 @@
 {
-    "name": "Swagger/Validator",
+    "name": "SwaggerValidator",
+    "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
     "version": "1.0.0",
+    "type": "library",
+    "keywords": ["swagger, validator, php, parser, security, api, restfull"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Nicolas JUHEL",
+            "email": "swaggervalidator@nabbar.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "suppot": {
+        "email": "swaggervalidator@nabbar.com"
+    },
+    "time": "2016-07-30",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "php": ">5.3.3",
-        "ext-dom": "*",
+        "php": ">5.3.10",
         "ext-json": "*",
         "ext-pcre": "*",
-        "ext-reflection": "*",
         "ext-spl": "*",
-        "phpunit/php-file-iterator": "~1.4",
-        "phpunit/php-text-template": "~1.2",
-        "phpunit/php-code-coverage": "~2.1",
-        "phpunit/php-timer": "^1.0.6",
-        "phpunit/phpunit-mock-objects": "~2.3",
-        "phpspec/prophecy": "^1.3.1",
-        "symfony/yaml": "~2.1|~3.0",
-        "sebastian/comparator": "~1.1",
-        "sebastian/diff": "~1.2",
-        "sebastian/environment": "~1.3",
-        "sebastian/exporter": "~1.2",
-        "sebastian/global-state": "~1.0",
-        "sebastian/version": "~1.0"
+        "ext-dom": "*",
+        "ext-reflection": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">4.8",
+        "phpunit/php-invoker": ">=1.1",
+        "phpunit/php-file-iterator": ">=1.4",
+        "phpunit/php-text-template": ">=1.2",
+        "phpunit/php-code-coverage": ">=2.1",
+        "phpunit/php-timer": ">=1.0",
+        "phpunit/phpunit-mock-objects": ">=2.3",
+        "phpdocumentor/phpdocumentor": ">=2.0",
+        "evert/phpdoc-md" : ">=0.2"
     },
     "scripts": {
-        "coverage": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
+        "Coverage": [
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
+        ],
+        "Phpunit": [
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
+        ],
+        "PharBuilder": [
+            "php -d phar.readonly=0 -f tests/pharBuilder/makePhar.php"
+        ],
+        "PharTest": [
+            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
+        ],
+        "PhpDoc": [
+            "rm -vrf doc/; mkdir -vp doc;mkdir -vp temp;",
+            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc -c ./phpdoc.xml --target ./doc --validate --progressbar --cache-folder ./temp",
+            "vendor/evert/phpdoc-md/bin/phpdocmd doc/structure.xml doc/",
+            "rm -vrf doc/structure.xml temp/; mv doc/ApiIndex.md doc/README.md; ls -al doc/"
+        ],
+        "build": [
+            "composer install --dev",
+            "@Phpunit",
+            "@PharBuilder",
+            "@PharTest",
+            "@PhpDoc"
         ],
         "test": [
-            "phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
+            "composer install --dev",
+            "@Phpunit"
         ]
     }
 }
