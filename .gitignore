@@ -1,9 +1,6 @@
 vendor/
-tests/metrics/*.json
-tests/metrics/*.log
-tests/metrics/*.xml
-tests/metrics/*.html
-#tests/metrics/*.
-tests/metrics/*.txt
+tests/metrics/*
+tests/metrics/*.
+tests/metrics/*.*
 composer.lock
 
