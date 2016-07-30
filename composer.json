@@ -16,7 +16,7 @@
         "email": "swaggervalidator@nabbar.com"
     },
     "dist": {
-        "type": "vcs",
+        "type": "phar",
         "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/raw/v1.0.x-stable/bin/SwaggerValidator.phar"
     },
     "source": {
