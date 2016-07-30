@@ -2,9 +2,11 @@
 
 # **Swagger Validator _PHP_**
 
-A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, 
+A Swagger(OpenAPI) Validation and Parser as lib for PHP to secure and helpful application for request / response validating, 
 security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's 
 having a swagger definition file for request/response.
+
+Swagger is old name of [OpenAPI Projet](https://openapis.org/) and who manage the [OAI Specification](https://github.com/OAI/OpenAPI-Specification/tree/master/schemas/)
 
 ## **Why Using a Swagger Validator**
 A Swagger *Validator* could be understand as a validation of our swagger definition file with the swagger definition. 
