@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Swagger Validator PHP</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Swagger Validator PHP</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/SwaggerValidator.html">\SwaggerValidator</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">872</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-52475277"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-52475277" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1390465502"></a>
+                                <a href="../namespaces/SwaggerValidator.html" style="margin-left: 30px; padding-left: 0">SwaggerValidator</a>
+            </div>
+            <div id="namespace-1390465502" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1528674196"></a>
+                                <a href="../namespaces/SwaggerValidator.Common.html" style="margin-left: 30px; padding-left: 0">Common</a>
+            </div>
+            <div id="namespace-1528674196" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.Collection.html">Collection</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.CollectionFile.html">CollectionFile</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.CollectionReference.html">CollectionReference</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.CollectionSwagger.html">CollectionSwagger</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.CollectionType.html">CollectionType</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.Context.html">Context</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.Factory.html">Factory</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.FactorySwagger.html">FactorySwagger</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.ReferenceFile.html">ReferenceFile</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Common.ReferenceItem.html">ReferenceItem</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1012290111"></a>
+                                <a href="../namespaces/SwaggerValidator.DataType.html" style="margin-left: 30px; padding-left: 0">DataType</a>
+            </div>
+            <div id="namespace-1012290111" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeArray.html">TypeArray</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeArrayItems.html">TypeArrayItems</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeBoolean.html">TypeBoolean</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeCombined.html">TypeCombined</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeCommon.html">TypeCommon</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeFile.html">TypeFile</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeInteger.html">TypeInteger</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeNumber.html">TypeNumber</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeObject.html">TypeObject</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.DataType.TypeString.html">TypeString</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-404254654"></a>
+                                <a href="../namespaces/SwaggerValidator.Object.html" style="margin-left: 30px; padding-left: 0">Object</a>
+            </div>
+            <div id="namespace-404254654" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Contact.html">Contact</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Definitions.html">Definitions</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.ExternalDocs.html">ExternalDocs</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.HeaderItem.html">HeaderItem</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Headers.html">Headers</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Info.html">Info</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.License.html">License</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Operation.html">Operation</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.ParameterBody.html">ParameterBody</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Parameters.html">Parameters</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.PathItem.html">PathItem</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Paths.html">Paths</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Reference.html">Reference</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.ResponseItem.html">ResponseItem</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Responses.html">Responses</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Security.html">Security</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.SecurityDefinitions.html">SecurityDefinitions</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.SecurityItem.html">SecurityItem</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.SecurityRequirement.html">SecurityRequirement</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Object.Swagger.html">Swagger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1568452511"></a>
+                                <a href="../namespaces/SwaggerValidator.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
+            </div>
+            <div id="namespace-1568452511" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.ApiKeySecurity.html">ApiKeySecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.BasicAuthenticationSecurity.html">BasicAuthenticationSecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.OAuth2AccessCodeSecurity.html">OAuth2AccessCodeSecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.OAuth2ApplicationSecurity.html">OAuth2ApplicationSecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.OAuth2ImplicitSecurity.html">OAuth2ImplicitSecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.OAuth2PasswordSecurity.html">OAuth2PasswordSecurity</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Security.OAuth2PasswordSecurityScopes.html">OAuth2PasswordSecurityScopes</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/SwaggerValidator.Autoload.html">Autoload</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/SwaggerValidator.Swagger.html">Swagger</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/SwaggerValidator.Common.html">\SwaggerValidator\Common</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\SwaggerValidator\Common</small>CollectionType</h1>
+                    <p><em>Description of CollectionType</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method___isset" class="">__isset()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method___unset" class="">__unset()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_offsetSet" class="">offsetSet()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_offsetExists" class="">offsetExists()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_offsetUnset" class="">offsetUnset()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_offsetGet" class="">offsetGet()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_getIterator" class="">getIterator()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_count" class="">count()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_jsonSerialize" class="">jsonSerialize()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_serialize" class="">serialize()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_unserialize" class="">unserialize()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_all" class="">all()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_keys" class="">keys()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_has" class="">has()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_remove" class="">remove()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_clear" class="">clear()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_jsonEncode" class="">jsonEncode()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_jsonEncodePretty" class="">jsonEncodePretty()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_getInstance" class="">getInstance()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_setInstance" class="">setInstance()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_pruneInstance" class="">pruneInstance()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_set" class="">set()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_normalizeType" class="">normalizeType()</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method_normalizeKey" class="">normalizeKey()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_IOHelper" class="">IOHelper</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Exception" class="">Exception</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Swagger" class="">Swagger</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Contact" class="">Contact</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Definitions" class="">Definitions</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_ExternalDocs" class="">ExternalDocs</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_HeaderItem" class="">HeaderItem</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Headers" class="">Headers</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Info" class="">Info</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Reference" class="">Reference</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_License" class="">License</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Operation" class="">Operation</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_ParameterBody" class="">ParameterBody</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Parameters" class="">Parameters</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_PathItem" class="">PathItem</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Paths" class="">Paths</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_ResponseItem" class="">ResponseItem</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Responses" class="">Responses</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_Security" class="">Security</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_SecurityItem" class="">SecurityItem</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_SecurityDefinitions" class="">SecurityDefinitions</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_SecurityRequirement" class="">SecurityRequirement</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeArray" class="">TypeArray</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeArrayItems" class="">TypeArrayItems</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeBoolean" class="">TypeBoolean</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeCombined" class="">TypeCombined</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeFile" class="">TypeFile</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeInteger" class="">TypeInteger</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeNumber" class="">TypeNumber</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeObject" class="">TypeObject</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeObjectProperties" class="">TypeObjectProperties</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_TypeString" class="">TypeString</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_ApiKeySecurity" class="">ApiKeySecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_BasicAuthenticationSecurity" class="">BasicAuthenticationSecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_OAuth2AccessCodeSecurity" class="">OAuth2AccessCodeSecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_OAuth2ApplicationSecurity" class="">OAuth2ApplicationSecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_OAuth2ImplicitSecurity" class="">OAuth2ImplicitSecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_OAuth2PasswordSecurity" class="">OAuth2PasswordSecurity</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#constant_OAuth2PasswordSecurityScopes" class="">OAuth2PasswordSecurityScopes</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#method_setJSONIsArray" class="">setJSONIsArray()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#property_originTypeArray" class="">$originTypeArray</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#method___construct" class="">__construct()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/SwaggerValidator.Common.Collection.html#property_collection" class="">$collection</a><br />
+                                                                    <a href="../classes/SwaggerValidator.Common.CollectionType.html#property_instance" class="">$instance</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Common.CollectionType.html"><div class="path-wrapper">Common/CollectionType.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">SwaggerValidator</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/SwaggerValidator.Common.Collection.html">\SwaggerValidator\Common\Collection</a></div>
+                                                                                                    <div class="namespace-wrapper">\SwaggerValidator\Common\CollectionType</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Nicolas JUHEL<a href="mailto:swaggervalidator@nabbar.com">swaggervalidator@nabbar.com</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_IOHelper" name="constant_IOHelper" class="anchor"></a>
+            <article id="constant_IOHelper" class="constant">
+                <h3 class="">IOHelper</h3>
+                <pre class="signature">IOHelper</pre>
+                <p><em>Helpers</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Exception" name="constant_Exception" class="anchor"></a>
+            <article id="constant_Exception" class="constant">
+                <h3 class="">Exception</h3>
+                <pre class="signature">Exception</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Swagger" name="constant_Swagger" class="anchor"></a>
+            <article id="constant_Swagger" class="constant">
+                <h3 class="">Swagger</h3>
+                <pre class="signature">Swagger</pre>
+                <p><em>Swagger Standard Objects</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Contact" name="constant_Contact" class="anchor"></a>
+            <article id="constant_Contact" class="constant">
+                <h3 class="">Contact</h3>
+                <pre class="signature">Contact</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Definitions" name="constant_Definitions" class="anchor"></a>
+            <article id="constant_Definitions" class="constant">
+                <h3 class="">Definitions</h3>
+                <pre class="signature">Definitions</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ExternalDocs" name="constant_ExternalDocs" class="anchor"></a>
+            <article id="constant_ExternalDocs" class="constant">
+                <h3 class="">ExternalDocs</h3>
+                <pre class="signature">ExternalDocs</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_HeaderItem" name="constant_HeaderItem" class="anchor"></a>
+            <article id="constant_HeaderItem" class="constant">
+                <h3 class="">HeaderItem</h3>
+                <pre class="signature">HeaderItem</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Headers" name="constant_Headers" class="anchor"></a>
+            <article id="constant_Headers" class="constant">
+                <h3 class="">Headers</h3>
+                <pre class="signature">Headers</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Info" name="constant_Info" class="anchor"></a>
+            <article id="constant_Info" class="constant">
+                <h3 class="">Info</h3>
+                <pre class="signature">Info</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Reference" name="constant_Reference" class="anchor"></a>
+            <article id="constant_Reference" class="constant">
+                <h3 class="">Reference</h3>
+                <pre class="signature">Reference</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_License" name="constant_License" class="anchor"></a>
+            <article id="constant_License" class="constant">
+                <h3 class="">License</h3>
+                <pre class="signature">License</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Operation" name="constant_Operation" class="anchor"></a>
+            <article id="constant_Operation" class="constant">
+                <h3 class="">Operation</h3>
+                <pre class="signature">Operation</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ParameterBody" name="constant_ParameterBody" class="anchor"></a>
+            <article id="constant_ParameterBody" class="constant">
+                <h3 class="">ParameterBody</h3>
+                <pre class="signature">ParameterBody</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Parameters" name="constant_Parameters" class="anchor"></a>
+            <article id="constant_Parameters" class="constant">
+                <h3 class="">Parameters</h3>
+                <pre class="signature">Parameters</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PathItem" name="constant_PathItem" class="anchor"></a>
+            <article id="constant_PathItem" class="constant">
+                <h3 class="">PathItem</h3>
+                <pre class="signature">PathItem</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Paths" name="constant_Paths" class="anchor"></a>
+            <article id="constant_Paths" class="constant">
+                <h3 class="">Paths</h3>
+                <pre class="signature">Paths</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ResponseItem" name="constant_ResponseItem" class="anchor"></a>
+            <article id="constant_ResponseItem" class="constant">
+                <h3 class="">ResponseItem</h3>
+                <pre class="signature">ResponseItem</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Responses" name="constant_Responses" class="anchor"></a>
+            <article id="constant_Responses" class="constant">
+                <h3 class="">Responses</h3>
+                <pre class="signature">Responses</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_Security" name="constant_Security" class="anchor"></a>
+            <article id="constant_Security" class="constant">
+                <h3 class="">Security</h3>
+                <pre class="signature">Security</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SecurityItem" name="constant_SecurityItem" class="anchor"></a>
+            <article id="constant_SecurityItem" class="constant">
+                <h3 class="">SecurityItem</h3>
+                <pre class="signature">SecurityItem</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SecurityDefinitions" name="constant_SecurityDefinitions" class="anchor"></a>
+            <article id="constant_SecurityDefinitions" class="constant">
+                <h3 class="">SecurityDefinitions</h3>
+                <pre class="signature">SecurityDefinitions</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SecurityRequirement" name="constant_SecurityRequirement" class="anchor"></a>
+            <article id="constant_SecurityRequirement" class="constant">
+                <h3 class="">SecurityRequirement</h3>
+                <pre class="signature">SecurityRequirement</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeArray" name="constant_TypeArray" class="anchor"></a>
+            <article id="constant_TypeArray" class="constant">
+                <h3 class="">TypeArray</h3>
+                <pre class="signature">TypeArray</pre>
+                <p><em>Swagger Primitive Datatype Object</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeArrayItems" name="constant_TypeArrayItems" class="anchor"></a>
+            <article id="constant_TypeArrayItems" class="constant">
+                <h3 class="">TypeArrayItems</h3>
+                <pre class="signature">TypeArrayItems</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeBoolean" name="constant_TypeBoolean" class="anchor"></a>
+            <article id="constant_TypeBoolean" class="constant">
+                <h3 class="">TypeBoolean</h3>
+                <pre class="signature">TypeBoolean</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeCombined" name="constant_TypeCombined" class="anchor"></a>
+            <article id="constant_TypeCombined" class="constant">
+                <h3 class="">TypeCombined</h3>
+                <pre class="signature">TypeCombined</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeFile" name="constant_TypeFile" class="anchor"></a>
+            <article id="constant_TypeFile" class="constant">
+                <h3 class="">TypeFile</h3>
+                <pre class="signature">TypeFile</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeInteger" name="constant_TypeInteger" class="anchor"></a>
+            <article id="constant_TypeInteger" class="constant">
+                <h3 class="">TypeInteger</h3>
+                <pre class="signature">TypeInteger</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeNumber" name="constant_TypeNumber" class="anchor"></a>
+            <article id="constant_TypeNumber" class="constant">
+                <h3 class="">TypeNumber</h3>
+                <pre class="signature">TypeNumber</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeObject" name="constant_TypeObject" class="anchor"></a>
+            <article id="constant_TypeObject" class="constant">
+                <h3 class="">TypeObject</h3>
+                <pre class="signature">TypeObject</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeObjectProperties" name="constant_TypeObjectProperties" class="anchor"></a>
+            <article id="constant_TypeObjectProperties" class="constant">
+                <h3 class="">TypeObjectProperties</h3>
+                <pre class="signature">TypeObjectProperties</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TypeString" name="constant_TypeString" class="anchor"></a>
+            <article id="constant_TypeString" class="constant">
+                <h3 class="">TypeString</h3>
+                <pre class="signature">TypeString</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ApiKeySecurity" name="constant_ApiKeySecurity" class="anchor"></a>
+            <article id="constant_ApiKeySecurity" class="constant">
+                <h3 class="">ApiKeySecurity</h3>
+                <pre class="signature">ApiKeySecurity</pre>
+                <p><em>Security Definition Object</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_BasicAuthenticationSecurity" name="constant_BasicAuthenticationSecurity" class="anchor"></a>
+            <article id="constant_BasicAuthenticationSecurity" class="constant">
+                <h3 class="">BasicAuthenticationSecurity</h3>
+                <pre class="signature">BasicAuthenticationSecurity</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OAuth2AccessCodeSecurity" name="constant_OAuth2AccessCodeSecurity" class="anchor"></a>
+            <article id="constant_OAuth2AccessCodeSecurity" class="constant">
+                <h3 class="">OAuth2AccessCodeSecurity</h3>
+                <pre class="signature">OAuth2AccessCodeSecurity</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OAuth2ApplicationSecurity" name="constant_OAuth2ApplicationSecurity" class="anchor"></a>
+            <article id="constant_OAuth2ApplicationSecurity" class="constant">
+                <h3 class="">OAuth2ApplicationSecurity</h3>
+                <pre class="signature">OAuth2ApplicationSecurity</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OAuth2ImplicitSecurity" name="constant_OAuth2ImplicitSecurity" class="anchor"></a>
+            <article id="constant_OAuth2ImplicitSecurity" class="constant">
+                <h3 class="">OAuth2ImplicitSecurity</h3>
+                <pre class="signature">OAuth2ImplicitSecurity</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OAuth2PasswordSecurity" name="constant_OAuth2PasswordSecurity" class="anchor"></a>
+            <article id="constant_OAuth2PasswordSecurity" class="constant">
+                <h3 class="">OAuth2PasswordSecurity</h3>
+                <pre class="signature">OAuth2PasswordSecurity</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OAuth2PasswordSecurityScopes" name="constant_OAuth2PasswordSecurityScopes" class="anchor"></a>
+            <article id="constant_OAuth2PasswordSecurityScopes" class="constant">
+                <h3 class="">OAuth2PasswordSecurityScopes</h3>
+                <pre class="signature">OAuth2PasswordSecurityScopes</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_originTypeArray" name="property_originTypeArray" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$originTypeArray</h3>
+                <pre class="signature">$originTypeArray : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_collection" name="property_collection" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$collection</h3>
+                <pre class="signature">$collection : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_instance" name="property_instance" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$instance</h3>
+                <pre class="signature">$instance : \SwaggerValidator\Common\CollectionType</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/SwaggerValidator.Common.CollectionType.html">\SwaggerValidator\Common\CollectionType</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___isset" name="method___isset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__isset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__isset(  <span class="argument">$type</span>) </pre>
+                <p><em>Property Overloading</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(string  <span class="argument">$type</span>) : callable</pre>
+                <p><em>Return the callable string for the given type</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    callable
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(string  <span class="argument">$type</span>, callable  <span class="argument">$callable</span>) </pre>
+                <p><em>Replace the default callable string by the given for the type in parameters</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>callable</td>
+                                <td>$callable </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___unset" name="method___unset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__unset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__unset(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetSet" name="method_offsetSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetSet(  <span class="argument">$key</span>,   <span class="argument">$value</span>) </pre>
+                <p><em>Array Access</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetExists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetExists(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetUnset" name="method_offsetUnset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetUnset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetUnset(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetGet" name="method_offsetGet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetGet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetGet(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIterator" name="method_getIterator" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIterator()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIterator() </pre>
+                <p><em>IteratorAggregate</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count" name="method_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count() </pre>
+                <p><em>Countable</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonSerialize" name="method_jsonSerialize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonSerialize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonSerialize() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialize" name="method_serialize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">serialize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialize() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_unserialize" name="method_unserialize" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">unserialize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">unserialize(  <span class="argument">$data</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_all" name="method_all" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">all()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">all() : array</pre>
+                <p><em>Fetch set data</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>This set's key-value data array</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_keys" name="method_keys" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">keys()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">keys() : array</pre>
+                <p><em>Fetch set data keys</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>This set's key-value data array keys</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_has" name="method_has" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">has()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">has(string  <span class="argument">$key</span>) : boolean</pre>
+                <p><em>Does this set contain a key?</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The data key</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove" name="method_remove" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove(string  <span class="argument">$key</span>) </pre>
+                <p><em>Remove value with key from this set</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The data key</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clear" name="method_clear" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clear()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clear() </pre>
+                <p><em>Clear all values</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonEncode" name="method_jsonEncode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonEncode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonEncode(  <span class="argument">$mixed</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$mixed </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_jsonEncodePretty" name="method_jsonEncodePretty" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">jsonEncodePretty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">jsonEncodePretty(  <span class="argument">$mixed</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$mixed </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInstance" name="method_getInstance" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getInstance()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInstance() : \SwaggerValidator\Common\CollectionType</pre>
+                <p><em>get the singleton of this collection</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/SwaggerValidator.Common.CollectionType.html">\SwaggerValidator\Common\CollectionType</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setInstance" name="method_setInstance" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setInstance()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setInstance(\SwaggerValidator\Common\CollectionType  <span class="argument">$instance</span>) </pre>
+                <p><em>replace the singleton of this collection</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/SwaggerValidator.Common.CollectionType.html">\SwaggerValidator\Common\CollectionType</a></td>
+                                <td>$instance </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_pruneInstance" name="method_pruneInstance" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">pruneInstance()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">pruneInstance() </pre>
+                <p><em>prune the singleton of this collection</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(string  <span class="argument">$type</span>) : callable</pre>
+                <p><em>Return the callable string for the given type</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    callable
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set" name="method_set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set(string  <span class="argument">$type</span>, callable  <span class="argument">$callable</span>) </pre>
+                <p><em>Replace the default callable string by the given for the type in parameters</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>callable</td>
+                                <td>$callable </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_normalizeType" name="method_normalizeType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">normalizeType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">normalizeType(  <span class="argument">$type</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$type </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_normalizeKey" name="method_normalizeKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">normalizeKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">normalizeKey(  <span class="argument">$key</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setJSONIsArray" name="method_setJSONIsArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setJSONIsArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setJSONIsArray() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/SwaggerValidator.Common.Collection.html"><div class="path-wrapper">\SwaggerValidator\Common\Collection</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>Private construct for singleton</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">CollectionType.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Common/CollectionType.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/SwaggerValidator.html">\SwaggerValidator</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 30th, 2016 at 00:15.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

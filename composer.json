@@ -2,7 +2,22 @@
     "name": "SwaggerValidator",
     "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
     "version": "1.0.0",
+    "type": "library",
+    "keywords": ["swagger, validator, php, parser, security, api, restfull"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Nicolas JUHEL",
+            "email": "swaggervalidator@nabbar.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "suppot": {
+        "email": "swaggervalidator@nabbar.com"
+    },
+    "time": "2016-07-30",
     "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "php": ">5.3.10",
         "ext-json": "*",
@@ -23,27 +38,29 @@
     },
     "scripts": {
         "Coverage": [
-            "composer install",
             "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=tests/metrics/coverage.xml --coverage-html=tests/metrics/coverage --coverage-text=php://stdout --log-json=tests/metrics/logfile.json --log-tap=tests/metrics/logfile.tap --log-junit=tests/metrics/logfile.xml --testdox-html=tests/metrics/testdox.html --testdox-text=tests/metrics/testdox.txt"
         ],
         "Phpunit": [
-            "composer install",
             "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
         ],
         "PharBuilder": [
-            "composer install",
             "php -d phar.readonly=0 -f tests/pharBuilder/makePhar.php"
         ],
         "PharTest": [
-            "composer install",
             "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
         ],
+        "PhpDoc": [
+            "vendor/phpdocumentor/phpdocumentor/bin/phpdoc --directory ./src/SwaggerValidator --target ./doc --encoding UTF-8 --ignore ./src/SwaggerValidator/Example.php --validate --progressbar --defaultpackagename SwaggerValidator --title \"Swagger Validator PHP\""
+        ],
         "build": [
+            "composer install --dev",
             "@Phpunit",
             "@PharBuilder",
-            "@PharTest"
+            "@PharTest",
+            "@PhpDoc"
         ],
         "test": [
+            "composer install --dev",
             "@Phpunit"
         ]
     }
