@@ -20,7 +20,7 @@
         "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/raw/v1.0.x-stable/bin/SwaggerValidator.phar"
     },
     "source": {
-        "type": "vcs",
+        "type": "git",
         "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git",
         "reference": "master"
     },
