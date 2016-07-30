@@ -40,10 +40,11 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
   - response building automaticly base on content type response, accept and produce
 
 ## **Compatibility**
+  **_Help us to fix error with compatibilities_**
   - at least PHP 5.3.10 (need some complementary testing)
   - PHP 5.5, PHP 5.6 => no problems
   - PHP 7.0 (need some complementary test for phpunit 
-  Help us to fix error with compatibilities
+
   
 ## **Installation Guide**
 ...comming soon...
