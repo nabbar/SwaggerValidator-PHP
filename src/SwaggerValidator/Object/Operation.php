@@ -64,7 +64,6 @@ class Operation extends \SwaggerValidator\Common\CollectionSwagger
 
     private function validateRequest(\SwaggerValidator\Common\Context $context)
     {
-        $check         = true;
         $keyParameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
 
         if (isset($this->$keyParameters) && is_object($this->$keyParameters)) {

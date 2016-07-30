@@ -117,7 +117,7 @@ class ReferenceFile
         $result = curl_exec($curl);
 
         if ($result === false) {
-            die(curl_error($curl));
+            \SwaggerValidator\Exception::throwNewException('CURL Error : ' . curl_errno($curl) . ' => ' . curl_error($curl), curl_getinfo($curl), __METHOD__, __LINE__);
         }
 
         $timestamp = curl_getinfo($curl, CURLINFO_FILETIME);

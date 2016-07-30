@@ -72,9 +72,6 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
         $check = true;
 
         foreach ($this->keys() as $key) {
-            $in   = null;
-            $name = null;
-
             if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\ParameterBody)) {
                 \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
                 $check = $check && $this->checkExistsEmptyValidate($context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY), $key);

@@ -12,11 +12,11 @@ A Swagger *Parser* could be understand as a parser for request entry (sometimes 
 The Swagger Validator is doing all this. It validate your swagger file, validate your entry request and response.
 
 ### _Validation / Parsing are mandatory_
-    - validating the swagger guarantee that your definition file has no error and will be understand correctly
-    - validating the request is a security stage to filter bad request, attempted hack, limit the control and 
+  - validating the swagger guarantee that your definition file has no error and will be understand correctly
+  - validating the request is a security stage to filter bad request, attempted hack, limit the control and 
     filtering statement in your working source code, ...
-    - validating the response is also security stage to filter not needed information before sent them, to 
-    limit and prevent error code attack, limit the control and filtering statement in your working source code, 
+  - validating the response is also security stage to filter not needed information before sent them, to 
+    limit and prevent error code attack, limit the control and filtering statement in your working source code
     ...
 
 ## **Features**
@@ -52,13 +52,13 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 - Install into a git repository as submodule : 
 ```sh
 git submodule init
-git submodule add --branch v1.0.x http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git src/lib/SwaggerValidator
+git submodule add --branch v1.0.x http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
 git submodule update
 ```
 
 - Install by cloning git : 
 ```sh
-git clone --branch v1.0.x http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git SwaggerValidator
+git clone --branch v1.0.x https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
 ```
 
 - Install with composer : 
@@ -67,25 +67,25 @@ Add this repository into composer
     "repositories": [
         {
             "type": "vcs",
-            "url": "http://srv01.nabbar.com:9090/Swagger/SwaggerValidator.git"
+            "url": "https://github.com/njuhel/SwaggerValidator-PHP"
         }
     ],
 ```
 And this require : 
 ```json
     "require": {
-        "SwaggerValidator":">=1.0.0"
+        "SwaggerValidator-PHP":">=1.0.0"
     },
 ```
 
 - Install with phar : 
 ```sh
-wget http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/raw/v1.0.x/bin/SwaggerValidator.phar 
+wget https://github.com/njuhel/SwaggerValidator-PHP/raw/v1.0.x/bin/SwaggerValidator.phar 
 ```
 
   
 ## **Example & Docs**
- - **Examples in Snippets** : http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/snippets/1 
- - **Documentation** : [generated](http://srv01.nabbar.com:9090/Swagger/SwaggerValidator/blob/v1.0.x/doc/README.md)
+ - **Examples in Snippets** : https://github.com/njuhel/SwaggerValidator-PHP/snippets/1 
+ - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/doc/README.md)
 
 
