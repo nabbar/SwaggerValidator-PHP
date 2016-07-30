@@ -136,9 +136,9 @@ Methods
 
 ### validate
 
-    mixed SwaggerValidator\Object\Swagger::validate(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::validate(\SwaggerValidator\Common\Context $context)
 
-
+Validate the Request or Response
 
 
 
@@ -152,9 +152,9 @@ Methods
 
 ### checkSwaggerVersion
 
-    mixed SwaggerValidator\Object\Swagger::checkSwaggerVersion(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::checkSwaggerVersion(\SwaggerValidator\Common\Context $context)
 
-
+Check the Swagger Version for validate method
 
 
 
@@ -168,9 +168,9 @@ Methods
 
 ### checkSchemes
 
-    mixed SwaggerValidator\Object\Swagger::checkSchemes(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::checkSchemes(\SwaggerValidator\Common\Context $context)
 
-
+Check the scheme used in the request URL for validate method
 
 
 
@@ -184,9 +184,9 @@ Methods
 
 ### checkHost
 
-    mixed SwaggerValidator\Object\Swagger::checkHost(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::checkHost(\SwaggerValidator\Common\Context $context)
 
-
+Check the host used in the request URL for validate method
 
 
 
@@ -200,9 +200,9 @@ Methods
 
 ### checkBasePath
 
-    mixed SwaggerValidator\Object\Swagger::checkBasePath(\SwaggerValidator\Common\Context $context)
+    \SwaggerValidator\Common\Context SwaggerValidator\Object\Swagger::checkBasePath(\SwaggerValidator\Common\Context $context)
 
-
+Check the basePath used in the request URL for validate method
 
 
 
@@ -216,9 +216,9 @@ Methods
 
 ### checkConsume
 
-    mixed SwaggerValidator\Object\Swagger::checkConsume(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::checkConsume(\SwaggerValidator\Common\Context $context)
 
-
+Check the Content-Type used in the request regarding the consume definition for validate method
 
 
 
@@ -232,9 +232,9 @@ Methods
 
 ### checkProduce
 
-    mixed SwaggerValidator\Object\Swagger::checkProduce(\SwaggerValidator\Common\Context $context)
+    boolean SwaggerValidator\Object\Swagger::checkProduce(\SwaggerValidator\Common\Context $context)
 
-
+Check the Content-Type return in the response regarding the produce definition for validate method
 
 
 
@@ -248,9 +248,9 @@ Methods
 
 ### getApiVersion
 
-    mixed SwaggerValidator\Object\Swagger::getApiVersion()
+    string SwaggerValidator\Object\Swagger::getApiVersion()
 
-
+Retrieve the Complete Version of the current API
 
 
 
@@ -261,9 +261,9 @@ Methods
 
 ### getApiVersionMajor
 
-    mixed SwaggerValidator\Object\Swagger::getApiVersionMajor()
+    string SwaggerValidator\Object\Swagger::getApiVersionMajor()
 
-
+Extract the Major part of the version for the current API
 
 
 
@@ -274,9 +274,9 @@ Methods
 
 ### getApiVersionMinor
 
-    mixed SwaggerValidator\Object\Swagger::getApiVersionMinor()
+    string SwaggerValidator\Object\Swagger::getApiVersionMinor()
 
-
+Extract the Minor part of the version for the current API
 
 
 
@@ -287,9 +287,9 @@ Methods
 
 ### getApiVersionBuild
 
-    mixed SwaggerValidator\Object\Swagger::getApiVersionBuild()
+    string SwaggerValidator\Object\Swagger::getApiVersionBuild()
 
-
+Extract the Build part of the version for the current API
 
 
 
@@ -300,9 +300,9 @@ Methods
 
 ### getApiVersionPatch
 
-    mixed SwaggerValidator\Object\Swagger::getApiVersionPatch()
+    string SwaggerValidator\Object\Swagger::getApiVersionPatch()
 
-
+Extract the Patch part of the version for the current API
 
 
 
@@ -313,9 +313,9 @@ Methods
 
 ### getModel
 
-    mixed SwaggerValidator\Object\Swagger::getModel(\SwaggerValidator\Common\Context $context)
+    array SwaggerValidator\Object\Swagger::getModel(\SwaggerValidator\Common\Context $context)
 
-
+Build a model following current definition instancied
 
 
 

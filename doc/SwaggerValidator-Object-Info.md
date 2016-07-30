@@ -89,6 +89,19 @@ Methods
 
 
 
+### getApiVersion
+
+    mixed SwaggerValidator\Object\Info::getApiVersion()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
 ### callException
 
     mixed SwaggerValidator\Common\CollectionSwagger::callException($message, $context)

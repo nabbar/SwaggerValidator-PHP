@@ -317,7 +317,7 @@ Properties
 
 ### $keyToObject
 
-    private array $keyToObject = array('contact' => 'Contact', 'definitions' => 'Definitions', 'externalDocs' => 'ExternalDocs', 'info' => 'Info', 'license' => 'License', 'paths' => 'Paths', 'parameters' => 'Parameters', 'responses' => 'Responses', 'schema' => '', 'security' => 'Security', 'securityDefinitions' => 'SecurityDefinitions', 'oneOf' => 'TypeCombined', 'anyOf' => 'TypeCombined', 'allOf' => 'TypeCombined', 'not' => 'TypeCombined', 'properties' => 'TypeObject', 'scopes' => '')
+    private array $keyToObject = array('contact' => 'Contact', 'definitions' => 'Definitions', 'externalDocs' => 'ExternalDocs', 'headers' => 'Headers', 'info' => 'Info', 'license' => 'License', 'paths' => 'Paths', 'parameters' => 'Parameters', 'responses' => 'Responses', 'schema' => '', 'security' => 'Security', 'securityDefinitions' => 'SecurityDefinitions', 'oneOf' => 'TypeCombined', 'anyOf' => 'TypeCombined', 'allOf' => 'TypeCombined', 'not' => 'TypeCombined', 'properties' => 'TypeObject', 'scopes' => '')
 
 The default list of matching key and type
 Empty value must have a specific build part

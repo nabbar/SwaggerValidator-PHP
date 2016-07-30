@@ -89,6 +89,22 @@ Methods
 
 
 
+### validate
+
+    mixed SwaggerValidator\Object\HeaderItem::validate(\SwaggerValidator\Common\Context $context)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
 ### getModel
 
     mixed SwaggerValidator\Object\HeaderItem::getModel(\SwaggerValidator\Common\Context $context)
