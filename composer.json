@@ -54,7 +54,7 @@
             "rm -vrf doc/; mkdir -vp doc;mkdir -vp temp;",
             "vendor/phpdocumentor/phpdocumentor/bin/phpdoc -c ./phpdoc.xml --target ./doc --validate --progressbar --cache-folder ./temp",
             "vendor/evert/phpdoc-md/bin/phpdocmd doc/structure.xml doc/",
-            "rm -vrf doc/structure.xml temp/; mv doc/ApiIndex.md doc/Index.md; ls -al doc/"
+            "rm -vrf doc/structure.xml temp/; mv doc/ApiIndex.md doc/README.md; ls -al doc/"
         ],
         "build": [
             "composer install --dev",
