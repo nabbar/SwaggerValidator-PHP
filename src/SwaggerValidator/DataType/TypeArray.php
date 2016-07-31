@@ -71,7 +71,7 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
-        $this->collectionFormat($context, $context->getDataValue());
+        $this->collectionFormat($context);
 
         if (!$this->type($context, $context->getDataValue())) {
             return $context->setDataCheck($keyType)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, null, __METHOD__, __LINE__);

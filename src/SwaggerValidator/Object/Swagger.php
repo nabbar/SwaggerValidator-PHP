@@ -168,7 +168,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             }
             else {
                 $ctx = $context->setLocation($location)->setDataCheck('exist');
-                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($context->getType(), $location);
+                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($ctx->getType(), $ctx->getLocation());
 
                 if (empty($mtd)) {
                     continue;

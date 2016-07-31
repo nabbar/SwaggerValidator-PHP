@@ -255,12 +255,8 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
         return (count(array_unique($valueParams)) == count($valueParams));
     }
 
-    public function collectionFormat(\SwaggerValidator\Common\Context $context, &$valueParams)
+    public function collectionFormat(\SwaggerValidator\Common\Context $context)
     {
-        if (!is_string($valueParams)) {
-            return false;
-        }
-
         if (!$this->__isset('collectionFormat')) {
             return false;
         }
