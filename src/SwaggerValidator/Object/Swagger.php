@@ -78,7 +78,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         $doc                 = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::jsonSerialize()));
         $doc->$keyDefinition = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(\SwaggerValidator\Common\CollectionReference::getInstance()));
 
-        if (count(get_object_vars($doc->$keyDefinition)) < 2) {
+        if (count(get_object_vars($doc->$keyDefinition)) < 1) {
             unset($doc->$keyDefinition);
         }
 

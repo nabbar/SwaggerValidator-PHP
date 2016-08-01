@@ -172,6 +172,18 @@ class ReferenceFile
             $refList = $this->extractReferenceArray($this->fileObj);
         }
 
+        if (is_object($this->fileObj) && property_exists($this->fileObj, \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS)) {
+
+            $keyDef = \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS;
+
+            foreach (array_keys(get_object_vars($this->fileObj->$keyDef)) as $key) {
+                $ref = $this->fileUri . '#/' . $keyDef . '/' . $key;
+                $id  = \SwaggerValidator\Common\CollectionReference::getIdFromRef($ref);
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($ref);
+                \SwaggerValidator\Common\Context::logReplaceRef($key, $id, __METHOD__, __LINE__);
+            }
+        }
+
         return array_unique($refList);
     }
 

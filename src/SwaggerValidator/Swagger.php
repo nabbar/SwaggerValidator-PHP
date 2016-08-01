@@ -66,6 +66,8 @@ class Swagger
      */
     public static function setCachePath($pathCacheFile)
     {
+        self::$cacheEnable = false;
+
         if (!empty($pathCacheFile) && file_exists($pathCacheFile)) {
             self::$cacheEnable = true;
             self::$cachePath   = $pathCacheFile;
@@ -78,9 +80,6 @@ class Swagger
             unlink($pathCacheFile);
             self::$cacheEnable = true;
             self::$cachePath   = $pathCacheFile;
-        }
-        else {
-            self::$cacheEnable = false;
         }
     }
 
@@ -145,7 +144,7 @@ class Swagger
             return self::regenSwagger($context);
         }
 
-        return self::loadCache($context);
+        return self::loadCache();
     }
 
     /**
@@ -183,7 +182,7 @@ class Swagger
      * @param \SwaggerValidator\Common\Context $context
      * @return \SwaggerValidator\Object\Swagger
      */
-    protected static function loadCache(\SwaggerValidator\Common\Context $context)
+    protected static function loadCache()
     {
         self::cleanInstances();
 

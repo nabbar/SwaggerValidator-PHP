@@ -82,8 +82,9 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
      */
     public static function prune()
     {
-        self::$instance  = null;
-        self::$refIdList = array();
+        self::$instance         = null;
+        self::$refIdList        = array();
+        self::$refIdDefinitions = array();
     }
 
     public function __isset($ref)
@@ -148,11 +149,12 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     {
         $result = new \stdClass();
 
-        foreach ($this->keys() as $key) {
-            $result->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key->getObject(new \SwaggerValidator\Common\Context())));
+        foreach (parent::keys() as $key) {
+            $name          = str_replace(':', '', $key);
+            $result->$name = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::__get($key)->getObject(new \SwaggerValidator\Common\Context())));
         }
 
-        $result->fullRealRef = array_flip(self::$refIdDefinitions);
+        //$result->fullRealRef = array_flip(self::$refIdDefinitions);
 
         return $result;
     }
@@ -260,9 +262,10 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function cleanReferenceDefinitions()
     {
-        foreach ($this->keys() as $key) {
+        foreach (parent::keys() as $key) {
             if (!in_array($key, self::$refIdDefinitions)) {
-                unset($this->$key);
+                //\SwaggerValidator\Common\Context::logDebug('Drop Ref : ' . $key, __METHOD__, __LINE__);
+                parent::__unset($key);
             }
         }
         self::$refIdList = self::$refIdDefinitions;
@@ -270,9 +273,9 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function unserializeReferenceDefinitions(\SwaggerValidator\Common\Context $context)
     {
-        foreach ($this->keys() as $key) {
+        foreach (parent::keys() as $key) {
             if (in_array($key, self::$refIdDefinitions)) {
-                $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));
+                parent::__get($key)->getObject($context->setExternalRef(self::getRefFromId($key)));
             }
         }
     }
@@ -284,8 +287,8 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context)
     {
-        foreach ($this->keys() as $key) {
-            $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));
+        foreach (parent::keys() as $key) {
+            parent::__get($key)->getObject($context->setExternalRef(self::getRefFromId($key)));
         }
     }
 

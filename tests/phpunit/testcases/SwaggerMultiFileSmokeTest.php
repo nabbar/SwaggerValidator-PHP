@@ -147,4 +147,21 @@ class SwaggerMultiFileSmokeTest extends genericTestClass
         }
     }
 
+    public function testDocument()
+    {
+        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
+        $swaggerDocExpected    = PHPUNIT_PATH_EXPECTED . 'swaggerMultiFile.json';
+
+        $this->swaggerBuild();
+
+        $doc = json_encode($this->swaggerObject, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        //Store new expected but validate it with other tools
+        //Like editor, nodeJs SwaggerValidator, ...
+        //file_put_contents($swaggerDocExpected, $doc);
+
+        $this->assertFileExists($swaggerDocExpected);
+        $this->assertEquals(file_get_contents($swaggerDocExpected), $doc);
+    }
+
 }
