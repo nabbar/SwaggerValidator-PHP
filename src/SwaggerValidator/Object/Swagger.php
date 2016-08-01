@@ -68,30 +68,6 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
     }
 
     /**
-     * Override the serialize function
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            parent::serialize(),
-            serialize(\SwaggerValidator\Common\CollectionReference::getInstance())
-        ));
-    }
-
-    /**
-     * Override the unserialze function
-     * @param string $data
-     */
-    public function unserialize($data)
-    {
-        list($wagger, $reference) = unserialize($data);
-
-        unserialize($reference);
-        parent::unserialize($wagger);
-    }
-
-    /**
      * Method call when a json_encode of an instance of this object is used
      * @return \stdClass
      */
@@ -168,7 +144,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             }
             else {
                 $ctx = $context->setLocation($location)->setDataCheck('exist');
-                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($context->getType(), $location);
+                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($ctx->getType(), $ctx->getLocation());
 
                 if (empty($mtd)) {
                     continue;

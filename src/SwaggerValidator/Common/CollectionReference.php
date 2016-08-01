@@ -122,7 +122,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             $file = \SwaggerValidator\Common\CollectionFile::getInstance()->$link;
 
             if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
-                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, __FILE__, __LINE__);
+                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
             }
 
             $value = new \SwaggerValidator\Common\ReferenceItem($file->$fRef);
@@ -141,7 +141,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             return parent::__set($id, $value);
         }
 
-        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, __FILE__, __LINE__);
+        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, "", __FILE__, __LINE__);
     }
 
     public function jsonSerialize()
@@ -159,18 +159,25 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function serialize()
     {
-        return serialize(array(
-            self::$refIdList,
-            parent::serialize(),
-        ));
+        return serialize(get_object_vars($this));
     }
 
     public function unserialize($data)
     {
-        list(self::$refIdList, $col) = unserialize($data);
+        self::getInstance();
+        $base = $data;
 
-        self::$refIdDefinitions = self::$refIdList;
-        parent::unserialize($col);
+        if (!is_array($data)) {
+            $data = unserialize($data);
+        }
+
+        if (!is_array($data)) {
+            \SwaggerValidator\Exception::throwNewException('Cannot unserialize object ! ', array($base, $data), __FILE__, __LINE__);
+        }
+
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     /**
@@ -192,8 +199,11 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     public static function getIdFromRef($fullRef)
     {
         if (!is_string($fullRef)) {
-            print_r(debug_backtrace(null, 10));
-            die();
+            \SwaggerValidator\Exception::throwNewException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
+        }
+
+        if (strlen($fullRef) < 1) {
+            \SwaggerValidator\Exception::throwNewException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (substr($fullRef, 0, 3) === self::ID_PREFIX) {

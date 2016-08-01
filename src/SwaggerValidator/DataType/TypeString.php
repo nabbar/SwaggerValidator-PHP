@@ -76,8 +76,6 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        print " debug : " . print_r($valueParams, true) . "\n";
-
         return false;
     }
 

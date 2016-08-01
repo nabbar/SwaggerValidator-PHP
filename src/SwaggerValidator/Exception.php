@@ -41,7 +41,7 @@ class Exception extends \Exception
         $e->setLine($line);
         $e->setContext($context);
 
-        \SwaggerValidator\Common\Context::logDebug('Exception find : ' . $message . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logDebug('Exception find : ' . $message . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $file, $line);
 
         return $e;
     }

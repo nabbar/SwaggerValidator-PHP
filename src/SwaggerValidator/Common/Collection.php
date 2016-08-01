@@ -153,7 +153,11 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
 
     public function unserialize($data)
     {
-        $this->collection = unserialize($data);
+        if (!is_array($data)) {
+            $data = unserialize($data);
+        }
+
+        $this->collection = $data;
     }
 
     /**

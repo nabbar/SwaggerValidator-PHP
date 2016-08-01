@@ -79,34 +79,14 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        \SwaggerValidator\Common\CollectionReference::prune();
-        \SwaggerValidator\Common\CollectionFile::prune();
-        \SwaggerValidator\Common\CollectionType::pruneInstance();
-        \SwaggerValidator\Common\Factory::pruneInstance();
-        \SwaggerValidator\Common\FactorySwagger::pruneInstance();
-
-        \SwaggerValidator\Common\Context::setConfig('log', 'loadFile', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'loadRef', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'replaceRef', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'decode', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'validate', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'model', false);
+        \SwaggerValidator\Swagger::cleanInstances();
+        \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
     }
 
     public static function tearDownAfterClass()
     {
-        \SwaggerValidator\Common\CollectionReference::prune();
-        \SwaggerValidator\Common\CollectionFile::prune();
-        \SwaggerValidator\Common\CollectionType::pruneInstance();
-        \SwaggerValidator\Common\Factory::pruneInstance();
-        \SwaggerValidator\Common\FactorySwagger::pruneInstance();
-
-        \SwaggerValidator\Common\Context::setConfig('log', 'loadFile', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'loadRef', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'replaceRef', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'decode', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'validate', false);
-        \SwaggerValidator\Common\Context::setConfig('log', 'model', false);
+        \SwaggerValidator\Swagger::cleanInstances();
+        \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
     }
 
     public function swaggerBuild()

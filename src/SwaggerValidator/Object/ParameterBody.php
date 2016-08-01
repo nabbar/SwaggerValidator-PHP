@@ -30,7 +30,7 @@ class ParameterBody extends \SwaggerValidator\Common\CollectionSwagger
     public function __construct()
     {
         parent::registerMandatoryKey('schema');
-        $this->name = \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY;
+        parent::__set('name', \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY);
     }
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)

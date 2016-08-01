@@ -230,3 +230,17 @@ store the new swagger object is available
 * $swagger **[SwaggerValidator\Object\Swagger](SwaggerValidator-Object-Swagger.md)**
 
 
+
+### cleanInstances
+
+    mixed SwaggerValidator\Swagger::cleanInstances()
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
