@@ -159,7 +159,6 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        print "Calling with args : " . print_r(func_get_args(), true) . "\n\n";
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'The items number does not match the awaiting', __METHOD__, __LINE__);
     }
 

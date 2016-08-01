@@ -107,6 +107,19 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     }
 
     /**
+     * Method to disable all debug log
+     */
+    public static function setConfigDropAllDebugLog()
+    {
+        self::setConfig('log', 'loadFile', false);
+        self::setConfig('log', 'loadRef', false);
+        self::setConfig('log', 'replaceRef', false);
+        self::setConfig('log', 'decode', false);
+        self::setConfig('log', 'validate', false);
+        self::setConfig('log', 'model', false);
+    }
+
+    /**
      * Retrieve a config value
      * @param string $optionGroup
      * @param string $optionName

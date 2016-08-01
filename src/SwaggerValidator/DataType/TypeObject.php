@@ -125,6 +125,30 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
         }
     }
 
+    public function serialize()
+    {
+        $object               = get_object_vars($this);
+        $object['__parent__'] = base64_encode(parent::serialize());
+
+        return serialize($object);
+    }
+
+    public function unserialize($data)
+    {
+        if (!is_array($data)) {
+            $data = unserialize($data);
+        }
+
+        foreach ($data as $key => $value) {
+            if ($key === '__') {
+                parent::unserialize(unserialize(base64_decode($value)));
+            }
+            else {
+                $this->$key = $value;
+            }
+        }
+    }
+
     public function jsonSerialize()
     {
         if (parent::__isset(\SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA)) {

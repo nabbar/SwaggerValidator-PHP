@@ -28,12 +28,6 @@ namespace SwaggerValidator\DataType;
 abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 {
 
-    /**
-     *
-     * @var \stdClass|array
-     */
-    private $jsonObject;
-
     abstract protected function type(\SwaggerValidator\Common\Context $context, $valueParams);
 
     abstract protected function format(\SwaggerValidator\Common\Context $context, $valueParams);
@@ -41,15 +35,6 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
     abstract protected function getExampleType(\SwaggerValidator\Common\Context $context);
 
     abstract protected function getExampleFormat(\SwaggerValidator\Common\Context $context);
-
-    public function jsonSerialize()
-    {
-        /*        if (!empty($this->jsonObject)) {
-          return $this->jsonObject;
-          }
-         */
-        return parent::jsonSerialize();
-    }
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
@@ -66,13 +51,6 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
-    }
-
-    protected function storeJsonObject()
-    {
-
-        $this->jsonObject = null;
-        $this->jsonObject = $this->jsonSerialize();
     }
 
     public function isRequired()

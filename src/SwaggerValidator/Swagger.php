@@ -70,6 +70,10 @@ class Swagger
             self::$cacheEnable = true;
             self::$cachePath   = $pathCacheFile;
         }
+        elseif (!empty($pathCacheFile) && !file_exists(dirname($pathCacheFile))) {
+            self::$cacheEnable = false;
+            self::$cachePath   = $pathCacheFile;
+        }
         elseif (!empty($pathCacheFile) && touch($pathCacheFile)) {
             unlink($pathCacheFile);
             self::$cacheEnable = true;
@@ -151,6 +155,8 @@ class Swagger
      */
     protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
+        self::cleanInstances();
+
         $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
 
         if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
@@ -179,10 +185,18 @@ class Swagger
      */
     protected static function loadCache(\SwaggerValidator\Common\Context $context)
     {
-        $swagger = unserialize(base64_decode(trim(file_get_contents(self::$cachePath))));
+        self::cleanInstances();
+
+        $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
+
+        if (!is_array($swagger)) {
+            \SwaggerValidator\Exception::throwNewException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+        }
+
+        $swagger = $swagger['swg'];
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
-            return self::regenSwagger($context);
+            \SwaggerValidator\Exception::throwNewException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
         }
 
         return $swagger;
@@ -201,13 +215,27 @@ class Swagger
 
         if (!file_exists(self::$cachePath) && !touch(self::$cachePath)) {
             self::$cacheEnable = false;
-            return $swagger;
+            \SwaggerValidator\Exception::throwNewException('Cannot Write Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
         }
 
-        file_put_contents(self::$cachePath, base64_decode(serialize($swagger)));
+        $array = array(
+            'ref' => \SwaggerValidator\Common\CollectionReference::getInstance(),
+            'swg' => $swagger,
+        );
+
+        file_put_contents(self::$cachePath, base64_encode(serialize($array)));
         touch(self::$cachePath);
 
         return $swagger;
+    }
+
+    public static function cleanInstances()
+    {
+        \SwaggerValidator\Common\CollectionReference::prune();
+        \SwaggerValidator\Common\CollectionFile::prune();
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+        \SwaggerValidator\Common\FactorySwagger::pruneInstance();
     }
 
 }
