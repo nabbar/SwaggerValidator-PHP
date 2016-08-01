@@ -24,7 +24,7 @@ namespace SwaggerValidator\Common;
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-class Context
+class Context extends ContextBase implements \SwaggerValidator\Interfaces\ContextLog, \SwaggerValidator\Interfaces\ContextDataLoader, \SwaggerValidator\Interfaces\ContextDataParser
 {
     /*
      * Mode Constants
@@ -87,171 +87,12 @@ class Context
     );
 
     /**
-     *
-     * @var string
+     * Set a configuration option
+     * @param string $optionGroup
+     * @param string $optionName
+     * @param mixed $value
+     * @return void
      */
-    protected $contextMode;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextType;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextLocation;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextScheme;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextHost;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextBasePath;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextRequestPath;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextRoutePath;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextMethod;
-
-    /**
-     *
-     * @var array
-     */
-    protected $contextDataPath;
-
-    /**
-     *
-     * @var array
-     */
-    protected $contextDataCheck;
-
-    /**
-     *
-     * @var mixed
-     */
-    protected $contextDataValue;
-
-    /**
-     *
-     * @var boolean
-     */
-    protected $contextDataValueExists;
-
-    /**
-     *
-     * @var boolean
-     */
-    protected $contextDataValueEmpty;
-
-    /**
-     *
-     * @var array
-     */
-    protected $contextDataDecodeError;
-
-    /**
-     *
-     * @var string
-     */
-    protected $contextDataType;
-
-    /**
-     *
-     * @var array
-     */
-    protected $contextOther;
-
-    /**
-     *
-     * @var array
-     */
-    protected $contextExternalRef;
-
-    /**
-     *
-     * @var boolean
-     */
-    protected $contextIsCombined;
-
-    /**
-     *
-     * @var array
-     */
-    protected static $contextValidatedParams = array();
-
-    /**
-     *
-     * @var array
-     */
-    protected $mockedData = array();
-
-    /**
-     *
-     * @param string|null $mode
-     * @param string|null $type
-     */
-    public function __construct($mode = null, $type = null)
-    {
-        if (!is_array($this->contextDataCheck)) {
-            $this->contextDataCheck = array();
-        }
-
-        if (!is_array($this->contextDataValue)) {
-            $this->contextDataValue = array();
-        }
-
-        if (!is_array($this->contextDataPath)) {
-            $this->contextDataPath = array();
-        }
-
-        if (!is_array($this->contextExternalRef)) {
-            $this->contextExternalRef = array();
-        }
-
-        if (!is_array($this->contextOther)) {
-            $this->contextOther = array();
-        }
-
-        if (empty($this->contextDataPath)) {
-            $this->contextDataPath[] = '#';
-        }
-
-        if (!empty($mode)) {
-            $this->setMode($mode);
-        }
-
-        if (!empty($type)) {
-            $this->setType($type);
-        }
-    }
-
     public static function setConfig($optionGroup, $optionName, $value)
     {
         if (!array_key_exists($optionGroup, self::$config) || !is_array(self::$config[$optionGroup])) {
@@ -265,7 +106,26 @@ class Context
         self::$config[$optionGroup][$optionName] = $value;
     }
 
-    protected static function getConfig($optionGroup, $optionName)
+    /**
+     * Method to disable all debug log
+     */
+    public static function setConfigDropAllDebugLog()
+    {
+        self::setConfig('log', 'loadFile', false);
+        self::setConfig('log', 'loadRef', false);
+        self::setConfig('log', 'replaceRef', false);
+        self::setConfig('log', 'decode', false);
+        self::setConfig('log', 'validate', false);
+        self::setConfig('log', 'model', false);
+    }
+
+    /**
+     * Retrieve a config value
+     * @param string $optionGroup
+     * @param string $optionName
+     * @return mixed
+     */
+    public static function getConfig($optionGroup, $optionName)
     {
         if (!array_key_exists($optionGroup, self::$config) || !is_array(self::$config[$optionGroup])) {
             return;
@@ -278,250 +138,10 @@ class Context
         return self::$config[$optionGroup][$optionName];
     }
 
-    private function formatVarName($name)
-    {
-        if (substr($name, 0, 7) == 'context') {
-            return $name;
-        }
-
-        return 'context' . strtoupper(substr($name, 0, 1)) . substr($name, 1);
-    }
-
-    public function __get($name)
-    {
-        if (array_key_exists($name, $this->mockedData)) {
-            return $this->mockedData[$name];
-        }
-
-        if ($this->__isset($name) && $name !== 'mockedData') {
-            $property = $this->formatVarName($name);
-            return $this->$property;
-        }
-    }
-
-    public function __set($name, $value)
-    {
-        if ($this->__isset($name) && $name !== 'mockedData') {
-            $method_name = 'set' . substr($this->formatVarName($name), 7);
-
-            if (method_exists($this, $method_name)) {
-                $this->$method_name($value);
-            }
-            else {
-                throw new Exception('Cannot find this Method : ' . $method_name);
-            }
-        }
-    }
-
-    public function __isset($name)
-    {
-        $property = $this->formatVarName($name);
-        return $name !== 'mockedData' && property_exists(get_class($this), $property);
-    }
-
-    public function __unset($name)
-    {
-        if (!$this->__isset($name) && $name !== 'mockedData') {
-            return;
-        }
-
-        $property = $this->formatVarName($name);
-        $exclude  = array(
-            'contextMode',
-            'contextType',
-        );
-
-        if (in_array($property, $exclude)) {
-            return;
-        }
-
-        $this->$property = null;
-    }
-
-    public function __toString()
-    {
-        return \SwaggerValidator\Common\Collection::jsonEncode($this->__debugInfo());
-    }
-
-    public function __debugInfo()
-    {
-        $properties = get_object_vars($this);
-
-        foreach (array_keys($properties) as $key) {
-            if (substr($key, 0, 7) != 'context' && $key != 'mockedData') {
-                unset($properties[$key]);
-            }
-        }
-
-        return $properties;
-    }
-
-    public function setMode($value = null)
-    {
-        switch ($value) {
-            case self::MODE_DENY:
-            case self::MODE_PASS:
-                $this->contextMode = $value;
-                break;
-
-            default:
-                $this->contextMode = self::MODE_DENY;
-                break;
-        }
-        return $this;
-    }
-
-    public function getMode()
-    {
-        return $this->__get('Mode');
-    }
-
-    public function setType($value = null)
-    {
-        switch ($value) {
-            case self::TYPE_RESPONSE:
-            case self::TYPE_REQUEST:
-                $this->contextType = $value;
-                break;
-
-            default:
-                $this->contextType = self::TYPE_REQUEST;
-                break;
-        }
-        return $this;
-    }
-
-    public function getType()
-    {
-        return $this->__get('Type');
-    }
-
-    public function setLocation($value = null)
-    {
-        switch (strtolower($value)) {
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
-            case 'body':
-                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-            case 'formdata':
-                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER:
-            case 'header':
-                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH:
-            case 'path':
-                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-            case 'query':
-                $this->contextLocation = \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY;
-                break;
-
-            default:
-                $this->contextLocation = self::LOCATION_BODY;
-                break;
-        }
-        return $this;
-    }
-
-    public function getLocation()
-    {
-        return $this->__get('Location');
-    }
-
-    public function setMethod($value = null)
-    {
-        switch (strtolower($value)) {
-            case self::METHOD_DELETE:
-            case self::METHOD_GET:
-            case self::METHOD_HEAD:
-            case self::METHOD_OPTIONS:
-            case self::METHOD_PATCH:
-            case self::METHOD_POST:
-            case self::METHOD_PUT:
-                $this->contextMethod = $value;
-                break;
-
-            default:
-                $this->contextMethod = self::METHOD_GET;
-                break;
-        }
-
-        return $this;
-    }
-
-    public function getMethod()
-    {
-        return $this->__get('Method');
-    }
-
-    public function loadMethod()
-    {
-        return $this->setMethod($this->getEnv('REQUEST_METHOD'));
-    }
-
-    public function setBasePath($value = null)
-    {
-        $this->contextBasePath = $value;
-        return $this;
-    }
-
-    public function getBasePath()
-    {
-        return $this->__get('BasePath');
-    }
-
-    public function setRoutePath($value = null)
-    {
-        $this->contextRoutePath = $value;
-        return $this;
-    }
-
-    public function getRoutePath()
-    {
-        return $this->__get('RoutePath');
-    }
-
-    public function setRequestPath($value = null)
-    {
-        $this->contextRequestPath = $value;
-        return $this;
-    }
-
-    public function getRequestPath()
-    {
-        return $this->__get('RequestPath');
-    }
-
-    public function setScheme($value = null)
-    {
-        $this->contextScheme = $value;
-        return $this;
-    }
-
-    public function getScheme()
-    {
-        return $this->__get('Scheme');
-    }
-
-    public function setHost($value = null)
-    {
-        $this->contextHost = $value;
-        return $this;
-    }
-
-    public function getHost()
-    {
-        return $this->__get('Host');
-    }
-
+    /**
+     * Load the called URL/Path to identify component
+     * like scheme, host, base path
+     */
     public function loadUri()
     {
         $this->contextScheme = $this->getEnv('REQUEST_SCHEME');
@@ -532,108 +152,9 @@ class Context
         $this->contextBasePath = array_shift($uri);
     }
 
-    public function addContext($key = null, $value = null)
-    {
-        $this->contextOther[$key] = $value;
-        return $this;
-    }
-
-    public function getContext()
-    {
-        return $this->__get('Other');
-    }
-
-    public function setCombined($value = false)
-    {
-        $this->contextIsCombined = boolval($value);
-        return $this;
-    }
-
-    public function getCombined()
-    {
-        return $this->__get('IsCombined');
-    }
-
-    public function setDataPath($value = null)
-    {
-        $new = clone $this;
-
-        $new->contextDataPath[] = $value;
-
-        return $new;
-    }
-
-    public function getDataPath()
-    {
-        return implode('/', $this->__get('DataPath'));
-    }
-
-    public function setExternalRef($value = null)
-    {
-        $new = clone $this;
-
-        if (!empty($value)) {
-            $new->contextExternalRef[] = $value;
-        }
-
-        return $new;
-    }
-
-    public function getExternalRef()
-    {
-        return implode(',', $this->__get('ExternalRef'));
-    }
-
-    public function getLastExternalRef()
-    {
-        $ref = $this->__get('ExternalRef');
-        return array_pop($ref);
-    }
-
-    public function checkExternalRef($value = NULL)
-    {
-        if (!empty($value)) {
-            return in_array($value, $this->__get('ExternalRef'));
-        }
-
-        return false;
-    }
-
-    public function setDataCheck($value = null)
-    {
-        $this->contextDataCheck[] = $value;
-        return $this;
-    }
-
-    public function getDataCheck()
-    {
-        return implode('/', $this->__get('DataCheck'));
-    }
-
-    public function setDataValue($value = null)
-    {
-        $this->contextDataValueExists = true;
-        $this->contextDataValue       = $value;
-        $this->checkDataIsEmpty();
-
-        return $this;
-    }
-
-    public function getDataValue()
-    {
-        return $this->__get('DataValue');
-    }
-
-    public function isDataExists()
-    {
-        return $this->__get('DataValueExists');
-    }
-
-    public function isDataEmpty()
-    {
-        return $this->__get('DataValueEmpty');
-    }
-
+    /**
+     * Check if the loaded data are empty or not
+     */
     public function checkDataIsEmpty()
     {
         if ($this->__get('DataValueExists') === false) {
@@ -656,6 +177,10 @@ class Context
         }
     }
 
+    /**
+     * return the response status sent
+     * @return integer|null
+     */
     public function getResponseStatus()
     {
         if (array_key_exists('http_response_code', $this->mockedData)) {
@@ -666,9 +191,13 @@ class Context
             return http_response_code();
         }
 
-        return;
+        return null;
     }
 
+    /**
+     * Load data and check it based on local context definition
+     * @return void
+     */
     public function dataLoad()
     {
         $paramName = $this->__get('DataPath');
@@ -713,6 +242,10 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * return the complete list of all params send in form data ($_POST or $_FILES)
+     * @return array
+     */
     public function getRequestFormDataKey()
     {
         $post = array_keys($_POST);
@@ -729,6 +262,12 @@ class Context
         return $post + $file;
     }
 
+    /**
+     * Filtering the request form data and files,
+     * load the data and check it
+     * @param string $paramName
+     * @return void
+     */
     public function loadRequestFormData($paramName)
     {
         if (array_key_exists($paramName, $_POST)) {
@@ -743,6 +282,12 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * Filtering the request path to identify the path parameters,
+     * load the data and check it
+     * @param string $paramName
+     * @return void
+     */
     public function loadRequestPath($paramName)
     {
         // parse from the end to the top
@@ -791,6 +336,10 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * return the complete list of all params send in query string
+     * @return array
+     */
     public function getRequestQueryKey()
     {
         $uri = explode('?', $this->getEnv('REQUEST_URI'));
@@ -801,6 +350,11 @@ class Context
         return array_keys($qrs);
     }
 
+    /**
+     * Filtering the request querystring, load the data and check it
+     * @param string $paramName
+     * @return void
+     */
     public function loadRequestQuery($paramName)
     {
         $uri = explode('?', $this->getEnv('REQUEST_URI'));
@@ -816,6 +370,11 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * Filtering the request header, load the data and check it
+     * @param string $paramName
+     * @return void
+     */
     public function loadRequestHeader($paramName)
     {
         $headers = $this->getRequestHeader();
@@ -828,6 +387,11 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * Filtering the response header, load the data and check it
+     * @param string $paramName
+     * @return void
+     */
     public function loadResponseHeader($paramName)
     {
         $headers = $this->getResponseHeader();
@@ -840,58 +404,37 @@ class Context
         return $this->checkDataIsEmpty();
     }
 
+    /**
+     * Method to load Request body identify by his content type header
+     * And only if a content length is defined and > 0
+     * @return void
+     */
     public function loadRequestBody()
     {
-        $headers       = $this->getRequestHeader();
-        $contentType   = null;
-        $contentLength = null;
-
-        if (array_key_exists('Content-Type', $headers)) {
-            $contentType = explode(';', $headers['Content-Type']);
-            $contentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($contentType));
-        }
-
-        if (array_key_exists('Content-Length', $headers)) {
-            $contentLength = (int) $headers['Content-Length'];
-        }
-
-        if ($contentLength < 1) {
-            $this->contextDataValueExists = false;
-            $this->contextDataValueEmpty  = true;
-            $this->contextDataValue       = null;
-            return;
-        }
-
-        switch (strtolower($contentType)) {
-            case 'json' :
-                $this->buildBodyJson($this->getRequestBodyRawData());
-                break;
-
-            case 'xml' :
-                $this->buildBodyXml($this->getRequestBodyRawData());
-                break;
-
-            default:
-                $this->contextDataType        = self::CONTENT_TYPE_OTHER;
-                $this->contextDataValueExists = false;
-                $this->contextDataValueEmpty  = true;
-                $this->contextDataValue       = null;
-                break;
-        }
-    }
-
-    public function getRequestBodyRawData()
-    {
         if (array_key_exists('php://input', $this->mockedData)) {
-            return $this->mockedData['php://input'];
+            $this->loadBodyByContent($this->getRequestHeader(), $this->mockedData['php://input']);
         }
-
-        return file_get_contents("php://input");
+        else {
+            $this->loadBodyByContent($this->getRequestHeader(), file_get_contents("php://input"));
+        }
     }
 
+    /**
+     * Method to load Response body identify by his content type header
+     * And only if a content length is defined and > 0
+     */
     public function loadResponseBody()
     {
-        $headers       = $this->getResponseHeader();
+        if (array_key_exists('php://output', $this->mockedData)) {
+            $this->loadBodyByContent($this->getResponseHeader(), $this->mockedData['php://output']);
+        }
+        else {
+            $this->loadBodyByContent($this->getResponseHeader(), file_get_contents("php://output"));
+        }
+    }
+
+    public function loadBodyByContent($headers, $rawBody)
+    {
         $contentType   = null;
         $contentLength = null;
 
@@ -913,11 +456,11 @@ class Context
 
         switch (strtolower($contentType)) {
             case 'json' :
-                $this->buildBodyJson($this->getResponseBodyRawData());
+                $this->buildBodyJson($rawBody);
                 break;
 
             case 'xml' :
-                $this->buildBodyXml($this->getResponseBodyRawData());
+                $this->buildBodyXml($rawBody);
                 break;
 
             default:
@@ -927,19 +470,13 @@ class Context
                 $this->contextDataValue       = null;
                 break;
         }
-        return null;
     }
 
-    public function getResponseBodyRawData()
-    {
-        if (array_key_exists('php://output', $this->mockedData)) {
-            return $this->mockedData['php://output'];
-        }
-
-        return file_get_contents("php://output");
-    }
-
-    protected function buildBodyJson($contents)
+    /**
+     * Method to build the body mixed data from a JSON Raw Body
+     * @param string $contents
+     */
+    public function buildBodyJson($contents)
     {
         $this->contextDataType        = self::CONTENT_TYPE_JSON;
         $this->contextDataValueExists = (bool) (strlen($contents) > 0);
@@ -960,7 +497,11 @@ class Context
         }
     }
 
-    protected function buildBodyXml($contents)
+    /**
+     * Method to build the body mixed data from a XML Raw Body
+     * @param string $contents
+     */
+    public function buildBodyXml($contents)
     {
         $this->contextDataType        = self::CONTENT_TYPE_XML;
         $this->contextDataValueExists = (bool) (strlen($contents) > 0);
@@ -1008,6 +549,267 @@ class Context
         }
     }
 
+    /**
+     * Method to clean the control of TOOMANY parameters
+     */
+    public static function cleanCheckedDataName()
+    {
+        self::$contextValidatedParams = array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
+        );
+    }
+
+    /**
+     * return the list of all params (request/response) validated
+     * used in the end of validation process to check the TOOMANY parameters error
+     * @return array
+     */
+    public static function getCheckedDataName()
+    {
+        return self::$contextValidatedParams;
+    }
+
+    /**
+     * Method to define and return the method will be call to retrieve
+     * all received params by location
+     * @param const $type
+     * @param const $location
+     * @return string
+     */
+    public static function getCheckedMethodFormLocation($type, $location)
+    {
+        switch ($type . $location) {
+            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
+                return 'getRequestFormDataKey';
+
+            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
+                return 'getRequestQueryKey';
+        }
+    }
+
+    /**
+     * Method to make a empty call usable with function return
+     * @param mixed $mixed
+     * @return boolean
+     */
+    private function checkIsEmpty($mixed)
+    {
+        return empty($mixed);
+    }
+
+    /**
+     * Method to add capability of override the getenv function of PHP
+     * for example to get env data in a sandbox
+     * @param string $name
+     * @return mixed
+     */
+    public function getEnv($name)
+    {
+        if (array_key_exists($name, $this->mockedData)) {
+            return $this->mockedData[$name];
+        }
+
+        return getenv($name);
+    }
+
+    /**
+     * Return the header received in the request
+     * Use the apache_request_headers (>= PHP 4.3.0)
+     * and the mocked data if defined
+     * >= PHP 5.4.0 : usable for mod_apache and fastcgi
+     * < PHP 5.4.0 : only available for apache module
+     * >= 5.5.7 : available for PHP CLI
+     * @return array
+     */
+    public function getRequestHeader()
+    {
+        return apache_request_headers() + $this->mockedData;
+    }
+
+    /**
+     * Return the Response header
+     * Use the apache_response_headers (>= PHP 4.3.0)
+     * and the mocked data if defined
+     * >= PHP 5.4.0 : usable for mod_apache and fastcgi
+     * < PHP 5.4.0 : only available for apache module
+     * >= 5.5.7 : available for PHP CLI
+     * @return array
+     */
+    public function getResponseHeader()
+    {
+        return apache_response_headers() + $this->mockedData;
+    }
+
+    /**
+     * Adding validated params to check
+     * This method improve the TOOMANY errors at the end
+     * of the validation process
+     * @param const $location
+     * @param string $name
+     */
+    public static function addCheckedDataName($location, $name)
+    {
+        if (!is_array(self::$contextValidatedParams)) {
+            self::$contextValidatedParams = array(
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
+                \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
+            );
+        }
+
+        switch ($location) {
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
+                self::$contextValidatedParams[$location][] = $name;
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
+                self::$contextValidatedParams[$location] = true;
+                break;
+        }
+    }
+
+    /**
+     * Method to define a batch of data to be used to
+     * simulate the playback of external data
+     * @param array $options
+     */
+    public function mock($options = array())
+    {
+        $this->mockedData = $options;
+
+        if (empty($this->mockedData) || !is_array($this->mockedData)) {
+            $this->mockedData = array();
+        }
+    }
+
+    /**
+     * Used to clean params if validation error occured for mode PASS
+     */
+    public function cleanParams()
+    {
+        $_GET    = array();
+        $_POST   = array();
+        $_FILES  = array();
+        $_COOKIE = array();
+    }
+
+    /**
+     * Log loading file
+     * @param string $file
+     * @param string $method
+     * @param int $line
+     */
+    public static function logLoadFile($file, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'loadFile')) {
+            self::logDebug('Loading File : "' . $file . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log loading external reference
+     * @param string $ref
+     * @param string $method
+     * @param int $line
+     */
+    public static function logLoadRef($ref, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'loadRef')) {
+            self::logDebug('Loading Reference : "' . $ref . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log a replacement of external reference to internal id of reference
+     * @param string $oldRef
+     * @param string $newRef
+     * @param string $method
+     * @param int $line
+     */
+    public static function logReplaceRef($oldRef, $newRef, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'replaceRef')) {
+            self::logDebug('Replacing Reference From "' . $oldRef . '" to "' . $newRef . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log a decoding json mixed data as SwaggerValidator PHP object
+     * @param string $decodePath
+     * @param string $decodeType
+     * @param string $method
+     * @param int $line
+     */
+    public static function logDecode($decodePath, $decodeType, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'decode')) {
+            self::logDebug('Decoding Path "' . $decodePath . '" As "' . $decodeType . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log a validation success
+     * @param string $path
+     * @param string $type
+     * @param string $method
+     * @param int $line
+     */
+    public static function logValidate($path, $type, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'validate')) {
+            self::logDebug('Success validate "' . $path . '" As "' . $type . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log a creation model success
+     * @param string $path
+     * @param string $method
+     * @param int $line
+     */
+    public static function logModel($path, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'model')) {
+            self::logDebug('Model Created "' . $path . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Used to customizing log and more when a debug is send
+     *
+     * @param string $message
+     * @param mixed $context
+     * @param string $method
+     * @param TypeInteger $line
+     */
+    public static function logDebug($message, $method = null, $line = null)
+    {
+        print "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n";
+    }
+
+    /**
+     * Used to customizing log and more when a validation error is occured
+     *
+     * @param const $validationType
+     * @param \SwaggerValidator\Common\Context $swaggerContext
+     */
+    public function logValidationError($validationType, $method = null, $line = null)
+    {
+        print "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : " . $this->__toString() . "\n";
+    }
+
+    /**
+     *
+     * @param const $valitionType
+     * @param string $messageException
+     * @param string $method
+     * @param int $line
+     * @return boolean
+     * @throws \SwaggerValidator\Exception
+     */
     public function setValidationError($valitionType, $messageException = null, $method = null, $line = null)
     {
         if (empty($method) && empty($line)) {
@@ -1044,168 +846,6 @@ class Context
                 $this->cleanParams();
                 \SwaggerValidator\Exception::throwNewException($messageException, $this, __FILE__, __LINE__);
         }
-    }
-
-    public static function logLoadFile($file, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'loadFile')) {
-            self::logDebug('Loading File : "' . $file . '"', $method, $line);
-        }
-    }
-
-    public static function logLoadRef($ref, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'loadRef')) {
-            self::logDebug('Loading Reference : "' . $ref . '"', $method, $line);
-        }
-    }
-
-    public static function logReplaceRef($oldRef, $newRef, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'replaceRef')) {
-            self::logDebug('Replacing Reference From "' . $oldRef . '" to "' . $newRef . '"', $method, $line);
-        }
-    }
-
-    public static function logDecode($decodePath, $decodeType, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'decode')) {
-            self::logDebug('Decoding Path "' . $decodePath . '" As "' . $decodeType . '"', $method, $line);
-        }
-    }
-
-    public static function logValidate($path, $type, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'validate')) {
-            self::logDebug('Success validate "' . $path . '" As "' . $type . '"', $method, $line);
-        }
-    }
-
-    public static function logModel($path, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'model')) {
-            self::logDebug('Model Created "' . $path . '"', $method, $line);
-        }
-    }
-
-    /**
-     * Used to customizing log and more when a debug is send
-     *
-     * @param string $message
-     * @param mixed $context
-     * @param string $method
-     * @param TypeInteger $line
-     */
-    public static function logDebug($message, $method = null, $line = null)
-    {
-        print "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n";
-    }
-
-    /**
-     * Used to customizing log and more when a validation error is occured
-     *
-     * @param const $validationType
-     * @param \SwaggerValidator\Common\Context $swaggerContext
-     */
-    public function logValidationError($validationType, $method = null, $line = null)
-    {
-        print "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : " . $this->__toString() . "\n";
-    }
-
-    /**
-     * Used to clean params if validation error occured for mode PASS
-     *
-     * @param const $type
-     * @param const $location
-     * @param const $method
-     * @param string $name
-     */
-    public function cleanParams()
-    {
-        $_GET    = array();
-        $_POST   = array();
-        $_FILES  = array();
-        $_COOKIE = array();
-    }
-
-    public static function cleanCheckedDataName()
-    {
-        self::$contextValidatedParams = array(
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
-        );
-    }
-
-    public static function getCheckedDataName()
-    {
-        return self::$contextValidatedParams;
-    }
-
-    public static function getCheckedMethodFormLocation($type, $location)
-    {
-        switch ($type . $location) {
-            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-                return 'getRequestFormDataKey';
-
-            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-                return 'getRequestQueryKey';
-        }
-    }
-
-    public static function addCheckedDataName($location, $name)
-    {
-        if (!is_array(self::$contextValidatedParams)) {
-            self::$contextValidatedParams = array(
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
-            );
-        }
-
-        switch ($location) {
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-                self::$contextValidatedParams[$location][] = $name;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
-                self::$contextValidatedParams[$location] = true;
-                break;
-        }
-    }
-
-    public function mock($options = array())
-    {
-        $this->mockedData = $options;
-
-        if (empty($this->mockedData) || !is_array($this->mockedData)) {
-            $this->mockedData = array();
-        }
-    }
-
-    private function checkIsEmpty($mixed)
-    {
-        return empty($mixed);
-    }
-
-    public function getEnv($name)
-    {
-        if (array_key_exists($name, $this->mockedData)) {
-            return $this->mockedData[$name];
-        }
-
-        return getenv($name);
-    }
-
-    public function getRequestHeader()
-    {
-        return apache_request_headers() + $this->mockedData;
-    }
-
-    public function getResponseHeader()
-    {
-        return apache_response_headers() + $this->mockedData;
     }
 
 }

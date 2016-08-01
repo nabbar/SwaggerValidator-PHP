@@ -63,8 +63,7 @@ git submodule update
 git clone --branch v1.0.x https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
 ```
 
-- Install with composer : 
-And this require : 
+- Install with composer (adding this in composer.json): 
 ```json
     "require": {
         "njuhel/swagger-validator":">=1.0.0"

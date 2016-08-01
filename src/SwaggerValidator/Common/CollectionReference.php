@@ -82,8 +82,9 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
      */
     public static function prune()
     {
-        self::$instance  = null;
-        self::$refIdList = array();
+        self::$instance         = null;
+        self::$refIdList        = array();
+        self::$refIdDefinitions = array();
     }
 
     public function __isset($ref)
@@ -122,7 +123,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             $file = \SwaggerValidator\Common\CollectionFile::getInstance()->$link;
 
             if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
-                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, __FILE__, __LINE__);
+                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
             }
 
             $value = new \SwaggerValidator\Common\ReferenceItem($file->$fRef);
@@ -141,36 +142,44 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             return parent::__set($id, $value);
         }
 
-        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, __FILE__, __LINE__);
+        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, "", __FILE__, __LINE__);
     }
 
     public function jsonSerialize()
     {
         $result = new \stdClass();
 
-        foreach ($this->keys() as $key) {
-            $result->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key->getObject(new \SwaggerValidator\Common\Context())));
+        foreach (parent::keys() as $key) {
+            $name          = str_replace(':', '', $key);
+            $result->$name = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::__get($key)->getObject(new \SwaggerValidator\Common\Context())));
         }
 
-        $result->fullRealRef = array_flip(self::$refIdDefinitions);
+        //$result->fullRealRef = array_flip(self::$refIdDefinitions);
 
         return $result;
     }
 
     public function serialize()
     {
-        return serialize(array(
-            self::$refIdList,
-            parent::serialize(),
-        ));
+        return serialize(get_object_vars($this));
     }
 
     public function unserialize($data)
     {
-        list(self::$refIdList, $col) = unserialize($data);
+        self::getInstance();
+        $base = $data;
 
-        self::$refIdDefinitions = self::$refIdList;
-        parent::unserialize($col);
+        if (!is_array($data)) {
+            $data = unserialize($data);
+        }
+
+        if (!is_array($data)) {
+            \SwaggerValidator\Exception::throwNewException('Cannot unserialize object ! ', array($base, $data), __FILE__, __LINE__);
+        }
+
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     /**
@@ -192,8 +201,11 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     public static function getIdFromRef($fullRef)
     {
         if (!is_string($fullRef)) {
-            print_r(debug_backtrace(null, 10));
-            die();
+            \SwaggerValidator\Exception::throwNewException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
+        }
+
+        if (strlen($fullRef) < 1) {
+            \SwaggerValidator\Exception::throwNewException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (substr($fullRef, 0, 3) === self::ID_PREFIX) {
@@ -250,9 +262,10 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function cleanReferenceDefinitions()
     {
-        foreach ($this->keys() as $key) {
+        foreach (parent::keys() as $key) {
             if (!in_array($key, self::$refIdDefinitions)) {
-                unset($this->$key);
+                //\SwaggerValidator\Common\Context::logDebug('Drop Ref : ' . $key, __METHOD__, __LINE__);
+                parent::__unset($key);
             }
         }
         self::$refIdList = self::$refIdDefinitions;
@@ -260,9 +273,9 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function unserializeReferenceDefinitions(\SwaggerValidator\Common\Context $context)
     {
-        foreach ($this->keys() as $key) {
+        foreach (parent::keys() as $key) {
             if (in_array($key, self::$refIdDefinitions)) {
-                $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));
+                parent::__get($key)->getObject($context->setExternalRef(self::getRefFromId($key)));
             }
         }
     }
@@ -274,8 +287,8 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context)
     {
-        foreach ($this->keys() as $key) {
-            $this->$key->getObject($context->setExternalRef(self::getRefFromId($key)));
+        foreach (parent::keys() as $key) {
+            parent::__get($key)->getObject($context->setExternalRef(self::getRefFromId($key)));
         }
     }
 

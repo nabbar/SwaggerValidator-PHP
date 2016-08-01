@@ -41,7 +41,7 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
         $keyRef = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
 
         $result          = new \stdClass();
-        $result->$keyRef = '#/' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS . '/' . $this->referenceId;
+        $result->$keyRef = '#/' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS . '/' . str_replace(':', '', $this->referenceId);
 
         return $result;
     }
@@ -56,7 +56,12 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
 
     public function unserialize($data)
     {
-        list($this->reference, $this->referenceId) = unserialize($data);
+        if (!is_array($data)) {
+            $data = unserialize($data);
+        }
+
+        $this->reference   = $data['ref'];
+        $this->referenceId = $data['id'];
     }
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)

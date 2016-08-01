@@ -18,17 +18,6 @@ Properties
 ----------
 
 
-### $jsonObject
-
-    private \stdClass $jsonObject
-
-
-
-
-
-* Visibility: **private**
-
-
 ### $mandatoryKeys
 
     private array $mandatoryKeys = array()
@@ -187,34 +176,6 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
-
-
-
-### jsonSerialize
-
-    mixed SwaggerValidator\Common\Collection::jsonSerialize()
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-
-
-### storeJsonObject
-
-    mixed SwaggerValidator\DataType\TypeCommon::storeJsonObject()
-
-
-
-
-
-* Visibility: **protected**
-* This method is defined by [SwaggerValidator\DataType\TypeCommon](SwaggerValidator-DataType-TypeCommon.md)
-
 
 
 
@@ -539,7 +500,7 @@ Methods
 
 ### collectionFormat
 
-    mixed SwaggerValidator\DataType\TypeCommon::collectionFormat(\SwaggerValidator\Common\Context $context, $valueParams)
+    mixed SwaggerValidator\DataType\TypeCommon::collectionFormat(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -551,7 +512,6 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
-* $valueParams **mixed**
 
 
 
@@ -918,6 +878,20 @@ Countable
 
 
 * Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+
+
+### jsonSerialize
+
+    mixed SwaggerValidator\Common\Collection::jsonSerialize()
+
+
+
+
+
+* Visibility: **public**
 * This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
