@@ -45,12 +45,24 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
+        if ((!isset($this->minLength) || $this->minLength < 1) && $context->isDataEmpty()) {
+            return true;
+        }
+
         if ($this->type != \SwaggerValidator\Common\FactorySwagger::TYPE_STRING) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         if (!$this->type($context, $context->getDataValue())) {
             return $context->setDataCheck('type')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, $context->getDataPath() . ' is not a valid string !!', __METHOD__, __LINE__);
+        }
+
+        if (!$this->minLength($context, $context->getDataValue())) {
+            return $context->setDataCheck('minLength')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, null, __METHOD__, __LINE__);
+        }
+
+        if (!$this->maxLength($context, $context->getDataValue())) {
+            return $context->setDataCheck('maxLength')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, null, __METHOD__, __LINE__);
         }
 
         if (!$this->pattern($context, $context->getDataValue())) {
@@ -65,7 +77,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             return $context->setDataCheck('enum')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, null, __METHOD__, __LINE__);
         }
 
-        // completer les test integer
+// completer les test integer
         \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
         return true;
     }

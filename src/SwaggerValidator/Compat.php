@@ -63,3 +63,13 @@ if (!function_exists('apache_request_headers')) {
     }
 
 }
+
+if (version_compare(PHP_VERSION, "5.4", "<")) {
+
+    interface JsonSerializable
+    {
+
+    }
+
+}
+
