@@ -1746,6 +1746,40 @@ Used to clean params if validation error occured for mode PASS
 
 
 
+### setDataValueExists
+
+    mixed SwaggerValidator\Common\ContextBase::setDataValueExists($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### setDataValueEmpty
+
+    mixed SwaggerValidator\Common\ContextBase::setDataValueEmpty($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
 ### getDataValue
 
     mixed SwaggerValidator\Interfaces\ContextBase::getDataValue()

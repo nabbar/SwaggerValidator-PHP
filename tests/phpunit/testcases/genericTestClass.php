@@ -69,12 +69,16 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-
+        if (file_exists(PHPUNIT_PATH_TEMP . 'temp_swagger.json')) {
+            unlink(PHPUNIT_PATH_TEMP . 'temp_swagger.json');
+        }
     }
 
     public function tearDown()
     {
-
+        if (file_exists(PHPUNIT_PATH_TEMP . 'temp_swagger.json')) {
+            unlink(PHPUNIT_PATH_TEMP . 'temp_swagger.json');
+        }
     }
 
     public static function setUpBeforeClass()
@@ -331,6 +335,22 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         $context->setType(\SwaggerValidator\Common\Context::TYPE_RESPONSE);
 
         return $context;
+    }
+
+    public function genDocCompare()
+    {
+        $this->swaggerBuild();
+
+        $this->assertInternalType('object', $this->swaggerObject);
+        $this->assertInstanceOf('\SwaggerValidator\Object\Swagger', $this->swaggerObject);
+
+        $doc = json_encode($this->swaggerObject, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        $this->swaggerFilePath = PHPUNIT_PATH_TEMP . 'temp_swagger.json';
+        file_put_contents($this->swaggerFilePath, $doc);
+        unset($doc);
+
+        $this->swaggerBuild();
     }
 
 }

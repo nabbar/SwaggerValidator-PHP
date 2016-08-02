@@ -63,3 +63,20 @@ if (!function_exists('apache_request_headers')) {
     }
 
 }
+
+if (version_compare(PHP_VERSION, "5.4", "<")) {
+
+    interface JsonSerializable
+    {
+
+    }
+
+    If (!defined(JSON_UNESCAPED_SLASHES)) {
+        define('JSON_UNESCAPED_SLASHES', 0);
+    }
+
+    If (!defined(JSON_UNESCAPED_UNICODE)) {
+        define('JSON_UNESCAPED_UNICODE', 0);
+    }
+}
+

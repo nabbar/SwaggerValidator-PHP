@@ -514,12 +514,33 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return implode('/', $this->__get('DataCheck'));
     }
 
-    public function setDataValue($value = null)
+    public function setDataValue($value = null, $isExisting = true)
     {
-        $this->contextDataValueExists = true;
-        $this->contextDataValue       = $value;
+        if ($isExisting === true) {
+            $this->contextDataValueExists = true;
+        }
+        elseif ($isExisting === false) {
+            $this->contextDataValueExists = true;
+        }
+        elseif ($isExisting === null) {
+            $this->contextDataValueExists = (bool) (!empty($value));
+        }
+
+        $this->contextDataValue = $value;
         $this->checkDataIsEmpty();
 
+        return $this;
+    }
+
+    public function setDataValueExists($value = null)
+    {
+        $this->contextDataValueExists = $value;
+        return $this;
+    }
+
+    public function setDataValueEmpty($value = null)
+    {
+        $this->contextDataValueEmpty = $value;
         return $this;
     }
 

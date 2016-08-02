@@ -38,12 +38,26 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
+        if (!isset($this->minimum) || $this->minimum < 1) {
+            if ((!isset($this->exclusiveMinimum) || $this->exclusiveMinimum !== true) && $context->isDataEmpty()) {
+                return true;
+            }
+        }
+
         if ($this->type != \SwaggerValidator\Common\FactorySwagger::TYPE_NUMBER) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
         if (!$this->type($context, $context->getDataValue())) {
             return $context->setDataCheck('type')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, null, __METHOD__, __LINE__);
+        }
+
+        if (!$this->minimum($context, $context->getDataValue())) {
+            return $context->setDataCheck('minimum')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, null, __METHOD__, __LINE__);
+        }
+
+        if (!$this->maximum($context, $context->getDataValue())) {
+            return $context->setDataCheck('maximum')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, null, __METHOD__, __LINE__);
         }
 
         if (!$this->pattern($context, $context->getDataValue())) {
