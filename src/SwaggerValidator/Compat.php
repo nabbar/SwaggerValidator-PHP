@@ -71,5 +71,12 @@ if (version_compare(PHP_VERSION, "5.4", "<")) {
 
     }
 
+    If (!defined(JSON_UNESCAPED_SLASHES)) {
+        define('JSON_UNESCAPED_SLASHES', 0);
+    }
+
+    If (!defined(JSON_UNESCAPED_UNICODE)) {
+        define('JSON_UNESCAPED_UNICODE', 0);
+    }
 }
 
