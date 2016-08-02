@@ -1,7 +1,7 @@
 {
     "name": "njuhel/swagger-validator",
     "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
-    "version": "1.0.x-dev",
+    "version": "1.0.0-dev-4",
     "type": "library",
     "keywords": ["swagger", "OAI", "openapi", "validator", "parser", "filter", "model", "security", "api", "restfull", "php"],
     "license": "Apache-2.0",
@@ -27,7 +27,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": ">4.8",
-        "phpunit/php-invoker": ">=1.1",
         "phpunit/php-file-iterator": ">=1.4",
         "phpunit/php-text-template": ">=1.2",
         "phpunit/php-code-coverage": ">=2.1",
@@ -61,11 +60,11 @@
             "composer install --dev",
             "@Phpunit",
             "@PharBuilder",
+            "@PhpDoc",
             "@PharTest",
-            "@PhpDoc"
+            "@Coverage"
         ],
         "test": [
-            "composer install --dev",
             "@Phpunit"
         ]
     }

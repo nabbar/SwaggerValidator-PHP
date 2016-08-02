@@ -8,7 +8,8 @@ Description of SwaggerCommonContext
 
 * Class name: Context
 * Namespace: SwaggerValidator\Common
-
+* Parent class: [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+* This class implements: [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md), [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md), [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 Constants
@@ -467,28 +468,11 @@ Methods
 -------
 
 
-### __construct
-
-    mixed SwaggerValidator\Common\Context::__construct(string|null $mode, string|null $type)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $mode **string|null**
-* $type **string|null**
-
-
-
 ### setConfig
 
-    mixed SwaggerValidator\Common\Context::setConfig($optionGroup, $optionName, $value)
+    void SwaggerValidator\Common\Context::setConfig(string $optionGroup, string $optionName, mixed $value)
 
-
+Set a configuration option
 
 
 
@@ -497,715 +481,124 @@ Methods
 
 
 #### Arguments
-* $optionGroup **mixed**
-* $optionName **mixed**
+* $optionGroup **string**
+* $optionName **string**
 * $value **mixed**
+
+
+
+### setConfigDropAllDebugLog
+
+    mixed SwaggerValidator\Common\Context::setConfigDropAllDebugLog()
+
+Method to disable all debug log
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
 
 
 
 ### getConfig
 
-    mixed SwaggerValidator\Common\Context::getConfig($optionGroup, $optionName)
+    mixed SwaggerValidator\Common\Context::getConfig(string $optionGroup, string $optionName)
+
+Retrieve a config value
 
 
 
-
-
-* Visibility: **protected**
+* Visibility: **public**
 * This method is **static**.
 
 
 #### Arguments
-* $optionGroup **mixed**
-* $optionName **mixed**
-
-
-
-### formatVarName
-
-    mixed SwaggerValidator\Common\Context::formatVarName($name)
-
-
-
-
-
-* Visibility: **private**
-
-
-#### Arguments
-* $name **mixed**
-
-
-
-### __get
-
-    mixed SwaggerValidator\Common\Context::__get($name)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $name **mixed**
-
-
-
-### __set
-
-    mixed SwaggerValidator\Common\Context::__set($name, $value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $name **mixed**
-* $value **mixed**
-
-
-
-### __isset
-
-    mixed SwaggerValidator\Common\Context::__isset($name)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $name **mixed**
-
-
-
-### __unset
-
-    mixed SwaggerValidator\Common\Context::__unset($name)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $name **mixed**
-
-
-
-### __toString
-
-    mixed SwaggerValidator\Common\Context::__toString()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### __debugInfo
-
-    mixed SwaggerValidator\Common\Context::__debugInfo()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setMode
-
-    mixed SwaggerValidator\Common\Context::setMode($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getMode
-
-    mixed SwaggerValidator\Common\Context::getMode()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setType
-
-    mixed SwaggerValidator\Common\Context::setType($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getType
-
-    mixed SwaggerValidator\Common\Context::getType()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setLocation
-
-    mixed SwaggerValidator\Common\Context::setLocation($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getLocation
-
-    mixed SwaggerValidator\Common\Context::getLocation()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setMethod
-
-    mixed SwaggerValidator\Common\Context::setMethod($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getMethod
-
-    mixed SwaggerValidator\Common\Context::getMethod()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### loadMethod
-
-    mixed SwaggerValidator\Common\Context::loadMethod()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setBasePath
-
-    mixed SwaggerValidator\Common\Context::setBasePath($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getBasePath
-
-    mixed SwaggerValidator\Common\Context::getBasePath()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setRoutePath
-
-    mixed SwaggerValidator\Common\Context::setRoutePath($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getRoutePath
-
-    mixed SwaggerValidator\Common\Context::getRoutePath()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setRequestPath
-
-    mixed SwaggerValidator\Common\Context::setRequestPath($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getRequestPath
-
-    mixed SwaggerValidator\Common\Context::getRequestPath()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setScheme
-
-    mixed SwaggerValidator\Common\Context::setScheme($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getScheme
-
-    mixed SwaggerValidator\Common\Context::getScheme()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setHost
-
-    mixed SwaggerValidator\Common\Context::setHost($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getHost
-
-    mixed SwaggerValidator\Common\Context::getHost()
-
-
-
-
-
-* Visibility: **public**
-
+* $optionGroup **string**
+* $optionName **string**
 
 
 
 ### loadUri
 
-    mixed SwaggerValidator\Common\Context::loadUri()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadUri()
 
 
 
 
 
 * Visibility: **public**
-
-
-
-
-### addContext
-
-    mixed SwaggerValidator\Common\Context::addContext($key, $value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $key **mixed**
-* $value **mixed**
-
-
-
-### getContext
-
-    mixed SwaggerValidator\Common\Context::getContext()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setCombined
-
-    mixed SwaggerValidator\Common\Context::setCombined($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getCombined
-
-    mixed SwaggerValidator\Common\Context::getCombined()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setDataPath
-
-    mixed SwaggerValidator\Common\Context::setDataPath($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getDataPath
-
-    mixed SwaggerValidator\Common\Context::getDataPath()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setExternalRef
-
-    mixed SwaggerValidator\Common\Context::setExternalRef($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getExternalRef
-
-    mixed SwaggerValidator\Common\Context::getExternalRef()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### getLastExternalRef
-
-    mixed SwaggerValidator\Common\Context::getLastExternalRef()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### checkExternalRef
-
-    mixed SwaggerValidator\Common\Context::checkExternalRef($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### setDataCheck
-
-    mixed SwaggerValidator\Common\Context::setDataCheck($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getDataCheck
-
-    mixed SwaggerValidator\Common\Context::getDataCheck()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### setDataValue
-
-    mixed SwaggerValidator\Common\Context::setDataValue($value)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $value **mixed**
-
-
-
-### getDataValue
-
-    mixed SwaggerValidator\Common\Context::getDataValue()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### isDataExists
-
-    mixed SwaggerValidator\Common\Context::isDataExists()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### isDataEmpty
-
-    mixed SwaggerValidator\Common\Context::isDataEmpty()
-
-
-
-
-
-* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
 ### checkDataIsEmpty
 
-    mixed SwaggerValidator\Common\Context::checkDataIsEmpty()
+    mixed SwaggerValidator\Interfaces\ContextDataParser::checkDataIsEmpty()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 
 
 ### getResponseStatus
 
-    mixed SwaggerValidator\Common\Context::getResponseStatus()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::getResponseStatus()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
 ### dataLoad
 
-    mixed SwaggerValidator\Common\Context::dataLoad()
+    mixed SwaggerValidator\Interfaces\ContextDataParser::dataLoad()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 
 
 ### getRequestFormDataKey
 
-    mixed SwaggerValidator\Common\Context::getRequestFormDataKey()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::getRequestFormDataKey()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
 ### loadRequestFormData
 
-    mixed SwaggerValidator\Common\Context::loadRequestFormData($paramName)
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestFormData($paramName)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 #### Arguments
@@ -1215,13 +608,14 @@ Methods
 
 ### loadRequestPath
 
-    mixed SwaggerValidator\Common\Context::loadRequestPath($paramName)
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestPath($paramName)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 #### Arguments
@@ -1231,26 +625,28 @@ Methods
 
 ### getRequestQueryKey
 
-    mixed SwaggerValidator\Common\Context::getRequestQueryKey()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::getRequestQueryKey()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
 ### loadRequestQuery
 
-    mixed SwaggerValidator\Common\Context::loadRequestQuery($paramName)
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestQuery($paramName)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 #### Arguments
@@ -1260,13 +656,14 @@ Methods
 
 ### loadRequestHeader
 
-    mixed SwaggerValidator\Common\Context::loadRequestHeader($paramName)
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestHeader($paramName)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 #### Arguments
@@ -1276,13 +673,14 @@ Methods
 
 ### loadResponseHeader
 
-    mixed SwaggerValidator\Common\Context::loadResponseHeader($paramName)
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadResponseHeader($paramName)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 #### Arguments
@@ -1292,65 +690,60 @@ Methods
 
 ### loadRequestBody
 
-    mixed SwaggerValidator\Common\Context::loadRequestBody()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestBody()
 
 
 
 
 
 * Visibility: **public**
-
-
-
-
-### getRequestBodyRawData
-
-    mixed SwaggerValidator\Common\Context::getRequestBodyRawData()
-
-
-
-
-
-* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
 ### loadResponseBody
 
-    mixed SwaggerValidator\Common\Context::loadResponseBody()
+    mixed SwaggerValidator\Interfaces\ContextDataLoader::loadResponseBody()
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataLoader](SwaggerValidator-Interfaces-ContextDataLoader.md)
 
 
 
 
-### getResponseBodyRawData
+### loadBodyByContent
 
-    mixed SwaggerValidator\Common\Context::getResponseBodyRawData()
+    mixed SwaggerValidator\Interfaces\ContextDataParser::loadBodyByContent($headers, $rawBody)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
+
+#### Arguments
+* $headers **mixed**
+* $rawBody **mixed**
 
 
 
 ### buildBodyJson
 
-    mixed SwaggerValidator\Common\Context::buildBodyJson($contents)
+    mixed SwaggerValidator\Interfaces\ContextDataParser::buildBodyJson($contents)
 
 
 
 
 
-* Visibility: **protected**
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 #### Arguments
@@ -1360,13 +753,14 @@ Methods
 
 ### buildBodyXml
 
-    mixed SwaggerValidator\Common\Context::buildBodyXml($contents)
+    mixed SwaggerValidator\Interfaces\ContextDataParser::buildBodyXml($contents)
 
 
 
 
 
-* Visibility: **protected**
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 #### Arguments
@@ -1374,30 +768,42 @@ Methods
 
 
 
-### setValidationError
+### cleanCheckedDataName
 
-    mixed SwaggerValidator\Common\Context::setValidationError($valitionType, $messageException, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextDataParser::cleanCheckedDataName()
 
 
 
 
 
 * Visibility: **public**
-
-
-#### Arguments
-* $valitionType **mixed**
-* $messageException **mixed**
-* $method **mixed**
-* $line **mixed**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
 
 
 
-### logLoadFile
 
-    mixed SwaggerValidator\Common\Context::logLoadFile($file, $method, $line)
+### getCheckedDataName
+
+    array SwaggerValidator\Common\Context::getCheckedDataName()
+
+return the list of all params (request/response) validated
+used in the end of validation process to check the TOOMANY parameters error
 
 
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
+### getCheckedMethodFormLocation
+
+    string SwaggerValidator\Common\Context::getCheckedMethodFormLocation(\SwaggerValidator\Common\const $type, \SwaggerValidator\Common\const $location)
+
+Method to define and return the method will be call to retrieve
+all received params by location
 
 
 
@@ -1406,17 +812,87 @@ Methods
 
 
 #### Arguments
-* $file **mixed**
-* $method **mixed**
-* $line **mixed**
+* $type **SwaggerValidator\Common\const**
+* $location **SwaggerValidator\Common\const**
 
 
 
-### logLoadRef
+### checkIsEmpty
 
-    mixed SwaggerValidator\Common\Context::logLoadRef($ref, $method, $line)
+    boolean SwaggerValidator\Common\Context::checkIsEmpty(mixed $mixed)
+
+Method to make a empty call usable with function return
 
 
+
+* Visibility: **private**
+
+
+#### Arguments
+* $mixed **mixed**
+
+
+
+### getEnv
+
+    mixed SwaggerValidator\Common\Context::getEnv(string $name)
+
+Method to add capability of override the getenv function of PHP
+for example to get env data in a sandbox
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $name **string**
+
+
+
+### getRequestHeader
+
+    array SwaggerValidator\Common\Context::getRequestHeader()
+
+Return the header received in the request
+Use the apache_request_headers (>= PHP 4.3.0)
+and the mocked data if defined
+>= PHP 5.4.0 : usable for mod_apache and fastcgi
+< PHP 5.4.0 : only available for apache module
+>= 5.5.7 : available for PHP CLI
+
+
+
+* Visibility: **public**
+
+
+
+
+### getResponseHeader
+
+    array SwaggerValidator\Common\Context::getResponseHeader()
+
+Return the Response header
+Use the apache_response_headers (>= PHP 4.3.0)
+and the mocked data if defined
+>= PHP 5.4.0 : usable for mod_apache and fastcgi
+< PHP 5.4.0 : only available for apache module
+>= 5.5.7 : available for PHP CLI
+
+
+
+* Visibility: **public**
+
+
+
+
+### addCheckedDataName
+
+    mixed SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\const $location, string $name)
+
+Adding validated params to check
+This method improve the TOOMANY errors at the end
+of the validation process
 
 
 
@@ -1425,115 +901,17 @@ Methods
 
 
 #### Arguments
-* $ref **mixed**
-* $method **mixed**
-* $line **mixed**
+* $location **SwaggerValidator\Common\const**
+* $name **string**
 
 
 
-### logReplaceRef
+### mock
 
-    mixed SwaggerValidator\Common\Context::logReplaceRef($oldRef, $newRef, $method, $line)
+    mixed SwaggerValidator\Common\Context::mock(array $options)
 
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $oldRef **mixed**
-* $newRef **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logDecode
-
-    mixed SwaggerValidator\Common\Context::logDecode($decodePath, $decodeType, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $decodePath **mixed**
-* $decodeType **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logValidate
-
-    mixed SwaggerValidator\Common\Context::logValidate($path, $type, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $path **mixed**
-* $type **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logModel
-
-    mixed SwaggerValidator\Common\Context::logModel($path, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $path **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logDebug
-
-    mixed SwaggerValidator\Common\Context::logDebug(string $message, string $method, \SwaggerValidator\Common\TypeInteger $line)
-
-Used to customizing log and more when a debug is send
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $message **string**
-* $method **string**
-* $line **SwaggerValidator\Common\TypeInteger**
-
-
-
-### logValidationError
-
-    mixed SwaggerValidator\Common\Context::logValidationError(\SwaggerValidator\Common\const $validationType, $method, $line)
-
-Used to customizing log and more when a validation error is occured
+Method to define a batch of data to be used to
+simulate the playback of external data
 
 
 
@@ -1541,9 +919,7 @@ Used to customizing log and more when a validation error is occured
 
 
 #### Arguments
-* $validationType **SwaggerValidator\Common\const**
-* $method **mixed**
-* $line **mixed**
+* $options **array**
 
 
 
@@ -1560,23 +936,9 @@ Used to clean params if validation error occured for mode PASS
 
 
 
-### cleanCheckedDataName
+### logLoadFile
 
-    mixed SwaggerValidator\Common\Context::cleanCheckedDataName()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### getCheckedDataName
-
-    mixed SwaggerValidator\Common\Context::getCheckedDataName()
+    mixed SwaggerValidator\Interfaces\ContextLog::logLoadFile($file, $method, $line)
 
 
 
@@ -1584,31 +946,102 @@ Used to clean params if validation error occured for mode PASS
 
 * Visibility: **public**
 * This method is **static**.
-
-
-
-
-### getCheckedMethodFormLocation
-
-    mixed SwaggerValidator\Common\Context::getCheckedMethodFormLocation($type, $location)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
+* $file **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logLoadRef
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logLoadRef($ref, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $ref **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logReplaceRef
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logReplaceRef($oldRef, $newRef, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $oldRef **mixed**
+* $newRef **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logDecode
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logDecode($decodePath, $decodeType, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $decodePath **mixed**
+* $decodeType **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logValidate
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidate($path, $type, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $path **mixed**
 * $type **mixed**
-* $location **mixed**
+* $method **mixed**
+* $line **mixed**
 
 
 
-### addCheckedDataName
+### logModel
 
-    mixed SwaggerValidator\Common\Context::addCheckedDataName($location, $name)
+    mixed SwaggerValidator\Interfaces\ContextLog::logModel($path, $method, $line)
 
 
 
@@ -1616,17 +1049,58 @@ Used to clean params if validation error occured for mode PASS
 
 * Visibility: **public**
 * This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
-* $location **mixed**
-* $name **mixed**
+* $path **mixed**
+* $method **mixed**
+* $line **mixed**
 
 
 
-### mock
+### logDebug
 
-    mixed SwaggerValidator\Common\Context::mock($options)
+    mixed SwaggerValidator\Interfaces\ContextLog::logDebug($message, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $message **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logValidationError
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $validationType **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### setValidationError
+
+    boolean SwaggerValidator\Common\Context::setValidationError(\SwaggerValidator\Common\const $valitionType, string $messageException, string $method, integer $line)
 
 
 
@@ -1636,35 +1110,41 @@ Used to clean params if validation error occured for mode PASS
 
 
 #### Arguments
-* $options **mixed**
+* $valitionType **SwaggerValidator\Common\const**
+* $messageException **string**
+* $method **string**
+* $line **integer**
 
 
 
-### checkIsEmpty
+### __construct
 
-    mixed SwaggerValidator\Common\Context::checkIsEmpty($mixed)
+    mixed SwaggerValidator\Interfaces\ContextBase::__construct($mode, $type)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $mode **mixed**
+* $type **mixed**
+
+
+
+### formatVarName
+
+    mixed SwaggerValidator\Common\ContextBase::formatVarName($name)
 
 
 
 
 
 * Visibility: **private**
-
-
-#### Arguments
-* $mixed **mixed**
-
-
-
-### getEnv
-
-    mixed SwaggerValidator\Common\Context::getEnv($name)
-
-
-
-
-
-* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
 
 
 #### Arguments
@@ -1672,28 +1152,638 @@ Used to clean params if validation error occured for mode PASS
 
 
 
-### getRequestHeader
+### __get
 
-    mixed SwaggerValidator\Common\Context::getRequestHeader()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### getResponseHeader
-
-    mixed SwaggerValidator\Common\Context::getResponseHeader()
+    mixed SwaggerValidator\Interfaces\ContextBase::__get($name)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $name **mixed**
+
+
+
+### __set
+
+    mixed SwaggerValidator\Interfaces\ContextBase::__set($name, $value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $name **mixed**
+* $value **mixed**
+
+
+
+### __isset
+
+    mixed SwaggerValidator\Interfaces\ContextBase::__isset($name)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $name **mixed**
+
+
+
+### __unset
+
+    mixed SwaggerValidator\Interfaces\ContextBase::__unset($name)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $name **mixed**
+
+
+
+### __toString
+
+    mixed SwaggerValidator\Interfaces\ContextBase::__toString()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### __debugInfo
+
+    mixed SwaggerValidator\Interfaces\ContextBase::__debugInfo()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setMode
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setMode($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getMode
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getMode()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setType
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setType($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getType
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getType()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setLocation
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setLocation($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getLocation
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getLocation()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setMethod
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setMethod($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getMethod
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getMethod()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### loadMethod
+
+    mixed SwaggerValidator\Interfaces\ContextBase::loadMethod()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setBasePath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setBasePath($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getBasePath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getBasePath()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setRoutePath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setRoutePath($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getRoutePath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getRoutePath()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setRequestPath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setRequestPath($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getRequestPath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getRequestPath()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setScheme
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setScheme($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getScheme
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getScheme()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setHost
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setHost($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getHost
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getHost()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### addContext
+
+    mixed SwaggerValidator\Interfaces\ContextBase::addContext($key, $value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### getContext
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getContext()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setCombined
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setCombined($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getCombined
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getCombined()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setDataPath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setDataPath($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getDataPath
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getDataPath()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setExternalRef
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setExternalRef($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getExternalRef
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getExternalRef()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### getLastExternalRef
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getLastExternalRef()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### checkExternalRef
+
+    mixed SwaggerValidator\Interfaces\ContextBase::checkExternalRef($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### setDataCheck
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setDataCheck($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getDataCheck
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getDataCheck()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setDataValue
+
+    mixed SwaggerValidator\Interfaces\ContextBase::setDataValue($value)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### getDataValue
+
+    mixed SwaggerValidator\Interfaces\ContextBase::getDataValue()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### isDataExists
+
+    mixed SwaggerValidator\Interfaces\ContextBase::isDataExists()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### isDataEmpty
+
+    mixed SwaggerValidator\Interfaces\ContextBase::isDataEmpty()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
 
 
 

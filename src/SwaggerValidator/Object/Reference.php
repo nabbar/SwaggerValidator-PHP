@@ -41,7 +41,7 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
         $keyRef = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
 
         $result          = new \stdClass();
-        $result->$keyRef = '#/' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS . '/' . $this->referenceId;
+        $result->$keyRef = '#/' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS . '/' . str_replace(':', '', $this->referenceId);
 
         return $result;
     }

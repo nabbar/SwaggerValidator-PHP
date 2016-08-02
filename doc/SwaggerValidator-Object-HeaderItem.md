@@ -89,6 +89,20 @@ Methods
 
 
 
+### jsonSerialize
+
+    mixed SwaggerValidator\Common\Collection::jsonSerialize()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+
+
 ### validate
 
     mixed SwaggerValidator\Object\HeaderItem::validate(\SwaggerValidator\Common\Context $context)
@@ -484,20 +498,6 @@ Countable
 
 
 * Visibility: **protected**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-
-
-### jsonSerialize
-
-    mixed SwaggerValidator\Common\Collection::jsonSerialize()
-
-
-
-
-
-* Visibility: **public**
 * This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 

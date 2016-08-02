@@ -199,7 +199,7 @@ Return a Swagger Object new object
 
 ### loadCache
 
-    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::loadCache(\SwaggerValidator\Common\Context $context)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::loadCache()
 
 load cache file or call regen file cache
 
@@ -208,9 +208,6 @@ load cache file or call regen file cache
 * Visibility: **protected**
 * This method is **static**.
 
-
-#### Arguments
-* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 
 
 
@@ -228,5 +225,19 @@ store the new swagger object is available
 
 #### Arguments
 * $swagger **[SwaggerValidator\Object\Swagger](SwaggerValidator-Object-Swagger.md)**
+
+
+
+### cleanInstances
+
+    mixed SwaggerValidator\Swagger::cleanInstances()
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
 
 

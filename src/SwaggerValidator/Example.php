@@ -29,7 +29,8 @@ else {
     include_once 'Swagger.php';
 }
 
-\SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
+//\SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
+\SwaggerValidator\Swagger::setSwaggerFile(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'phpunit' . DIRECTORY_SEPARATOR . 'examples' . DIRECTORY_SEPARATOR . 'swaggerPetStoreHeroku.json');
 $swagger = \SwaggerValidator\Swagger::load();
 
 /**
@@ -58,3 +59,5 @@ $swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common
  * or less the swagger validator generate example contents
  */
 $swagger->getModel(new \SwaggerValidator\Common\Context());
+
+json_encode($swagger);

@@ -48,6 +48,11 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
+    public function jsonSerialize()
+    {
+        return json_decode(parent::jsonEncode($this->item));
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (isset($this->item)) {

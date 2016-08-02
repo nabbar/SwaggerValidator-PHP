@@ -1,4 +1,4 @@
-[![Dependency Status](https://gemnasium.com/badges/103bbb652356914f092036025f0d5922.svg)](https://gemnasium.com/af3a2a2213b87f7bbd238a5f1303a2aa)  ~  [![Code Climate](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)  ~  [![Test Coverage](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/coverage.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/coverage)
+[![Dependency Status](https://gemnasium.com/badges/github.com/njuhel/SwaggerValidator-PHP.svg)](https://gemnasium.com/github.com/njuhel/SwaggerValidator-PHP)  ~  [![Code Climate](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)  ~  [![Test Coverage](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/coverage.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/coverage)
 
 # **Swagger Validator _PHP_**
 
@@ -45,9 +45,7 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 
 ## **Compatibility**
   **_Help us to fix error with compatibilities_**
-  - at least PHP 5.3.10 (need some complementary testing)
-  - PHP 5.4.*, 5.5.*, PHP 5.6 => no problems
-  - PHP 7.0 (need some complementary test for phpunit 
+  - scope PHP 5.3.10 (bug reported, need some more compatibilities) to PHP 7.0
 
   
 ## **Installation Guide**
