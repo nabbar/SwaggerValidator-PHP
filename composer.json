@@ -1,7 +1,7 @@
 {
     "name": "njuhel/swagger-validator",
     "description": "A Swagger Validation and Parser as lib for PHP to secure and helpful application for request / response validating, security stage, testunit skeleton, testauto generation, ... This lib can be used into any existing application who's having a swagger definition file for request/response (no framework dependancies or included).",
-    "version": "1.0.x-dev",
+    "version": "1.0.0-p3",
     "type": "library",
     "keywords": ["swagger", "OAI", "openapi", "validator", "parser", "filter", "model", "security", "api", "restfull", "php"],
     "license": "Apache-2.0",
