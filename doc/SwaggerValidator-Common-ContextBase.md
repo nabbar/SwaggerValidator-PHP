@@ -881,6 +881,38 @@ Methods
 
 
 
+### setDataValueExists
+
+    mixed SwaggerValidator\Common\ContextBase::setDataValueExists($value)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $value **mixed**
+
+
+
+### setDataValueEmpty
+
+    mixed SwaggerValidator\Common\ContextBase::setDataValueEmpty($value)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $value **mixed**
+
+
+
 ### getDataValue
 
     mixed SwaggerValidator\Interfaces\ContextBase::getDataValue()

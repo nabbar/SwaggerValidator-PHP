@@ -73,6 +73,10 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
 
         $this->collectionFormat($context);
 
+        if ((!isset($this->minItems) || $this->minItems < 1) && $context->isDataEmpty()) {
+            return true;
+        }
+
         if (!$this->type($context, $context->getDataValue())) {
             return $context->setDataCheck($keyType)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, null, __METHOD__, __LINE__);
         }
