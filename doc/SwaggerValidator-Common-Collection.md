@@ -9,7 +9,7 @@ Description of Collection
 * Class name: Collection
 * Namespace: SwaggerValidator\Common
 * This is an **abstract** class
-* This class implements: Countable, IteratorAggregate, ArrayAccess, Serializable, JsonSerializable
+* This class implements: Countable, IteratorAggregate, ArrayAccess, Serializable, [JsonSerializable](JsonSerializable.md)
 
 
 

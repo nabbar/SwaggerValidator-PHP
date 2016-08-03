@@ -62,4 +62,5 @@ API Index
         * [Contact](SwaggerValidator-Object-Contact.md)
         * [Definitions](SwaggerValidator-Object-Definitions.md)
         * [SecurityDefinitions](SwaggerValidator-Object-SecurityDefinitions.md)
+* [JsonSerializable](JsonSerializable.md)
 
