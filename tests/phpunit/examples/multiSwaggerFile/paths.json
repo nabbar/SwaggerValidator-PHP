@@ -61,32 +61,16 @@
             ],
             "parameters": [
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "Specifies the number of tweets to try and retrieve",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 },
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "description": "Returns result with an ID greater than the specified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "description": "Returns results with an ID less than or equal to the specified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/trim_user"
                 },
                 {
                     "name": "exclude_replies",
@@ -96,11 +80,7 @@
                     "type": "boolean"
                 },
                 {
-                    "name": "contributor_details",
-                    "in": "query",
-                    "description": "This paramters enhances the contributors element of the status response to include the screen_name of the contributor",
-                    "required": false,
-                    "type": "boolean"
+                    "$ref": "parameters.json#/contributor_details"
                 },
                 {
                     "name": "include_rts",
@@ -135,25 +115,13 @@
             ],
             "parameters": [
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "description": "Returns result with an ID greater than the specified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "description": "Returns results with an ID less than or equal to the specified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/trim_user"
                 },
                 {
                     "name": "exclude_replies",
@@ -163,11 +131,7 @@
                     "type": "boolean"
                 },
                 {
-                    "name": "contributor_details",
-                    "in": "query",
-                    "description": "This paramters enhances the contributors element of the status response to include the screen_name of the contributor",
-                    "required": false,
-                    "type": "boolean"
+                    "$ref": "parameters.json#/contributor_details"
                 }
             ],
             "responses": {
@@ -202,11 +166,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/trim_user"
                 }
             ],
             "responses": {
@@ -238,11 +198,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/trim_user"
                 },
                 {
                     "name": "include_my_retweet",
@@ -252,11 +208,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "type": "string",
-                    "in": "query",
-                    "description": "The entities node will be disincluded when set to false",
-                    "required": false
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -285,14 +237,26 @@
                     "in": "path",
                     "description": "The numerical ID of the desired status",
                     "required": true,
-                    "type": "string"
+                    "type": "integer"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
+                    "name": "id32",
+                    "in": "path",
+                    "description": "The numerical ID of the desired status",
                     "required": false,
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
+                },
+                {
+                    "name": "id64",
+                    "in": "path",
+                    "description": "The numerical ID of the desired status",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int64"
+                },
+                {
+                    "$ref": "parameters.json#/trim_user"
                 }
             ],
             "responses": {
@@ -322,6 +286,70 @@
                     "description": "The text of your status update",
                     "required": true,
                     "type": "string"
+                },
+                {
+                    "name": "exampleStringIPv4",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "ipv4"
+                },
+                {
+                    "name": "exampleStringIPv6",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "ipv6"
+                },
+                {
+                    "name": "exampleStringByte",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "byte"
+                },
+                {
+                    "name": "exampleStringBinary",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "binary"
+                },
+                {
+                    "name": "exampleStringDate",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "date"
+                },
+                {
+                    "name": "exampleStringDateTime",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "name": "exampleStringPassword",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "password"
+                },
+                {
+                    "name": "exampleStringUri",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "string",
+                    "format": "uri"
                 },
                 {
                     "name": "in_reply_to_status_id",
@@ -359,11 +387,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "trim_user",
-                    "in": "query",
-                    "description": "When set to either true, t or 1, each tweet returned in a timeline will include a user object",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/trim_user"
                 }
             ],
             "responses": {
@@ -445,6 +469,29 @@
                     "description": "Languages code for the rendered embed",
                     "required": false,
                     "type": "string"
+                },
+                {
+                    "name": "exampleNumber",
+                    "in": "query",
+                    "description": "Languages code for the rendered embed",
+                    "required": false,
+                    "type": "number"
+                },
+                {
+                    "name": "exampleNumberFloat",
+                    "in": "query",
+                    "description": "Languages code for the rendered embed",
+                    "required": false,
+                    "type": "number",
+                    "format": "float"
+                },
+                {
+                    "name": "exampleNumberDouble",
+                    "in": "query",
+                    "description": "Languages code for the rendered embed",
+                    "required": false,
+                    "type": "number",
+                    "format": "double"
                 }
             ],
             "responses": {
@@ -536,32 +583,16 @@
                     "type": "string"
                 },
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "description": "Returns results with an ID greater than the sepcified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "description": "Returns results with an ID less than or equal to the specified ID",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "Specifies the number of results to retrieve per page",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "Entities are ON by default",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "include_rts",
@@ -742,11 +773,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "Wehn set to either true, t or 1",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -870,11 +897,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "Wehn set to either true, t or 1",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -1049,11 +1072,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "Wehn set to either true, t or 1",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -1113,11 +1132,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "Wehn set to either true, t or 1",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -1435,11 +1450,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "The amount of results to return per page",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 },
                 {
                     "name": "cursor",
@@ -1528,22 +1539,13 @@
             "description": "return 20 most recent direct messages sent",
             "parameters": [
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 },
                 {
                     "name": "page",
@@ -1552,10 +1554,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -1650,10 +1649,7 @@
                     "required": false
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "number of tweets to return",
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 },
                 {
                     "name": "until",
@@ -1662,22 +1658,13 @@
                     "type": "string"
                 },
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "description": "return results with ID greater than specified",
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "description": "returns results with an ID less than/equal to specified ID",
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "callback",
@@ -1821,22 +1808,13 @@
             ],
             "parameters": [
                 {
-                    "name": "since_id",
-                    "in": "query",
-                    "description": "return results with ID greater than specified",
-                    "type": "string"
+                    "$ref": "parameters.json#/since_id"
                 },
                 {
-                    "name": "max_id",
-                    "in": "query",
-                    "description": "returns results with an ID less than/equal to specified ID",
-                    "type": "string"
+                    "$ref": "parameters.json#/max_id"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -1877,10 +1855,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -1971,10 +1946,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "number of IDs to attempt retrieval of",
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 }
             ],
             "responses": {
@@ -2023,10 +1995,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "count",
-                    "in": "query",
-                    "description": "number of IDs to attempt retrieval of",
-                    "type": "string"
+                    "$ref": "parameters.json#/count"
                 }
             ],
             "responses": {
@@ -2379,10 +2348,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -2432,10 +2398,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2482,10 +2445,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2554,10 +2514,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2628,10 +2585,7 @@
             ],
             "parameters": [
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2718,10 +2672,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2767,10 +2718,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -2814,10 +2762,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -2860,10 +2805,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -2908,10 +2850,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 }
             ],
             "responses": {
@@ -2954,10 +2893,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",
@@ -3006,10 +2942,7 @@
                     "required": true
                 },
                 {
-                    "name": "include_entities",
-                    "in": "query",
-                    "description": "whether or not to include entities",
-                    "type": "string"
+                    "$ref": "parameters.json#/include_entities"
                 },
                 {
                     "name": "skip_status",

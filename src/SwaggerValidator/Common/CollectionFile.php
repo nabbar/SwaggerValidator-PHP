@@ -71,7 +71,7 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
         self::$fileIdList = array();
     }
 
-    public static function prune()
+    public static function pruneInstance()
     {
         self::$instance   = null;
         self::$fileIdList = array();
