@@ -230,11 +230,12 @@ class Swagger
 
     public static function cleanInstances()
     {
-        \SwaggerValidator\Common\CollectionReference::prune();
-        \SwaggerValidator\Common\CollectionFile::prune();
+        \SwaggerValidator\Common\CollectionReference::pruneInstance();
+        \SwaggerValidator\Common\CollectionFile::pruneInstance();
         \SwaggerValidator\Common\CollectionType::pruneInstance();
         \SwaggerValidator\Common\Factory::pruneInstance();
         \SwaggerValidator\Common\FactorySwagger::pruneInstance();
+        \SwaggerValidator\Common\Sandbox::pruneInstance();
     }
 
 }

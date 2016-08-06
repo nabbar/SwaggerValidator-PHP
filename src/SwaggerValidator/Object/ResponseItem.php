@@ -79,9 +79,7 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
             $ctx = $context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY);
             $ctx->dataLoad();
 
-            \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
-
-            $check = $check && $this->$keySchema->validate($ctx);
+            $check = $check && $this->$keySchema->validate($ctx->setSandBox());
         }
 
         return $check;

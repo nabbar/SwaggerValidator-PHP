@@ -290,6 +290,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Mode');
     }
 
+    /**
+     *
+     * @param const $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setType($value = null)
     {
         switch ($value) {
@@ -302,6 +307,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
                 $this->contextType = \SwaggerValidator\Common\Context::TYPE_REQUEST;
                 break;
         }
+
         return $this;
     }
 
@@ -310,6 +316,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Type');
     }
 
+    /**
+     *
+     * @param const $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setLocation($value = null)
     {
         switch (strtolower($value)) {
@@ -342,6 +353,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
                 $this->contextLocation = \SwaggerValidator\Common\Context::LOCATION_BODY;
                 break;
         }
+
         return $this;
     }
 
@@ -350,6 +362,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Location');
     }
 
+    /**
+     *
+     * @param const $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setMethod($value = null)
     {
         switch (strtolower($value)) {
@@ -381,6 +398,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->setMethod($this->getEnv('REQUEST_METHOD'));
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setBasePath($value = null)
     {
         $this->contextBasePath = $value;
@@ -392,6 +414,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('BasePath');
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setRoutePath($value = null)
     {
         $this->contextRoutePath = $value;
@@ -403,6 +430,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('RoutePath');
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setRequestPath($value = null)
     {
         $this->contextRequestPath = $value;
@@ -414,6 +446,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('RequestPath');
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setScheme($value = null)
     {
         $this->contextScheme = $value;
@@ -425,6 +462,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Scheme');
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setHost($value = null)
     {
         $this->contextHost = $value;
@@ -436,6 +478,12 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Host');
     }
 
+    /**
+     *
+     * @param string $key
+     * @param \SwaggerValidator\Common\Context $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function addContext($key = null, $value = null)
     {
         $this->contextOther[$key] = $value;
@@ -447,6 +495,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('Other');
     }
 
+    /**
+     *
+     * @param boolean $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setCombined($value = false)
     {
         $this->contextIsCombined = boolval($value);
@@ -458,6 +511,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this->__get('IsCombined');
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setDataPath($value = null)
     {
         $new = clone $this;
@@ -472,6 +530,17 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return implode('/', $this->__get('DataPath'));
     }
 
+    public function getLastDataPath()
+    {
+        $ref = $this->__get('DataPath');
+        return array_pop($ref);
+    }
+
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setExternalRef($value = null)
     {
         $new = clone $this;
@@ -503,6 +572,11 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return false;
     }
 
+    /**
+     *
+     * @param string $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setDataCheck($value = null)
     {
         $this->contextDataCheck[] = $value;
@@ -514,6 +588,12 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return implode('/', $this->__get('DataCheck'));
     }
 
+    /**
+     *
+     * @param mixed $value
+     * @param null|boolean $isExisting
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setDataValue($value = null, $isExisting = true)
     {
         if ($isExisting === true) {
@@ -532,12 +612,22 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return $this;
     }
 
+    /**
+     *
+     * @param boolean $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setDataValueExists($value = null)
     {
         $this->contextDataValueExists = $value;
         return $this;
     }
 
+    /**
+     *
+     * @param Boolean $value
+     * @return \SwaggerValidator\Common\ContextBase
+     */
     public function setDataValueEmpty($value = null)
     {
         $this->contextDataValueEmpty = $value;

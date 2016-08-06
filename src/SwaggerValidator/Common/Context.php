@@ -550,43 +550,74 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     }
 
     /**
-     * Method to clean the control of TOOMANY parameters
-     */
-    public static function cleanCheckedDataName()
-    {
-        self::$contextValidatedParams = array(
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
-            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
-        );
-    }
-
-    /**
      * return the list of all params (request/response) validated
      * used in the end of validation process to check the TOOMANY parameters error
      * @return array
      */
-    public static function getCheckedDataName()
+    public function getSandBoxKeys()
     {
-        return self::$contextValidatedParams;
+        if ($this->getType() !== self::TYPE_REQUEST) {
+            return array();
+        }
+
+        return array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => \SwaggerValidator\Common\Sandbox::getInstance()->hasBody(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => \SwaggerValidator\Common\Sandbox::getInstance()->keysForm(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => \SwaggerValidator\Common\Sandbox::getInstance()->keysQueryString(),
+        );
     }
 
     /**
-     * Method to define and return the method will be call to retrieve
-     * all received params by location
-     * @param const $type
-     * @param const $location
-     * @return string
+     * Adding validated params to check
+     * This method improve the TOOMANY errors at the end
+     * of the validation process
+     * @return \SwaggerValidator\Common\Context
      */
-    public static function getCheckedMethodFormLocation($type, $location)
+    public function setSandBox()
     {
-        switch ($type . $location) {
-            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-                return 'getRequestFormDataKey';
-
-            case self::TYPE_REQUEST . \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-                return 'getRequestQueryKey';
+        if ($this->getType() !== self::TYPE_REQUEST) {
+            return $this;
         }
+
+        switch ($this->getLocation()) {
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
+                \SwaggerValidator\Common\Sandbox::getInstance()->setBody($this->getDataValue());
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
+                \SwaggerValidator\Common\Sandbox::getInstance()->setForm($this->getLastDataPath(), $this->getDataValue());
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER:
+                \SwaggerValidator\Common\Sandbox::getInstance()->setHeader($this->getLastDataPath(), $this->getDataValue());
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH:
+                \SwaggerValidator\Common\Sandbox::getInstance()->setPath($this->getLastDataPath(), $this->getDataValue());
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
+                \SwaggerValidator\Common\Sandbox::getInstance()->setQueryString($this->getLastDataPath(), $this->getDataValue());
+                break;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Method to list all received params name by location
+     * @return array
+     */
+    public function getRequestDataKeys()
+    {
+        if ($this->getType() !== self::TYPE_REQUEST) {
+            return array();
+        }
+
+        return array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => $this->getRequestFormDataKey(),
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => $this->getRequestQueryKey(),
+        );
     }
 
     /**
@@ -643,35 +674,6 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     }
 
     /**
-     * Adding validated params to check
-     * This method improve the TOOMANY errors at the end
-     * of the validation process
-     * @param const $location
-     * @param string $name
-     */
-    public static function addCheckedDataName($location, $name)
-    {
-        if (!is_array(self::$contextValidatedParams)) {
-            self::$contextValidatedParams = array(
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => array(),
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => array(),
-                \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => false,
-            );
-        }
-
-        switch ($location) {
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-                self::$contextValidatedParams[$location][] = $name;
-                break;
-
-            case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
-                self::$contextValidatedParams[$location] = true;
-                break;
-        }
-    }
-
-    /**
      * Method to define a batch of data to be used to
      * simulate the playback of external data
      * @param array $options
@@ -694,6 +696,12 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         $_POST   = array();
         $_FILES  = array();
         $_COOKIE = array();
+
+        foreach ($this->getRequestHeader() as $key) {
+            if (array_key_exists($key, $_SERVER)) {
+                unset($_SERVER[$key]);
+            }
+        }
     }
 
     /**

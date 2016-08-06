@@ -24,6 +24,14 @@ Constants
 
 
 
+### PATTERN_BINARY
+
+    const PATTERN_BINARY = '^([01]{1,4}[ ]?)*$'
+
+
+
+
+
 ### PATTERN_DATE
 
     const PATTERN_DATE = '^\d{4}-\d{2}-\d{2}$'
@@ -207,6 +215,61 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
+### generateRandowString
+
+    mixed SwaggerValidator\DataType\TypeString::generateRandowString()
+
+
+
+
+
+* Visibility: **private**
+
+
+
+
+### generateRandowSign
+
+    mixed SwaggerValidator\DataType\TypeString::generateRandowSign()
+
+
+
+
+
+* Visibility: **private**
+
+
+
+
+### generateRandowBinary
+
+    mixed SwaggerValidator\DataType\TypeString::generateRandowBinary()
+
+
+
+
+
+* Visibility: **private**
+
+
+
+
+### validatePasswordForm
+
+    mixed SwaggerValidator\DataType\TypeString::validatePasswordForm($value)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $value **mixed**
 
 
 

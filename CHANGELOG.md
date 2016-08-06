@@ -25,4 +25,5 @@
       - Fix PHP 5.3 compatibility
       - Add random value for getModel Primitives Data Type
       - Add Coverage calculation & CodeClimate report in travis build run
+      - Add Sandbox feature : keep validated params and drop global magic variable
 

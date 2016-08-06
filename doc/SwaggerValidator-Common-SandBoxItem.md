@@ -1,24 +1,14 @@
-SwaggerValidator\Common\CollectionReference
+SwaggerValidator\Common\SandBoxItem
 ===============
 
-Description of ReferenceCollection
+Description of SandBoxItem
 
 
 
 
-* Class name: CollectionReference
+* Class name: SandBoxItem
 * Namespace: SwaggerValidator\Common
 * Parent class: [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-
-Constants
-----------
-
-
-### ID_PREFIX
-
-    const ID_PREFIX = 'id:'
 
 
 
@@ -26,42 +16,6 @@ Constants
 
 Properties
 ----------
-
-
-### $instance
-
-    private \SwaggerValidator\Common\CollectionReference $instance
-
-
-
-
-
-* Visibility: **private**
-* This property is **static**.
-
-
-### $refIdList
-
-    private array $refIdList = array()
-
-
-
-
-
-* Visibility: **private**
-* This property is **static**.
-
-
-### $refIdDefinitions
-
-    private array $refIdDefinitions = array()
-
-
-
-
-
-* Visibility: **private**
-* This property is **static**.
 
 
 ### $collection
@@ -88,133 +42,6 @@ Properties
 
 Methods
 -------
-
-
-### __construct
-
-    mixed SwaggerValidator\Common\CollectionReference::__construct()
-
-Private construct for singleton
-
-
-
-* Visibility: **private**
-
-
-
-
-### getInstance
-
-    \SwaggerValidator\Common\CollectionReference SwaggerValidator\Common\CollectionReference::getInstance()
-
-get the singleton of this collection
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### setInstance
-
-    mixed SwaggerValidator\Common\CollectionReference::setInstance(\SwaggerValidator\Common\CollectionReference $instance)
-
-replace the singleton of this collection
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $instance **[SwaggerValidator\Common\CollectionReference](SwaggerValidator-Common-CollectionReference.md)**
-
-
-
-### pruneInstance
-
-    mixed SwaggerValidator\Common\CollectionReference::pruneInstance()
-
-prune the singleton of this collection
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### __isset
-
-    mixed SwaggerValidator\Common\Collection::__isset($key)
-
-Property Overloading
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __unset
-
-    mixed SwaggerValidator\Common\Collection::__unset($key)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __get
-
-    mixed SwaggerValidator\Common\Collection::__get($key)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __set
-
-    mixed SwaggerValidator\Common\Collection::__set($key, $value)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-* $value **mixed**
-
 
 
 ### jsonSerialize
@@ -264,9 +91,9 @@ Property Overloading
 
 ### get
 
-    \SwaggerValidator\Common\ReferenceItem SwaggerValidator\Common\CollectionReference::get(string $ref)
+    mixed SwaggerValidator\Common\SandBoxItem::get($name)
 
-Return the content of the reference as object or mixed data
+
 
 
 
@@ -274,13 +101,13 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
-* $ref **string**
+* $name **mixed**
 
 
 
 ### set
 
-    mixed SwaggerValidator\Common\CollectionReference::set($ref, $value)
+    mixed SwaggerValidator\Common\SandBoxItem::set($name, $value)
 
 
 
@@ -290,118 +117,77 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
-* $ref **mixed**
+* $name **mixed**
 * $value **mixed**
 
 
 
-### getIdFromRef
+### __isset
 
-    mixed SwaggerValidator\Common\CollectionReference::getIdFromRef($fullRef)
+    mixed SwaggerValidator\Common\Collection::__isset($key)
 
-
+Property Overloading
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $fullRef **mixed**
+* $key **mixed**
 
 
 
-### getRefFromId
+### __get
 
-    mixed SwaggerValidator\Common\CollectionReference::getRefFromId($id)
+    mixed SwaggerValidator\Common\Collection::__get($key)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $id **mixed**
+* $key **mixed**
 
 
 
-### registerDefinition
+### __set
 
-    mixed SwaggerValidator\Common\CollectionReference::registerDefinition($fullRef)
+    mixed SwaggerValidator\Common\Collection::__set($key, $value)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $fullRef **mixed**
+* $key **mixed**
+* $value **mixed**
 
 
 
-### cleanReferenceDefinitions
+### __unset
 
-    mixed SwaggerValidator\Common\CollectionReference::cleanReferenceDefinitions()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### unserializeReferenceDefinitions
-
-    mixed SwaggerValidator\Common\CollectionReference::unserializeReferenceDefinitions(\SwaggerValidator\Common\Context $context)
+    mixed SwaggerValidator\Common\Collection::__unset($key)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
-
-
-
-### getDefinitions
-
-    mixed SwaggerValidator\Common\CollectionReference::getDefinitions()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### jsonUnSerialize
-
-    mixed SwaggerValidator\Common\CollectionReference::jsonUnSerialize(\SwaggerValidator\Common\Context $context)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $key **mixed**
 
 
 

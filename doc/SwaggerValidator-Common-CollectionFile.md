@@ -122,9 +122,9 @@ replace the singleton of this collection
 
 
 
-### prune
+### pruneInstance
 
-    mixed SwaggerValidator\Common\CollectionFile::prune()
+    mixed SwaggerValidator\Common\CollectionFile::pruneInstance()
 
 
 

@@ -771,6 +771,19 @@ Methods
 
 
 
+### getLastDataPath
+
+    mixed SwaggerValidator\Common\ContextBase::getLastDataPath()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
 ### setExternalRef
 
     mixed SwaggerValidator\Interfaces\ContextBase::setExternalRef($value)
@@ -883,7 +896,7 @@ Methods
 
 ### setDataValueExists
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueExists($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueExists(boolean $value)
 
 
 
@@ -893,13 +906,13 @@ Methods
 
 
 #### Arguments
-* $value **mixed**
+* $value **boolean**
 
 
 
 ### setDataValueEmpty
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueEmpty($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueEmpty(Boolean $value)
 
 
 
@@ -909,7 +922,7 @@ Methods
 
 
 #### Arguments
-* $value **mixed**
+* $value **Boolean**
 
 
 
