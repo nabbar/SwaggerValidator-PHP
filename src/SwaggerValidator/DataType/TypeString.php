@@ -246,8 +246,19 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
+        $min  = isset($this->minLength) ? $this->minLength : 0;
+        $max  = isset($this->maxLength) ? $this->maxLength : 255;
+        $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $char .= $char . $char . $char . $char;
+        $size = ceil(rand($min, $max));
+        $text = '';
+
+        for ($i = 0; $i < $size; $i++) {
+            $text .= substr($char, rand(0, strlen($char) - 1), 1);
+        }
+
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return 'This is a basic example of string type';
+        return $text;
     }
 
 }
