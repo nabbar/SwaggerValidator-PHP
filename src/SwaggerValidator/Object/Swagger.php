@@ -92,8 +92,6 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     public function validate(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::cleanCheckedDataName();
-
         $context->loadUri();
         $context->loadMethod();
 
@@ -132,32 +130,32 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             return true;
         }
 
-        foreach (\SwaggerValidator\Common\Context::getCheckedDataName() as $location => $list) {
+        $sandBox = $context->getSandBoxKeys();
 
-            if ($location == \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $list !== true) {
+        foreach ($context->getRequestDataKeys() as $location => $list) {
+
+            if (!array_key_exists($location, $sandBox)) {
+                continue;
+            }
+
+            if ($location == \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY) {
                 $ctx = $context->setLocation($location)->setDataPath($location)->setDataCheck('exist');
                 $ctx->loadRequestBody();
 
-                if ($ctx->isDataExists()) {
+                if ($ctx->isDataExists() && !$sandBox[$location]) {
                     $ctx->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Body is given and not expected', __METHOD__, __LINE__);
                 }
-            }
-            else {
-                $ctx = $context->setLocation($location)->setDataCheck('exist');
-                $mtd = \SwaggerValidator\Common\Context::getCheckedMethodFormLocation($ctx->getType(), $ctx->getLocation());
 
-                if (empty($mtd)) {
+                continue;
+            }
+
+            foreach ($list as $key) {
+
+                if (in_array($key, $sandBox[$location])) {
                     continue;
                 }
 
-                foreach ($ctx->$mtd() as $paramName) {
-
-                    if (in_array($paramName, $list)) {
-                        continue;
-                    }
-
-                    $ctx->setDataPath($paramName)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, $paramName . ' is given and not expected', __METHOD__, __LINE__);
-                }
+                $ctx->setDataPath($paramName)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, $paramName . ' is given and not expected', __METHOD__, __LINE__);
             }
         }
 

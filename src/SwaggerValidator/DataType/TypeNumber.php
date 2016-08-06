@@ -104,22 +104,19 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
         }
 
         $mantisse = explode('.', $valueParams);
+        $exposant = 0;
 
         if (count($mantisse) > 2) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Valueparams is not a normal numeric pattern', __METHOD__, __LINE__);
         }
 
         if (strlen($mantisse[0]) > 0) {
-            $exposant = $exposant + strlen($mantisse[0]);
-            $mantisse = $mantisse[0] . $mantisse[1];
+            $exposant = strlen($mantisse[0]);
+            $mantisse = implode('', $mantisse);
         }
 
-        if (stripos($valueParams, 'e') !== false) {
-            $exposant = substr($valueParams, stripos($valueParams, 'e'));
-        }
-        else {
-            $exposant = 0;
-            $mantisse = $mantisse[0] . $mantisse[1];
+        if (stripos($valueParams, 'E') !== false) {
+            $exposant += substr($valueParams, stripos($valueParams, 'E'));
         }
 
         $mantisseFloat = bcpow(2, 23);

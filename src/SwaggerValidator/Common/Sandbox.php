@@ -92,14 +92,12 @@ class Sandbox
      */
     public static function setInstance(\SwaggerValidator\Common\Sandbox $instance)
     {
-        self::$instance   = $instance;
-        self::$fileIdList = array();
+        self::$instance = $instance;
     }
 
-    public static function prune()
+    public static function pruneInstance()
     {
-        self::$instance   = null;
-        self::$fileIdList = array();
+        self::$instance = null;
     }
 
     public function __isset($name)
@@ -163,6 +161,11 @@ class Sandbox
         return $this->form->has($name);
     }
 
+    public function keysForm()
+    {
+        return $this->form->keys();
+    }
+
     public function getForm($name)
     {
         return $this->form->get($name);
@@ -176,6 +179,11 @@ class Sandbox
     public function hasHeader($name)
     {
         return $this->header->has($name);
+    }
+
+    public function keysHeader()
+    {
+        return $this->header->keys();
     }
 
     public function getHeader($name)
@@ -193,6 +201,11 @@ class Sandbox
         return $this->path->has($name);
     }
 
+    public function keysPath()
+    {
+        return $this->path->keys();
+    }
+
     public function getPath($name)
     {
         return $this->path->get($name);
@@ -206,6 +219,11 @@ class Sandbox
     public function hasQueryString($name)
     {
         return $this->query->has($name);
+    }
+
+    public function keysQueryString()
+    {
+        return $this->query->keys();
     }
 
     public function getQueryString($name)

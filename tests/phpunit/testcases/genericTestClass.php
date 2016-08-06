@@ -259,6 +259,8 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public function mockContextRequest($path, $queryString, $method, $header, $bodyRaw, $postForm)
     {
+        \SwaggerValidator\Common\Sandbox::pruneInstance();
+
         if (empty($header) || !is_array($header)) {
             $header = array();
         }
@@ -306,6 +308,8 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public function mockContextResponse($path, $method, $header, $bodyRaw)
     {
+        \SwaggerValidator\Common\Sandbox::pruneInstance();
+
         if (empty($header) || !is_array($header)) {
             $header = array();
         }

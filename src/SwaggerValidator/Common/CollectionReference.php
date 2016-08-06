@@ -80,7 +80,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     /**
      * prune the singleton of this collection
      */
-    public static function prune()
+    public static function pruneInstance()
     {
         self::$instance         = null;
         self::$refIdList        = array();

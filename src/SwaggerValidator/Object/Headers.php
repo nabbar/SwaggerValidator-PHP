@@ -56,8 +56,7 @@ class Headers extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach ($this->keys() as $key) {
             if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\HeaderItem)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER, $key);
-                $check = $check && $this->$key->validate($context->setDataPath($key));
+                $check = $check && $this->$key->validate($context->setDataPath($key)->setSandBox());
             }
         }
 

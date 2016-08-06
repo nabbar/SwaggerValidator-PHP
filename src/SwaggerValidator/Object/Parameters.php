@@ -73,12 +73,10 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach ($this->keys() as $key) {
             if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\ParameterBody)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
-                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY), $key);
+                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setSandBox(), $key);
             }
             elseif (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\DataType\TypeCommon)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName($this->$key->in, $this->$key->name);
-                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath($this->$key->name)->setLocation($this->$key->in), $key);
+                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath($this->$key->name)->setLocation($this->$key->in)->setSandBox(), $key);
             }
         }
 

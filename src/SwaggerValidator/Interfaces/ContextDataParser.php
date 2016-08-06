@@ -35,6 +35,4 @@ interface ContextDataParser
     public function buildBodyJson($contents);
 
     public function buildBodyXml($contents);
-
-    public static function cleanCheckedDataName();
 }

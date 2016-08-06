@@ -29,7 +29,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     const PATTERN_BYTE     = '^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$';
     //const PATTERN_BINARY   = '^(?:([A-Fa-f0-9]{2})*|([01]{4}[ ]?)*)?$'; // Allow Hexa form
-    const PATTERN_BINARY   = '^([01]{4}[ ]?)*$'; // Allow only binary
+    const PATTERN_BINARY   = '^([01]{1,4}[ ]?)*$'; // Allow only binary
     const PATTERN_DATE     = '^\d{4}-\d{2}-\d{2}$';
     const PATTERN_DATETIME = '\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}(\.\d)?(z|Z|[+-]\d{2}:\d{2})';
     const PATTERN_URI      = '^http[s]?:\/\/(?:[\w\-._~!$&\'()*+,;=]+|(%[0-9A-Fa-f]{2})+)(\/((?:[\w\-._~!$&\'()*+,;=:@]|%[0-9A-Fa-f]{2})+\/?)*)?(\?(?:[\w\-._~!$&\'()*+,;=:@\/\\]|%[0-9A-Fa-f]{2})*)?(#(?:[\w\-._~!$&\'()*+,;=:@\/\\]|%[0-9A-Fa-f]{2})*)?';
@@ -113,7 +113,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        if ($this->ormat == 'date' && preg_match('#' . self::PATTERN_DATE . '#', $valueParams)) {
+        if ($this->format == 'date' && preg_match('#' . self::PATTERN_DATE . '#', $valueParams)) {
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
@@ -187,7 +187,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             return $this->generateRandowBinary();
         }
 
-        if ($this->ormat == 'date') {
+        if ($this->format == 'date') {
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
@@ -232,7 +232,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * Format specified only to obfucate input field
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return '2001:' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16);
+            return '2001:' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . '::';
         }
 
         return $this->getExampleType($context);
@@ -287,8 +287,14 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             $text .= chr(rand(0, 254));
         }
 
-        $value = unpack('H*', ($text));
-        return base_convert($value[1], 16, 2);
+        $hexa   = unpack('H*', ($text));
+        $binary = "";
+
+        for ($i = 0; $i < strlen($hexa[1]); $i+=4) {
+            $binary .= str_pad(base_convert(substr($hexa[1], $i, 4), 16, 2), 16, "0", STR_PAD_LEFT);
+        }
+
+        return $binary;
     }
 
     public function validatePasswordForm($value)
