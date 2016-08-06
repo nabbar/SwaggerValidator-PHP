@@ -64,6 +64,12 @@
             "@PharTest",
             "@Coverage"
         ],
+        "gitBuild": [
+            "@Phpunit",
+            "@PharBuilder",
+            "@PharTest",
+            "@Coverage"
+        ],
         "test": [
             "@Phpunit"
         ]

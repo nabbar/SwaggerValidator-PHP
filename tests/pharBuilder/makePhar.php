@@ -71,8 +71,12 @@ foreach ($list as $key => $value) {
 
     $files[$key] = $value . "";
 }
-
-ksort($files, SORT_NATURAL);
+if (version_compare(PHP_VERSION, '5.4', '<')) {
+    ksort($files);
+}
+else {
+    ksort($files, SORT_NATURAL);
+}
 
 $phar->buildFromIterator(new ArrayIterator($files));
 $phar->setDefaultStub('Swagger.php');
