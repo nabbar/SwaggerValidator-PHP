@@ -67,6 +67,11 @@
         "gitBuild": [
             "@Phpunit",
             "@PharBuilder",
+            "@PharTest"
+        ],
+        "gitBuildCoverage": [
+            "@Phpunit",
+            "@PharBuilder",
             "@PharTest",
             "@Coverage",
             "./vendor/bin/test-reporter"
