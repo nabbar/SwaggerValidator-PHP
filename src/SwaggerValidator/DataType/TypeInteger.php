@@ -107,8 +107,8 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
         }
 
         $valueCheck = trim($valueParams);
-        $valueInt32 = bcpow(2, 32);
-        $valueInt64 = bcpow(2, 64);
+        $valueInt32 = bcpow(2, 31);
+        $valueInt64 = bcpow(2, 63);
 
         if (substr($valueCheck, 0, 1) == '-') {
             $valueCheck = substr($valueCheck, 1);
@@ -137,17 +137,18 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
-        $valueInt32 = bcsub(bcpow(2, 32), 1);
-        $valueInt64 = bcsub(bcpow(2, 64), 1);
+        $valueInt32 = bcsub(bcpow(2, 31), 1);
+        $valueInt64 = bcsub(bcpow(2, 63), 1);
+        $sign       = (rand(0, 1) > 0.5) ? '' : '-';
 
         if ($this->format == 'int32') {
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return $valueInt32;
+            return $sign . rand(0, $valueInt32);
         }
 
         if ($this->format == 'int64') {
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return $valueInt64;
+            return $sign . rand(0, $valueInt64);
         }
 
         return $this->getExampleType($context);
@@ -155,8 +156,10 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
+        $sign = (rand(0, 1) > 0.5) ? '' : '-';
+
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return '123';
+        return $sign . rand(0, bcsub(bcpow(2, 31), 1));
     }
 
 }

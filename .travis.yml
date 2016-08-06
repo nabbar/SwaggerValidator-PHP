@@ -8,32 +8,45 @@ branches:
 language: php
 
 # Versions of PHP you want your project run with.
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+# php:
+#   - 5.3
+#   - 5.4
+#   - 5.5
+#   - 5.6
+#   - 7.0
+#   - hhvm
 
 # Commands to be run before your environment runs.
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
-# Commands you want to run that will verify your build.
-script: composer build
-
 # allow_failures: Allow this build to fail under the specified environments.
 # fast_finish: If your build fails do not continue trying to build, just stop.
 matrix:
+  include:
+  - php: "5.3"
+    env: SCRIPTBUILD=gitBuild
+  - php: "5.4"
+    env: SCRIPTBUILD=gitBuild
+  - php: "5.5"
+    env: SCRIPTBUILD=gitBuildCoverage
+  - php: "5.6"
+    env: SCRIPTBUILD=gitBuild
+  - php: "7.0"
+    env: SCRIPTBUILD=gitBuild
+  - php: "hhvm"
+    env: SCRIPTBUILD=gitBuild
   allow_failures:
-    - php: 5.3
-    - php: 7.0
     - php: hhvm
   fast_finish: true
 
+# Commands you want to run that will verify your build.
+script: composer $SCRIPTBUILD
+
 # Customize when the notification emails are sent.
 notifications:
-    on_success: never
+  email:
+    on_success: change
     on_failure: always
+
