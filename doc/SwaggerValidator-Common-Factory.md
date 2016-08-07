@@ -147,25 +147,6 @@ Check if the type is defined and return his callable string
 
 
 
-### call
-
-    mixed SwaggerValidator\Common\Factory::call(string $type, string $method, boolean $static, mixed $parameters)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $type **string** - &lt;p&gt;the object type who&#039;s contain the calling method&lt;/p&gt;
-* $method **string** - &lt;p&gt;the method name to be call&lt;/p&gt;
-* $static **boolean** - &lt;p&gt;specify is this method is static or intanced method&lt;/p&gt;
-* $parameters **mixed** - &lt;p&gt;[optional] Params to be passed to the method called&lt;/p&gt;
-
-
-
 ### invoke
 
     object SwaggerValidator\Common\Factory::invoke(string $type, \SwaggerValidator\Common\type $parameters)
@@ -292,24 +273,6 @@ Register the base instance to be clone when a new instance is call
 
 #### Arguments
 * $type **mixed**
-
-
-
-### registerType
-
-    mixed SwaggerValidator\Common\Factory::registerType(string $type, callable $nameSpace)
-
-Register a new callable for a existing type
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $type **string** - &lt;p&gt;must be defined in this class&lt;/p&gt;
-* $nameSpace **callable** - &lt;p&gt;must be callable&lt;/p&gt;
 
 
 
@@ -567,5 +530,25 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
+
+
+
+### throwException
+
+    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $method **mixed**
+* $line **mixed**
 
 

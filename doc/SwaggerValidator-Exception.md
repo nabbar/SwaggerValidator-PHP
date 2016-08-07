@@ -33,6 +33,25 @@ Methods
 -------
 
 
+### init
+
+    mixed SwaggerValidator\Exception::init($message, $context, $file, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $message **mixed**
+* $context **mixed**
+* $file **mixed**
+* $line **mixed**
+
+
+
 ### newException
 
     mixed SwaggerValidator\Exception::newException($message, $context, $file, $line)

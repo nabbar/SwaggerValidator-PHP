@@ -147,7 +147,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        if ($additionItems && (count($this->items) >= count($valueParams))) {
+        if ($additionItems && (count($this->items) <= count($valueParams))) {
             return true;
         }
         elseif (count($this->items) == count($valueParams)) {

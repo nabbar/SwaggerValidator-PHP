@@ -128,17 +128,17 @@ class Sandbox
 
     public function jsonSerialize()
     {
-        return null;
+
     }
 
     public function serialize()
     {
-        return null;
+
     }
 
     public function unserialize($data)
     {
-        return null;
+
     }
 
     public function hasBody()

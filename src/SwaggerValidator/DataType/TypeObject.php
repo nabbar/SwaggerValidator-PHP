@@ -234,7 +234,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             }
 
             if (in_array($key, $required) && !property_exists($valueProperties, $key)) {
-                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Property "' . $key . '" Not found in the object value');
+                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Property "' . $key . '" Not found in the object value', __METHOD__, __LINE__);
             }
             elseif (!property_exists($valueProperties, $key)) {
                 continue;
@@ -259,7 +259,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             }
 
             if (!in_array($key, $propFound)) {
-                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Property "' . $key . '" is not awaiting in the value object !');
+                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Property "' . $key . '" is not awaiting in the value object !', __METHOD__, __LINE__);
             }
         }
 

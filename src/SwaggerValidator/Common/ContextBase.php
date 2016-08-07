@@ -502,7 +502,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      */
     public function setCombined($value = false)
     {
-        $this->contextIsCombined = boolval($value);
+        $this->contextIsCombined = (bool) $value;
         return $this;
     }
 
@@ -514,7 +514,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     /**
      *
      * @param string $value
-     * @return \SwaggerValidator\Common\ContextBase
+     * @return \SwaggerValidator\Common\Context
      */
     public function setDataPath($value = null)
     {

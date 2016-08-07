@@ -804,9 +804,9 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param const $validationType
      * @param \SwaggerValidator\Common\Context $swaggerContext
      */
-    public function logValidationError($validationType, $method = null, $line = null)
+    public function logValidationError($validationType, $messageException = null, $method = null, $line = null)
     {
-        print "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : " . $this->__toString() . "\n";
+        print "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : {$messageException} --- " . $this->__toString() . "\n";
     }
 
     /**
@@ -820,7 +820,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function setValidationError($valitionType, $messageException = null, $method = null, $line = null)
     {
-        $this->logValidationError($valitionType, $method, $line);
+        $this->logValidationError($valitionType, $messageException, $method, $line);
 
         if ($this->__get('IsCombined')) {
             return false;

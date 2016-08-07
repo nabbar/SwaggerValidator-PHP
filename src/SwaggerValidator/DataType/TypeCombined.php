@@ -34,9 +34,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData) || !($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
-        }
+        parent::checkJsonObject($context, $jsonData);
 
         if (count(get_object_vars($jsonData)) > 1) {
             $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
@@ -162,7 +160,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         $check    = false;
         $result   = false;
 
-        foreach ($this->$keyAllOf as $key => $object) {
+        foreach ($this->$keyOneOf as $key => $object) {
 
             if (!is_object($object) || !method_exists($object, 'validate')) {
                 return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyOneOf . ' object !', __METHOD__, __LINE__);
@@ -179,7 +177,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
-        return $result || $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching one of the ' . $keyOneOf . ' defnied type !', __METHOD__, __LINE__);
+        return $check || $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching one of the ' . $keyOneOf . ' defnied type !', __METHOD__, __LINE__);
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context)

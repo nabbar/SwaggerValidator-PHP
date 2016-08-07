@@ -627,3 +627,23 @@ Clear all values
 * $mixed **mixed**
 
 
+
+### throwException
+
+    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $method **mixed**
+* $line **mixed**
+
+

@@ -370,6 +370,23 @@
             }
         }
     },
+    "SizeRestrict": {
+        "type": "object",
+        "required": [
+            "h", "resize", "w" 
+        ],
+        "properties": {
+            "h": {
+                "type": "integer"
+            },
+            "resize": {
+                "type": "string"
+            },
+            "w": {
+                "type": "integer"
+            }
+        }
+    },
     "Sizes": {
         "type": "object",
         "properties": {
@@ -403,6 +420,46 @@
                 "type": "string"
             }
         }
+    },
+    "URLRestrict": {
+        "type": "object",
+        "required": [
+            "display_url", "expanded_url", "indices", "url" 
+        ],
+        "properties": {
+            "display_url": {
+                "type": "string"
+            },
+            "expanded_url": {
+                "type": "string"
+            },
+            "indices": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "TestObjectAnyOf": {
+        "anyOf": [
+            {
+                "$ref": "#/Size"
+            },
+            {
+                "$ref": "#/URL"
+            }
+        ]
+    },
+    "TestObjectOneOf": {
+        "oneOf": [
+            {
+                "$ref": "#/SizeRestrict"
+            },
+            {
+                "$ref": "#/URLRestrict"
+            }
+        ]
     },
     "User_Mention": {
         "type": "object",

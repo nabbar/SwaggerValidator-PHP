@@ -108,35 +108,6 @@ class Factory extends \SwaggerValidator\Common\Collection
     }
 
     /**
-     *
-     * @param string $type the object type who's contain the calling method
-     * @param string $method the method name to be call
-     * @param boolean $static specify is this method is static or intanced method
-     * @param mixed $parameters [optional] Params to be passed to the method called
-     * @return mixed
-     * @throws Exception
-     */
-    public function call($type, $method, $static = false, $parameters = null)
-    {
-        $class = $this->getClass($type);
-
-        $params = func_get_args();
-        array_shift($params);
-        array_shift($params);
-        array_shift($params);
-
-        if ($static === true) {
-            return forward_static_call_array(array($class, $method), $params);
-        }
-
-        if (empty($method) || $method === '__construct') {
-            return $this->invoke($type, $params);
-        }
-
-        return call_user_func_array(array($this->__get($type), $method), $params);
-    }
-
-    /**
      * Start new instance of the object type
      * @param string $type the name of the object type for the new instance
      * @param type $parameters [optional] the parameters to the constructor
@@ -183,7 +154,7 @@ class Factory extends \SwaggerValidator\Common\Collection
 
     public function serialize()
     {
-        return null;
+        
     }
 
     public function unserialize($data)
@@ -214,19 +185,6 @@ class Factory extends \SwaggerValidator\Common\Collection
     public function normalizeType($type)
     {
         return \SwaggerValidator\Common\CollectionType::getInstance()->normalizeType($type);
-    }
-
-    /**
-     * Register a new callable for a existing type
-     * @param string $type must be defined in this class
-     * @param callable $nameSpace must be callable
-     */
-    public static function registerType($type, $nameSpace)
-    {
-        $collType = \SwaggerValidator\Common\CollectionType::getInstance();
-        $class    = $collType->normalizeType($type);
-
-        return $collType->$class = $nameSpace;
     }
 
 }

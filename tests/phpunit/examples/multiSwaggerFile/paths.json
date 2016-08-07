@@ -45,6 +45,18 @@
                             "$ref": "defintions.json#/Tweets"
                         }
                     }
+                },
+                "201": {
+                    "description": "Success",
+                    "schema": {
+                        "$ref": "defintions.json#/TestObjectAnyOf"
+                    }
+                },
+                "204": {
+                    "description": "Success",
+                    "schema": {
+                            "$ref": "defintions.json#/TestObjectOneOf"
+                    }
                 }
             }
         }
