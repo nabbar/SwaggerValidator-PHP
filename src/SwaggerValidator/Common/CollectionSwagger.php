@@ -276,7 +276,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 
     /**
      * Check that entry JsonData is an object of stdClass
-     * @param \stdClass $JsonData
+     * @param \stdClass $jsonData
      * @return boolean
      */
     protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
@@ -294,7 +294,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 
     /**
      * Check that entry JsonData is an object of stdClass or an array
-     * @param \stdClass $JsonData
+     * @param \stdClass $jsonData
      * @return boolean
      */
     protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)

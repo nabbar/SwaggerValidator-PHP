@@ -34,7 +34,7 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        $this->checkJsonObject($context, $JsonData);
+        $this->checkJsonObject($context, $jsonData);
 
         $schemaKey = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
         if (property_exists($jsonData, $schemaKey)) {

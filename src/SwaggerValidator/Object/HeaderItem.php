@@ -34,7 +34,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        $this->checkJsonObject($context, $JsonData);
+        $this->checkJsonObject($context, $jsonData);
 
         $header     = $this->extractNonRecursiveReference($context, $jsonData);
         $this->item = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $this->name, $header);

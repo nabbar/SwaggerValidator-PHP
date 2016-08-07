@@ -35,7 +35,7 @@ class ParameterBody extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        $this->checkJsonObject($context, $JsonData);
+        $this->checkJsonObject($context, $jsonData);
 
         $schemaKey = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 

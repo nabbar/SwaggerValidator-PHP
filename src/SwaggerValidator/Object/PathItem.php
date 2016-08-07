@@ -34,7 +34,7 @@ class PathItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        $this->checkJsonObject($context, $JsonData);
+        $this->checkJsonObject($context, $jsonData);
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
