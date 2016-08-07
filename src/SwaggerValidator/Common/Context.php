@@ -852,7 +852,9 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
 
             default:
                 $this->cleanParams();
-                \SwaggerValidator\Exception::throwNewException($messageException, $this, __FILE__, __LINE__);
+                $e = new \SwaggerValidator\Exception();
+                $e->init($messageException, $this, __FILE__, __LINE__);
+                throw $e;
         }
     }
 

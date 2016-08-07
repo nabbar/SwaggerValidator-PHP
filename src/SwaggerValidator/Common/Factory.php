@@ -81,7 +81,7 @@ class Factory extends \SwaggerValidator\Common\Collection
         $class    = $collType->$type;
 
         if (empty($class)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
+            parent::throwException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
         }
 
         return $class;

@@ -62,7 +62,17 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
      * @param mixed $context
      * @throws \SwaggerValidator\Exception
      */
-    protected function throwException($message, $context = null)
+    protected function throwException($message, $context = null, $method = null, $line = null)
+    {
+        list($method, $line) = $this->getMethodLine();
+        parent::throwException($message, $context, $method, $line);
+    }
+
+    /**
+     * Retreive the first file and line that different current file
+     * @return array
+     */
+    protected function getMethodLine()
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
         array_shift($trace);
@@ -83,9 +93,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $line = $oneTrace['line'];
         }
 
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $file, $line);
-        throw $e;
+        return array($file, $line);
     }
 
     /**
@@ -127,7 +135,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            \SwaggerValidator\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            parent::throwException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $key = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
@@ -257,11 +265,13 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            list($file, $line) = $this->getMethodLine();
+            parent::throwException('Mismatching type of JSON Data received', $context, $file, $line);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            list($file, $line) = $this->getMethodLine();
+            parent::throwException('Mismatching type of JSON Data received', $context, $file, $line);
         }
 
         return true;
@@ -275,10 +285,12 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            list($file, $line) = $this->getMethodLine();
+            parent::throwException('Mismatching type of JSON Data received', $context, $file, $line);
         }
         elseif (!is_object($jsonData) && !is_array($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            list($file, $line) = $this->getMethodLine();
+            parent::throwException('Mismatching type of JSON Data received', $context, $file, $line);
         }
 
         if (is_array($jsonData)) {
