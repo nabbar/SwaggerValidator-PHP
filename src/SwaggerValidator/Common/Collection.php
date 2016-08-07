@@ -224,27 +224,6 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
      */
     protected function throwException($message, $context = null, $method = null, $line = null)
     {
-        if (empty($message) && empty($line)) {
-            $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
-            array_shift($trace);
-
-            $method = null;
-            $line   = null;
-
-            for ($i = 0; $i < 10; $i++) {
-                $oneTrace = array_shift($trace);
-
-                if (!empty($oneTrace['file']) && $oneTrace['file'] != __FILE__) {
-                    $method = $oneTrace['file'];
-                    break;
-                }
-            }
-
-            if (!empty($method) && !empty($oneTrace['line'])) {
-                $line = $oneTrace['line'];
-            }
-        }
-
         $e = new \SwaggerValidator\Exception();
         $e->init($message, $context, $method, $line);
         throw $e;

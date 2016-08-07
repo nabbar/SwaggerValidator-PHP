@@ -38,11 +38,11 @@ class OAuth2AccessCodeSecurity extends \SwaggerValidator\Common\CollectionSwagge
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {

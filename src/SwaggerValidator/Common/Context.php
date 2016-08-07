@@ -820,25 +820,6 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function setValidationError($valitionType, $messageException = null, $method = null, $line = null)
     {
-        if (empty($method) && empty($line)) {
-            foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10) as $oneTrace) {
-                if (array_key_exists('file', $oneTrace) && $oneTrace['file'] == __FILE__) {
-                    continue;
-                }
-
-                if (array_key_exists('class', $oneTrace)) {
-                    $method = $oneTrace['class'];
-                }
-                elseif (array_key_exists('file', $oneTrace)) {
-                    $method = $oneTrace['file'];
-                }
-
-                if (array_key_exists('line', $oneTrace)) {
-                    $line = $oneTrace['line'];
-                }
-            }
-        }
-
         $this->logValidationError($valitionType, $method, $line);
 
         if ($this->__get('IsCombined')) {

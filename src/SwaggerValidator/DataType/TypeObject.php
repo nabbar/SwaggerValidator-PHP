@@ -55,7 +55,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
         $this->checkJsonObject($context, $jsonData);
 
         if (property_exists($jsonData, \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) && count(get_object_vars($jsonData)) > 1) {
-            $this->throwException('Invalid object with an external reference ! ', $context);
+            $this->throwException('Invalid object with an external reference ! ', $context, __METHOD__, __LINE__);
         }
 
         $this->required             = array();
@@ -94,7 +94,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                         $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
                     }
                     else {
-                        $this->throwException('Invalid properties definition ! ', $context);
+                        $this->throwException('Invalid properties definition ! ', $context, __METHOD__, __LINE__);
                     }
                     continue 2;
 
@@ -113,11 +113,11 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
     protected function jsonUnSerializeProperties(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
@@ -218,7 +218,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
         $valueProperties = $context->getDataValue();
 
         if (!is_object($valueProperties)) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Value is an object !!');
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Value is an object !!', __METHOD__, __LINE__);
         }
 
         $propFound = array();

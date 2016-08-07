@@ -57,7 +57,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
             return $this->item->validate($context);
         }
 
-        $this->throwException('Cannot find a well formed item in the headeritem object', $context);
+        $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context)
@@ -70,7 +70,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
             return $this->item->getModel($context);
         }
 
-        $this->throwException('Cannot find a well formed item in the headeritem object', $context);
+        $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);
     }
 
 }

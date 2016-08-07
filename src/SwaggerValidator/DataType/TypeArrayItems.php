@@ -78,7 +78,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         }
 
         if (is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         foreach ($jsonData as $key => $value) {
