@@ -76,26 +76,30 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
 
                 case \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED:
                     $this->required = $value;
-                    continue;
+                    continue 2;
 
                 case \SwaggerValidator\Common\FactorySwagger::KEY_ADDPROPERTIES:
                     if (is_object($value)) {
                         $this->additionalProperties = array_keys(get_object_vars($value));
                         $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
                     }
-                    else {
+                    elseif (is_array($value)) {
                         $this->additionalProperties = $value;
                     }
-                    continue;
+                    continue 2;
 
                 case \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES:
                     if (is_object($value)) {
                         $this->properties = array_keys(get_object_vars($value));
                         $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
                     }
-                    continue;
+                    else {
+                        $this->buildException('Invalid properties definition ! ', $context);
+                    }
+                    continue 2;
 
-                default:
+                default :
+                    $this->properties[] = $key;
                     break;
             }
 
@@ -164,11 +168,11 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             $result->$required = $this->required;
         }
 
-        if (!empty($this->additionalProperties)) {
+        if (!empty($this->additionalProperties) && is_array($this->additionalProperties)) {
             $result->$additional = $this->additionalProperties;
         }
 
-        if (!empty($this->properties)) {
+        if (!empty($this->properties) && is_array($this->properties)) {
             $result->$properties = new \stdClass();
         }
 
@@ -178,10 +182,10 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                 continue;
             }
 
-            if (in_array($key, $this->properties, true)) {
+            if (is_array($this->properties) && in_array($key, $this->properties, true)) {
                 $result->$properties->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key), false);
             }
-            elseif (in_array($key, $this->additionalProperties, true)) {
+            elseif (is_array($this->additionalProperties) && in_array($key, $this->additionalProperties, true)) {
                 $result->$additional->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key), false);
             }
             elseif (!in_array($key, array($properties, $additional, $required, $type))) {

@@ -119,9 +119,9 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
     {
         $result = array();
 
-        $this->getModelParameters($generalItems);
-        $this->getModelResponse($generalItems);
-        $this->getModelConsumeProduce($generalItems);
+        $this->getModelParameters($context, $generalItems);
+        $this->getModelResponse($context, $generalItems);
+        $this->getModelConsumeProduce($context, $generalItems);
 
         foreach ($this->keys() as $key) {
             if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\PathItem)) {

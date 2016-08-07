@@ -404,9 +404,9 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        $this->getModelParameters($generalItems);
-        $this->getModelResponse($generalItems);
-        $this->getModelConsumeProduce($generalItems);
+        $this->getModelParameters($context, $generalItems);
+        $this->getModelResponse($context, $generalItems);
+        $this->getModelConsumeProduce($context, $generalItems);
 
         $paths = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 

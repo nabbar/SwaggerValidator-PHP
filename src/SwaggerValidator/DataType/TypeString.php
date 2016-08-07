@@ -132,7 +132,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
                 break;
 
             case 'uri':
-                $pattern = '#' . self::PATTERN_URI . '#';
+                $pattern = '/' . self::PATTERN_URI . '/';
                 break;
 
             case 'ipv4':

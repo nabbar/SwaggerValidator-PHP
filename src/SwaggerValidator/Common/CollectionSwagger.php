@@ -200,7 +200,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    protected function getModelParameters(&$generalItems)
+    protected function getModelParameters(\SwaggerValidator\Common\Context $context, &$generalItems)
     {
         $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
 
@@ -208,7 +208,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $generalItems = array();
         }
 
-        if (array_key_exists($parameters, $generalItems)) {
+        if (!array_key_exists($parameters, $generalItems)) {
             $generalItems[$parameters] = array();
         }
 
@@ -223,7 +223,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         return;
     }
 
-    protected function getModelResponse(&$generalItems)
+    protected function getModelResponse(\SwaggerValidator\Common\Context $context, &$generalItems)
     {
         $responses = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
 
@@ -231,7 +231,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $generalItems = array();
         }
 
-        if (array_key_exists($responses, $generalItems)) {
+        if (!array_key_exists($responses, $generalItems)) {
             $generalItems[$responses] = array();
         }
 
@@ -246,7 +246,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         return;
     }
 
-    protected function getModelConsumeProduce(&$generalItems)
+    protected function getModelConsumeProduce(\SwaggerValidator\Common\Context $context, &$generalItems)
     {
         $consumes = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
         $produces = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
@@ -255,11 +255,11 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $generalItems = array();
         }
 
-        if (array_key_exists($consumes, $generalItems)) {
+        if (!array_key_exists($consumes, $generalItems)) {
             $generalItems[$consumes] = array();
         }
 
-        if (array_key_exists($produces, $generalItems)) {
+        if (!array_key_exists($produces, $generalItems)) {
             $generalItems[$produces] = array();
         }
 

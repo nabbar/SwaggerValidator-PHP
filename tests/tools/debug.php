@@ -20,40 +20,31 @@
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-if (file_exists('bin/SwaggerValidator.phar')) {
-    //using phar package
-    include_once 'phar://bin/SwaggerValidator.phar';
-}
-else {
-    // using source package
-    include_once 'Swagger.php';
-}
-
-date_default_timezone_set('UTC');
+include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'SwaggerValidator' . DIRECTORY_SEPARATOR . 'Swagger.php';
 
 //\SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
-\SwaggerValidator\Swagger::setSwaggerFile(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'phpunit' . DIRECTORY_SEPARATOR . 'examples' . DIRECTORY_SEPARATOR . 'swaggerPetStoreHeroku.json');
-$swagger = \SwaggerValidator\Swagger::load(new \SwaggerValidator\Common\Context());
+\SwaggerValidator\Swagger::setSwaggerFile(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'phpunit' . DIRECTORY_SEPARATOR . 'examples' . DIRECTORY_SEPARATOR . 'swaggerPetStoreFull.json');
+$swagger = \SwaggerValidator\Swagger::load();
 
 /**
  * Validate request in Deny Mode (like strict : generate error if request is in error)
  */
-$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_DENY));
+//$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_DENY));
 
 /**
  * Validate request in Pass Mode (like ignore & clean : clean not validated parameters in request)
  */
-$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_PASS));
+//$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_REQUEST, \SwaggerValidator\Common\Context::MODE_PASS));
 
 /**
  * Validate response in Deny Mode (like strict : generate error if request is in error)
  */
-$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_DENY));
+//$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_DENY));
 
 /**
  * Validate response in Pass Mode (like ignore & clean : clean not validated element in response)
  */
-$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_PASS));
+//$swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common\Context::TYPE_RESPONSE, \SwaggerValidator\Common\Context::MODE_PASS));
 
 /**
  * Generate an array for each operation with request & response model
@@ -62,4 +53,4 @@ $swagger->validate(new \SwaggerValidator\Common\Context(\SwaggerValidator\Common
  */
 $swagger->getModel(new \SwaggerValidator\Common\Context());
 
-json_encode($swagger);
+//json_encode($swagger);
