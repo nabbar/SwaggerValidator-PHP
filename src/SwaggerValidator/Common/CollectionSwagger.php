@@ -36,6 +36,22 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     abstract public function __construct();
 
     /**
+     * Return the content of the reference as object or mixed data
+     * @param string $key
+     * @return mixed
+     * @throws \SwaggerValidator\Exception
+     */
+    public function get($key)
+    {
+        return $this->__get($key);
+    }
+
+    public function set($key, $value = null)
+    {
+        return $this->__set($key, $value);
+    }
+
+    /**
      * @param string $jsonData The Json Data to be unserialized
      */
     abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
@@ -184,20 +200,117 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    /**
-     * Return the content of the reference as object or mixed data
-     * @param string $key
-     * @return mixed
-     * @throws \SwaggerValidator\Exception
-     */
-    public function get($key)
+    protected function getModelParameters(&$generalItems)
     {
-        return $this->__get($key);
+        $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+
+        if (!is_array($generalItems)) {
+            $generalItems = array();
+        }
+
+        if (array_key_exists($parameters, $generalItems)) {
+            $generalItems[$parameters] = array();
+        }
+
+        if (!isset($this->$parameters) || !is_object($this->$parameters)) {
+            return;
+        }
+
+        if ($this->$parameters instanceof \SwaggerValidator\Object\Parameters) {
+            $this->$parameters->getModel($context->setDataPath($parameters), $generalItems[$parameters]);
+        }
+
+        return;
     }
 
-    public function set($key, $value = null)
+    protected function getModelResponse(&$generalItems)
     {
-        return $this->__set($key, $value);
+        $responses = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+
+        if (!is_array($generalItems)) {
+            $generalItems = array();
+        }
+
+        if (array_key_exists($responses, $generalItems)) {
+            $generalItems[$responses] = array();
+        }
+
+        if (!isset($this->$responses) || !is_object($this->$responses)) {
+            return;
+        }
+
+        if ($this->$responses instanceof \SwaggerValidator\Object\Responses) {
+            $this->$responses->getModel($context->setDataPath($responses), $generalItems[$responses]);
+        }
+
+        return;
+    }
+
+    protected function getModelConsumeProduce(&$generalItems)
+    {
+        $consumes = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
+        $produces = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
+
+        if (!is_array($generalItems)) {
+            $generalItems = array();
+        }
+
+        if (array_key_exists($consumes, $generalItems)) {
+            $generalItems[$consumes] = array();
+        }
+
+        if (array_key_exists($produces, $generalItems)) {
+            $generalItems[$produces] = array();
+        }
+
+        if (isset($this->$consumes) && is_array($this->$consumes)) {
+            $generalItems[$consumes] = $this->$consumes;
+        }
+
+        if (isset($this->$produces) && is_array($this->$produces)) {
+            $generalItems[$produces] = $this->$produces;
+        }
+
+        return;
+    }
+
+    /**
+     * Check that entry JsonData is an object of stdClass
+     * @param \stdClass $JsonData
+     * @return boolean
+     */
+    protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
+    {
+        if (!is_object($jsonData)) {
+            $this->buildException('Mismatching type of JSON Data received', $context);
+        }
+
+        if (!($jsonData instanceof \stdClass)) {
+            $this->buildException('Mismatching type of JSON Data received', $context);
+        }
+
+        return true;
+    }
+
+    /**
+     * Check that entry JsonData is an object of stdClass or an array
+     * @param \stdClass $JsonData
+     * @return boolean
+     */
+    protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)
+    {
+        if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
+            $this->buildException('Mismatching type of JSON Data received', $context);
+        }
+        elseif (!is_object($jsonData) && !is_array($jsonData)) {
+            $this->buildException('Mismatching type of JSON Data received', $context);
+        }
+
+        if (is_array($jsonData)) {
+            parent::setJSONIsArray();
+        }
+
+        return true;
     }
 
 }

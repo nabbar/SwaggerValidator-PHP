@@ -95,78 +95,67 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     protected function format(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('format')) {
+        if (!$this->__isset('format') || empty($this->format)) {
             return true;
         }
 
-        if ($this->format == 'byte' && preg_match('#' . self::PATTERN_BYTE . '#', $valueParams)) {
-            /**
-             * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
-             */
-            return true;
+        $pattern = null;
+
+        switch ($this->format) {
+            case 'byte':
+                /**
+                 * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
+                 */
+                $pattern = '#' . self::PATTERN_BYTE . '#';
+                break;
+
+            case 'binary':
+                $pattern = '#' . self::PATTERN_BINARY . '#';
+                break;
+
+            case 'date':
+                /**
+                 * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
+                 */
+                $pattern = '#' . self::PATTERN_DATE . '#';
+                break;
+
+            case 'date-time':
+                /**
+                 * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
+                 */
+                $pattern = '#' . self::PATTERN_DATETIME . '#';
+                break;
+
+            case 'password':
+                return $this->validatePasswordForm($valueParams);
+                break;
+
+            case 'uri':
+                $pattern = '#' . self::PATTERN_URI . '#';
+                break;
+
+            case 'ipv4':
+                $pattern = '#' . self::PATTERN_IPV4 . '#';
+                break;
+
+            case 'ipv6':
+                $pattern = '#' . self::PATTERN_IPV6 . '#';
+                break;
+
+            case 'string':
+                return true;
+
+            default:
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
+                break;
         }
 
-        if ($this->format == 'binary' && preg_match('#' . self::PATTERN_BINARY . '#', $valueParams)) {
-            /**
-             * @todo get an example or regex for validation format
-             */
-            return true;
+        if (empty($pattern)) {
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
         }
 
-        if ($this->format == 'date' && preg_match('#' . self::PATTERN_DATE . '#', $valueParams)) {
-            /**
-             * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
-             */
-            return true;
-        }
-
-        if ($this->format == 'date-time' && preg_match('#' . self::PATTERN_DATETIME . '#', $valueParams)) {
-            /**
-             * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
-             */
-            return true;
-        }
-
-        if ($this->format == 'password' && $this->validatePasswordForm($valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'uri' && preg_match('/' . self::PATTERN_URI . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'ipv4' && preg_match('/' . self::PATTERN_IPV4 . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'ipv6' && preg_match('/' . self::PATTERN_IPV6 . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'string' && $this->type == 'string') {
-            /**
-             * default format for string... but if type is not string then error on swagger
-             */
-            return true;
-        }
-
-        if (empty($this->format)) {
-            return true;
-        }
-
-        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
+        return (bool) preg_match($pattern, $valueParams);
     }
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)

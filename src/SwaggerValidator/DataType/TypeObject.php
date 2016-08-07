@@ -52,13 +52,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         if (property_exists($jsonData, \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) && count(get_object_vars($jsonData)) > 1) {
             $this->buildException('Invalid object with an external reference ! ', $context);
@@ -75,31 +69,34 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                 continue;
             }
 
-            if ($key == \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA) {
-                $value = $this->extractNonRecursiveReference($context, $value);
-            }
+            switch ($key) {
+                case \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA:
+                    $value = $this->extractNonRecursiveReference($context, $value);
+                    break;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED) {
-                $this->required = $value;
-                continue;
-            }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED:
+                    $this->required = $value;
+                    continue;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_ADDPROPERTIES) {
-                if (is_object($value)) {
-                    $this->additionalProperties = array_keys(get_object_vars($value));
-                    $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
-                }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_ADDPROPERTIES:
+                    if (is_object($value)) {
+                        $this->additionalProperties = array_keys(get_object_vars($value));
+                        $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
+                    }
+                    else {
+                        $this->additionalProperties = $value;
+                    }
+                    continue;
 
-                continue;
-            }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES:
+                    if (is_object($value)) {
+                        $this->properties = array_keys(get_object_vars($value));
+                        $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
+                    }
+                    continue;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES) {
-                if (is_object($value)) {
-                    $this->properties = array_keys(get_object_vars($value));
-                    $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
-                }
-
-                continue;
+                default:
+                    break;
             }
 
             $this->registerRecursiveDefinitions($value);

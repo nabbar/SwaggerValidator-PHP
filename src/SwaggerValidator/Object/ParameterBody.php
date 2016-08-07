@@ -35,13 +35,7 @@ class ParameterBody extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $JsonData);
 
         $schemaKey = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
 

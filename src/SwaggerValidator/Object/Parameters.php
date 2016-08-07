@@ -34,18 +34,10 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData) && !is_array($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObjectOrArray($context, $jsonData);
 
-        if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-        elseif (is_object($jsonData)) {
+        if (is_object($jsonData)) {
             $jsonData = get_object_vars($jsonData);
-        }
-        elseif (is_array($jsonData)) {
-            parent::setJSONIsArray();
         }
 
         $keyIn = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
