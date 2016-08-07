@@ -34,12 +34,10 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData) || !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        parent::checkJsonObject($context, $jsonData);
 
         if (count(get_object_vars($jsonData)) > 1) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         $keyAnyOf = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
@@ -61,7 +59,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         if (empty($key)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         $result = array();
@@ -85,7 +83,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyNot)) {
             if (empty($this->$keyNot)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyNot . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyNot . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             return !($this->$keyNot->validate($context, $valueParams));
@@ -93,7 +91,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyAnyOf)) {
             if (empty($this->$keyAnyOf) || !is_array($this->$keyAnyOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAnyOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAnyOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             return $this->validateAnyOf($context, $valueParams);
@@ -101,7 +99,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyAllOf)) {
             if (empty($this->$keyAllOf) || !is_array($this->$keyAllOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAllOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAllOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             return $this->validateAllOf($context, $valueParams);
@@ -109,13 +107,13 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyOneOf)) {
             if (empty($this->$keyOneOf) || !is_array($this->$keyOneOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyOneOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyOneOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             return $this->validateOneOf($context, $valueParams);
         }
 
-        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Combined Object Type is not well defined !');
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Combined Object Type is not well defined !', __METHOD__, __LINE__);
     }
 
     protected function validateAnyOf(\SwaggerValidator\Common\Context $context, $valueParams = null)
@@ -125,7 +123,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         foreach ($this->$keyAnyOf as $key => $object) {
 
             if (!is_object($object) || !method_exists($object, 'validate')) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyAnyOf . ' object !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyAnyOf . ' object !', __METHOD__, __LINE__);
             }
 
             if ($object->validate($context->setDataPath($key)->setCombined(true), $valueParams)) {
@@ -134,7 +132,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching any ' . $keyAnyOf . ' defnied type !');
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching any ' . $keyAnyOf . ' defnied type !', __METHOD__, __LINE__);
     }
 
     protected function validateAllOf(\SwaggerValidator\Common\Context $context, $valueParams = null)
@@ -144,7 +142,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         foreach ($this->$keyAllOf as $key => $object) {
 
             if (!is_object($object) || !method_exists($object, 'validate')) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyAllOf . ' object !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyAllOf . ' object !', __METHOD__, __LINE__);
             }
 
             if (!$object->validate($context->setDataPath($key), $valueParams)) {
@@ -162,16 +160,16 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         $check    = false;
         $result   = false;
 
-        foreach ($this->$keyAllOf as $key => $object) {
+        foreach ($this->$keyOneOf as $key => $object) {
 
             if (!is_object($object) || !method_exists($object, 'validate')) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyOneOf . ' object !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Object not well formed in ' . $keyOneOf . ' object !', __METHOD__, __LINE__);
             }
 
             $result = $object->validate($context->setDataPath($key)->setCombined(true), $valueParams);
 
             if ($result === true && $check === true) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is matching at least 2 of the ' . $keyOneOf . ' defnied type !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is matching at least 2 of the ' . $keyOneOf . ' defnied type !', __METHOD__, __LINE__);
             }
             elseif ($result === true) {
                 $check = true;
@@ -179,7 +177,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
-        return $result || $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching one of the ' . $keyOneOf . ' defnied type !');
+        return $check || $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching one of the ' . $keyOneOf . ' defnied type !', __METHOD__, __LINE__);
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context)
@@ -197,7 +195,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyAnyOf)) {
             if (empty($this->$keyAnyOf) || !is_array($this->$keyAnyOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAnyOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAnyOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             $object = $this->$keyAnyOf;
@@ -206,7 +204,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyAllOf)) {
             if (empty($this->$keyAllOf) || !is_array($this->$keyAllOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAllOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyAllOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             $object = $this->$keyAllOf;
@@ -214,7 +212,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         if (isset($this->$keyOneOf)) {
             if (empty($this->$keyOneOf) || !is_array($this->$keyOneOf)) {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyOneOf . ' Combined Object Type cannot be empty !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, $keyOneOf . ' Combined Object Type cannot be empty !', __METHOD__, __LINE__);
             }
 
             $object = $this->$keyOneOf;
@@ -240,7 +238,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
                 $result = $result + $part;
             }
             else {
-                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Cannot build model for key "' . $key . '" in Combined Object !');
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Cannot build model for key "' . $key . '" in Combined Object !', __METHOD__, __LINE__);
             }
         }
 

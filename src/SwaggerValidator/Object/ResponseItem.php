@@ -34,13 +34,7 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         $schemaKey = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
         if (property_exists($jsonData, $schemaKey)) {
@@ -79,9 +73,7 @@ class ResponseItem extends \SwaggerValidator\Common\CollectionSwagger
             $ctx = $context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY);
             $ctx->dataLoad();
 
-            \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
-
-            $check = $check && $this->$keySchema->validate($ctx);
+            $check = $check && $this->$keySchema->validate($ctx->setSandBox());
         }
 
         return $check;

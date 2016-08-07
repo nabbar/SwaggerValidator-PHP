@@ -71,7 +71,7 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
         self::$fileIdList = array();
     }
 
-    public static function prune()
+    public static function pruneInstance()
     {
         self::$instance   = null;
         self::$fileIdList = array();
@@ -96,7 +96,7 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
     public function __get($fileLink)
     {
         if (empty($fileLink)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot find file link from ref : ' . $fileLink, __FILE__, __LINE__);
+            parent::throwException('Cannot find file link from ref : ' . $fileLink, __FILE__, __LINE__);
         }
 
         $id = self::getIdFromRef($fileLink);
@@ -127,7 +127,7 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
             return parent::__set($id, $value);
         }
 
-        \SwaggerValidator\Exception::throwNewException('Cannot register file from ref : ' . $ref, __FILE__, __LINE__);
+        parent::throwException('Cannot register file from ref : ' . $ref, __FILE__, __LINE__);
     }
 
     public function jsonSerialize()

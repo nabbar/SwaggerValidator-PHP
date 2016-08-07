@@ -95,25 +95,42 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        $exposant = explode('.', $valueParams);
-
-        if (count($exposant) > 2) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Valueparams is not a normal numeric pattern', __METHOD__, __LINE__);
-        }
-        elseif (count($exposant) == 2) {
-            $exposant = $exposant[1];
+        if (substr($valueParams, 0, 1) == '-') {
+            $sign        = -1;
+            $valueParams = substr($valueParams, 1);
         }
         else {
-            $exposant = null;
+            $sign = 1;
         }
 
+        $mantisse = explode('.', $valueParams);
+        $exposant = 0;
 
-        if ($this->format == 'float' && is_float($valueParams) && strlen($exposant) <= 7) {
+        if (count($mantisse) > 2) {
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Valueparams is not a normal numeric pattern', __METHOD__, __LINE__);
+        }
+
+        if (strlen($mantisse[0]) > 0) {
+            $exposant = strlen($mantisse[0]);
+            $mantisse = implode('', $mantisse);
+        }
+
+        if (stripos($valueParams, 'E') !== false) {
+            $exposant += substr($valueParams, stripos($valueParams, 'E'));
+        }
+
+        $mantisseFloat = bcpow(2, 23);
+        $exposantFloat = bcpow(2, 8);
+
+        $mantisseDouble = bcpow(2, 52);
+        $exposantDouble = bcpow(2, 11);
+
+        if ($this->format == 'float' && $mantisse < $mantisseFloat && $exposant < $exposantFloat) {
             # Float val = 7 signs after .
             return true;
         }
 
-        if ($this->format == 'double' && is_float($valueParams) && strlen($exposant) <= 15) {
+        if ($this->format == 'double' && $mantisse < $mantisseDouble && $exposant < $exposantDouble) {
             # Float val = 15 signs after .
             return true;
         }
@@ -123,18 +140,25 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
-        $pi = '3.141592653589793238462643383279';
+        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (rand(0, 1) > 0.5) ? '0' : '-0';
+        $min  = (isset($this->minimum)) ? $this->minimum : 0;
+        $max  = (isset($this->maximum)) ? $this->maximum : 0;
 
-        if ($this->format == 'float' && is_float($valueParams)) {
-            # Float val = 7 signs after .
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return floatval(substr($pi, 0, 9));
+        if ($max > 0) {
+            return (float) rand($min, $max);
         }
 
-        if ($this->format == 'double' && is_double($valueParams)) {
-            # Float val = 15 signs after .
+        if ($this->format == 'double') {
+            # Float val = 15 signs after . // limit the bcpow to 31 bit for miitation of rand function
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return floatval(substr($pi, 0, 17));
+            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 31)) . 'e' . $sige . rand(0, pow(2, 11))));
+        }
+
+        if ($this->format == 'float') {
+            # Float val = 7 signs after .
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 23)) . 'e' . $sige . rand(0, pow(2, 8))));
         }
 
         return $this->getExampleType($context);
@@ -142,8 +166,20 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
+        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (rand(0, 1) > 0.5) ? '' : '-';
+        $min  = (isset($this->minimum)) ? $this->minimum : 0;
+        $max  = (isset($this->maximum)) ? $this->maximum : 0;
+
+        if ($max > 0) {
+            return (float) rand($min, $max);
+        }
+
+        $mantisse = $sign . '.' . rand($min, pow(2, 23));
+        $exposant = $sige . rand(0, pow(2, 8));
+
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return floatval('0.1234567890123456789');
+        return (float) ($mantisse . 'E' . $exposant);
     }
 
 }

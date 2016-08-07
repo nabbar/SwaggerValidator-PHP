@@ -427,6 +427,25 @@ prune the singleton of this collection
 
 
 
+### throwException
+
+    mixed SwaggerValidator\Common\FactorySwagger::throwException(string $message, mixed $context, $file, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $file **mixed**
+* $line **mixed**
+
+
+
 ### jsonUnSerialize
 
     mixed SwaggerValidator\Common\FactorySwagger::jsonUnSerialize(\SwaggerValidator\Common\Context $context, $originType, $originKey, $jsonData)

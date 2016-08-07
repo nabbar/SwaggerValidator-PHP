@@ -33,6 +33,15 @@ class Exception extends \Exception
      */
     private $contextError;
 
+    public function init($message, $context = null, $file = null, $line = null)
+    {
+        $this->setFile($file);
+        $this->setLine($line);
+        $this->setContext($context);
+
+        \SwaggerValidator\Common\Context::logDebug('Exception find : ' . $message . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $file, $line);
+    }
+
     public static function newException($message, $context = null, $file = null, $line = null)
     {
         $e = new static($message);

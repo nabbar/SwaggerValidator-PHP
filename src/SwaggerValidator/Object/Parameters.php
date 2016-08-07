@@ -34,18 +34,10 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData) && !is_array($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObjectOrArray($context, $jsonData);
 
-        if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-        elseif (is_object($jsonData)) {
+        if (is_object($jsonData)) {
             $jsonData = get_object_vars($jsonData);
-        }
-        elseif (is_array($jsonData)) {
-            parent::setJSONIsArray();
         }
 
         $keyIn = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
@@ -54,7 +46,7 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
             $value = $this->extractNonRecursiveReference($context, $value);
 
             if (!property_exists($value, $keyIn)) {
-                $this->buildException('Parameters "' . $key . '" is not well defined !', $context);
+                $this->throwException('Parameters "' . $key . '" is not well defined !', $context, __METHOD__, __LINE__);
             }
 
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
@@ -73,12 +65,10 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach ($this->keys() as $key) {
             if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\ParameterBody)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY, null);
-                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY), $key);
+                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_BODY)->setSandBox(), $key);
             }
             elseif (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\DataType\TypeCommon)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName($this->$key->in, $this->$key->name);
-                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath($this->$key->name)->setLocation($this->$key->in), $key);
+                $check = $check && $this->checkExistsEmptyValidate($context->setDataPath($this->$key->name)->setLocation($this->$key->in)->setSandBox(), $key);
             }
         }
 

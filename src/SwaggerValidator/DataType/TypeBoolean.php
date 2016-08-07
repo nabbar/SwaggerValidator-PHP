@@ -62,14 +62,19 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
 
     protected function type(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (is_string($valueParams)) {
+        if (is_string($valueParams) || is_int($valueParams)) {
 
             switch (strtolower($valueParams)) {
                 case '1':
+                case '0':
                 case 'true':
+                case 'false':
                 case 'on':
+                case 'off':
                 case 'yes':
+                case 'no':
                 case 'y':
+                case 'n':
                     return true;
                 default:
                     return false;
@@ -82,13 +87,13 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return true;
+        return rand(0, 1);
     }
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return true;
+        return rand(0, 1);
     }
 
 }

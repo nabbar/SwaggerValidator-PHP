@@ -34,13 +34,7 @@ class Operation extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
@@ -87,45 +81,24 @@ class Operation extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, 'Responses key not found', __METHOD__, __LINE__);
     }
 
-    public function getModel(\SwaggerValidator\Common\Context $context, $paramsResponses = array())
+    public function getModel(\SwaggerValidator\Common\Context $context, $generalItems = array())
     {
         $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
         $responses  = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
         $consumes   = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
         $produces   = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
 
-        if (!array_key_exists($parameters, $paramsResponses)) {
-            $paramsResponses[$parameters] = array();
-        }
+        $this->getModelGeneric($context, $generalItems);
+        $this->getModelConsumeProduce($generalItems);
 
-        if (isset($this->$parameters) && is_object($this->$parameters) && ($this->$parameters instanceof \SwaggerValidator\Object\Parameters)) {
-            $this->$parameters->getModel($context->setDataPath($parameters), $paramsResponses[$parameters]);
-        }
-
-        if (!array_key_exists($responses, $paramsResponses)) {
-            $paramsResponses[$responses] = array();
-        }
-
-        if (isset($this->$responses) && is_object($this->$responses) && ($this->$responses instanceof \SwaggerValidator\Object\Responses)) {
-            $this->$responses->getModel($context->setDataPath($responses), $paramsResponses[$responses]);
-        }
-
-        if (isset($this->$consumes) && is_array($this->$consumes)) {
-            $paramsResponses[$consumes] = $this->$consumes;
-        }
-
-        if (isset($this->$produces) && is_array($this->$produces)) {
-            $paramsResponses[$produces] = $this->$produces;
-        }
-
-        foreach (array_keys($paramsResponses) as $key) {
-            if (empty($paramsResponses[$key])) {
-                $paramsResponses[$key] = null;
+        foreach (array_keys($generalItems) as $key) {
+            if (empty($generalItems[$key])) {
+                $generalItems[$key] = null;
             }
         }
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return $paramsResponses;
+        return $generalItems;
     }
 
 }

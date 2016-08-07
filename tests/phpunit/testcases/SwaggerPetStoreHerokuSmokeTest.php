@@ -150,6 +150,7 @@ class SwaggerPetStoreHerokuSmokeTest extends genericTestClass
     public function testDocument()
     {
         if (version_compare(PHP_VERSION, "5.4", "<")) {
+            $this->assertTrue(version_compare(PHP_VERSION, "5.4", "<"));
             return;
         }
 

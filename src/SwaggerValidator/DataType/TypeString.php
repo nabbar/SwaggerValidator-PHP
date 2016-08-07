@@ -28,6 +28,8 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 {
 
     const PATTERN_BYTE     = '^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$';
+    //const PATTERN_BINARY   = '^(?:([A-Fa-f0-9]{2})*|([01]{4}[ ]?)*)?$'; // Allow Hexa form
+    const PATTERN_BINARY   = '^([01]{1,4}[ ]?)*$'; // Allow only binary
     const PATTERN_DATE     = '^\d{4}-\d{2}-\d{2}$';
     const PATTERN_DATETIME = '\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}(\.\d)?(z|Z|[+-]\d{2}:\d{2})';
     const PATTERN_URI      = '^http[s]?:\/\/(?:[\w\-._~!$&\'()*+,;=]+|(%[0-9A-Fa-f]{2})+)(\/((?:[\w\-._~!$&\'()*+,;=:@]|%[0-9A-Fa-f]{2})+\/?)*)?(\?(?:[\w\-._~!$&\'()*+,;=:@\/\\]|%[0-9A-Fa-f]{2})*)?(#(?:[\w\-._~!$&\'()*+,;=:@\/\\]|%[0-9A-Fa-f]{2})*)?';
@@ -93,78 +95,67 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     protected function format(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('format')) {
+        if (!$this->__isset('format') || empty($this->format)) {
             return true;
         }
 
-        if ($this->format == 'byte' && preg_match('#' . self::PATTERN_BYTE . '#', $valueParams)) {
-            /**
-             * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
-             */
-            return true;
+        $pattern = null;
+
+        switch ($this->format) {
+            case 'byte':
+                /**
+                 * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
+                 */
+                $pattern = '#' . self::PATTERN_BYTE . '#';
+                break;
+
+            case 'binary':
+                $pattern = '#' . self::PATTERN_BINARY . '#';
+                break;
+
+            case 'date':
+                /**
+                 * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
+                 */
+                $pattern = '#' . self::PATTERN_DATE . '#';
+                break;
+
+            case 'date-time':
+                /**
+                 * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
+                 */
+                $pattern = '#' . self::PATTERN_DATETIME . '#';
+                break;
+
+            case 'password':
+                return $this->validatePasswordForm($valueParams);
+                break;
+
+            case 'uri':
+                $pattern = '/' . self::PATTERN_URI . '/';
+                break;
+
+            case 'ipv4':
+                $pattern = '#' . self::PATTERN_IPV4 . '#';
+                break;
+
+            case 'ipv6':
+                $pattern = '#' . self::PATTERN_IPV6 . '#';
+                break;
+
+            case 'string':
+                return true;
+
+            default:
+                return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
+                break;
         }
 
-        if ($this->format == 'binary') {
-            /**
-             * @todo get an example or regex for validation format
-             */
-            return true;
+        if (empty($pattern)) {
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
         }
 
-        if ($this->ormat == 'date' && preg_match('#' . self::PATTERN_DATE . '#', $valueParams)) {
-            /**
-             * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
-             */
-            return true;
-        }
-
-        if ($this->format == 'date-time' && preg_match('#' . self::PATTERN_DATETIME . '#', $valueParams)) {
-            /**
-             * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
-             */
-            return true;
-        }
-
-        if ($this->format == 'password') {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'uri' && preg_match('/' . self::PATTERN_URI . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'ipv4' && preg_match('/' . self::PATTERN_IPV4 . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'ipv6' && preg_match('/' . self::PATTERN_IPV6 . '/', $valueParams)) {
-            /**
-             * Format specified only to obfucate input field
-             */
-            return true;
-        }
-
-        if ($this->format == 'string' && $this->type == 'string') {
-            /**
-             * default format for string... but if type is not string then error on swagger
-             */
-            return true;
-        }
-
-        if (empty($this->format)) {
-            return true;
-        }
-
-        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'The format does not match with registred patterns', __METHOD__, __LINE__);
+        return (bool) preg_match($pattern, $valueParams);
     }
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
@@ -174,7 +165,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return base64_encode('ceci est un test 1234567890');
+            return base64_encode($this->generateRandowString());
         }
 
         if ($this->format == 'binary') {
@@ -182,10 +173,10 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * @todo get an example or regex for validation format
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return 0xa125d1f15b51;
+            return $this->generateRandowBinary();
         }
 
-        if ($this->ormat == 'date') {
+        if ($this->format == 'date') {
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
@@ -206,7 +197,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * Format specified only to obfucate input field
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return 'pwdExample1';
+            return $this->generateRandowSign();
         }
 
         if ($this->format == 'uri') {
@@ -222,7 +213,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * Format specified only to obfucate input field
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return '127.0.0.1';
+            return long2ip(rand(167772161, 4210752250));
         }
 
         if ($this->format == 'ipv6') {
@@ -230,15 +221,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
              * Format specified only to obfucate input field
              */
             \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return '::1';
-        }
-
-        if ($this->format == 'string' && $this->type == 'string') {
-            /**
-             * default format for string... but if type is not string then error on swagger
-             */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return 'This is an example of string type and format string';
+            return '2001:' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . '::';
         }
 
         return $this->getExampleType($context);
@@ -247,7 +230,68 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return 'This is a basic example of string type';
+        return $this->generateRandowString();
+    }
+
+    private function generateRandowString()
+    {
+        $min  = isset($this->minLength) ? $this->minLength : 0;
+        $max  = isset($this->maxLength) ? $this->maxLength : 255;
+        $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $char .= $char . $char . $char . $char;
+        $size = ceil(rand($min, $max));
+        $text = '';
+
+        for ($i = 0; $i < $size; $i++) {
+            $text .= substr($char, rand(0, strlen($char) - 1), 1);
+        }
+
+        return $text;
+    }
+
+    private function generateRandowSign()
+    {
+        $min  = isset($this->minLength) ? $this->minLength : 0;
+        $max  = isset($this->maxLength) ? $this->maxLength : 255;
+        $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ?,.;\/:§!*%µ$~#|`\\^@&{[(_)]}°+=\'-';
+        $char .= $char . strrev($char) . $char . strrev($char);
+        $size = ceil(rand($min, $max));
+        $text = '';
+
+        for ($i = 0; $i < $size; $i++) {
+            $text .= substr($char, rand(0, strlen($char)), 1);
+        }
+
+        return $text;
+    }
+
+    private function generateRandowBinary()
+    {
+        $min  = isset($this->minLength) ? $this->minLength : 0;
+        $max  = isset($this->maxLength) ? $this->maxLength : 512;
+        $size = ceil(rand($min, $max / 2));
+        $text = '';
+
+        for ($i = 0; $i < $size; $i++) {
+            $text .= chr(rand(0, 254));
+        }
+
+        $hexa   = unpack('H*', ($text));
+        $binary = "";
+
+        for ($i = 0; $i < strlen($hexa[1]); $i+=4) {
+            $binary .= str_pad(base_convert(substr($hexa[1], $i, 4), 16, 2), 16, "0", STR_PAD_LEFT);
+        }
+
+        return $binary;
+    }
+
+    public function validatePasswordForm($value)
+    {
+        $min = (isset($this->minLength)) ? $this->minLength : 0;
+        $max = (isset($this->maxLength)) ? $this->maxLength : 64;
+
+        return (bool) preg_match('/([\w\b ?,.;\/:§!*%µ$~#\|`\\^@&{\[(_)\]}°+=\'-]{' . $min . ',' . $max . '})?/', $value);
     }
 
 }

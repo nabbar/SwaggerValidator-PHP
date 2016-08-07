@@ -36,57 +36,25 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     abstract public function __construct();
 
     /**
+     * Return the content of the reference as object or mixed data
+     * @param string $key
+     * @return mixed
+     * @throws \SwaggerValidator\Exception
+     */
+    public function get($key)
+    {
+        return $this->__get($key);
+    }
+
+    public function set($key, $value = null)
+    {
+        return $this->__set($key, $value);
+    }
+
+    /**
      * @param string $jsonData The Json Data to be unserialized
      */
     abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
-
-    protected function callException($message, $context = null)
-    {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
-        array_shift($trace);
-
-        $file = null;
-        $line = null;
-
-        for ($i = 0; $i < 10; $i++) {
-            $oneTrace = array_shift($trace);
-
-            if (!empty($oneTrace['file']) && $oneTrace['file'] != __FILE__) {
-                $file = $oneTrace['file'];
-                break;
-            }
-        }
-
-        if (!empty($file) && !empty($oneTrace['line'])) {
-            $line = $oneTrace['line'];
-        }
-
-        \SwaggerValidator\Common\Factory::getInstance()->call('Exception', 'throwNewException', true, $message, array('context' => $context, 'trace' => $trace), $file, $line);
-    }
-
-    protected function buildException($message, $context = null)
-    {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
-        array_shift($trace);
-
-        $file = null;
-        $line = null;
-
-        for ($i = 0; $i < 10; $i++) {
-            $oneTrace = array_shift($trace);
-
-            if (!empty($oneTrace['file']) && $oneTrace['file'] != __FILE__) {
-                $file = $oneTrace['file'];
-                break;
-            }
-        }
-
-        if (!empty($file) && !empty($oneTrace['line'])) {
-            $line = $oneTrace['line'];
-        }
-
-        \SwaggerValidator\Exception::throwNewException($message, array('context' => $context, 'trace' => $trace), $file, $line);
-    }
 
     /**
      * List of keys mandatory for the current object type
@@ -127,7 +95,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            \SwaggerValidator\Exception::throwNewException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            parent::throwException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $key = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
@@ -184,20 +152,108 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    /**
-     * Return the content of the reference as object or mixed data
-     * @param string $key
-     * @return mixed
-     * @throws \SwaggerValidator\Exception
-     */
-    public function get($key)
+    protected function getModelGeneric(\SwaggerValidator\Common\Context $context, &$generalItems, $typeKey = null)
     {
-        return $this->__get($key);
+        if (!is_array($generalItems)) {
+            $generalItems = array();
+        }
+
+        switch ($typeKey) {
+            case \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS:
+                $key = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+                $cls = '\SwaggerValidator\Object\Parameters';
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES:
+                $key = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+                $cls = '\SwaggerValidator\Object\Responses';
+                break;
+
+            default:
+                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS);
+                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES);
+                return;
+        }
+
+        if (!isset($this->$key) || !is_object($this->$key)) {
+            return;
+        }
+
+        if (!array_key_exists($key, $generalItems)) {
+            $generalItems[$key] = array();
+        }
+
+        if ($this->$key instanceof $cls) {
+            $this->$key->getModel($context->setDataPath($key), $generalItems[$key]);
+        }
+
+        return;
     }
 
-    public function set($key, $value = null)
+    protected function getModelConsumeProduce(&$generalItems)
     {
-        return $this->__set($key, $value);
+        if (!is_array($generalItems)) {
+            $generalItems = array();
+        }
+
+        $list = array(
+            \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES,
+            \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES,
+        );
+
+        foreach ($list as $key) {
+
+            if (!isset($this->$key) || !is_array($this->$key)) {
+                continue;
+            }
+
+            if (!array_key_exists($key, $generalItems)) {
+                $generalItems[$key] = array();
+            }
+
+            $generalItems[$key] = $this->$key;
+        }
+
+        return;
+    }
+
+    /**
+     * Check that entry JsonData is an object of stdClass
+     * @param \stdClass $jsonData
+     * @return boolean
+     */
+    protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
+    {
+        if (!is_object($jsonData)) {
+            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+        }
+
+        if (!($jsonData instanceof \stdClass)) {
+            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+        }
+
+        return true;
+    }
+
+    /**
+     * Check that entry JsonData is an object of stdClass or an array
+     * @param \stdClass $jsonData
+     * @return boolean
+     */
+    protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)
+    {
+        if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
+            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+        }
+        elseif (!is_object($jsonData) && !is_array($jsonData)) {
+            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+        }
+
+        if (is_array($jsonData)) {
+            parent::setJSONIsArray();
+        }
+
+        return true;
     }
 
 }

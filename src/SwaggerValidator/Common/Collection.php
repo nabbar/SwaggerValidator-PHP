@@ -216,4 +216,17 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
         return json_encode($mixed, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
+    /**
+     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
+     * @param string $message
+     * @param mixed $context
+     * @throws \SwaggerValidator\Exception
+     */
+    protected function throwException($message, $context = null, $method = null, $line = null)
+    {
+        $e = new \SwaggerValidator\Exception();
+        $e->init($message, $context, $method, $line);
+        throw $e;
+    }
+
 }

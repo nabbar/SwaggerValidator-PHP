@@ -32,10 +32,12 @@ API Index
         * [Collection](SwaggerValidator-Common-Collection.md)
         * [CollectionReference](SwaggerValidator-Common-CollectionReference.md)
         * [FactorySwagger](SwaggerValidator-Common-FactorySwagger.md)
+        * [Sandbox](SwaggerValidator-Common-Sandbox.md)
         * [ReferenceItem](SwaggerValidator-Common-ReferenceItem.md)
         * [ReferenceFile](SwaggerValidator-Common-ReferenceFile.md)
         * [ContextBase](SwaggerValidator-Common-ContextBase.md)
         * [CollectionType](SwaggerValidator-Common-CollectionType.md)
+        * [SandBoxItem](SwaggerValidator-Common-SandBoxItem.md)
     * SwaggerValidator\Interfaces
         * [ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
         * [ContextLog](SwaggerValidator-Interfaces-ContextLog.md)

@@ -134,9 +134,9 @@ replace the singleton of this collection
 
 
 
-### prune
+### pruneInstance
 
-    mixed SwaggerValidator\Common\CollectionReference::prune()
+    mixed SwaggerValidator\Common\CollectionReference::pruneInstance()
 
 prune the singleton of this collection
 
@@ -625,5 +625,25 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
+
+
+
+### throwException
+
+    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $method **mixed**
+* $line **mixed**
 
 

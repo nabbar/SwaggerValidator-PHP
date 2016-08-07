@@ -16,23 +16,39 @@
  * limitations under the License.
  */
 
-namespace SwaggerValidator\Interfaces;
+namespace SwaggerValidator\Common;
 
 /**
+ * Description of SandBoxItem
  *
- * @author Nicolas JUHEL <swaggervalidator@nabbar.com>
- * @version 1.0.0
+ * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  */
-interface ContextDataParser
+class SandBoxItem extends \SwaggerValidator\Common\Collection
 {
 
-    public function checkDataIsEmpty();
+    public function jsonSerialize()
+    {
+        return null;
+    }
 
-    public function dataLoad();
+    public function serialize()
+    {
+        return null;
+    }
 
-    public function loadBodyByContent($headers, $rawBody);
+    public function unserialize($data)
+    {
+        return null;
+    }
 
-    public function buildBodyJson($contents);
+    public function get($name)
+    {
+        return parent::__get($name);
+    }
 
-    public function buildBodyXml($contents);
+    public function set($name, $value = null)
+    {
+        return parent::__set($name, $value);
+    }
+
 }

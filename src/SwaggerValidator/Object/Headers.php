@@ -34,13 +34,7 @@ class Headers extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         foreach (get_object_vars($jsonData) as $key => $value) {
             $value      = $this->extractNonRecursiveReference($context, $value);
@@ -56,8 +50,7 @@ class Headers extends \SwaggerValidator\Common\CollectionSwagger
 
         foreach ($this->keys() as $key) {
             if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\HeaderItem)) {
-                \SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER, $key);
-                $check = $check && $this->$key->validate($context->setDataPath($key));
+                $check = $check && $this->$key->validate($context->setDataPath($key)->setSandBox());
             }
         }
 

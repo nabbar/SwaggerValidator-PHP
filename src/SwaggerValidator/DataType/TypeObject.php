@@ -52,16 +52,10 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         if (property_exists($jsonData, \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) && count(get_object_vars($jsonData)) > 1) {
-            $this->buildException('Invalid object with an external reference ! ', $context);
+            $this->throwException('Invalid object with an external reference ! ', $context, __METHOD__, __LINE__);
         }
 
         $this->required             = array();
@@ -75,31 +69,38 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                 continue;
             }
 
-            if ($key == \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA) {
-                $value = $this->extractNonRecursiveReference($context, $value);
-            }
+            switch ($key) {
+                case \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA:
+                    $value = $this->extractNonRecursiveReference($context, $value);
+                    break;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED) {
-                $this->required = $value;
-                continue;
-            }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED:
+                    $this->required = $value;
+                    continue 2;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_ADDPROPERTIES) {
-                if (is_object($value)) {
-                    $this->additionalProperties = array_keys(get_object_vars($value));
-                    $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
-                }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_ADDPROPERTIES:
+                    if (is_object($value)) {
+                        $this->additionalProperties = array_keys(get_object_vars($value));
+                        $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
+                    }
+                    elseif (is_array($value)) {
+                        $this->additionalProperties = $value;
+                    }
+                    continue 2;
 
-                continue;
-            }
+                case \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES:
+                    if (is_object($value)) {
+                        $this->properties = array_keys(get_object_vars($value));
+                        $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
+                    }
+                    else {
+                        $this->throwException('Invalid properties definition ! ', $context, __METHOD__, __LINE__);
+                    }
+                    continue 2;
 
-            if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES) {
-                if (is_object($value)) {
-                    $this->properties = array_keys(get_object_vars($value));
-                    $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
-                }
-
-                continue;
+                default :
+                    $this->properties[] = $key;
+                    break;
             }
 
             $this->registerRecursiveDefinitions($value);
@@ -112,11 +113,11 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
     protected function jsonUnSerializeProperties(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
@@ -167,11 +168,11 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             $result->$required = $this->required;
         }
 
-        if (!empty($this->additionalProperties)) {
+        if (!empty($this->additionalProperties) && is_array($this->additionalProperties)) {
             $result->$additional = $this->additionalProperties;
         }
 
-        if (!empty($this->properties)) {
+        if (!empty($this->properties) && is_array($this->properties)) {
             $result->$properties = new \stdClass();
         }
 
@@ -181,10 +182,10 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                 continue;
             }
 
-            if (in_array($key, $this->properties, true)) {
+            if (is_array($this->properties) && in_array($key, $this->properties, true)) {
                 $result->$properties->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key), false);
             }
-            elseif (in_array($key, $this->additionalProperties, true)) {
+            elseif (is_array($this->additionalProperties) && in_array($key, $this->additionalProperties, true)) {
                 $result->$additional->$key = json_decode(\SwaggerValidator\Common\Collection::jsonEncode($this->$key), false);
             }
             elseif (!in_array($key, array($properties, $additional, $required, $type))) {
@@ -217,7 +218,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
         $valueProperties = $context->getDataValue();
 
         if (!is_object($valueProperties)) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Value is an object !!');
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATATYPE, 'Value is an object !!', __METHOD__, __LINE__);
         }
 
         $propFound = array();
@@ -233,7 +234,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             }
 
             if (in_array($key, $required) && !property_exists($valueProperties, $key)) {
-                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Property "' . $key . '" Not found in the object value');
+                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND, 'Property "' . $key . '" Not found in the object value', __METHOD__, __LINE__);
             }
             elseif (!property_exists($valueProperties, $key)) {
                 continue;
@@ -258,7 +259,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
             }
 
             if (!in_array($key, $propFound)) {
-                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Property "' . $key . '" is not awaiting in the value object !');
+                return $context->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, 'Property "' . $key . '" is not awaiting in the value object !', __METHOD__, __LINE__);
             }
         }
 
