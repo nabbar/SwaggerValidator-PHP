@@ -1,24 +1,14 @@
-SwaggerValidator\Common\CollectionFile
+SwaggerValidator\Common\SandBoxItem
 ===============
 
-Description of ReferenceCollection
+Description of SandBoxItem
 
 
 
 
-* Class name: CollectionFile
+* Class name: SandBoxItem
 * Namespace: SwaggerValidator\Common
 * Parent class: [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-
-Constants
-----------
-
-
-### ID_PREFIX
-
-    const ID_PREFIX = 'file:'
 
 
 
@@ -26,30 +16,6 @@ Constants
 
 Properties
 ----------
-
-
-### $instance
-
-    private \SwaggerValidator\Common\CollectionFile $instance
-
-
-
-
-
-* Visibility: **private**
-* This property is **static**.
-
-
-### $fileIdList
-
-    private array $fileIdList = array()
-
-
-
-
-
-* Visibility: **private**
-* This property is **static**.
 
 
 ### $collection
@@ -76,133 +42,6 @@ Properties
 
 Methods
 -------
-
-
-### __construct
-
-    mixed SwaggerValidator\Common\CollectionFile::__construct()
-
-Private construct for singleton
-
-
-
-* Visibility: **private**
-
-
-
-
-### getInstance
-
-    \SwaggerValidator\Common\CollectionFile SwaggerValidator\Common\CollectionFile::getInstance()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### setInstance
-
-    mixed SwaggerValidator\Common\CollectionFile::setInstance(\SwaggerValidator\Common\CollectionFile $instance)
-
-replace the singleton of this collection
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $instance **[SwaggerValidator\Common\CollectionFile](SwaggerValidator-Common-CollectionFile.md)**
-
-
-
-### pruneInstance
-
-    mixed SwaggerValidator\Common\CollectionFile::pruneInstance()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### __isset
-
-    mixed SwaggerValidator\Common\Collection::__isset($key)
-
-Property Overloading
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __unset
-
-    mixed SwaggerValidator\Common\Collection::__unset($key)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __get
-
-    mixed SwaggerValidator\Common\Collection::__get($key)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-
-
-
-### __set
-
-    mixed SwaggerValidator\Common\Collection::__set($key, $value)
-
-
-
-
-
-* Visibility: **public**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $key **mixed**
-* $value **mixed**
-
 
 
 ### jsonSerialize
@@ -252,9 +91,9 @@ Property Overloading
 
 ### get
 
-    \SwaggerValidator\Common\ReferenceFile SwaggerValidator\Common\CollectionFile::get(string $fileLink)
+    mixed SwaggerValidator\Common\SandBoxItem::get($name)
 
-Return the content of the reference as object or mixed data
+
 
 
 
@@ -262,13 +101,13 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
-* $fileLink **string**
+* $name **mixed**
 
 
 
 ### set
 
-    mixed SwaggerValidator\Common\CollectionFile::set($ref, $value)
+    mixed SwaggerValidator\Common\SandBoxItem::set($name, $value)
 
 
 
@@ -278,76 +117,77 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
-* $ref **mixed**
+* $name **mixed**
 * $value **mixed**
 
 
 
-### getReferenceFileLink
+### __isset
 
-    mixed SwaggerValidator\Common\CollectionFile::getReferenceFileLink($ref)
+    mixed SwaggerValidator\Common\Collection::__isset($key)
+
+Property Overloading
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $key **mixed**
+
+
+
+### __get
+
+    mixed SwaggerValidator\Common\Collection::__get($key)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $ref **mixed**
+* $key **mixed**
 
 
 
-### getReferenceInnerPath
+### __set
 
-    mixed SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($ref)
+    mixed SwaggerValidator\Common\Collection::__set($key, $value)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $ref **mixed**
+* $key **mixed**
+* $value **mixed**
 
 
 
-### getIdFromRef
+### __unset
 
-    mixed SwaggerValidator\Common\CollectionFile::getIdFromRef($fullRef)
+    mixed SwaggerValidator\Common\Collection::__unset($key)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
 #### Arguments
-* $fullRef **mixed**
-
-
-
-### getRefFromId
-
-    mixed SwaggerValidator\Common\CollectionFile::getRefFromId($id)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $id **mixed**
+* $key **mixed**
 
 
 

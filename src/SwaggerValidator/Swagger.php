@@ -159,13 +159,13 @@ class Swagger
         $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
 
         if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
+            self::throwException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
         }
 
         $swagger = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
+            self::throwException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
         }
 
         $swagger->jsonUnSerialize($context, $fileObj->fileObj);
@@ -189,13 +189,13 @@ class Swagger
         $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
 
         if (!is_array($swagger)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            self::throwException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
         }
 
         $swagger = $swagger['swg'];
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            self::throwException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
         }
 
         return $swagger;
@@ -214,7 +214,7 @@ class Swagger
 
         if (!file_exists(self::$cachePath) && !touch(self::$cachePath)) {
             self::$cacheEnable = false;
-            \SwaggerValidator\Exception::throwNewException('Cannot Write Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            self::throwException('Cannot Write Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
         }
 
         $array = array(
@@ -236,6 +236,19 @@ class Swagger
         \SwaggerValidator\Common\Factory::pruneInstance();
         \SwaggerValidator\Common\FactorySwagger::pruneInstance();
         \SwaggerValidator\Common\Sandbox::pruneInstance();
+    }
+
+    /**
+     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
+     * @param string $message
+     * @param mixed $context
+     * @throws \SwaggerValidator\Exception
+     */
+    protected static function throwException($message, $context = null, $file = null, $line = null)
+    {
+        $e = new \SwaggerValidator\Exception();
+        $e->init($message, $context, $file, $line);
+        throw $e;
     }
 
 }

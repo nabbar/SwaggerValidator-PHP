@@ -149,20 +149,9 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataValueExists
+### $contextDataExists
 
-    protected boolean $contextDataValueExists
-
-
-
-
-
-* Visibility: **protected**
-
-
-### $contextDataValueEmpty
-
-    protected boolean $contextDataValueEmpty
+    protected boolean $contextDataExists
 
 
 
@@ -171,9 +160,20 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataDecodeError
+### $contextDataEmpty
 
-    protected array $contextDataDecodeError
+    protected boolean $contextDataEmpty
+
+
+
+
+
+* Visibility: **protected**
+
+
+### $contextDecodeError
+
+    protected array $contextDecodeError
 
 
 
@@ -224,18 +224,6 @@ Properties
 
 
 * Visibility: **protected**
-
-
-### $contextValidatedParams
-
-    protected array $contextValidatedParams = array()
-
-
-
-
-
-* Visibility: **protected**
-* This property is **static**.
 
 
 ### $mockedData
@@ -771,6 +759,19 @@ Methods
 
 
 
+### getLastDataPath
+
+    mixed SwaggerValidator\Common\ContextBase::getLastDataPath()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
 ### setExternalRef
 
     mixed SwaggerValidator\Interfaces\ContextBase::setExternalRef($value)
@@ -883,7 +884,7 @@ Methods
 
 ### setDataValueExists
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueExists($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueExists(boolean $value)
 
 
 
@@ -893,13 +894,13 @@ Methods
 
 
 #### Arguments
-* $value **mixed**
+* $value **boolean**
 
 
 
 ### setDataValueEmpty
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueEmpty($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueEmpty(Boolean $value)
 
 
 
@@ -909,7 +910,7 @@ Methods
 
 
 #### Arguments
-* $value **mixed**
+* $value **Boolean**
 
 
 

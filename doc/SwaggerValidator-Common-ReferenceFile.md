@@ -137,6 +137,25 @@ Methods
 
 
 
+### throwException
+
+    mixed SwaggerValidator\Common\ReferenceFile::throwException(string $message, mixed $context, $file, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $file **mixed**
+* $line **mixed**
+
+
+
 ### getFileTime
 
     mixed SwaggerValidator\Common\ReferenceFile::getFileTime()

@@ -70,6 +70,39 @@ Methods
 
 
 
+### get
+
+    mixed SwaggerValidator\Common\CollectionSwagger::get(string $key)
+
+Return the content of the reference as object or mixed data
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $key **string**
+
+
+
+### set
+
+    mixed SwaggerValidator\Common\CollectionSwagger::set($key, $value)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
 ### jsonUnSerialize
 
     mixed SwaggerValidator\Common\CollectionSwagger::jsonUnSerialize(\SwaggerValidator\Common\Context $context, string $jsonData)
@@ -85,40 +118,6 @@ Methods
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $jsonData **string** - &lt;p&gt;The Json Data to be unserialized&lt;/p&gt;
-
-
-
-### callException
-
-    mixed SwaggerValidator\Common\CollectionSwagger::callException($message, $context)
-
-
-
-
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $message **mixed**
-* $context **mixed**
-
-
-
-### buildException
-
-    mixed SwaggerValidator\Common\CollectionSwagger::buildException($message, $context)
-
-
-
-
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $message **mixed**
-* $context **mixed**
 
 
 
@@ -232,36 +231,71 @@ Return true if all mandatory keys are defined or the missing key name
 
 
 
-### get
+### getModelGeneric
 
-    mixed SwaggerValidator\Common\CollectionSwagger::get(string $key)
-
-Return the content of the reference as object or mixed data
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $key **string**
-
-
-
-### set
-
-    mixed SwaggerValidator\Common\CollectionSwagger::set($key, $value)
+    mixed SwaggerValidator\Common\CollectionSwagger::getModelGeneric(\SwaggerValidator\Common\Context $context, $generalItems, $typeKey)
 
 
 
 
 
-* Visibility: **public**
+* Visibility: **protected**
 
 
 #### Arguments
-* $key **mixed**
-* $value **mixed**
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $generalItems **mixed**
+* $typeKey **mixed**
+
+
+
+### getModelConsumeProduce
+
+    mixed SwaggerValidator\Common\CollectionSwagger::getModelConsumeProduce($generalItems)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $generalItems **mixed**
+
+
+
+### checkJsonObject
+
+    boolean SwaggerValidator\Common\CollectionSwagger::checkJsonObject(\SwaggerValidator\Common\Context $context, \stdClass $jsonData)
+
+Check that entry JsonData is an object of stdClass
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $jsonData **stdClass**
+
+
+
+### checkJsonObjectOrArray
+
+    boolean SwaggerValidator\Common\CollectionSwagger::checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, \stdClass $jsonData)
+
+Check that entry JsonData is an object of stdClass or an array
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $jsonData **stdClass**
 
 
 
@@ -599,5 +633,25 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
+
+
+
+### throwException
+
+    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $method **mixed**
+* $line **mixed**
 
 

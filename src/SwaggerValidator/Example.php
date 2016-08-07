@@ -29,9 +29,11 @@ else {
     include_once 'Swagger.php';
 }
 
+date_default_timezone_set('UTC');
+
 //\SwaggerValidator\Swagger::setSwaggerFile("swagger_example.json");
 \SwaggerValidator\Swagger::setSwaggerFile(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'phpunit' . DIRECTORY_SEPARATOR . 'examples' . DIRECTORY_SEPARATOR . 'swaggerPetStoreHeroku.json');
-$swagger = \SwaggerValidator\Swagger::load();
+$swagger = \SwaggerValidator\Swagger::load(new \SwaggerValidator\Common\Context());
 
 /**
  * Validate request in Deny Mode (like strict : generate error if request is in error)

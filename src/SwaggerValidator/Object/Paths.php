@@ -34,13 +34,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-
-        if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObject($context, $jsonData);
 
         foreach (get_object_vars($jsonData) as $key => $value) {
 
@@ -121,37 +115,12 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
         return $this->$findRoute->validate($context->setDataPath($findRoute));
     }
 
-    public function getModel(\SwaggerValidator\Common\Context $context, $paramsResponses = array())
+    public function getModel(\SwaggerValidator\Common\Context $context, $generalItems = array())
     {
-        $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
-        $responses  = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
-        $consumes   = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
-        $produces   = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
-        $result     = array();
+        $result = array();
 
-        if (!array_key_exists($parameters, $paramsResponses)) {
-            $paramsResponses[$parameters] = array();
-        }
-
-        if (isset($this->$parameters) && is_object($this->$parameters) && ($this->$parameters instanceof \SwaggerValidator\Object\Parameters)) {
-            $this->$parameters->getModel($context->setDataPath($parameters), $paramsResponses[$parameters]);
-        }
-
-        if (!array_key_exists($responses, $paramsResponses)) {
-            $paramsResponses[$responses] = array();
-        }
-
-        if (isset($this->$responses) && is_object($this->$responses) && ($this->$responses instanceof \SwaggerValidator\Object\Responses)) {
-            $this->$responses->getModel($context->setDataPath($responses), $paramsResponses[$responses]);
-        }
-
-        if (isset($this->$consumes) && is_array($this->$consumes)) {
-            $paramsResponses[$consumes] = $this->$consumes;
-        }
-
-        if (isset($this->$produces) && is_array($this->$produces)) {
-            $paramsResponses[$produces] = $this->$produces;
-        }
+        $this->getModelGeneric($context, $generalItems);
+        $this->getModelConsumeProduce($generalItems);
 
         foreach ($this->keys() as $key) {
             if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\PathItem)) {
@@ -162,7 +131,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
                 continue;
             }
 
-            $result[$key] = $this->$key->getModel($context->setDataPath($key), $paramsResponses);
+            $result[$key] = $this->$key->getModel($context->setDataPath($key), $generalItems);
         }
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);

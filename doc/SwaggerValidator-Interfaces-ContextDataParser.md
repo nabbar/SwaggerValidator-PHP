@@ -93,17 +93,3 @@ Methods
 * $contents **mixed**
 
 
-
-### cleanCheckedDataName
-
-    mixed SwaggerValidator\Interfaces\ContextDataParser::cleanCheckedDataName()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-

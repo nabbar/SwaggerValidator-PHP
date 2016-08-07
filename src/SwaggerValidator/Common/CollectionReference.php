@@ -123,7 +123,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             $file = \SwaggerValidator\Common\CollectionFile::getInstance()->$link;
 
             if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
-                \SwaggerValidator\Exception::throwNewException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
+                parent::throwException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
             }
 
             $value = new \SwaggerValidator\Common\ReferenceItem($file->$fRef);
@@ -142,7 +142,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             return parent::__set($id, $value);
         }
 
-        \SwaggerValidator\Exception::throwNewException('Cannot register item from ref : ' . $ref, "", __FILE__, __LINE__);
+        parent::throwException('Cannot register item from ref : ' . $ref, "", __FILE__, __LINE__);
     }
 
     public function jsonSerialize()
@@ -174,7 +174,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         }
 
         if (!is_array($data)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot unserialize object ! ', array($base, $data), __FILE__, __LINE__);
+            parent::throwException('Cannot unserialize object ! ', array($base, $data), __FILE__, __LINE__);
         }
 
         foreach ($data as $key => $value) {
@@ -201,11 +201,11 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     public static function getIdFromRef($fullRef)
     {
         if (!is_string($fullRef)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
+            parent::throwException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (strlen($fullRef) < 1) {
-            \SwaggerValidator\Exception::throwNewException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
+            parent::throwException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (substr($fullRef, 0, 3) === self::ID_PREFIX) {

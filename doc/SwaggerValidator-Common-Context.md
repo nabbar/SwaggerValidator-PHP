@@ -364,20 +364,9 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataValueExists
+### $contextDataExists
 
-    protected boolean $contextDataValueExists
-
-
-
-
-
-* Visibility: **protected**
-
-
-### $contextDataValueEmpty
-
-    protected boolean $contextDataValueEmpty
+    protected boolean $contextDataExists
 
 
 
@@ -386,9 +375,20 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataDecodeError
+### $contextDataEmpty
 
-    protected array $contextDataDecodeError
+    protected boolean $contextDataEmpty
+
+
+
+
+
+* Visibility: **protected**
+
+
+### $contextDecodeError
+
+    protected array $contextDecodeError
 
 
 
@@ -439,18 +439,6 @@ Properties
 
 
 * Visibility: **protected**
-
-
-### $contextValidatedParams
-
-    protected array $contextValidatedParams = array()
-
-
-
-
-
-* Visibility: **protected**
-* This property is **static**.
 
 
 ### $mockedData
@@ -768,24 +756,9 @@ Retrieve a config value
 
 
 
-### cleanCheckedDataName
+### getSandBoxKeys
 
-    mixed SwaggerValidator\Interfaces\ContextDataParser::cleanCheckedDataName()
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-* This method is defined by [SwaggerValidator\Interfaces\ContextDataParser](SwaggerValidator-Interfaces-ContextDataParser.md)
-
-
-
-
-### getCheckedDataName
-
-    array SwaggerValidator\Common\Context::getCheckedDataName()
+    array SwaggerValidator\Common\Context::getSandBoxKeys()
 
 return the list of all params (request/response) validated
 used in the end of validation process to check the TOOMANY parameters error
@@ -793,27 +766,35 @@ used in the end of validation process to check the TOOMANY parameters error
 
 
 * Visibility: **public**
-* This method is **static**.
 
 
 
 
-### getCheckedMethodFormLocation
+### setSandBox
 
-    string SwaggerValidator\Common\Context::getCheckedMethodFormLocation(\SwaggerValidator\Common\const $type, \SwaggerValidator\Common\const $location)
+    \SwaggerValidator\Common\Context SwaggerValidator\Common\Context::setSandBox()
 
-Method to define and return the method will be call to retrieve
-all received params by location
+Adding validated params to check
+This method improve the TOOMANY errors at the end
+of the validation process
 
 
 
 * Visibility: **public**
-* This method is **static**.
 
 
-#### Arguments
-* $type **SwaggerValidator\Common\const**
-* $location **SwaggerValidator\Common\const**
+
+
+### getRequestDataKeys
+
+    array SwaggerValidator\Common\Context::getRequestDataKeys()
+
+Method to list all received params name by location
+
+
+
+* Visibility: **public**
+
 
 
 
@@ -883,26 +864,6 @@ and the mocked data if defined
 
 * Visibility: **public**
 
-
-
-
-### addCheckedDataName
-
-    mixed SwaggerValidator\Common\Context::addCheckedDataName(\SwaggerValidator\Common\const $location, string $name)
-
-Adding validated params to check
-This method improve the TOOMANY errors at the end
-of the validation process
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $location **SwaggerValidator\Common\const**
-* $name **string**
 
 
 
@@ -1636,6 +1597,20 @@ Used to clean params if validation error occured for mode PASS
 
 
 
+### getLastDataPath
+
+    mixed SwaggerValidator\Common\ContextBase::getLastDataPath()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+
+
 ### setExternalRef
 
     mixed SwaggerValidator\Interfaces\ContextBase::setExternalRef($value)
@@ -1748,7 +1723,7 @@ Used to clean params if validation error occured for mode PASS
 
 ### setDataValueExists
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueExists($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueExists(boolean $value)
 
 
 
@@ -1759,13 +1734,13 @@ Used to clean params if validation error occured for mode PASS
 
 
 #### Arguments
-* $value **mixed**
+* $value **boolean**
 
 
 
 ### setDataValueEmpty
 
-    mixed SwaggerValidator\Common\ContextBase::setDataValueEmpty($value)
+    \SwaggerValidator\Common\ContextBase SwaggerValidator\Common\ContextBase::setDataValueEmpty(Boolean $value)
 
 
 
@@ -1776,7 +1751,7 @@ Used to clean params if validation error occured for mode PASS
 
 
 #### Arguments
-* $value **mixed**
+* $value **Boolean**
 
 
 

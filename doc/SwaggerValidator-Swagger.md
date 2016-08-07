@@ -241,3 +241,23 @@ store the new swagger object is available
 
 
 
+
+### throwException
+
+    mixed SwaggerValidator\Swagger::throwException(string $message, mixed $context, $file, $line)
+
+Throw a new \SwaggerValidator\Exception with automatic find method, line, .
+
+..
+
+* Visibility: **protected**
+* This method is **static**.
+
+
+#### Arguments
+* $message **string**
+* $context **mixed**
+* $file **mixed**
+* $line **mixed**
+
+

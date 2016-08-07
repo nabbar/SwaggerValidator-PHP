@@ -85,7 +85,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
     {
         \SwaggerValidator\Swagger::cleanInstances();
         \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
-        //\SwaggerValidator\Common\Context::setConfig('log', 'replaceRef', true);
+        //\SwaggerValidator\Common\Context::setConfig('log', 'model', true);
     }
 
     public static function tearDownAfterClass()
@@ -96,6 +96,27 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
     public function swaggerBuild()
     {
+        ob_start();
+
+        try {
+            \SwaggerValidator\Common\Factory::getInstance()->get('testNotExists');
+            $this->assertTrue(false);
+        }
+        catch (\Exception $e) {
+            ob_end_clean();
+            $this->assertInternalType('object', $e);
+            $this->assertInstanceOf('\SwaggerValidator\Exception', $e);
+        }
+
+        \SwaggerValidator\Common\CollectionFile::setInstance(\SwaggerValidator\Common\CollectionFile::getInstance());
+        \SwaggerValidator\Common\CollectionReference::setInstance(\SwaggerValidator\Common\CollectionReference::getInstance());
+        \SwaggerValidator\Common\CollectionType::setInstance(\SwaggerValidator\Common\CollectionType::getInstance());
+        \SwaggerValidator\Common\Factory::setInstance(\SwaggerValidator\Common\Factory::getInstance());
+        \SwaggerValidator\Common\FactorySwagger::setInstance(\SwaggerValidator\Common\FactorySwagger::getInstance());
+        \SwaggerValidator\Common\Sandbox::setInstance(\SwaggerValidator\Common\Sandbox::getInstance());
+
+        \SwaggerValidator\Common\Factory::getInstance()->set('Swagger', new \SwaggerValidator\Object\Swagger());
+
         $this->assertNotEmpty($this->swaggerFilePath);
         $this->assertFileExists($this->swaggerFilePath);
 

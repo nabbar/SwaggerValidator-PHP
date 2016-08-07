@@ -102,19 +102,19 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      *
      * @var boolean
      */
-    protected $contextDataValueExists;
+    protected $contextDataExists;
 
     /**
      *
      * @var boolean
      */
-    protected $contextDataValueEmpty;
+    protected $contextDataEmpty;
 
     /**
      *
      * @var array
      */
-    protected $contextDataDecodeError;
+    protected $contextDecodeError;
 
     /**
      *
@@ -144,12 +144,6 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      *
      * @var array
      */
-    protected static $contextValidatedParams = array();
-
-    /**
-     *
-     * @var array
-     */
     protected $mockedData = array();
 
     /**
@@ -159,37 +153,15 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      */
     public function __construct($mode = null, $type = null)
     {
-        if (!is_array($this->contextDataCheck)) {
-            $this->contextDataCheck = array();
-        }
+        $this->contextDataCheck   = array();
+        $this->contextDataValue   = array();
+        $this->contextDataPath    = array();
+        $this->contextExternalRef = array();
+        $this->contextOther       = array();
+        $this->contextDataPath[]  = '#';
 
-        if (!is_array($this->contextDataValue)) {
-            $this->contextDataValue = array();
-        }
-
-        if (!is_array($this->contextDataPath)) {
-            $this->contextDataPath = array();
-        }
-
-        if (!is_array($this->contextExternalRef)) {
-            $this->contextExternalRef = array();
-        }
-
-        if (!is_array($this->contextOther)) {
-            $this->contextOther = array();
-        }
-
-        if (empty($this->contextDataPath)) {
-            $this->contextDataPath[] = '#';
-        }
-
-        if (!empty($mode)) {
-            $this->setMode($mode);
-        }
-
-        if (!empty($type)) {
-            $this->setType($type);
-        }
+        $this->setMode($mode);
+        $this->setType($type);
     }
 
     private function formatVarName($name)
@@ -216,13 +188,13 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     public function __set($name, $value)
     {
         if ($this->__isset($name) && $name !== 'mockedData') {
-            $method_name = 'set' . substr($this->formatVarName($name), 7);
+            $methodName = 'set' . substr($this->formatVarName($name), 7);
 
-            if (method_exists($this, $method_name)) {
-                $this->$method_name($value);
+            if (method_exists($this, $methodName)) {
+                $this->$methodName($value);
             }
             else {
-                throw new Exception('Cannot find this Method : ' . $method_name);
+                throw new Exception('Cannot find this Method : ' . $methodName);
             }
         }
     }
@@ -502,7 +474,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      */
     public function setCombined($value = false)
     {
-        $this->contextIsCombined = boolval($value);
+        $this->contextIsCombined = (bool) $value;
         return $this;
     }
 
@@ -514,7 +486,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     /**
      *
      * @param string $value
-     * @return \SwaggerValidator\Common\ContextBase
+     * @return \SwaggerValidator\Common\Context
      */
     public function setDataPath($value = null)
     {
@@ -597,13 +569,13 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     public function setDataValue($value = null, $isExisting = true)
     {
         if ($isExisting === true) {
-            $this->contextDataValueExists = true;
+            $this->contextDataExists = true;
         }
         elseif ($isExisting === false) {
-            $this->contextDataValueExists = true;
+            $this->contextDataExists = true;
         }
         elseif ($isExisting === null) {
-            $this->contextDataValueExists = (bool) (!empty($value));
+            $this->contextDataExists = (bool) (!empty($value));
         }
 
         $this->contextDataValue = $value;
@@ -619,7 +591,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      */
     public function setDataValueExists($value = null)
     {
-        $this->contextDataValueExists = $value;
+        $this->contextDataExists = $value;
         return $this;
     }
 
@@ -630,7 +602,7 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      */
     public function setDataValueEmpty($value = null)
     {
-        $this->contextDataValueEmpty = $value;
+        $this->contextDataEmpty = $value;
         return $this;
     }
 
@@ -641,12 +613,12 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
 
     public function isDataExists()
     {
-        return $this->__get('DataValueExists');
+        return $this->__get('DataExists');
     }
 
     public function isDataEmpty()
     {
-        return $this->__get('DataValueEmpty');
+        return $this->__get('DataEmpty');
     }
 
 }

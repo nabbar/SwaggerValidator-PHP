@@ -52,12 +52,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
 
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
-        if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
-        elseif (!is_object($jsonData) && !is_array($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
-        }
+        $this->checkJsonObjectOrArray($context, $jsonData);
 
         $keyType   = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
         $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
@@ -66,24 +61,24 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         $keyAnyOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
         $keyOneOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ONEOF;
 
-        if (is_object($jsonData) && property_exists($jsonData, $keyType)) {
+        if (property_exists($jsonData, $keyType)) {
             $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
             return;
         }
 
-        if (is_object($jsonData) && (property_exists($jsonData, $keyAllOf) || property_exists($jsonData, $keyAnyOf) || property_exists($jsonData, $keyOneOf))) {
+        if (property_exists($jsonData, $keyAllOf) || property_exists($jsonData, $keyAnyOf) || property_exists($jsonData, $keyOneOf)) {
             $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
             return;
         }
 
-        if (is_object($jsonData) && property_exists($jsonData, $keyRef)) {
+        if (property_exists($jsonData, $keyRef)) {
             $this->registerRecursiveDefinitions($jsonData);
             $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), null, $jsonData);
             return;
         }
 
         if (is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
         }
 
         foreach ($jsonData as $key => $value) {
@@ -152,7 +147,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
             return true;
         }
 
-        if ($additionItems && (count($this->items) >= count($valueParams))) {
+        if ($additionItems && (count($this->items) <= count($valueParams))) {
             return true;
         }
         elseif (count($this->items) == count($valueParams)) {

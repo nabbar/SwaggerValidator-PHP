@@ -73,13 +73,13 @@ class ReferenceFile
             $this->basePath .= $part['path'];
         }
         else {
-            \SwaggerValidator\Exception::throwNewException('Pathtype not well formatted : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Pathtype not well formatted : ' . $filepath, __FILE__, __LINE__);
         }
 
         $contents = file_get_contents($this->fileUri);
 
         if (empty($contents)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot read contents for file : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot read contents for file : ' . $filepath, __FILE__, __LINE__);
         }
 
         $this->fileTime = $this->getFileTime();
@@ -87,7 +87,7 @@ class ReferenceFile
         $this->fileObj  = json_decode($contents, false);
 
         if (empty($this->fileObj)) {
-            \SwaggerValidator\Exception::throwNewException('Cannot decode contents for file : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot decode contents for file : ' . $filepath, __FILE__, __LINE__);
         }
 
         \SwaggerValidator\Common\Context::logLoadFile($this->fileUri, __METHOD__, __LINE__);
@@ -100,6 +100,19 @@ class ReferenceFile
         }
 
         return $this->getReference($name);
+    }
+
+    /**
+     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
+     * @param string $message
+     * @param mixed $context
+     * @throws \SwaggerValidator\Exception
+     */
+    protected function throwException($message, $context = null, $file = null, $line = null)
+    {
+        $e = new \SwaggerValidator\Exception();
+        $e->init($message, $context, $file, $line);
+        throw $e;
     }
 
     public function getFileTime()
@@ -117,7 +130,7 @@ class ReferenceFile
         $result = curl_exec($curl);
 
         if ($result === false) {
-            \SwaggerValidator\Exception::throwNewException('CURL Error : ' . curl_errno($curl) . ' => ' . curl_error($curl), curl_getinfo($curl), __METHOD__, __LINE__);
+            $this->throwException('CURL Error : ' . curl_errno($curl) . ' => ' . curl_error($curl), curl_getinfo($curl), __METHOD__, __LINE__);
         }
 
         $timestamp = curl_getinfo($curl, CURLINFO_FILETIME);
@@ -305,7 +318,7 @@ class ReferenceFile
             return realpath($this->basePath . $filepath);
         }
         else {
-            \SwaggerValidator\Exception::throwNewException('Cannot load file from ref : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot load file from ref : ' . $filepath, __FILE__, __LINE__);
         }
 
         return false;
