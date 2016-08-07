@@ -56,7 +56,13 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
      */
     abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
 
-    protected function callException($message, $context = null)
+    /**
+     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
+     * @param string $message
+     * @param mixed $context
+     * @throws \SwaggerValidator\Exception
+     */
+    protected function throwException($message, $context = null)
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
         array_shift($trace);
@@ -77,31 +83,9 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $line = $oneTrace['line'];
         }
 
-        \SwaggerValidator\Common\Factory::getInstance()->call('Exception', 'throwNewException', true, $message, array('context' => $context, 'trace' => $trace), $file, $line);
-    }
-
-    protected function buildException($message, $context = null)
-    {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 11);
-        array_shift($trace);
-
-        $file = null;
-        $line = null;
-
-        for ($i = 0; $i < 10; $i++) {
-            $oneTrace = array_shift($trace);
-
-            if (!empty($oneTrace['file']) && $oneTrace['file'] != __FILE__) {
-                $file = $oneTrace['file'];
-                break;
-            }
-        }
-
-        if (!empty($file) && !empty($oneTrace['line'])) {
-            $line = $oneTrace['line'];
-        }
-
-        \SwaggerValidator\Exception::throwNewException($message, array('context' => $context, 'trace' => $trace), $file, $line);
+        $e = new \SwaggerValidator\Exception();
+        $e->init($message, $context, $file, $line);
+        throw $e;
     }
 
     /**
@@ -200,75 +184,66 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    protected function getModelParameters(\SwaggerValidator\Common\Context $context, &$generalItems)
+    protected function getModelGeneric(\SwaggerValidator\Common\Context $context, &$generalItems, $typeKey = null)
     {
-        $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
-
         if (!is_array($generalItems)) {
             $generalItems = array();
         }
 
-        if (!array_key_exists($parameters, $generalItems)) {
-            $generalItems[$parameters] = array();
+        switch ($typeKey) {
+            case \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS:
+                $key = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+                $cls = '\SwaggerValidator\Object\Parameters';
+                break;
+
+            case \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES:
+                $key = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+                $cls = '\SwaggerValidator\Object\Responses';
+                break;
+
+            default:
+                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS);
+                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES);
+                return;
         }
 
-        if (!isset($this->$parameters) || !is_object($this->$parameters)) {
+        if (!isset($this->$key) || !is_object($this->$key)) {
             return;
         }
 
-        if ($this->$parameters instanceof \SwaggerValidator\Object\Parameters) {
-            $this->$parameters->getModel($context->setDataPath($parameters), $generalItems[$parameters]);
+        if (!array_key_exists($key, $generalItems)) {
+            $generalItems[$key] = array();
+        }
+
+        if ($this->$key instanceof $cls) {
+            $this->$key->getModel($context->setDataPath($key), $generalItems[$key]);
         }
 
         return;
     }
 
-    protected function getModelResponse(\SwaggerValidator\Common\Context $context, &$generalItems)
+    protected function getModelConsumeProduce(&$generalItems)
     {
-        $responses = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
-
         if (!is_array($generalItems)) {
             $generalItems = array();
         }
 
-        if (!array_key_exists($responses, $generalItems)) {
-            $generalItems[$responses] = array();
-        }
+        $list = array(
+            \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES,
+            \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES,
+        );
 
-        if (!isset($this->$responses) || !is_object($this->$responses)) {
-            return;
-        }
+        foreach ($list as $key) {
 
-        if ($this->$responses instanceof \SwaggerValidator\Object\Responses) {
-            $this->$responses->getModel($context->setDataPath($responses), $generalItems[$responses]);
-        }
+            if (!isset($this->$key) || !is_array($this->$key)) {
+                continue;
+            }
 
-        return;
-    }
+            if (!array_key_exists($key, $generalItems)) {
+                $generalItems[$key] = array();
+            }
 
-    protected function getModelConsumeProduce(\SwaggerValidator\Common\Context $context, &$generalItems)
-    {
-        $consumes = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
-        $produces = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
-
-        if (!is_array($generalItems)) {
-            $generalItems = array();
-        }
-
-        if (!array_key_exists($consumes, $generalItems)) {
-            $generalItems[$consumes] = array();
-        }
-
-        if (!array_key_exists($produces, $generalItems)) {
-            $generalItems[$produces] = array();
-        }
-
-        if (isset($this->$consumes) && is_array($this->$consumes)) {
-            $generalItems[$consumes] = $this->$consumes;
-        }
-
-        if (isset($this->$produces) && is_array($this->$produces)) {
-            $generalItems[$produces] = $this->$produces;
+            $generalItems[$key] = $this->$key;
         }
 
         return;
@@ -282,11 +257,11 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         return true;
@@ -300,10 +275,10 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
         elseif (!is_object($jsonData) && !is_array($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         if (is_array($jsonData)) {

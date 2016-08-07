@@ -46,7 +46,7 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
             $value = $this->extractNonRecursiveReference($context, $value);
 
             if (!property_exists($value, $keyIn)) {
-                $this->buildException('Parameters "' . $key . '" is not well defined !', $context);
+                $this->throwException('Parameters "' . $key . '" is not well defined !', $context);
             }
 
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);

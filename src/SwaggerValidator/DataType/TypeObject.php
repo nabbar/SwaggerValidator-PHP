@@ -55,7 +55,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
         $this->checkJsonObject($context, $jsonData);
 
         if (property_exists($jsonData, \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) && count(get_object_vars($jsonData)) > 1) {
-            $this->buildException('Invalid object with an external reference ! ', $context);
+            $this->throwException('Invalid object with an external reference ! ', $context);
         }
 
         $this->required             = array();
@@ -94,7 +94,7 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
                         $this->jsonUnSerializeProperties($context->setDataPath($key), $value);
                     }
                     else {
-                        $this->buildException('Invalid properties definition ! ', $context);
+                        $this->throwException('Invalid properties definition ! ', $context);
                     }
                     continue 2;
 
@@ -113,11 +113,11 @@ class TypeObject extends \SwaggerValidator\Common\CollectionSwagger
     protected function jsonUnSerializeProperties(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {

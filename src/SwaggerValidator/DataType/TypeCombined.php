@@ -35,11 +35,11 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData) || !($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         $keyAnyOf = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
@@ -61,7 +61,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         if (empty($key)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         $result = array();

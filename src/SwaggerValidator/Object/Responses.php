@@ -39,7 +39,7 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
         foreach (get_object_vars($jsonData) as $key => $value) {
 
             if (!preg_match('/^([0-9]{3})$|^(' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT . ')$/', $key)) {
-                $this->buildException('Invalid Key "' . $key . '" for a response item', array('context' => $context, 'JSON Data' => $jsonData));
+                $this->throwException('Invalid Key "' . $key . '" for a response item', array('context' => $context, 'JSON Data' => $jsonData));
             }
 
             $value      = $this->extractNonRecursiveReference($context, $value);

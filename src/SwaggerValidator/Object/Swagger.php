@@ -42,11 +42,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
@@ -404,9 +404,8 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        $this->getModelParameters($context, $generalItems);
-        $this->getModelResponse($context, $generalItems);
-        $this->getModelConsumeProduce($context, $generalItems);
+        $this->getModelGeneric($context, $generalItems);
+        $this->getModelConsumeProduce($generalItems);
 
         $paths = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 

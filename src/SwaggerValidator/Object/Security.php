@@ -35,7 +35,7 @@ class Security extends \SwaggerValidator\Common\CollectionSwagger
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_array($jsonData)) {
-            $this->buildException('Mismatching type of JSON Data received', $context);
+            $this->throwException('Mismatching type of JSON Data received', $context);
         }
 
         parent::setJSONIsArray();
