@@ -149,20 +149,9 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataValueExists
+### $contextDataExists
 
-    protected boolean $contextDataValueExists
-
-
-
-
-
-* Visibility: **protected**
-
-
-### $contextDataValueEmpty
-
-    protected boolean $contextDataValueEmpty
+    protected boolean $contextDataExists
 
 
 
@@ -171,9 +160,20 @@ Properties
 * Visibility: **protected**
 
 
-### $contextDataDecodeError
+### $contextDataEmpty
 
-    protected array $contextDataDecodeError
+    protected boolean $contextDataEmpty
+
+
+
+
+
+* Visibility: **protected**
+
+
+### $contextDecodeError
+
+    protected array $contextDecodeError
 
 
 
@@ -224,18 +224,6 @@ Properties
 
 
 * Visibility: **protected**
-
-
-### $contextValidatedParams
-
-    protected array $contextValidatedParams = array()
-
-
-
-
-
-* Visibility: **protected**
-* This property is **static**.
 
 
 ### $mockedData

@@ -26,6 +26,7 @@ engines:
     - c40012d33580a4ed294339c790ca228c
     - c94c35014d56aca7c5a8bb545e029d8b
     - b2a636cd86c21718021883cd30262de2
+    - d47a2eb59744cc17573bacc4e89ddcbc
   fixme:
     enabled: true
   phpmd:

@@ -157,23 +157,23 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function checkDataIsEmpty()
     {
-        if ($this->__get('DataValueExists') === false) {
-            $this->contextDataValueEmpty = true;
+        if ($this->isDataExists() === false) {
+            $this->contextDataEmpty = true;
         }
         elseif (is_object($this->getDataValue())) {
-            $this->contextDataValueEmpty = false;
+            $this->contextDataEmpty = false;
         }
         elseif (is_array($this->getDataValue())) {
-            $this->contextDataValueEmpty = false;
+            $this->contextDataEmpty = false;
         }
         elseif (is_string($this->getDataValue())) {
-            $this->contextDataValueEmpty = (bool) (strlen($this->getDataValue()) == 0);
+            $this->contextDataEmpty = (bool) (strlen($this->getDataValue()) == 0);
         }
         elseif (is_numeric($this->getDataValue())) {
-            $this->contextDataValueEmpty = false;
+            $this->contextDataEmpty = false;
         }
         else {
-            $this->contextDataValueEmpty = (bool) $this->checkIsEmpty($this->getDataValue());
+            $this->contextDataEmpty = (bool) $this->checkIsEmpty($this->getDataValue());
         }
     }
 
@@ -203,8 +203,8 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         $paramName = $this->__get('DataPath');
         $paramName = array_pop($paramName);
 
-        $this->contextDataValueExists = false;
-        $this->contextDataValue       = null;
+        $this->contextDataExists = false;
+        $this->contextDataValue  = null;
 
         if ($paramName === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && $this->getType() === self::TYPE_REQUEST) {
             return $this->loadRequestBody();
@@ -229,13 +229,13 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         }
         elseif ($this->getLocation() === \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY && !$this->checkIsEmpty($this->getDataValue())) {
             if (is_array($this->getDataValue()) && array_key_exists($paramName, $this->getDataValue())) {
-                $this->contextDataValueExists = true;
-                $value                        = $this->getDataValue();
-                $this->contextDataValue       = $value[$paramName];
+                $this->contextDataExists = true;
+                $value                   = $this->getDataValue();
+                $this->contextDataValue  = $value[$paramName];
             }
             elseif (is_object($this->getDataValue()) && property_exists($this->getDataValue(), $paramName)) {
-                $this->contextDataValueExists = true;
-                $this->contextDataValue       = $this->getDataValue()->$paramName;
+                $this->contextDataExists = true;
+                $this->contextDataValue  = $this->getDataValue()->$paramName;
             }
         }
 
@@ -271,12 +271,12 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     public function loadRequestFormData($paramName)
     {
         if (array_key_exists($paramName, $_POST)) {
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = $_POST[$paramName];
+            $this->contextDataExists = true;
+            $this->contextDataValue  = $_POST[$paramName];
         }
         elseif (array_key_exists($paramName, $_FILES)) {
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = $_FILES[$paramName];
+            $this->contextDataExists = true;
+            $this->contextDataValue  = $_FILES[$paramName];
         }
 
         return $this->checkDataIsEmpty();
@@ -324,13 +324,13 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             }
 
             if (!array_key_exists($key, $path)) {
-                $this->contextDataValueExists = false;
-                $this->contextDataValue       = null;
+                $this->contextDataExists = false;
+                $this->contextDataValue  = null;
                 break;
             }
 
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = urldecode($path[$key]);
+            $this->contextDataExists = true;
+            $this->contextDataValue  = urldecode($path[$key]);
         }
 
         return $this->checkDataIsEmpty();
@@ -363,8 +363,8 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         parse_str(implode('?', $uri), $qrs);
 
         if (array_key_exists($paramName, $qrs)) {
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = $qrs[$paramName];
+            $this->contextDataExists = true;
+            $this->contextDataValue  = $qrs[$paramName];
         }
 
         return $this->checkDataIsEmpty();
@@ -380,8 +380,8 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         $headers = $this->getRequestHeader();
 
         if (array_key_exists($paramName, $headers)) {
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = $headers[$paramName];
+            $this->contextDataExists = true;
+            $this->contextDataValue  = $headers[$paramName];
         }
 
         return $this->checkDataIsEmpty();
@@ -397,8 +397,8 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         $headers = $this->getResponseHeader();
 
         if (array_key_exists($paramName, $headers)) {
-            $this->contextDataValueExists = true;
-            $this->contextDataValue       = $headers[$paramName];
+            $this->contextDataExists = true;
+            $this->contextDataValue  = $headers[$paramName];
         }
 
         return $this->checkDataIsEmpty();
@@ -448,9 +448,9 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         }
 
         if ($contentLength < 1) {
-            $this->contextDataValueExists = false;
-            $this->contextDataValueEmpty  = true;
-            $this->contextDataValue       = null;
+            $this->contextDataExists = false;
+            $this->contextDataEmpty  = true;
+            $this->contextDataValue  = null;
             return;
         }
 
@@ -464,10 +464,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
                 break;
 
             default:
-                $this->contextDataType        = self::CONTENT_TYPE_OTHER;
-                $this->contextDataValueExists = false;
-                $this->contextDataValueEmpty  = true;
-                $this->contextDataValue       = null;
+                $this->contextDataType   = self::CONTENT_TYPE_OTHER;
+                $this->contextDataExists = false;
+                $this->contextDataEmpty  = true;
+                $this->contextDataValue  = null;
                 break;
         }
     }
@@ -478,18 +478,18 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function buildBodyJson($contents)
     {
-        $this->contextDataType        = self::CONTENT_TYPE_JSON;
-        $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-        $this->contextDataValue       = json_decode($contents, false);
+        $this->contextDataType   = self::CONTENT_TYPE_JSON;
+        $this->contextDataExists = (bool) (strlen($contents) > 0);
+        $this->contextDataValue  = json_decode($contents, false);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            $this->contextDataValueEmpty = true;
-            $this->contextDataValue      = null;
+            $this->contextDataEmpty = true;
+            $this->contextDataValue = null;
             if (function_exists('json_last_error_msg')) {
-                $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => json_last_error_msg()));
+                $this->contextDecodeError = array(array('code' => json_last_error(), 'message' => json_last_error_msg()));
             }
             else {
-                $this->contextDataDecodeError = array(array('code' => json_last_error(), 'message' => null));
+                $this->contextDecodeError = array(array('code' => json_last_error(), 'message' => null));
             }
         }
         else {
@@ -503,43 +503,43 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function buildBodyXml($contents)
     {
-        $this->contextDataType        = self::CONTENT_TYPE_XML;
-        $this->contextDataValueExists = (bool) (strlen($contents) > 0);
-        $this->contextDataValue       = simplexml_load_string($contents);
+        $this->contextDataType   = self::CONTENT_TYPE_XML;
+        $this->contextDataExists = (bool) (strlen($contents) > 0);
+        $this->contextDataValue  = simplexml_load_string($contents);
 
         if ($this->contextDataValue === false) {
-            $this->contextDataValueEmpty  = true;
-            $this->contextDataValue       = null;
-            $this->contextDataDecodeError = array();
+            $this->contextDataEmpty   = true;
+            $this->contextDataValue   = null;
+            $this->contextDecodeError = array();
 
             foreach (libxml_get_errors() as $error) {
-                $this->contextDataDecodeError[] = array('code' => $error->$code, 'message' => $error->message);
+                $this->contextDecodeError[] = array('code' => $error->$code, 'message' => $error->message);
             }
         }
         else {
             $this->contextDataValue = \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
 
             if (json_last_error() !== JSON_ERROR_NONE) {
-                $this->contextDataValueEmpty = true;
-                $this->contextDataValue      = null;
+                $this->contextDataEmpty = true;
+                $this->contextDataValue = null;
                 if (function_exists('json_last_error_msg')) {
-                    $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
+                    $this->contextDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
                 }
                 else {
-                    $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
+                    $this->contextDecodeError[] = array('code' => json_last_error(), 'message' => null);
                 }
             }
             else {
                 $this->contextDataValue = json_decode($this->getDataValue(), false);
 
                 if (json_last_error() !== JSON_ERROR_NONE) {
-                    $this->contextDataValueEmpty = true;
-                    $this->contextDataValue      = null;
+                    $this->contextDataEmpty = true;
+                    $this->contextDataValue = null;
                     if (function_exists('json_last_error_msg')) {
-                        $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
+                        $this->contextDecodeError[] = array('code' => json_last_error(), 'message' => json_last_error_msg());
                     }
                     else {
-                        $this->contextDataDecodeError[] = array('code' => json_last_error(), 'message' => null);
+                        $this->contextDecodeError[] = array('code' => json_last_error(), 'message' => null);
                     }
                 }
                 else {
