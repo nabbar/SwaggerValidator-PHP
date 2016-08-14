@@ -34,12 +34,12 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
   - allow local and remote definition file
   - allow using circular reference (only for no required properties in an object)
   - follow RFC and recommandation for primitive type and format and not native language understanding type and format
+  - using sandbox in request validation : each validated params is storing in a box and magic global variables are cleanned
   - using cache for working file in parsing request/response
   - using easy overriding IO class for collect request/response data to be validated
   - unit test in your environnement for checking compatibility
 
 ## **Need to do**
-  - use sandbox for validated request/response
   - use PHP PSR-7 Querystring parsing
   - response building automaticly base on content type response, accept and produce
 
@@ -52,7 +52,7 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 - Install into a git repository as submodule : 
 ```sh
 git submodule init
-git submodule add --branch v1.0.x http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
+git submodule add --branch v1.0.x https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
 git submodule update
 ```
 
@@ -75,7 +75,7 @@ wget https://github.com/njuhel/SwaggerValidator-PHP/raw/v1.0.x/bin/SwaggerValida
 
   
 ## **Example & Docs**
- - **Examples in Snippets** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/src/SwaggerValidator/Example.php) 
+ - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/src/SwaggerValidator/Example.php) 
  - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/doc/README.md)
 
 
