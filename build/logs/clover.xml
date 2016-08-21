@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1471808696">
-  <project timestamp="1471808696">
+<coverage generated="1471814151">
+  <project timestamp="1471814151">
     <package name="SwaggerValidator\Common">
       <file name="/repos/SwaggerValidator-PHP/src/Common/Collection.php">
         <class name="Collection" namespace="SwaggerValidator\Common">
@@ -382,7 +382,7 @@
         <line num="150" type="stmt" count="2"/>
         <line num="152" type="stmt" count="0"/>
         <line num="153" type="stmt" count="0"/>
-        <line num="155" type="method" name="getMethodGeneric" crap="10.04" count="5"/>
+        <line num="155" type="method" name="getMethodGeneric" crap="12.05" count="5"/>
         <line num="157" type="stmt" count="5"/>
         <line num="158" type="stmt" count="5"/>
         <line num="159" type="stmt" count="5"/>

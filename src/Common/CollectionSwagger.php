@@ -183,10 +183,10 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $generalItems[$key] = array();
         }
 
-        if ($this->$key instanceof $cls && !empty($params)) {
+        if ($this->$key instanceof $cls && method_exists($this->$key, $method) && !empty($params)) {
             call_user_func_array(array($this->$key, $method), array($context->setDataPath($key), $generalItems[$key]) + $params);
         }
-        elseif ($this->$key instanceof $cls) {
+        elseif ($this->$key instanceof $cls && method_exists($this->$key, $method)) {
             $this->$key->$method($context->setDataPath($key), $generalItems[$key]);
         }
 
