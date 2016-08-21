@@ -36,3 +36,5 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_S
 
 require_once SWAGGER_PATH_ROOT . 'Autoload.php';
 \SwaggerValidator\Autoload::registerAutoloader();
+
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'OverrideSwagger.php';

@@ -34,3 +34,5 @@ define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC . 'SwaggerValidator' . DIRECTORY_SEPA
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'genericTestClass.php';
 require_once REPOS_PATH_BIN . 'SwaggerValidator.phar';
+
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'OverrideSwagger.php';
