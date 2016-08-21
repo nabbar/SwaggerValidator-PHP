@@ -78,7 +78,7 @@ class Factory extends \SwaggerValidator\Common\Collection
     private function getClass($type)
     {
         $collType = \SwaggerValidator\Common\CollectionType::getInstance();
-        $class    = $collType->$type;
+        $class    = $collType->get($type);
 
         if (empty($class)) {
             parent::throwException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
@@ -101,7 +101,7 @@ class Factory extends \SwaggerValidator\Common\Collection
             $instance = parent::__get($name);
         }
         else {
-            $instance = $this->invoke($name);
+            $instance = $this->invoke($type);
         }
 
         return clone $instance;
@@ -154,7 +154,7 @@ class Factory extends \SwaggerValidator\Common\Collection
 
     public function serialize()
     {
-        
+
     }
 
     public function unserialize($data)

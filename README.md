@@ -28,16 +28,16 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
   - Allow a soft migration for a complete application MVC to HIM/API application
   - Give example model of request/response based on the swagger to example built automated testing stage, human skeleton for code, documentation skeletton, ...
   - Validate the swagger file in following the Swagger 2.0 specification and JSON Draft v4 (swagger has higher priority to json draft 4)
-  - custimization easy : all classes are overriding without writing the parser (using a customized factory)
-  - working finely with single and multi file swagger definition
-  - can generate single swagger definition file based on multi swagger definition file
-  - allow local and remote definition file
-  - allow using circular reference (only for no required properties in an object)
-  - follow RFC and recommandation for primitive type and format and not native language understanding type and format
-  - using sandbox in request validation : each validated params is storing in a box and magic global variables are cleanned
-  - using cache for working file in parsing request/response
-  - using easy overriding IO class for collect request/response data to be validated
-  - unit test in your environnement for checking compatibility
+  - Custimization easy : all classes are overriding without writing the parser (using a customized factory)
+  - Working finely with single and multi file swagger definition
+  - Can generate single swagger definition file based on multi swagger definition file
+  - Allow local and remote definition file
+  - Allow using circular reference (only for no required properties in an object)
+  - Store validated request params into a sandbox to access only validated params (and clean magics globals variables)
+  - Follow RFC and recommandation for primitive type and format and not native language understanding type and format
+  - Using cache for working file in parsing request/response
+  - Using easy overriding IO class for collect request/response data to be validated
+  - Unit test in your environnement for checking compatibility
 
 ## **Need to do**
   - use PHP PSR-7 Querystring parsing
@@ -52,30 +52,30 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 - Install into a git repository as submodule : 
 ```sh
 git submodule init
-git submodule add --branch v1.0.x https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
+git submodule add http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
 git submodule update
 ```
 
 - Install by cloning git : 
 ```sh
-git clone --branch v1.0.x https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
+git clone https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
 ```
 
 - Install with composer (adding this in composer.json): 
 ```json
     "require": {
-        "njuhel/swagger-validator":">=1.0.0"
+        "njuhel/swagger-validator":">=1.2.0"
     },
 ```
 
 - Install with phar : 
 ```sh
-wget https://github.com/njuhel/SwaggerValidator-PHP/raw/v1.0.x/bin/SwaggerValidator.phar 
+wget https://github.com/njuhel/SwaggerValidator-PHP/raw/master/bin/SwaggerValidator.phar 
 ```
 
   
 ## **Example & Docs**
- - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/src/SwaggerValidator/Example.php) 
- - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.0.x/doc/README.md)
+ - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/src/SwaggerValidator/Example.php) 
+ - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/doc/README.md)
 
 

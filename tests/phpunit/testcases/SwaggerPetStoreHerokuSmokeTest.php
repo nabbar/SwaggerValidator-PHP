@@ -27,6 +27,8 @@ class SwaggerPetStoreHerokuSmokeTest extends genericTestClass
 
     public function testSmokeModel()
     {
+        ob_start();
+
         $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerPetStoreHeroku.json';
         $this->swaggerBuild();
         $this->loadModel();
@@ -145,6 +147,8 @@ class SwaggerPetStoreHerokuSmokeTest extends genericTestClass
                 $this->assertTrue($this->swaggerObject->validate($context), $testKey);
             }
         }
+
+        ob_end_clean();
     }
 
     public function testDocument()
@@ -154,8 +158,12 @@ class SwaggerPetStoreHerokuSmokeTest extends genericTestClass
             return;
         }
 
+        ob_start();
+
         $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerPetStoreHeroku.json';
         $this->genDocCompare();
+
+        ob_end_clean();
     }
 
 }

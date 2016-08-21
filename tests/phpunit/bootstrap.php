@@ -30,9 +30,11 @@ define('REPOS_PATH_TESTS', dirname(PHPUNIT_PATH_ROOT) . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_ROOT', dirname(REPOS_PATH_TESTS) . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_SRC', REPOS_PATH_ROOT . 'src' . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_BIN', REPOS_PATH_ROOT . 'bin' . DIRECTORY_SEPARATOR);
-define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
+define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC);
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'genericTestClass.php';
 
-require_once SWAGGER_PATH_ROOT . 'Autoload.php';
-\SwaggerValidator\Autoload::registerAutoloader();
+require_once SWAGGER_PATH_ROOT . 'SwaggerAutoload.php';
+\SwaggerValidator\SwaggerAutoload::registerAutoloader();
+
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testcases' . DIRECTORY_SEPARATOR . 'OverrideSwagger.php';

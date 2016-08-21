@@ -614,7 +614,15 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             return array();
         }
 
+        if (array_key_exists('php://input', $this->mockedData)) {
+            $data = $this->mockedData['php://input'];
+        }
+        else {
+            $data = file_get_contents("php://input");
+        }
+
         return array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY  => (bool) (strlen($data) > 0),
             \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM  => $this->getRequestFormDataKey(),
             \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY => $this->getRequestQueryKey(),
         );
@@ -796,6 +804,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     public static function logDebug($message, $method = null, $line = null)
     {
         print "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n";
+        //file_put_contents('php://stdout', "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n");
     }
 
     /**
@@ -807,6 +816,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     public function logValidationError($validationType, $messageException = null, $method = null, $line = null)
     {
         print "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : {$messageException} --- " . $this->__toString() . "\n";
+        //file_put_contents('php://stderr', "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : {$messageException} --- " . $this->__toString() . "\n");
     }
 
     /**

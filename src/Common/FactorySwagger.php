@@ -48,6 +48,7 @@ class FactorySwagger
     const KEY_CONSUMES      = 'consumes';
     const KEY_DEFAULT       = 'default';
     const KEY_DEFINITIONS   = 'definitions';
+    const KEY_EXTERNALDOCS  = 'externalDocs';
     const KEY_FLOW          = 'flow';
     const KEY_HEADERS       = 'headers';
     const KEY_IN            = 'in';
@@ -65,6 +66,7 @@ class FactorySwagger
     const KEY_SCHEMA        = 'schema';
     const KEY_SCOPE         = 'scopes';
     const KEY_TYPE          = 'type';
+    const KEY_TAGS          = 'tags';
 
     /**
      * Constant for identify custom properties

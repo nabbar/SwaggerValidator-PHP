@@ -19,12 +19,12 @@
 namespace SwaggerValidator\Object;
 
 /**
- * Description of Paths
+ * Description of PathItem
  *
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-class Paths extends \SwaggerValidator\Common\CollectionSwagger
+class PathItem extends \SwaggerValidator\Common\CollectionSwagger
 {
 
     public function __construct()
@@ -48,7 +48,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         foreach ($this->keys() as $key) {
-            if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\PathItem)) {
+            if (is_object($this->$key) && ($this->$key instanceof \SwaggerValidator\Object\Operation)) {
                 continue;
             }
 
@@ -57,77 +57,25 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        $requestPath   = explode('/', $context->getRequestPath());
-        $listFindRoute = array();
+        $currentMethod = $context->getMethod();
 
-        foreach ($this->keys() as $key) {
-            if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\PathItem)) {
-                continue;
-            }
-
-            if (substr($key, 0, 1) != '/') {
-                continue;
-            }
-
-            $route = explode('/', $key);
-
-            if (count($requestPath) != count($route)) {
-                continue;
-            }
-
-            $findRoute = array(
-                'base'   => $key,
-                'params' => 0,
-            );
-
-            for ($i = 0; $i < count($route); $i++) {
-                if (substr($route[$i], 0, 1) == '{' && substr($route[$i], -1, 1) == '}') {
-                    $findRoute['params'] ++;
-                    continue;
-                }
-                if ($route[$i] != $requestPath[$i]) {
-                    $findRoute = null;
-                    break;
-                }
-            }
-
-            if ($findRoute !== null) {
-                $listFindRoute[$findRoute['base']] = $findRoute['params'];
-            }
+        if (isset($this->$currentMethod) && is_object($this->$currentMethod) && ($this->$key instanceof \SwaggerValidator\Object\Operation)) {
+            \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+            return $this->$currentMethod->validate($context->setDataPath($currentMethod));
         }
 
-        $findRoute = null;
-        $min       = null;
-
-        foreach ($listFindRoute as $key => $value) {
-            if ($findRoute === null || $value < $min) {
-                $min       = $value;
-                $findRoute = $key;
-            }
-        }
-
-        if ($findRoute === null) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_ROUTE_ERROR, 'Route not found', __METHOD__, __LINE__);
-        }
-
-        $context->setRoutePath($findRoute);
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
-        return $this->$findRoute->validate($context->setDataPath($findRoute));
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_METHOD_ERROR, 'Method not found to this route', __METHOD__, __LINE__);
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context, $generalItems = array())
     {
         $result = array();
 
-        $this->getModelGeneric($context, $generalItems);
+        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
         $this->getModelConsumeProduce($generalItems);
 
         foreach ($this->keys() as $key) {
-            if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\PathItem)) {
-                continue;
-            }
-
-            if (substr($key, 0, 1) != '/') {
+            if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\Operation)) {
                 continue;
             }
 

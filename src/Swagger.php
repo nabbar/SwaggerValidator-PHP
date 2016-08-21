@@ -20,11 +20,11 @@ namespace SwaggerValidator;
 
 if (file_exists('SwaggerValidator.phar')) {
     require_once "phar://SwaggerValidator.phar";
-    \SwaggerValidator\Autoload::registerAutoloader();
+    \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
 else {
-    require_once 'Autoload.php';
-    \SwaggerValidator\Autoload::registerAutoloader();
+    require_once 'SwaggerAutoload.php';
+    \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
 
 /**
@@ -154,8 +154,6 @@ class Swagger
      */
     protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
-        self::cleanInstances();
-
         $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
 
         if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
@@ -184,8 +182,6 @@ class Swagger
      */
     protected static function loadCache()
     {
-        self::cleanInstances();
-
         $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
 
         if (!is_array($swagger)) {

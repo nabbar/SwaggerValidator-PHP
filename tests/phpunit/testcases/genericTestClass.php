@@ -94,16 +94,22 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
     }
 
-    public function swaggerBuild()
+    public function swaggerCheck()
     {
-        ob_start();
+        \SwaggerValidator\Swagger::cleanInstances();
+
+        \SwaggerValidator\Common\CollectionType::getInstance()->set(\SwaggerValidator\Common\CollectionType::Swagger, '\SwaggerTest\OverrideSwagger');
+        $obj = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
+        $this->assertInternalType('object', $obj);
+        $this->assertInstanceOf('\SwaggerTest\OverrideSwagger', $obj);
+        $this->assertObjectHasAttribute('testProperties', $obj);
+        $this->assertTrue($obj->testProperties);
 
         try {
             \SwaggerValidator\Common\Factory::getInstance()->get('testNotExists');
             $this->assertTrue(false);
         }
         catch (\Exception $e) {
-            ob_end_clean();
             $this->assertInternalType('object', $e);
             $this->assertInstanceOf('\SwaggerValidator\Exception', $e);
         }
@@ -116,6 +122,13 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         \SwaggerValidator\Common\Sandbox::setInstance(\SwaggerValidator\Common\Sandbox::getInstance());
 
         \SwaggerValidator\Common\Factory::getInstance()->set('Swagger', new \SwaggerValidator\Object\Swagger());
+
+        \SwaggerValidator\Swagger::cleanInstances();
+    }
+
+    public function swaggerBuild()
+    {
+        $this->swaggerCheck();
 
         $this->assertNotEmpty($this->swaggerFilePath);
         $this->assertFileExists($this->swaggerFilePath);

@@ -25,7 +25,7 @@
 define('REPOS_PATH_ROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_SRC', REPOS_PATH_ROOT . 'src' . DIRECTORY_SEPARATOR);
 define('REPOS_PATH_BIN', REPOS_PATH_ROOT . 'bin' . DIRECTORY_SEPARATOR);
-define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC . 'SwaggerValidator' . DIRECTORY_SEPARATOR);
+define('SWAGGER_PATH_ROOT', REPOS_PATH_SRC);
 
 function getPrivateKey($pharPath)
 {

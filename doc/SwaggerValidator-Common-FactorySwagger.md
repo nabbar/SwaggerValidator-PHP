@@ -127,6 +127,14 @@ Constants
 
 
 
+### KEY_EXTERNALDOCS
+
+    const KEY_EXTERNALDOCS = 'externalDocs'
+
+
+
+
+
 ### KEY_FLOW
 
     const KEY_FLOW = 'flow'
@@ -258,6 +266,14 @@ Constants
 ### KEY_TYPE
 
     const KEY_TYPE = 'type'
+
+
+
+
+
+### KEY_TAGS
+
+    const KEY_TAGS = 'tags'
 
 
 

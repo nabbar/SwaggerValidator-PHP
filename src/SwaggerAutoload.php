@@ -21,10 +21,10 @@ namespace SwaggerValidator;
 /**
  * Description of SwaggerCommonAutoload
  *
- * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
+ * @author Nicolas JUHEL <swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-final class Autoload
+final class SwaggerAutoload
 {
     /*     * ******************************************************************************
      * PSR-0 Autoloader
@@ -38,59 +38,34 @@ final class Autoload
     final public static function autoload($className)
     {
         if (\Phar::running()) {
-            return self::autoloadPhar($className);
+            $baseDir = null;
         }
         else {
-            return self::autoloadSource($className);
-        }
-    }
-
-    /**
-     * Slim PSR-0 autoloader
-     */
-    final public static function autoloadPhar($className)
-    {
-        $currentNs = trim(__NAMESPACE__, '\\');
-        $className = ltrim($className, '\\');
-
-        if (substr($className, 0, strlen($currentNs)) != $currentNs) {
-            return;
+            $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
         }
 
-        $namespace = explode('\\', substr($className, strlen($currentNs) + 1));
+        $thisClass = trim(__NAMESPACE__, '\\');
+
+        $namespace = explode('\\', $className);
         $className = array_pop($namespace);
-        $namespace = implode(DIRECTORY_SEPARATOR, $namespace);
+        $rootPath  = array_shift($namespace);
 
-        if (!empty($namespace)) {
+        if ($rootPath == $thisClass) {
+            $namespace = $baseDir . trim(implode(DIRECTORY_SEPARATOR, $namespace), DIRECTORY_SEPARATOR);
+        }
+        else {
+            $namespace = $baseDir . trim($rootPath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $namespace), DIRECTORY_SEPARATOR);
+        }
+
+        if (substr($namespace, -1, 1) != DIRECTORY_SEPARATOR) {
             $namespace .= DIRECTORY_SEPARATOR;
         }
 
-        require_once($namespace . str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php');
-    }
-
-    /**
-     * Slim PSR-0 autoloader
-     */
-    final public static function autoloadSource($className)
-    {
-        $thisClass = trim(__NAMESPACE__, '\\');
-        $baseDir   = __DIR__;
-
-        if (substr($baseDir, -strlen($thisClass)) === $thisClass) {
-            $baseDir = substr($baseDir, 0, -strlen($thisClass));
+        if ($namespace == DIRECTORY_SEPARATOR) {
+            $namespace = "";
         }
 
-        $className = ltrim($className, '\\');
-        $fileName  = $baseDir;
-        $namespace = '';
-
-        if ($lastNsPos = strripos($className, '\\')) {
-            $namespace = substr($className, 0, $lastNsPos);
-            $className = substr($className, $lastNsPos + 1);
-            $fileName .= str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-        }
-
-        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        $fileName = $namespace . str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
         if (file_exists($fileName)) {
             require_once $fileName;

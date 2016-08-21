@@ -574,22 +574,6 @@ Replace the default callable string by the given for the type in parameters
 
 
 
-### normalizeKey
-
-    mixed SwaggerValidator\Common\CollectionType::normalizeKey($key)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $key **mixed**
-
-
-
 ### __unset
 
     mixed SwaggerValidator\Common\Collection::__unset($key)

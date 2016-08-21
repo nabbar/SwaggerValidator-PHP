@@ -231,9 +231,9 @@ Return true if all mandatory keys are defined or the missing key name
 
 
 
-### getModelGeneric
+### getMethodGeneric
 
-    mixed SwaggerValidator\Common\CollectionSwagger::getModelGeneric(\SwaggerValidator\Common\Context $context, $generalItems, $typeKey)
+    mixed SwaggerValidator\Common\CollectionSwagger::getMethodGeneric(\SwaggerValidator\Common\Context $context, $method, $generalItems, $typeKey, $params)
 
 
 
@@ -244,8 +244,10 @@ Return true if all mandatory keys are defined or the missing key name
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $method **mixed**
 * $generalItems **mixed**
 * $typeKey **mixed**
+* $params **mixed**
 
 
 

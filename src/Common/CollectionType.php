@@ -136,8 +136,8 @@ class CollectionType extends \SwaggerValidator\Common\Collection
             return;
         }
 
-        if (parent::__isset($type)) {
-            return parent::__get($type);
+        if (parent::__isset($this->normalizeType($type))) {
+            return parent::__get($this->normalizeType($type));
         }
 
         if (defined($this->normalizeType($type))) {
@@ -154,9 +154,27 @@ class CollectionType extends \SwaggerValidator\Common\Collection
      */
     public function __set($type, $callable)
     {
-        if ($this->__isset($type) && is_callable($callable)) {
-            parent::__set($this->normalizeKey($type), $callable);
+        if (!$this->__isset($type)) {
+            parent::throwException('Cannot find type : "' . $type . '" (Normalized : "' . $this->normalizeType($type) . '" ', "", __FILE__, __LINE__);
         }
+
+        if (is_callable(array($callable, '__construct'))) {
+            return parent::__set($this->normalizeType($type), $callable);
+        }
+
+        if (is_string($callable) && class_exists($callable)) {
+            //there is a class. but can we instantiate it?
+            $class = new \ReflectionClass($callable);
+
+            if (!$class->isAbstract()) {
+                return parent::__set($this->normalizeType($type), $callable);
+            }
+            else {
+                parent::throwException('Callable is an abstract class : ' . $callable, "", __FILE__, __LINE__);
+            }
+        }
+
+        parent::throwException('Callable is not callable : ' . $callable, "", __FILE__, __LINE__);
     }
 
     public function __isset($type)
@@ -201,20 +219,16 @@ class CollectionType extends \SwaggerValidator\Common\Collection
 
     public function normalizeType($type)
     {
-        $type = str_replace(__CLASS__, 'self::', $type);
-        $type = str_replace(__NAMESPACE__, '', $type);
+        if (strpos($type, '\\') !== false) {
+            $type = explode('\\', trim($type, '\\'));
+            $type = 'self::' . array_pop($type);
+        }
 
         if (stripos($type, 'self::') === false) {
             $type = 'self::' . $type;
         }
 
         return $type;
-    }
-
-    public function normalizeKey($key)
-    {
-        $ready = str_replace(array(' ', '-', '_', '/', '|', '#', '$', '.', ',', ';', ':'), ' ', $key);
-        return implode('-', array_map('ucwords', explode(' ', $ready)));
     }
 
 }
