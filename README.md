@@ -77,3 +77,5 @@ wget https://github.com/njuhel/SwaggerValidator-PHP/raw/v1.2.x/bin/SwaggerValida
 ## **Example & Docs**
  - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.2.x/src/SwaggerValidator/Example.php) 
  - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.2.x/doc/README.md)
+
+
