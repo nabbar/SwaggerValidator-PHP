@@ -15,9 +15,9 @@
         <template name="xml" />
     </transformations>
     <files>
-        <directory>./src/SwaggerValidator</directory>
-        <ignore>./src/SwaggerValidator/Example.php</ignore>
-        <ignore>./src/SwaggerValidator/Compat.php</ignore>
-        <ignore>./src/SwaggerValidator/Autoload.php</ignore>
+        <directory>./src</directory>
+        <ignore>./src/Example.php</ignore>
+        <ignore>./src/Compat.php</ignore>
+        <ignore>./src/SwaggerAutoload.php</ignore>
     </files>
 </phpdoc>

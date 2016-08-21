@@ -20,11 +20,11 @@ namespace SwaggerValidator;
 
 if (file_exists('SwaggerValidator.phar')) {
     require_once "phar://SwaggerValidator.phar";
-    \SwaggerValidator\Autoload::registerAutoloader();
+    \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
 else {
-    require_once 'Autoload.php';
-    \SwaggerValidator\Autoload::registerAutoloader();
+    require_once 'SwaggerAutoload.php';
+    \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
 
 /**

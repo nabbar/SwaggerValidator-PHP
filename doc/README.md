@@ -14,7 +14,7 @@ API Index
         * [TypeCombined](SwaggerValidator-DataType-TypeCombined.md)
         * [TypeNumber](SwaggerValidator-DataType-TypeNumber.md)
         * [TypeFile](SwaggerValidator-DataType-TypeFile.md)
-    * [Autoload](SwaggerValidator-Autoload.md)
+    * [SwaggerAutoload](SwaggerValidator-SwaggerAutoload.md)
     * [Swagger](SwaggerValidator-Swagger.md)
     * SwaggerValidator\Security
         * [OAuth2PasswordSecurityScopes](SwaggerValidator-Security-OAuth2PasswordSecurityScopes.md)
