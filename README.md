@@ -52,13 +52,13 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 - Install into a git repository as submodule : 
 ```sh
 git submodule init
-git submodule add --branch v1.2.x http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
+git submodule add http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
 git submodule update
 ```
 
 - Install by cloning git : 
 ```sh
-git clone --branch v1.2.x https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
+git clone https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
 ```
 
 - Install with composer (adding this in composer.json): 
@@ -70,12 +70,12 @@ git clone --branch v1.2.x https://github.com/njuhel/SwaggerValidator-PHP Swagger
 
 - Install with phar : 
 ```sh
-wget https://github.com/njuhel/SwaggerValidator-PHP/raw/v1.2.x/bin/SwaggerValidator.phar 
+wget https://github.com/njuhel/SwaggerValidator-PHP/raw/master/bin/SwaggerValidator.phar 
 ```
 
   
 ## **Example & Docs**
- - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.2.x/src/SwaggerValidator/Example.php) 
- - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/v1.2.x/doc/README.md)
+ - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/src/SwaggerValidator/Example.php) 
+ - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/doc/README.md)
 
 
