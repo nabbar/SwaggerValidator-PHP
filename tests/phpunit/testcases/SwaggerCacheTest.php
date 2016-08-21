@@ -57,6 +57,7 @@ class SwaggerCacheTest extends genericTestClass
         $this->swaggerFileCache = PHPUNIT_PATH_TEMP . 'swaggerMultiFile.json.ser.tmp';
         $this->swaggerFilePath  = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
 
+        \SwaggerValidator\Swagger::cleanInstances();
         \SwaggerValidator\Swagger::setCachePath($this->swaggerFileCache);
         \SwaggerValidator\Swagger::setCacheLifeTime(0);
         \SwaggerValidator\Swagger::setSwaggerFile($this->swaggerFilePath);
@@ -118,6 +119,7 @@ class SwaggerCacheTest extends genericTestClass
         sleep(3);
         $time = time();
 
+        \SwaggerValidator\Swagger::cleanInstances();
         \SwaggerValidator\Swagger::setCachePath($this->swaggerFileCache);
         \SwaggerValidator\Swagger::setCacheLifeTime(0);
         $swaggerObject2 = \SwaggerValidator\Swagger::load($this->swaggerGetContext());
@@ -177,6 +179,7 @@ class SwaggerCacheTest extends genericTestClass
         $time = time();
         sleep(1);
 
+        \SwaggerValidator\Swagger::cleanInstances();
         \SwaggerValidator\Swagger::setCachePath($this->swaggerFileCache);
         \SwaggerValidator\Swagger::setCacheLifeTime(1);
 

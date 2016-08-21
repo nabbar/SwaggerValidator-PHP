@@ -154,8 +154,6 @@ class Swagger
      */
     protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
-        self::cleanInstances();
-
         $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
 
         if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
@@ -184,8 +182,6 @@ class Swagger
      */
     protected static function loadCache()
     {
-        self::cleanInstances();
-
         $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
 
         if (!is_array($swagger)) {

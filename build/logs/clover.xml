@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1471806573">
-  <project timestamp="1471806573">
+<coverage generated="1471808696">
+  <project timestamp="1471808696">
     <package name="SwaggerValidator\Common">
       <file name="/repos/SwaggerValidator-PHP/src/Common/Collection.php">
         <class name="Collection" namespace="SwaggerValidator\Common">
@@ -2600,7 +2600,7 @@
         <line num="46" type="stmt" count="5"/>
         <line num="47" type="stmt" count="0"/>
         <line num="50" type="stmt" count="5"/>
-        <line num="51" type="stmt" count="2"/>
+        <line num="51" type="stmt" count="3"/>
         <line num="54" type="stmt" count="5"/>
         <line num="55" type="stmt" count="0"/>
         <line num="58" type="stmt" count="5"/>
@@ -2768,7 +2768,7 @@
       </file>
       <file name="/repos/SwaggerValidator-PHP/src/Swagger.php">
         <class name="Swagger" namespace="SwaggerValidator">
-          <metrics methods="12" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="72" coveredstatements="50" elements="84" coveredelements="54"/>
+          <metrics methods="12" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="48" elements="82" coveredelements="52"/>
         </class>
         <line num="67" type="method" name="setCachePath" crap="7.39" count="1"/>
         <line num="69" type="stmt" count="1"/>
@@ -2804,57 +2804,55 @@
         <line num="143" type="stmt" count="1"/>
         <line num="144" type="stmt" count="1"/>
         <line num="147" type="stmt" count="1"/>
-        <line num="155" type="method" name="regenSwagger" crap="8.05" count="1"/>
+        <line num="155" type="method" name="regenSwagger" crap="8.60" count="1"/>
         <line num="157" type="stmt" count="1"/>
         <line num="159" type="stmt" count="1"/>
-        <line num="161" type="stmt" count="1"/>
-        <line num="162" type="stmt" count="0"/>
-        <line num="163" type="stmt" count="0"/>
+        <line num="160" type="stmt" count="0"/>
+        <line num="161" type="stmt" count="0"/>
+        <line num="163" type="stmt" count="1"/>
         <line num="165" type="stmt" count="1"/>
-        <line num="167" type="stmt" count="1"/>
-        <line num="168" type="stmt" count="0"/>
-        <line num="169" type="stmt" count="0"/>
+        <line num="166" type="stmt" count="0"/>
+        <line num="167" type="stmt" count="0"/>
+        <line num="169" type="stmt" count="1"/>
         <line num="171" type="stmt" count="1"/>
-        <line num="173" type="stmt" count="1"/>
-        <line num="174" type="stmt" count="0"/>
-        <line num="177" type="stmt" count="1"/>
-        <line num="185" type="method" name="loadCache" crap="5.02" count="1"/>
+        <line num="172" type="stmt" count="0"/>
+        <line num="175" type="stmt" count="1"/>
+        <line num="183" type="method" name="loadCache" crap="5.40" count="1"/>
+        <line num="185" type="stmt" count="1"/>
         <line num="187" type="stmt" count="1"/>
-        <line num="189" type="stmt" count="1"/>
+        <line num="188" type="stmt" count="0"/>
+        <line num="189" type="stmt" count="0"/>
         <line num="191" type="stmt" count="1"/>
-        <line num="192" type="stmt" count="0"/>
-        <line num="193" type="stmt" count="0"/>
-        <line num="195" type="stmt" count="1"/>
+        <line num="193" type="stmt" count="1"/>
+        <line num="194" type="stmt" count="0"/>
+        <line num="195" type="stmt" count="0"/>
         <line num="197" type="stmt" count="1"/>
-        <line num="198" type="stmt" count="0"/>
-        <line num="199" type="stmt" count="0"/>
-        <line num="201" type="stmt" count="1"/>
-        <line num="209" type="method" name="storeCache" crap="4.59" count="1"/>
+        <line num="205" type="method" name="storeCache" crap="4.59" count="1"/>
+        <line num="207" type="stmt" count="1"/>
+        <line num="208" type="stmt" count="0"/>
         <line num="211" type="stmt" count="1"/>
         <line num="212" type="stmt" count="0"/>
-        <line num="215" type="stmt" count="1"/>
-        <line num="216" type="stmt" count="0"/>
-        <line num="217" type="stmt" count="0"/>
-        <line num="218" type="stmt" count="0"/>
+        <line num="213" type="stmt" count="0"/>
+        <line num="214" type="stmt" count="0"/>
+        <line num="217" type="stmt" count="1"/>
+        <line num="218" type="stmt" count="1"/>
+        <line num="219" type="stmt" count="1"/>
         <line num="221" type="stmt" count="1"/>
         <line num="222" type="stmt" count="1"/>
-        <line num="223" type="stmt" count="1"/>
-        <line num="225" type="stmt" count="1"/>
-        <line num="226" type="stmt" count="1"/>
-        <line num="228" type="stmt" count="1"/>
-        <line num="231" type="method" name="cleanInstances" crap="1" count="11"/>
+        <line num="224" type="stmt" count="1"/>
+        <line num="227" type="method" name="cleanInstances" crap="1" count="11"/>
+        <line num="229" type="stmt" count="11"/>
+        <line num="230" type="stmt" count="11"/>
+        <line num="231" type="stmt" count="11"/>
+        <line num="232" type="stmt" count="11"/>
         <line num="233" type="stmt" count="11"/>
         <line num="234" type="stmt" count="11"/>
         <line num="235" type="stmt" count="11"/>
-        <line num="236" type="stmt" count="11"/>
-        <line num="237" type="stmt" count="11"/>
-        <line num="238" type="stmt" count="11"/>
-        <line num="239" type="stmt" count="11"/>
-        <line num="247" type="method" name="throwException" crap="2" count="0"/>
-        <line num="249" type="stmt" count="0"/>
-        <line num="250" type="stmt" count="0"/>
-        <line num="251" type="stmt" count="0"/>
-        <metrics loc="254" ncloc="166" classes="1" methods="12" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="72" coveredstatements="50" elements="84" coveredelements="54"/>
+        <line num="243" type="method" name="throwException" crap="2" count="0"/>
+        <line num="245" type="stmt" count="0"/>
+        <line num="246" type="stmt" count="0"/>
+        <line num="247" type="stmt" count="0"/>
+        <metrics loc="250" ncloc="162" classes="1" methods="12" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="48" elements="82" coveredelements="52"/>
       </file>
       <file name="/repos/SwaggerValidator-PHP/src/SwaggerAutoload.php">
         <class name="SwaggerAutoload" namespace="SwaggerValidator">
@@ -3869,6 +3867,6 @@
         <metrics loc="53" ncloc="32" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="9" elements="15" coveredelements="10"/>
       </file>
     </package>
-    <metrics files="54" loc="8854" ncloc="6736" classes="53" methods="457" coveredmethods="197" conditionals="0" coveredconditionals="0" statements="3080" coveredstatements="2155" elements="3537" coveredelements="2352"/>
+    <metrics files="54" loc="8850" ncloc="6732" classes="53" methods="457" coveredmethods="197" conditionals="0" coveredconditionals="0" statements="3078" coveredstatements="2153" elements="3535" coveredelements="2350"/>
   </project>
 </coverage>
