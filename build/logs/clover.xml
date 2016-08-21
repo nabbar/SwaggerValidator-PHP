@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1471814151">
-  <project timestamp="1471814151">
+<coverage generated="1471816074">
+  <project timestamp="1471816074">
     <package name="SwaggerValidator\Common">
       <file name="/repos/SwaggerValidator-PHP/src/Common/Collection.php">
         <class name="Collection" namespace="SwaggerValidator\Common">
