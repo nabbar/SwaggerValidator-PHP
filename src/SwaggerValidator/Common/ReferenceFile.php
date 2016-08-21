@@ -73,13 +73,13 @@ class ReferenceFile
             $this->basePath .= $part['path'];
         }
         else {
-            $this->throwException('Pathtype not well formatted : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Pathtype not well formatted : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         $contents = file_get_contents($this->fileUri);
 
         if (empty($contents)) {
-            $this->throwException('Cannot read contents for file : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot read contents for file : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         $this->fileTime = $this->getFileTime();
@@ -87,7 +87,7 @@ class ReferenceFile
         $this->fileObj  = json_decode($contents, false);
 
         if (empty($this->fileObj)) {
-            $this->throwException('Cannot decode contents for file : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot decode contents for file : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         \SwaggerValidator\Common\Context::logLoadFile($this->fileUri, __METHOD__, __LINE__);
@@ -157,7 +157,7 @@ class ReferenceFile
             }
 
             if (empty($obj)) {
-                $this->throwNewException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, __FILE__, __LINE__);
+                $this->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
             }
 
             if (is_object($obj) && isset($obj->$property)) {
@@ -167,7 +167,7 @@ class ReferenceFile
                 $obj = $obj[$property];
             }
             else {
-                $this->throwNewException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, __FILE__, __LINE__);
+                $this->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
             }
         }
 
@@ -318,7 +318,7 @@ class ReferenceFile
             return realpath($this->basePath . $filepath);
         }
         else {
-            $this->throwException('Cannot load file from ref : ' . $filepath, __FILE__, __LINE__);
+            $this->throwException('Cannot load file from ref : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         return false;

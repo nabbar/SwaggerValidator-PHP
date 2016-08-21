@@ -152,7 +152,7 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    protected function getModelGeneric(\SwaggerValidator\Common\Context $context, &$generalItems, $typeKey = null)
+    protected function getMethodGeneric(\SwaggerValidator\Common\Context $context, $method, &$generalItems, $typeKey = null, $params = array())
     {
         if (!is_array($generalItems)) {
             $generalItems = array();
@@ -170,8 +170,8 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
                 break;
 
             default:
-                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS);
-                $this->getModelGeneric($context, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES);
+                $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS, $params);
+                $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES, $params);
                 return;
         }
 
@@ -183,8 +183,11 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
             $generalItems[$key] = array();
         }
 
-        if ($this->$key instanceof $cls) {
-            $this->$key->getModel($context->setDataPath($key), $generalItems[$key]);
+        if ($this->$key instanceof $cls && !empty($params)) {
+            call_user_func_array(array($this->$key, $method), array($context->setDataPath($key), $generalItems[$key]) + $params);
+        }
+        elseif ($this->$key instanceof $cls) {
+            $this->$key->$method($context->setDataPath($key), $generalItems[$key]);
         }
 
         return;

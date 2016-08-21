@@ -88,7 +88,7 @@ class Operation extends \SwaggerValidator\Common\CollectionSwagger
         $consumes   = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
         $produces   = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
 
-        $this->getModelGeneric($context, $generalItems);
+        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
         $this->getModelConsumeProduce($generalItems);
 
         foreach (array_keys($generalItems) as $key) {

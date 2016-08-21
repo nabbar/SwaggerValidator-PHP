@@ -296,7 +296,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             $oneContentType = explode(';', $oneContentType);
             $oneContentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($oneContentType));
 
-            if (strtolower($contentType) && strtolower($oneContentType)) {
+            if (strtolower($contentType) == strtolower($oneContentType)) {
                 return true;
             }
         }
@@ -336,7 +336,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             $oneContentType = explode(';', $oneContentType);
             $oneContentType = str_replace(array('application/', 'text/', 'x-'), '', array_shift($oneContentType));
 
-            if (strtolower($contentType) && strtolower($oneContentType)) {
+            if (strtolower($contentType) == strtolower($oneContentType)) {
                 return true;
             }
         }
@@ -404,7 +404,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        $this->getModelGeneric($context, $generalItems);
+        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
         $this->getModelConsumeProduce($generalItems);
 
         $paths = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;

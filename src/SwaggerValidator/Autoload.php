@@ -21,7 +21,7 @@ namespace SwaggerValidator;
 /**
  * Description of SwaggerCommonAutoload
  *
- * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
+ * @author Nicolas JUHEL <swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
 final class Autoload

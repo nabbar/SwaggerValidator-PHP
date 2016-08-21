@@ -14,7 +14,7 @@
     convertWarningsToExceptions="true"
     colors="always"
     cacheTokens="false"
-    processIsolation="false"
+    processIsolation="true"
     verbose="true"
 >
     <testsuites>

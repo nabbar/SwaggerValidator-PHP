@@ -119,7 +119,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
     {
         $result = array();
 
-        $this->getModelGeneric($context, $generalItems);
+        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
         $this->getModelConsumeProduce($generalItems);
 
         foreach ($this->keys() as $key) {
