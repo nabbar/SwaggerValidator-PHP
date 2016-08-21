@@ -18,7 +18,8 @@
       - Fix some compatibilities error with PHP 5.3
       - Fix a forget check in the primitive data type (size : minimum, exclusiveMinimum, minLength, ...)
       - Fix a forget check if the mini size is not set or equal to zero and empty data, then skip other test
-### patch #5:
+
+# Version 1.1.0 - 2016-08-07 :
       - Fix the validating format value integer/number/boolean
       - Fix validation string format binary, password
       - Fix getModel from format for string
@@ -26,4 +27,10 @@
       - Add random value for getModel Primitives Data Type
       - Add Coverage calculation & CodeClimate report in travis build run
       - Add Sandbox feature : keep validated params and drop global magic variable
+
+# Version 1.2.0 - 2016-08-21 :
+      - Refactor FS Structure
+      - Refactor autoloader to PSR 4
+      - Fix error in overriding classes
+      - Fix minor bug
 
