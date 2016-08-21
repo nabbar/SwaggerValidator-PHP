@@ -85,7 +85,8 @@
             "@Phpunit",
             "@PharBuilder",
             "@PharTest",
-            "@Coverage"
+            "@Coverage",
+            "./vendor/bin/test-reporter"
         ],
         "test": [
             "@Phpunit"
