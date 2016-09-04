@@ -28,9 +28,7 @@ interface ContextLog
 
     public static function logLoadFile($file, $method = null, $line = null);
 
-    public static function logLoadRef($ref, $method = null, $line = null);
-
-    public static function logReplaceRef($oldRef, $newRef, $method = null, $line = null);
+    public static function logReference($type, $ref, $oldRef = null, $method = null, $line = null);
 
     public static function logDecode($decodePath, $decodeType, $method = null, $line = null);
 

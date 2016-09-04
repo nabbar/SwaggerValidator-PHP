@@ -88,29 +88,29 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function hasFormat()
     {
-        return $this->__isset('format');
+        return $this->__isset(\SwaggerValidator\Common\FactorySwagger::KEY_FORMAT);
     }
 
     public function hasDefault()
     {
-        return $this->__isset('default');
+        return $this->__isset(\SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT);
     }
 
     public function getDefault(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return $this->__get('default');
+        return $this->__get(\SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT);
     }
 
     public function hasExample()
     {
-        return $this->__isset('example');
+        return $this->__isset(\SwaggerValidator\Common\FactorySwagger::KEY_EXAMPLE);
     }
 
     public function getExample(\SwaggerValidator\Common\Context $context)
     {
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return $this->__get('example');
+        return $this->__get(\SwaggerValidator\Common\FactorySwagger::KEY_EXAMPLE);
     }
 
     public function hasEnum()

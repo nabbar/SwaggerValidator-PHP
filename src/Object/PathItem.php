@@ -69,10 +69,8 @@ class PathItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function getModel(\SwaggerValidator\Common\Context $context, $generalItems = array())
     {
-        $result = array();
-
-        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
-        $this->getModelConsumeProduce($generalItems);
+        $result       = array();
+        $generalItems = $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
 
         foreach ($this->keys() as $key) {
             if (!is_object($this->$key) || !($this->$key instanceof \SwaggerValidator\Object\Operation)) {

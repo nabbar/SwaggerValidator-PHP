@@ -91,7 +91,7 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
         return $this->$key->validate($context);
     }
 
-    function getModel(\SwaggerValidator\Common\Context $context, &$listParameters)
+    function getModel(\SwaggerValidator\Common\Context $context, $listParameters)
     {
         foreach ($this->keys() as $key) {
             $model = null;
@@ -117,6 +117,7 @@ class Parameters extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        return $listParameters;
     }
 
 }

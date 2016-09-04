@@ -77,12 +77,15 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             self::TYPE_RESPONSE => self::MODE_PASS,
         ),
         'log'  => array(
-            'loadFile'   => true,
-            'loadRef'    => true,
-            'replaceRef' => true,
-            'decode'     => true,
-            'validate'   => true,
-            'model'      => true,
+            'loadFile'    => true,
+            'loadRef'     => true,
+            'replaceRef'  => true,
+            'registerRef' => true,
+            'dropRef'     => true,
+            'reference'   => true,
+            'decode'      => true,
+            'validate'    => true,
+            'model'       => true,
         ),
     );
 
@@ -114,6 +117,9 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         self::setConfig('log', 'loadFile', false);
         self::setConfig('log', 'loadRef', false);
         self::setConfig('log', 'replaceRef', false);
+        self::setConfig('log', 'registerRef', false);
+        self::setConfig('log', 'dropRef', false);
+        self::setConfig('log', 'reference', false);
         self::setConfig('log', 'decode', false);
         self::setConfig('log', 'validate', false);
         self::setConfig('log', 'model', false);
@@ -579,25 +585,28 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             return $this;
         }
 
+        $last = $this->getLastDataPath();
+        $last = array_pop($last);
+
         switch ($this->getLocation()) {
             case \SwaggerValidator\Common\FactorySwagger::LOCATION_BODY:
                 \SwaggerValidator\Common\Sandbox::getInstance()->setBody($this->getDataValue());
                 break;
 
             case \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM:
-                \SwaggerValidator\Common\Sandbox::getInstance()->setForm($this->getLastDataPath(), $this->getDataValue());
+                \SwaggerValidator\Common\Sandbox::getInstance()->setForm($last, $this->getDataValue());
                 break;
 
             case \SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER:
-                \SwaggerValidator\Common\Sandbox::getInstance()->setHeader($this->getLastDataPath(), $this->getDataValue());
+                \SwaggerValidator\Common\Sandbox::getInstance()->setHeader($last, $this->getDataValue());
                 break;
 
             case \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH:
-                \SwaggerValidator\Common\Sandbox::getInstance()->setPath($this->getLastDataPath(), $this->getDataValue());
+                \SwaggerValidator\Common\Sandbox::getInstance()->setPath($last, $this->getDataValue());
                 break;
 
             case \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY:
-                \SwaggerValidator\Common\Sandbox::getInstance()->setQueryString($this->getLastDataPath(), $this->getDataValue());
+                \SwaggerValidator\Common\Sandbox::getInstance()->setQueryString($last, $this->getDataValue());
                 break;
         }
 
@@ -726,33 +735,6 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     }
 
     /**
-     * Log loading external reference
-     * @param string $ref
-     * @param string $method
-     * @param int $line
-     */
-    public static function logLoadRef($ref, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'loadRef')) {
-            self::logDebug('Loading Reference : "' . $ref . '"', $method, $line);
-        }
-    }
-
-    /**
-     * Log a replacement of external reference to internal id of reference
-     * @param string $oldRef
-     * @param string $newRef
-     * @param string $method
-     * @param int $line
-     */
-    public static function logReplaceRef($oldRef, $newRef, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'replaceRef')) {
-            self::logDebug('Replacing Reference From "' . $oldRef . '" to "' . $newRef . '"', $method, $line);
-        }
-    }
-
-    /**
      * Log a decoding json mixed data as SwaggerValidator PHP object
      * @param string $decodePath
      * @param string $decodeType
@@ -790,6 +772,34 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     {
         if (self::getConfig('log', 'model')) {
             self::logDebug('Model Created "' . $path . '"', $method, $line);
+        }
+    }
+
+    /**
+     * Log an external reference action
+     * @param string $type  Type of action
+     * @param string $ref
+     * @param string $oldRef
+     * @param string $method
+     * @param int $line
+     */
+    public static function logReference($type, $ref, $oldRef = null, $method = null, $line = null)
+    {
+        if (self::getConfig('log', 'reference') || self::getConfig('log', $type . 'Ref')) {
+            switch ($type) {
+                case 'replace':
+                    self::logDebug('Replacing Reference From "' . $oldRef . '" to "' . $ref . '"', $method, $line);
+                    break;
+                case 'load':
+                    self::logDebug('Loading Reference : "' . $ref . '"', $method, $line);
+                    break;
+                case 'register':
+                    self::logDebug('Registier Reference Definition : "' . $ref . '"', $method, $line);
+                    break;
+                case 'drop':
+                    self::logDebug('Drop Reference : "' . $ref . '"', $method, $line);
+                    break;
+            }
         }
     }
 

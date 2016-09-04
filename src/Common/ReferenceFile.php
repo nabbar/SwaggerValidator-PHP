@@ -41,9 +41,9 @@ class ReferenceFile
     {
         $this->fileUri = $filepath;
 
-        $scheme = parse_url($filepath, PHP_URL_SCHEME);
+        $urlPart = parse_url($filepath);
 
-        if (strtolower($scheme) == 'file' || $scheme === null || file_exists($filepath)) {
+        if (empty($urlPart['scheme']) || empty($urlPart['host']) || strtolower($urlPart['scheme']) == 'file' || file_exists($filepath)) {
             $this->baseType = self::PATH_TYPE_FILE;
             $this->basePath = realpath(dirname($filepath));
 
@@ -51,26 +51,24 @@ class ReferenceFile
                 $this->basePath .= DIRECTORY_SEPARATOR;
             }
         }
-        elseif ($scheme !== false) {
-            $this->baseType = self::PATH_TYPE_URL;
+        elseif ($urlPart !== false) {
+            $this->baseType  = self::PATH_TYPE_URL;
+            $urlPart['path'] = dirname($urlPart['path']);
 
-            $part         = parse_url($filepath);
-            $part['path'] = dirname($part['path']);
+            $this->basePath = $urlPart['scheme'] . '://';
 
-            $this->basePath = $part['scheme'] . '://';
-
-            if (!empty($part['user']) || !empty($part['pass'])) {
-                $this->basePath .= $part['user'] . ':' . $part['pass'] . '@' . $part['host'];
+            if (!empty($urlPart['user']) || !empty($urlPart['pass'])) {
+                $this->basePath .= $urlPart['user'] . ':' . $urlPart['pass'] . '@' . $urlPart['host'];
             }
             else {
-                $this->basePath .= $part['host'];
+                $this->basePath .= $urlPart['host'];
             }
 
-            if (!empty($part['port'])) {
-                $this->basePath .= ':' . $part['port'];
+            if (!empty($urlPart['port'])) {
+                $this->basePath .= ':' . $urlPart['port'];
             }
 
-            $this->basePath .= $part['path'];
+            $this->basePath .= $urlPart['path'];
         }
         else {
             $this->throwException('Pathtype not well formatted : ' . $filepath, null, __FILE__, __LINE__);
@@ -193,7 +191,7 @@ class ReferenceFile
                 $ref = $this->fileUri . '#/' . $keyDef . '/' . $key;
                 $id  = \SwaggerValidator\Common\CollectionReference::getIdFromRef($ref);
                 \SwaggerValidator\Common\CollectionReference::registerDefinition($ref);
-                \SwaggerValidator\Common\Context::logReplaceRef($key, $id, __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('replace', $id, $key, __METHOD__, __LINE__);
             }
         }
 
@@ -209,7 +207,7 @@ class ReferenceFile
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \SwaggerValidator\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }
@@ -238,7 +236,7 @@ class ReferenceFile
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \SwaggerValidator\Common\Context::logReplaceRef($value, $ref[0], __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }

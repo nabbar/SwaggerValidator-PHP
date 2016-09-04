@@ -66,7 +66,7 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
         return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_RESPONSE_ERROR, 'Response Code not found to this route', __METHOD__, __LINE__);
     }
 
-    public function getModel(\SwaggerValidator\Common\Context $context, &$listParameters)
+    public function getModel(\SwaggerValidator\Common\Context $context, $listParameters)
     {
         foreach ($this->keys() as $key) {
 
@@ -88,6 +88,7 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        return $listParameters;
     }
 
 }
