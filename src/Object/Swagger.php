@@ -404,10 +404,8 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
-        $this->getModelConsumeProduce($generalItems);
-
-        $paths = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
+        $generalItems = $this->getMethodGeneric($context, __FUNCTION__);
+        $paths        = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $this->$paths->getModel($context->setDataPath($paths), $generalItems);

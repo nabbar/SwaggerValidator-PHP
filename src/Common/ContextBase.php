@@ -502,10 +502,45 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         return implode('/', $this->__get('DataPath'));
     }
 
-    public function getLastDataPath()
+    public function getLastDataPath($nb = 1)
     {
         $ref = $this->__get('DataPath');
-        return array_pop($ref);
+
+        if ($nb < 1 || $nb >= count($ref)) {
+            return $ref;
+        }
+
+        $result = array();
+        for ($i = 0; $i < $nb; $i++) {
+            $result[] = array_pop($ref);
+        }
+
+        return array_reverse($result);
+    }
+
+    public function searchDataPath($search, $nb = 1)
+    {
+        $ref  = $this->__get('DataPath');
+        $find = null;
+
+        while ($find != $search && count($ref) > 0) {
+            $find = array_pop($ref);
+        }
+
+        if (count($ref) < 1) {
+            return;
+        }
+
+        if ($nb < 1 || $nb >= count($ref)) {
+            return $ref;
+        }
+
+        $result = array();
+        for ($i = 0; $i < $nb; $i++) {
+            $result[] = array_pop($ref);
+        }
+
+        return array_reverse($result);
     }
 
     /**

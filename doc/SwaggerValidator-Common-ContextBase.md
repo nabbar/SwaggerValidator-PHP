@@ -761,7 +761,7 @@ Methods
 
 ### getLastDataPath
 
-    mixed SwaggerValidator\Common\ContextBase::getLastDataPath()
+    mixed SwaggerValidator\Common\ContextBase::getLastDataPath($nb)
 
 
 
@@ -769,6 +769,26 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $nb **mixed**
+
+
+
+### searchDataPath
+
+    mixed SwaggerValidator\Common\ContextBase::searchDataPath($search, $nb)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $search **mixed**
+* $nb **mixed**
 
 
 

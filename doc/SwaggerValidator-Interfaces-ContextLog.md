@@ -38,9 +38,9 @@ Methods
 
 
 
-### logLoadRef
+### logReference
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logLoadRef($ref, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logReference($type, $ref, $oldRef, $method, $line)
 
 
 
@@ -51,27 +51,9 @@ Methods
 
 
 #### Arguments
+* $type **mixed**
 * $ref **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logReplaceRef
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logReplaceRef($oldRef, $newRef, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
 * $oldRef **mixed**
-* $newRef **mixed**
 * $method **mixed**
 * $line **mixed**
 

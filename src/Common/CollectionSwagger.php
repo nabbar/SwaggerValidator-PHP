@@ -152,9 +152,17 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
     }
 
-    protected function getMethodGeneric(\SwaggerValidator\Common\Context $context, $method, &$generalItems, $typeKey = null, $params = array())
+    protected function getMethodGeneric(\SwaggerValidator\Common\Context $context, $method, $generalItems = array(), $typeKey = null, $params = array())
     {
-        if (!is_array($generalItems)) {
+        if (!is_array($generalItems) && empty($typeKey)) {
+            $generalItems = array(
+                \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS => array(),
+                \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES  => array(),
+                \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES   => array(),
+                \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES   => array(),
+            );
+        }
+        elseif (!is_array($generalItems)) {
             $generalItems = array();
         }
 
@@ -170,35 +178,32 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
                 break;
 
             default:
-                $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS, $params);
-                $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES, $params);
-                return;
-        }
-
-        if (!isset($this->$key) || !is_object($this->$key)) {
-            return;
+                $generalItems = $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS, $params);
+                $generalItems = $this->getMethodGeneric($context, $method, $generalItems, \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES, $params);
+                $generalItems = $this->getModelConsumeProduce($generalItems);
+                return $generalItems;
         }
 
         if (!array_key_exists($key, $generalItems)) {
             $generalItems[$key] = array();
         }
 
-        if ($this->$key instanceof $cls && method_exists($this->$key, $method) && !empty($params)) {
-            call_user_func_array(array($this->$key, $method), array($context->setDataPath($key), $generalItems[$key]) + $params);
-        }
-        elseif ($this->$key instanceof $cls && method_exists($this->$key, $method)) {
-            $this->$key->$method($context->setDataPath($key), $generalItems[$key]);
+        if (!isset($this->$key) || !is_object($this->$key)) {
+            return $generalItems;
         }
 
-        return;
+        if ($this->$key instanceof $cls && !empty($params)) {
+            $generalItems[$key] = call_user_func_array(array($this->$key, $method), array($context->setDataPath($key), $generalItems[$key]) + $params);
+        }
+        elseif ($this->$key instanceof $cls) {
+            $generalItems[$key] = $this->$key->$method($context->setDataPath($key), $generalItems[$key]);
+        }
+
+        return $generalItems;
     }
 
-    protected function getModelConsumeProduce(&$generalItems)
+    protected function getModelConsumeProduce($generalItems = array())
     {
-        if (!is_array($generalItems)) {
-            $generalItems = array();
-        }
-
         $list = array(
             \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES,
             \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES,
@@ -206,18 +211,18 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 
         foreach ($list as $key) {
 
-            if (!isset($this->$key) || !is_array($this->$key)) {
-                continue;
-            }
-
             if (!array_key_exists($key, $generalItems)) {
                 $generalItems[$key] = array();
+            }
+
+            if (!isset($this->$key) || !is_array($this->$key)) {
+                continue;
             }
 
             $generalItems[$key] = $this->$key;
         }
 
-        return;
+        return $generalItems;
     }
 
     /**

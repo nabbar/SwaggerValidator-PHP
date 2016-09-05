@@ -83,13 +83,11 @@ class Operation extends \SwaggerValidator\Common\CollectionSwagger
 
     public function getModel(\SwaggerValidator\Common\Context $context, $generalItems = array())
     {
-        $parameters = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
-        $responses  = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
-        $consumes   = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
-        $produces   = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
-
-        $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
-        $this->getModelConsumeProduce($generalItems);
+        $parameters   = \SwaggerValidator\Common\FactorySwagger::KEY_PARAMETERS;
+        $responses    = \SwaggerValidator\Common\FactorySwagger::KEY_RESPONSES;
+        $consumes     = \SwaggerValidator\Common\FactorySwagger::KEY_CONSUMES;
+        $produces     = \SwaggerValidator\Common\FactorySwagger::KEY_PRODUCES;
+        $generalItems = $this->getMethodGeneric($context, __FUNCTION__, $generalItems);
 
         foreach (array_keys($generalItems) as $key) {
             if (empty($generalItems[$key])) {

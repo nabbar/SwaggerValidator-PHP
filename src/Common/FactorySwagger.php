@@ -48,8 +48,10 @@ class FactorySwagger
     const KEY_CONSUMES      = 'consumes';
     const KEY_DEFAULT       = 'default';
     const KEY_DEFINITIONS   = 'definitions';
+    const KEY_EXAMPLE       = 'example';
     const KEY_EXTERNALDOCS  = 'externalDocs';
     const KEY_FLOW          = 'flow';
+    const KEY_FORMAT        = 'format';
     const KEY_HEADERS       = 'headers';
     const KEY_IN            = 'in';
     const KEY_ITEMS         = 'items';

@@ -105,7 +105,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             $this->__set($ref);
         }
 
-        \SwaggerValidator\Common\Context::logLoadRef(self::getRefFromId($id), __METHOD__, __LINE__);
+        \SwaggerValidator\Common\Context::logReference('load', self::getRefFromId($id), null, __METHOD__, __LINE__);
         return parent::__get($id);
     }
 
@@ -256,6 +256,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         }
 
         if (!array_key_exists($fullRef, self::$refIdDefinitions)) {
+            \SwaggerValidator\Common\Context::logReference('register', $fullRef, null, __METHOD__, __LINE__);
             self::$refIdDefinitions[$fullRef] = $id;
         }
     }
@@ -264,7 +265,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
     {
         foreach (parent::keys() as $key) {
             if (!in_array($key, self::$refIdDefinitions)) {
-                //\SwaggerValidator\Common\Context::logDebug('Drop Ref : ' . $key, __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('drop', $key, null, __METHOD__, __LINE__);
                 parent::__unset($key);
             }
         }

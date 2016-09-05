@@ -18,11 +18,11 @@
 
 namespace SwaggerValidator;
 
-if (file_exists('SwaggerValidator.phar')) {
+if (file_exists('SwaggerValidator.phar') && !class_exists('\SwaggerValidator\SwaggerAutoload')) {
     require_once "phar://SwaggerValidator.phar";
     \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
-else {
+elseif (!class_exists('\SwaggerValidator\SwaggerAutoload')) {
     require_once 'SwaggerAutoload.php';
     \SwaggerValidator\SwaggerAutoload::registerAutoloader();
 }
@@ -160,7 +160,7 @@ class Swagger
             self::throwException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
         }
 
-        $swagger = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
+        $swagger = \SwaggerValidator\Common\Factory::getInstance()->get(\SwaggerValidator\Common\CollectionType::Swagger);
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
             self::throwException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
@@ -182,6 +182,8 @@ class Swagger
      */
     protected static function loadCache()
     {
+        self::cleanInstances();
+
         $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
 
         if (!is_array($swagger)) {

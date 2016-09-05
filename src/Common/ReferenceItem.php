@@ -67,7 +67,7 @@ class ReferenceItem
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
                 $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
-                \SwaggerValidator\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {
@@ -95,7 +95,7 @@ class ReferenceItem
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
                 $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
-                \SwaggerValidator\Common\Context::logReplaceRef($oldRef, $value, __METHOD__, __LINE__);
+                \SwaggerValidator\Common\Context::logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {

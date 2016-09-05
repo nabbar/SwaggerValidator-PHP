@@ -27,9 +27,9 @@ namespace SwaggerValidator\Object;
 class Reference extends \SwaggerValidator\Common\CollectionSwagger
 {
 
-    private $referenceId;
-    private $reference;
-    private $jsonData;
+    protected $referenceId;
+    protected $reference;
+    protected $jsonData;
 
     public function __construct()
     {
@@ -77,6 +77,7 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
 
         $object         = \SwaggerValidator\Common\CollectionReference::getInstance()->get($this->referenceId);
         $this->jsonData = $object->getJson($context);
+        $this->registerRecursiveDefinitions($jsonData);
 
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }

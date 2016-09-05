@@ -37,14 +37,17 @@ final class SwaggerAutoload
      */
     final public static function autoload($className)
     {
-        if (\Phar::running()) {
+        if (\Phar::running() && defined('PHAR_SWAGGER_VALIDATOR_ROOT_PATH')) {
+            $baseDir = PHAR_SWAGGER_VALIDATOR_ROOT_PATH;
+        }
+        elseif (\Phar::running()) {
             $baseDir = null;
         }
         else {
             $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
         }
 
-        $thisClass = trim(__NAMESPACE__, '\\');
+        $thisClass = 'SwaggerValidator';
 
         $namespace = explode('\\', $className);
         $className = array_pop($namespace);
@@ -77,7 +80,7 @@ final class SwaggerAutoload
      */
     final public static function registerAutoloader()
     {
-        spl_autoload_register(__CLASS__ . "::autoload");
+        spl_autoload_register("\\SwaggerValidator\\SwaggerAutoload::autoload");
     }
 
 }
