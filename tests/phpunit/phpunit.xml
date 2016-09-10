@@ -16,6 +16,9 @@
     cacheTokens="false"
     processIsolation="true"
     verbose="true"
+    timeoutForSmallTests="600"
+    timeoutForMediumTests="1800"
+    timeoutForLargeTests="3600"
 >
     <testsuites>
         <testsuite name="Swagger Validator">

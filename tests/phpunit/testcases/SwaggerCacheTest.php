@@ -48,6 +48,9 @@ class SwaggerCacheTest extends genericTestClass
         }
     }
 
+    /**
+     * @small
+     */
     public function testCacheGenerate()
     {
         ob_start();

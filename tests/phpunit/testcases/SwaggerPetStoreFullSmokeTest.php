@@ -25,6 +25,9 @@
 class SwaggerPetStoreFullSmokeTest extends genericTestClass
 {
 
+    /**
+     * @large
+     */
     public function testSmokeModel()
     {
         ob_start();
@@ -151,6 +154,9 @@ class SwaggerPetStoreFullSmokeTest extends genericTestClass
         ob_end_clean();
     }
 
+    /**
+     * @medium
+     */
     public function testDocument()
     {
         if (version_compare(PHP_VERSION, "5.4", "<")) {

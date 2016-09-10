@@ -121,6 +121,7 @@ class SwaggerFaulsSmokeTest extends genericTestClass
     /**
      *
      * @dataProvider getTestCasesForRequest
+     * @small
      */
     public function testSmokeFaulsModelRequest($expected, $basepath, $route, $method, $querystring, $headers, $postForm, $bodyRaw)
     {
