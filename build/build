@@ -70,6 +70,18 @@ if [ $RELEASE != $LASTLOG ]; then
 fi;
 
 git status
+printNoLine "Run Composer Build Script (Ctrl+C to cancel) ?";
+CANCEL=$(prompt)
+
+composer run-script --timeout=0 build
+
+git add .
+printClear "File To update :"
+printEmpty ;
+printEmpty ;
+git status
+printEmpty ;
+printEmpty ;
 printNoLine "Push to develop (Ctrl+C to cancel) ?";
 CANCEL=$(prompt)
 
@@ -79,6 +91,8 @@ git reset HEAD --hard
 git branch v$RELEASE
 git checkout v$RELEASE
 
+printEmpty;
+printEmpty;
 COMPOSER=$(grep "\"version\":" composer.json | awk '{gsub("\"", ""); gsub(",", ""); print $2}')
 
 if [ $RELEASE != $COMPOSER ]; then
