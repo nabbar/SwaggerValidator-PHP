@@ -33,7 +33,7 @@ function prompt {
 
 git reset HEAD --hard
 git checkout . 2>&1
-git pull --all --prune --verbose --recursive --force
+git pull --all --prune --verbose --force
 git checkout develop
 LASTTAG=$(git for-each-ref --format="%(refname:short)" refs/tags|tail -n 1)
 LASTTAGDATE=$(git for-each-ref --format="%(creatordate:short)" refs/tags|tail -n 1)
@@ -149,7 +149,7 @@ git push --set-upstream origin v$RELEASE
 git checkout develop
 git reset HEAD --hard
 git checkout . 2>&1
-git pull --all --prune --verbose --recursive --force
+git pull --all --prune --verbose --force
 git checkout develop 2>&1
 
 printEmpty ;
