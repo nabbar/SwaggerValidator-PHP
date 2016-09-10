@@ -82,7 +82,6 @@
             "@PharTest"
         ],
         "gitBuildCoverage": [
-            "@Phpunit",
             "@PharBuilder",
             "@PharTest",
             "@Coverage",
