@@ -146,7 +146,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
                     continue;
                 }
 
-                $ctx->setDataPath($paramName)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, $paramName . ' is given and not expected', __METHOD__, __LINE__);
+                $ctx->setDataPath($key)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY, $key . ' is given and not expected', __METHOD__, __LINE__);
             }
         }
 
@@ -240,7 +240,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             return true;
         }
 
-        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'HostName requested is not allowed', __METHOD__, __LINE__);
+        return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_HOSTNAME_ERROR, 'HostName requested is not allowed', __METHOD__, __LINE__);
     }
 
     /**
@@ -255,7 +255,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         if (substr($context->getDataValue(), 0, strlen($this->basePath)) != $this->basePath) {
-            return $context->setValidationError(\SwaggerValidator\CustomIOHelper::VALIDATION_TYPE_DATAVALUE, 'BasePath requested is not allowed', __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_BASEPATH_ERROR, 'HostName requested is not allowed', __METHOD__, __LINE__);
         }
 
         $context->setBasePath($this->basePath);

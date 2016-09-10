@@ -56,6 +56,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     /*
      * Calidation Error Constants
      */
+    const VALIDATION_TYPE_HOSTNAME_ERROR = 'HOSTNAME';
     const VALIDATION_TYPE_BASEPATH_ERROR = 'BASEPATH';
     const VALIDATION_TYPE_DATASIZE       = 'DATASIZE';
     const VALIDATION_TYPE_DATATYPE       = 'DATATYPE';
@@ -853,8 +854,8 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
 
             default:
                 $this->cleanParams();
-                $e = new \SwaggerValidator\Exception();
-                $e->init($messageException, $this, __FILE__, __LINE__);
+                $e = new \SwaggerValidator\Exception($messageException);
+                $e->init($messageException, array('type' => $valitionType, 'context' => $this), __FILE__, __LINE__);
                 throw $e;
         }
     }
