@@ -11,7 +11,7 @@ function printClear {
    echo "";
    echo "";
    echo "";
-   echo $1;
+   echo -e $1;
 }
 
 function printLine {
@@ -23,9 +23,7 @@ function printNoLine {
 }
 
 function printEmpty {
-   echo "";
-   echo "";
-   echo "";
+   echo -e "\n\n\n";
 }
 
 function prompt {
@@ -49,6 +47,8 @@ git for-each-ref --format="%(refname:short)    %09%(authorname)    %09%(creatord
 printNoLine "Publish the release number (x.x.x) : ";
 RELEASE=$(prompt)
 RELEASEDATE=$(date +%Y-%m-%d)
+
+printClear ;
 
 if [ $RELEASE != $LASTLOG ]; then
    if [ $LASTTAG != $LASTLOG ]; then
