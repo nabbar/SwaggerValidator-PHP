@@ -20,35 +20,35 @@ Properties
 
 ### $referenceId
 
-    private mixed $referenceId
+    protected mixed $referenceId
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $reference
 
-    private mixed $reference
+    protected mixed $reference
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $jsonData
 
-    private mixed $jsonData
+    protected mixed $jsonData
 
 
 
 
 
-* Visibility: **private**
+* Visibility: **protected**
 
 
 ### $mandatoryKeys

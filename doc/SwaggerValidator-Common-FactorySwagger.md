@@ -127,6 +127,14 @@ Constants
 
 
 
+### KEY_EXAMPLE
+
+    const KEY_EXAMPLE = 'example'
+
+
+
+
+
 ### KEY_EXTERNALDOCS
 
     const KEY_EXTERNALDOCS = 'externalDocs'
@@ -138,6 +146,14 @@ Constants
 ### KEY_FLOW
 
     const KEY_FLOW = 'flow'
+
+
+
+
+
+### KEY_FORMAT
+
+    const KEY_FORMAT = 'format'
 
 
 

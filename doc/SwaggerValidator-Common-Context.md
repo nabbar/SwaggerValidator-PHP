@@ -128,6 +128,14 @@ Constants
 
 
 
+### VALIDATION_TYPE_HOSTNAME_ERROR
+
+    const VALIDATION_TYPE_HOSTNAME_ERROR = 'HOSTNAME'
+
+
+
+
+
 ### VALIDATION_TYPE_BASEPATH_ERROR
 
     const VALIDATION_TYPE_BASEPATH_ERROR = 'BASEPATH'
@@ -222,7 +230,7 @@ Properties
 
 ### $config
 
-    protected array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'decode' => true, 'validate' => true, 'model' => true))
+    protected array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'registerRef' => true, 'dropRef' => true, 'reference' => true, 'decode' => true, 'validate' => true, 'model' => true))
 
 
 
@@ -917,47 +925,6 @@ Used to clean params if validation error occured for mode PASS
 
 
 
-### logLoadRef
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logLoadRef($ref, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
-
-
-#### Arguments
-* $ref **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logReplaceRef
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logReplaceRef($oldRef, $newRef, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
-
-
-#### Arguments
-* $oldRef **mixed**
-* $newRef **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
 ### logDecode
 
     mixed SwaggerValidator\Interfaces\ContextLog::logDecode($decodePath, $decodeType, $method, $line)
@@ -1015,6 +982,28 @@ Used to clean params if validation error occured for mode PASS
 
 #### Arguments
 * $path **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logReference
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logReference($type, $ref, $oldRef, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $type **mixed**
+* $ref **mixed**
+* $oldRef **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -1599,7 +1588,7 @@ Used to clean params if validation error occured for mode PASS
 
 ### getLastDataPath
 
-    mixed SwaggerValidator\Common\ContextBase::getLastDataPath()
+    mixed SwaggerValidator\Common\ContextBase::getLastDataPath($nb)
 
 
 
@@ -1608,6 +1597,27 @@ Used to clean params if validation error occured for mode PASS
 * Visibility: **public**
 * This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
 
+
+#### Arguments
+* $nb **mixed**
+
+
+
+### searchDataPath
+
+    mixed SwaggerValidator\Common\ContextBase::searchDataPath($search, $nb)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $search **mixed**
+* $nb **mixed**
 
 
 
