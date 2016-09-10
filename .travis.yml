@@ -18,8 +18,9 @@ language: php
 
 # Commands to be run before your environment runs.
 before_script:
+  - /usr/bin/env bash tests/phpini.sh 0
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install --prefer-source --no-interaction
 
 # allow_failures: Allow this build to fail under the specified environments.
 # fast_finish: If your build fails do not continue trying to build, just stop.
@@ -42,7 +43,7 @@ matrix:
   fast_finish: true
 
 # Commands you want to run that will verify your build.
-script: composer $SCRIPTBUILD
+script: composer run-script --timeout=0 $SCRIPTBUILD
 
 # Customize when the notification emails are sent.
 notifications:

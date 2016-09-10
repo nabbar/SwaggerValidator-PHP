@@ -44,37 +44,38 @@
         "phpunit/php-code-coverage": ">=2.1",
         "phpunit/php-timer": ">=1.0",
         "phpunit/phpunit-mock-objects": ">=2.3",
-        "phpdocumentor/phpdocumentor": ">=2.0",
-        "evert/phpdoc-md" : ">=0.2",
-        "codeclimate/php-test-reporter": "dev-master"
+        "codeclimate/php-test-reporter": "dev-master",
+        "phpdocumentor/phpdocumentor" : ">= 2.0",
+        "evert/phpdoc-md" : ">= 0.2"
     },
     "scripts": {
         "Coverage": [
-            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=build/logs/clover.xml --coverage-text=php://stdout"
+            "php vendor/phpunit/phpunit/phpunit --enforce-time-limit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php --coverage-clover=build/logs/clover.xml --coverage-text=php://stdout"
         ],
         "Phpunit": [
-            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
+            "php vendor/phpunit/phpunit/phpunit --enforce-time-limit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phpunit/phpunit.xml --bootstrap tests/phpunit/bootstrap.php"
         ],
         "PharBuilder": [
             "php -d phar.readonly=0 -f tests/pharBuilder/makePhar.php",
             "chmod ugo+x bin/SwaggerValidator.phar"
         ],
         "PharTest": [
-            "php vendor/phpunit/phpunit/phpunit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
+            "php vendor/phpunit/phpunit/phpunit --enforce-time-limit --debug --process-isolation --report-useless-tests --colors=always --stop-on-error --stop-on-failure --verbose --configuration tests/phartest/phpunit.xml --bootstrap tests/phartest/bootstrap.php"
         ],
         "PhpDoc": [
             "rm -vrf doc/; mkdir -vp doc;mkdir -vp temp;",
+            "rm -vrf doc/; mkdir -vp doc;mkdir -vp temp;",
             "vendor/phpdocumentor/phpdocumentor/bin/phpdoc -c ./phpdoc.xml --target ./doc --validate --progressbar --cache-folder ./temp",
             "vendor/evert/phpdoc-md/bin/phpdocmd doc/structure.xml doc/",
-            "rm -rf doc/structure.xml temp/; mv doc/ApiIndex.md doc/README.md"
+            "rm -rf doc/structure.xml temp/; mv doc/ApiIndex.md doc/README.md",
+            "rm -rf vendor/ composer.lock"
         ],
         "build": [
-            "composer install --dev",
             "@Phpunit",
             "@PharBuilder",
-            "@PhpDoc",
             "@PharTest",
-            "@Coverage"
+            "@Coverage",
+            "@PhpDoc"
         ],
         "gitBuild": [
             "@Phpunit",
