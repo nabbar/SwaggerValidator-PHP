@@ -49,6 +49,8 @@ RELEASE=$(prompt)
 RELEASEDATE=$(date +%Y-%m-%d)
 
 printClear ;
+printEmpty ;
+printEmpty ;
 
 if [ $RELEASE != $LASTLOG ]; then
    if [ $LASTTAG != $LASTLOG ]; then
@@ -69,13 +71,36 @@ if [ $RELEASE != $LASTLOG ]; then
    git add CHANGELOG.md;
 fi;
 
+printClear ;
+printEmpty ;
+printEmpty ;
+COMPOSER=$(grep "\"version\":" composer.json | awk '{gsub("\"", ""); gsub(",", ""); print $2}')
+RELEASEDEV=$(echo "$RELEASE-dev")
+
+if [ $RELEASEDEV != $COMPOSER ]; then
+   sed -i "s/\"version\"\: \"$COMPOSER\"\,/\"version\"\: \"$RELEASEDEV\"\,/" composer.json
+   git --no-pager diff --ignore-all-space --unified=0 composer.json
+   git add composer.json
+fi;
+
+printClear ;
+printEmpty ;
+printEmpty ;
+
 git status
+printEmpty ;
+printEmpty ;
 printNoLine "Run Composer Build Script (Ctrl+C to cancel) ?";
 CANCEL=$(prompt)
+
+printClear ;
+printEmpty ;
+printEmpty ;
 
 composer run-script --timeout=0 build
 
 git add .
+
 printClear "File To update :"
 printEmpty ;
 printEmpty ;
@@ -85,12 +110,17 @@ printEmpty ;
 printNoLine "Push to develop (Ctrl+C to cancel) ?";
 CANCEL=$(prompt)
 
+printClear ;
+printEmpty ;
+printEmpty ;
+
 git commit -m "Prepare release v$RELEASE"
 git push origin develop
 git reset HEAD --hard
 git branch v$RELEASE
 git checkout v$RELEASE
 
+printClear ;
 printEmpty;
 printEmpty;
 COMPOSER=$(grep "\"version\":" composer.json | awk '{gsub("\"", ""); gsub(",", ""); print $2}')
@@ -101,16 +131,27 @@ if [ $RELEASE != $COMPOSER ]; then
    git add composer.json
 fi;
 
+printEmpty ;
+printEmpty ;
 git status
+printEmpty ;
+printEmpty ;
 printNoLine "Push to v$RELEASE (Ctrl+C to cancel) ?";
 CANCEL=$(prompt)
 
+printClear ;
+printEmpty ;
+printEmpty ;
+
 git commit -m "Create release v$RELEASE"
-git push --set-upstream v$RELEASE
+git push --set-upstream origin v$RELEASE
 
 git checkout develop
 git reset HEAD --hard
 git checkout . 2>&1
 git pull --all --prune --verbose --recursive --force
 git checkout develop 2>&1
+
+printEmpty ;
+printEmpty ;
 
