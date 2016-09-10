@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+
+function printClear {
+   clear;
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo "";
+   echo -e $1;
+}
+
+function printLine {
+   echo -e "$1";
+}
+
+function printNoLine {
+   echo -ne "\t\t$1";
+}
+
+function printEmpty {
+   echo -e "\n\n\n";
+}
+
+function prompt {
+   read RESULT
+   echo $RESULT;
+}
+
+git reset HEAD --hard
+git checkout . 2>&1
+git pull --all --prune --verbose --recursive --force
+git checkout develop
+LASTTAG=$(git for-each-ref --format="%(refname:short)" refs/tags|tail -n 1)
+LASTTAGDATE=$(git for-each-ref --format="%(creatordate:short)" refs/tags|tail -n 1)
+LASTLOG=$(grep "Version " CHANGELOG.md | tail -n 1 | awk '{print $3}')
+
+printClear "Preparing new release !\n"
+printEmpty ;
+printLine "\t Last log release : \t$LASTLOG";
+printLine "\t Last release : \t$LASTTAG\n";
+git for-each-ref --format="%(refname:short)    %09%(authorname)    %09%(creatordate:short) %09%(contents:subject)" refs/tags
+printNoLine "Publish the release number (x.x.x) : ";
+RELEASE=$(prompt)
+RELEASEDATE=$(date +%Y-%m-%d)
+
+printClear ;
+
+if [ $RELEASE != $LASTLOG ]; then
+   if [ $LASTTAG != $LASTLOG ]; then
+      echo -e "\n#Version $LASTTAG - $LASTTAGDATE :" >>CHANGELOG.md;
+      git --no-pager log --no-color --ignore-space-at-eol --oneline $LASTLOG..$LASTTAG | while read line;
+      do
+          echo "      - $line" >>CHANGELOG.md;
+      done
+   fi;
+   echo -e "\n#Version $RELEASE - $RELEASEDATE :" >>CHANGELOG.md;
+   git --no-pager log --no-color --ignore-space-at-eol --oneline $LASTTAG.. | while read line;
+   do
+       echo "      - $line" >>CHANGELOG.md;
+   done
+   
+   vi CHANGELOG.md;
+   git --no-pager diff --ignore-all-space --unified=0 CHANGELOG.md;
+   git add CHANGELOG.md;
+fi;
+
+git status
+printNoLine "Run Composer Build Script (Ctrl+C to cancel) ?";
+CANCEL=$(prompt)
+
+composer run-script --timeout=0 build
+
+git add .
+printClear "File To update :"
+printEmpty ;
+printEmpty ;
+git status
+printEmpty ;
+printEmpty ;
+printNoLine "Push to develop (Ctrl+C to cancel) ?";
+CANCEL=$(prompt)
+
+git commit -m "Prepare release v$RELEASE"
+git push origin develop
+git reset HEAD --hard
+git branch v$RELEASE
+git checkout v$RELEASE
+
+printEmpty;
+printEmpty;
+COMPOSER=$(grep "\"version\":" composer.json | awk '{gsub("\"", ""); gsub(",", ""); print $2}')
+
+if [ $RELEASE != $COMPOSER ]; then
+   sed -i "s/\"version\"\: \"$COMPOSER\"\,/\"version\"\: \"$RELEASE\-dev\"\,/" composer.json
+   git --no-pager diff --ignore-all-space --unified=0 composer.json
+   git add composer.json
+fi;
+
+git status
+printNoLine "Push to v$RELEASE (Ctrl+C to cancel) ?";
+CANCEL=$(prompt)
+
+git commit -m "Create release v$RELEASE"
+git push --set-upstream v$RELEASE
+
+git checkout develop
+git reset HEAD --hard
+git checkout . 2>&1
+git pull --all --prune --verbose --recursive --force
+git checkout develop 2>&1
+

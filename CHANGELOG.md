@@ -34,3 +34,21 @@
       - Fix error in overriding classes
       - Fix minor bug
 
+# Version 1.2.1 - 2016-09-05 :
+      - 4ed9b0a Fix major bug in cleaning working reference from all reference 
+      - 4ed9b0a Refactor generic method for parsing generic items (parameters, responses, ...) 
+      - 4ed9b0a Add missing key as constant in FactorySwagger (keys as reserved in swagger definition) 
+      - 4ed9b0a Fix error on identify local file or remote url in reference file (used indeed for swagger main file) 
+      - 4ed9b0a Refactor log method for reference operation Fix minor bug
+      - 919da48 Update README.md
+
+# Version 1.2.2 - 2016-09-10 :
+      - 9b22172 Fix Build script
+      - 6c4065b Add Build Script
+      - b7e2e0d Fix timeout error in travais run test
+      - ba01238 Replace simple phpunit test + coverge by only coverage test for build test
+      - 9a28eff Fix error of using constant not defined in PHP 5.3
+      - b6f7010 Add test for false value / request 
+      - b6f7010 Fix error found following test Add type validation in exception resturn 
+      - b6f7010 Fix empty exception message when init exception
+
