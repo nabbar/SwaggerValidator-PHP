@@ -18,7 +18,6 @@ language: php
 
 # Commands to be run before your environment runs.
 before_script:
-  - /usr/bin/env bash tests/phpini.sh 0
   - composer self-update
   - composer install --prefer-source --no-interaction
 
