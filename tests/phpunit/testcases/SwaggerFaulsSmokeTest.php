@@ -126,7 +126,12 @@ class SwaggerFaulsSmokeTest extends genericTestClass
     {
         ob_start();
 
-        $querystring = '?' . http_build_query($querystring, null, '&', PHP_QUERY_RFC3986);
+        if (version_compare(PHP_VERSION, "5.4", "<")) {
+            $querystring = '?' . http_build_query($querystring, null, '&');
+        }
+        else {
+            $querystring = '?' . http_build_query($querystring, null, '&', PHP_QUERY_RFC3986);
+        }
 
         $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
         $this->swaggerBuild();
