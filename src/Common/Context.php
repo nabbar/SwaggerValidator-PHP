@@ -941,7 +941,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
                 break;
 
             case self::VALIDATION_TYPE_NOTFOUND:
-                $messageException = 'Swagger Validation Error : NotFound ! This parameters ' . $this->getDataPath() . ' is not found ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : NotFound ! This parameters ' . $this->getDataPath() . ' is not found ! ';
                 break;
 
             case self::VALIDATION_TYPE_TOOMANY:
@@ -949,27 +949,23 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
                 break;
 
             case self::VALIDATION_TYPE_RESPONSE_ERROR:
-                $messageException = 'Swagger Validation Error : Response Status Error in ' . $this->getDataPath() . ' ! Value Find : ' . json_encode($this->getDataValue());
-                break;
-
-            case self::VALIDATION_TYPE_SWAGGER_ERROR:
-                $messageException = 'Swagger Validation Error : Swagger Specification not respect in ' . $this->getDataPath();
+                $messageException = 'Swagger Validation Error : Response Status Error in ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_PATTERN:
-                $messageException = 'Swagger Validation Error : Pattern ! The pattern is not matching with parameters : ' . $this->getDataPath() . ' ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Pattern ! The pattern is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATATYPE:
-                $messageException = 'Swagger Validation Error : Type ! The Type is not matching with parameters : ' . $this->getDataPath() . ' ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Type ! The Type is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATASIZE:
-                $messageException = 'Swagger Validation Error : Size ! The Size is not matching with parameters : ' . $this->getDataPath() . ' ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Size ! The Size is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATAVALUE:
-                $messageException = 'Swagger Validation Error : Value ! The Value does not respect specification with parameters : ' . $this->getDataPath() . ' ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Value ! The Value does not respect specification with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             default:
