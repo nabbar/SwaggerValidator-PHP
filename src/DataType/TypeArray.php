@@ -47,14 +47,35 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
+        $keyMinItems = \SwaggerValidator\Common\FactorySwagger::KEY_MINITEMS;
+        $keyMaxItems = \SwaggerValidator\Common\FactorySwagger::KEY_MAXITEMS;
+        $keyItems    = \SwaggerValidator\Common\FactorySwagger::KEY_ITEMS;
+        $valMinItems = null;
+        $valMaxItems = null;
+
+        if ($this->__isset($keyMinItems)) {
+            $valMinItems = $this->$keyMinItems;
+        }
+
+        if ($this->__isset($keyMaxItems)) {
+            $valMaxItems = $this->$keyMaxItems;
+        }
+
+        if ($this->__isset($keyItems) && is_object($this->$keyItems) && $this->$keyItems instanceof \SwaggerValidator\DataType\TypeArrayItems) {
+            $this->$keyItems->setMinMaxItems($valMinItems, $valMaxItems);
+        }
+
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context)
     {
-        $keyType       = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
-        $keyItems      = \SwaggerValidator\Common\FactorySwagger::KEY_ITEMS;
-        $keyAdditional = \SwaggerValidator\Common\FactorySwagger::KEY_ADDITEMS;
+        $keyType        = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
+        $keyItems       = \SwaggerValidator\Common\FactorySwagger::KEY_ITEMS;
+        $keyAdditional  = \SwaggerValidator\Common\FactorySwagger::KEY_ADDITEMS;
+        $keyMinItems    = \SwaggerValidator\Common\FactorySwagger::KEY_MINITEMS;
+        $keyMaxItems    = \SwaggerValidator\Common\FactorySwagger::KEY_MAXITEMS;
+        $keyUniqueItems = \SwaggerValidator\Common\FactorySwagger::KEY_UNIQUEITEMS;
 
         if (!isset($this->$keyType)) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
@@ -71,9 +92,12 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
-        $this->collectionFormat($context);
+        $context = $this->collectionFormat($context);
+        if (!is_object($context) || !($context instanceof \SwaggerValidator\Common\Context)) {
+            return false;
+        }
 
-        if ((!isset($this->minItems) || $this->minItems < 1) && $context->isDataEmpty()) {
+        if ((!$this->__isset($keyMinItems) || $this->$keyMinItems < 1) && $context->isDataEmpty()) {
             return true;
         }
 
@@ -82,22 +106,22 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
         }
 
         if (!$this->minItems($context, $context->getDataValue())) {
-            return $context->setDataCheck('minItems')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'Value has not enough items', __METHOD__, __LINE__);
+            return $context->setDataCheck($keyMinItems)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'Value has not enough items', __METHOD__, __LINE__);
         }
 
         if (!$this->maxItems($context, $context->getDataValue())) {
-            return $context->setDataCheck('maxItems')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'Value has too many items', __METHOD__, __LINE__);
+            return $context->setDataCheck($keyMaxItems)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATASIZE, 'Value has too many items', __METHOD__, __LINE__);
         }
 
         if (isset($this->uniqueItems) && $this->uniqueItems === true) {
             $uniqValue = array_unique($context->getDataValue());
 
             if ($uniqValue != $context->getDataValue()) {
-                return $context->setDataCheck('uniqueItems')->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Value has not only uniq items', __METHOD__, __LINE__);
+                return $context->setDataCheck($keyUniqueItems)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_DATAVALUE, 'Value has not only uniq items', __METHOD__, __LINE__);
             }
         }
 
-        if (!isset($this->$keyItems) || !is_object($this->$keyItems) || !method_exists($this->$keyItems, 'validate')) {
+        if (!isset($this->$keyItems) || !is_object($this->$keyItems) || !method_exists($this->$keyItems, __FUNCTION__)) {
             return $context->setDataCheck($keyItems)->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
@@ -133,11 +157,74 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
         $keyItems = \SwaggerValidator\Common\FactorySwagger::KEY_ITEMS;
 
         if (is_object($this->$keyItems) && method_exists($this->$keyItems, 'getModel')) {
-            return $this->$keyItems->getModel($context);
+            $result = $this->$keyItems->getModel($context);
+        }
+        else {
+            $result = $this->$keyItems;
         }
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return $this->$keyItems;
+        $keyColl = \SwaggerValidator\Common\FactorySwagger::KEY_COLLECTIONFORMAT;
+        $keyIn   = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
+
+        if (!$this->__isset($keyIn) || $context->getType() == \SwaggerValidator\Common\Context::TYPE_RESPONSE) {
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            return $result;
+        }
+
+        $validLocation = array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY,
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM
+        );
+
+        switch ($this->$keyColl) {
+
+            case 'ssv':
+                // Space separated values foo bar.
+                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $result = implode(' ', $result);
+                break;
+
+            case 'tsv':
+                // Tab separated values foo\tbar.
+                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $result = implode("\t", $result);
+                break;
+
+            case 'pipes':
+                // Pipe separated values foo|bar.
+                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $result = implode('|', $result);
+                break;
+
+            case 'multi':
+                // Corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz.
+                // This is valid only for parameters in "query" or "formData".
+                if (!in_array($this->$keyIn, $validLocation)) {
+                    return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+                }
+
+                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                break;
+
+            default:
+            case 'csv':
+                // Comma separated values foo,bar.
+                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $result = implode(',', $result);
+                break;
+        }
+
+        $urlEncodeLocation = array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY,
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH,
+        );
+
+        if (is_array($result) && in_array($this->$keyIn, $urlEncodeLocation)) {
+            return array_map('urlencode', $result);
+        }
+        elseif (in_array($this->$keyIn, $urlEncodeLocation)) {
+            return urlencode($result);
+        }
     }
 
 }

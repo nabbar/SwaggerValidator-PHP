@@ -255,7 +255,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         if (substr($context->getDataValue(), 0, strlen($this->basePath)) != $this->basePath) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_BASEPATH_ERROR, 'HostName requested is not allowed', __METHOD__, __LINE__);
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_BASEPATH_ERROR, 'BasePath requested is not matching', __METHOD__, __LINE__);
         }
 
         $context->setBasePath($this->basePath);

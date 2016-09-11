@@ -30,8 +30,6 @@ class SwaggerTwitterSmokeTest extends genericTestClass
      */
     public function testSmokeModel()
     {
-        ob_start();
-
         $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerTwitter.json';
         $this->swaggerBuild();
         $this->loadModel();
@@ -84,7 +82,7 @@ class SwaggerTwitterSmokeTest extends genericTestClass
 
             if (array_key_exists($keyLocationPath, $this->swaggerModel[$testKey][$keyParameters])) {
                 foreach ($this->swaggerModel[$testKey][$keyParameters][$keyLocationPath] as $key => $value) {
-                    $path = str_replace('{' . $key . '}', urlencode($value), $path);
+                    $path = str_replace('{' . $key . '}', $value, $path);
                 }
             }
 
@@ -93,10 +91,12 @@ class SwaggerTwitterSmokeTest extends genericTestClass
 
                 foreach ($this->swaggerModel[$testKey][$keyParameters][$keyLocationQuery] as $key => $value) {
                     if (!is_array($value) && !is_object($value)) {
-                        $queryString .= '&' . $key . '=' . urlencode($value);
+                        $queryString .= '&' . $key . '=' . $value;
                     }
                     else {
-                        print "\nCannot generate an array in the queryString for param '$key' in path '$path'\n";
+                        foreach ($value as $partValue) {
+                            $queryString .= '&' . $key . '=' . $partValue;
+                        }
                     }
                 }
 
@@ -150,8 +150,6 @@ class SwaggerTwitterSmokeTest extends genericTestClass
                 $this->assertTrue($this->swaggerObject->validate($context), $testKey);
             }
         }
-
-        ob_end_clean();
     }
 
     /**
@@ -164,12 +162,8 @@ class SwaggerTwitterSmokeTest extends genericTestClass
             return;
         }
 
-        ob_start();
-
         $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerTwitter.json';
         $this->genDocCompare();
-
-        ob_end_clean();
     }
 
 }

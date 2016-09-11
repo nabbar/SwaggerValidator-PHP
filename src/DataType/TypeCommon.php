@@ -55,8 +55,10 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function isRequired()
     {
-        if (isset($this->required)) {
-            return (bool) ($this->required);
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_REQUIRED;
+
+        if ($this->__isset($key)) {
+            return (bool) ($this->$key);
         }
 
         return false;
@@ -64,22 +66,26 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function pattern(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('pattern')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_PATTERN;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        if (empty($this->pattern)) {
+        if (empty($this->$key)) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
-        $pattern = str_replace('~', '\~', $this->pattern);
+        $pattern = str_replace('~', '\~', $this->$key);
 
         return preg_match('~' . $pattern . '~', $valueParams);
     }
 
     public function allowEmptyValue(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (isset($this->allowEmptyValue) && $this->allowEmptyValue == true) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_ALLOWEMPTYVALUE;
+
+        if ($this->__isset($key) && $this->$key == true) {
             return empty($valueParams);
         }
 
@@ -115,118 +121,188 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function hasEnum()
     {
-        return $this->__isset('enum') && is_array($this->enum);
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_ENUM;
+
+        if (!$this->__isset($key)) {
+            return false;
+        }
+
+        if (!is_array($this->$key)) {
+            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
+        }
+
+        return true;
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_ENUM;
+
         if ($this->hasExample()) {
-            return $this->getExample($context);
+            return $this->formatModel($context, $this->getExample($context));
         }
         elseif ($this->hasDefault()) {
-            return $this->getDefault($context);
+            return $this->formatModel($context, $this->getDefault($context));
         }
         elseif ($this->hasEnum()) {
-            return $this->enum[0];
+            $valEnum = $this->$key;
+            return $this->formatModel($context, $valEnum[rand(0, count($valEnum) - 1)]);
         }
         elseif ($this->hasFormat()) {
-            return $this->getExampleFormat($context);
+            return $this->formatModel($context, $this->getExampleFormat($context));
         }
         else {
-            return $this->getExampleType($context);
+            return $this->formatModel($context, $this->getExampleType($context));
         }
+    }
+
+    protected function formatModel(\SwaggerValidator\Common\Context $context, $value)
+    {
+        $keyIn   = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
+        $keyType = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
+
+        if (!$this->has($keyIn)) {
+            return $value;
+        }
+
+        if (!$this->has($keyType)) {
+            return $value;
+        }
+
+        if ($this instanceof \SwaggerValidator\DataType\TypeArray) {
+            return $value;
+        }
+
+        if ($this instanceof \SwaggerValidator\DataType\TypeArrayItems) {
+            return $value;
+        }
+
+        if ($this instanceof \SwaggerValidator\DataType\TypeObject) {
+            return $value;
+        }
+
+        $urlEncodeLocation = array(
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY,
+            \SwaggerValidator\Common\FactorySwagger::LOCATION_PATH
+        );
+
+        if (in_array($this->$keyIn, $urlEncodeLocation) && is_scalar($value)) {
+            return urlencode($value);
+        }
+        elseif (in_array($this->$keyIn, $urlEncodeLocation) && !is_scalar($value)) {
+            throw new \Exception('Result is not a scallar !! ' . print_r($this, true));
+        }
+
+        return $value;
     }
 
     public function enum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('enum')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_ENUM;
+
+        if (!$this->hasEnum()) {
             return true;
         }
-        if (!is_array($this->enum)) {
-            return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
-        }
 
-        return in_array($valueParams, $this->enum);
+        return in_array($valueParams, $this->$key);
     }
 
     public function multipleOf(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('multipleOf')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_MULTIPLEOF;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        if (!is_numeric($this->multipleOf) || $this->multipleOf <= 0) {
+        if (!is_numeric($this->$key) || $this->$key <= 0) {
             return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
         }
 
-        return (($valueParams % $this->multipleOf) == 0);
+        return (($valueParams % $this->$key) == 0);
     }
 
     public function minimum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('minimum')) {
+        $key   = \SwaggerValidator\Common\FactorySwagger::KEY_MINIMUM;
+        $keyEx = \SwaggerValidator\Common\FactorySwagger::KEY_EXCLUSIVEMINIMUM;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        if (!$this->__isset('exclusiveMinimum') || $this->exclusiveMinimum == false) {
-            return ($this->minimum <= $valueParams);
+        if (!$this->__isset($keyEx) || $this->$keyEx == false) {
+            return ($this->$key <= $valueParams);
         }
 
-        return ($this->minimum < $valueParams);
+        return ($this->$key < $valueParams);
     }
 
     public function maximum(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('maximum')) {
+        $key   = \SwaggerValidator\Common\FactorySwagger::KEY_MAXIMUM;
+        $keyEx = \SwaggerValidator\Common\FactorySwagger::KEY_EXCLUSIVEMAXIMUM;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        if (!$this->__isset('exclusiveMaximum') || $this->exclusiveMaximum == false) {
-            return ($this->maximum >= $valueParams);
+        if (!$this->__isset($keyEx) || $this->$keyEx == false) {
+            return ($this->$key >= $valueParams);
         }
 
-        return ($this->maximum > $valueParams);
+        return ($this->$key > $valueParams);
     }
 
     public function minLength(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('minLength')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_MINLENGTH;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        return ($this->minLength <= strlen($valueParams));
+        return ($this->$key <= strlen($valueParams));
     }
 
     public function maxLength(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('maxLength')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_MAXLENGTH;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        return ($this->maxLength >= strlen($valueParams));
+        return ($this->$key >= strlen($valueParams));
     }
 
     public function minItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('minItems')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_MINITEMS;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        return ($this->minItems <= count($valueParams));
+        return ($this->$key <= count($valueParams));
     }
 
     public function maxItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('maxItems')) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_MAXITEMS;
+
+        if (!$this->__isset($key)) {
             return true;
         }
 
-        return ($this->maxItems >= count($valueParams));
+        return ($this->$key >= count($valueParams));
     }
 
     public function uniqueItems(\SwaggerValidator\Common\Context $context, $valueParams)
     {
-        if (!$this->__isset('uniqueItems') || $this->uniqueItems == false) {
+        $key = \SwaggerValidator\Common\FactorySwagger::KEY_UNIQUEITEMS;
+
+        if (!$this->__isset($key) || $this->$key == false) {
             return true;
         }
 
@@ -235,47 +311,45 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function collectionFormat(\SwaggerValidator\Common\Context $context)
     {
-        if (!$this->__isset('collectionFormat')) {
-            return false;
+        $key   = \SwaggerValidator\Common\FactorySwagger::KEY_COLLECTIONFORMAT;
+        $keyIn = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
+
+        if (!$this->__isset($keyIn)) {
+            return $context;
         }
 
-        switch ($this->collectionFormat) {
+        switch ($this->$key) {
 
             case 'ssv':
                 // Space separated values foo bar.
-                $valueParams = explode(' ', $valueParams);
-                break;
+                return $context->setDataValue(explode(' ', $context->getDataValue()));
 
             case 'tsv':
                 // Tab separated values foo\tbar.
-                $valueParams = explode("\t", $valueParams);
-                break;
+                return $context->setDataValue(explode("\t", $context->getDataValue()));
 
             case 'pipes':
                 // Pipe separated values foo|bar.
-                $valueParams = explode('|', $valueParams);
-                break;
+                return $context->setDataValue(explode('|', $context->getDataValue()));
 
             case 'multi':
                 // Corresponds to multiple parameter instances instead of multiple values for a single instance foo=bar&foo=baz.
                 // This is valid only for parameters in "query" or "formData".
-                if (!in_array($context->getLocation(), array(\SwaggerValidator\Common\Context::LOCATION_QUERY, \SwaggerValidator\Common\Context::LOCATION_FORM))) {
+                if (!in_array($context->getLocation(), array(\SwaggerValidator\Common\FactorySwagger::LOCATION_QUERY, \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM))) {
                     return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
                 }
 
-                /**
-                 * @todo Making parsing multi for collectionFormat
-                 */
-                break;
+                if (!is_array($context->getDataValue())) {
+                    return $context->setDataValue(array($context->getDataValue()));
+                }
+
+                return $context;
 
             default:
             case 'csv':
                 // Comma separated values foo,bar.
-                $valueParams = explode(',', $valueParams);
-                break;
+                return $context->setDataValue(explode(',', $context->getDataValue()));
         }
-
-        return true;
     }
 
 }

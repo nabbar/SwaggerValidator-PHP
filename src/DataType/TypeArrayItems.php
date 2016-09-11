@@ -27,9 +27,22 @@ namespace SwaggerValidator\DataType;
 class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
 {
 
+    protected $minItems = 1;
+    protected $maxItems = null;
+
     public function __construct()
     {
 
+    }
+
+    public function setMinMaxItems($min = null, $max = null)
+    {
+        if ($min !== null && is_integer($min) && $min > 0) {
+            $this->minItems = (int) $min;
+        }
+        if ($max !== null && is_integer($max) && $max > 0) {
+            $this->maxItems = (int) $max;
+        }
     }
 
     public function jsonSerialize()
@@ -177,21 +190,68 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
         $result    = array();
 
+        $min = 1;
+        $max = 1;
+
+        if ($this->minItems > 0) {
+            $min = $this->minItems;
+        }
+
+        if ($this->maxItems > 0) {
+            $max = $this->maxItems;
+        }
+
+        if ($max > $min) {
+            $count = rand($min, $max);
+        }
+        else {
+            $count = $min;
+        }
+
         if (isset($this->$keySchema) && is_object($this->$keySchema)) {
-            return array($this->$keySchema->getModel($context));
+            for ($i = 0; $i < $count; $i++) {
+                $result[] = $this->$keySchema->getModel($context);
+            }
+            if ($min > count($result) || $max < count($result)) {
+                throw new \Exception('Generated model has not enought items : ' . json_encode(array(
+                    'min' => $min,
+                    'max' => $max,
+                    'rnd' => $count,
+                    'nbr' => count($result),
+                    'cnt' => $i
+                )));
+            }
+            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            return $result;
         }
 
         foreach ($this->keys() as $key) {
-            if (is_object($this->$key) && method_exists($this->$key, 'getModel')) {
-                $result[$key] = $this->$key->getModel($context);
-            }
-            else {
-                $result[$key] = $this->$key;
+            $result[] = $this->getExampleTypeValue($context, $key);
+        }
+
+        if ($count > count($result)) {
+            for ($i = count($result); $i < $count; $i++) {
+                $result[] = $this->getExampleTypeValue($context, $key);
             }
         }
 
         \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
         return $result;
+    }
+
+    protected function getExampleTypeSchema(\SwaggerValidator\Common\Context $context)
+    {
+        return $this->$keySchema->getModel($context);
+    }
+
+    protected function getExampleTypeValue(\SwaggerValidator\Common\Context $context, $key)
+    {
+        if (is_object($this->$key) && method_exists($this->$key, 'getModel')) {
+            return $this->$key->getModel($context);
+        }
+        else {
+            return $this->$key;
+        }
     }
 
 }

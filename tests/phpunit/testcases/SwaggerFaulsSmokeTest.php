@@ -125,9 +125,6 @@ class SwaggerFaulsSmokeTest extends genericTestClass
      */
     public function testSmokeFaulsModelRequest($expected, $basepath, $route, $method, $querystring, $headers, $postForm, $bodyRaw)
     {
-        ob_start();
-        $this->assertTrue(set_time_limit(1800));
-
         if (version_compare(PHP_VERSION, "5.4", "<")) {
             $querystring = '?' . http_build_query($querystring, null, '&');
         }
@@ -135,7 +132,7 @@ class SwaggerFaulsSmokeTest extends genericTestClass
             $querystring = '?' . http_build_query($querystring, null, '&', PHP_QUERY_RFC3986);
         }
 
-        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
+        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerTwitter.json';
         $this->swaggerBuild();
         $this->loadModel();
 
@@ -157,8 +154,6 @@ class SwaggerFaulsSmokeTest extends genericTestClass
             $this->assertArrayHasKey('type', $error);
             $this->assertEquals($expected, $error['type']);
         }
-
-        ob_end_clean();
     }
 
     public function getTestCasesForResponse()
@@ -259,10 +254,7 @@ class SwaggerFaulsSmokeTest extends genericTestClass
      */
     public function testSmokeFaulsModelResponse($expected, $basepath, $route, $method, $status, $headers, $bodyRaw)
     {
-        ob_start();
-        $this->assertTrue(set_time_limit(1800));
-
-        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
+        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerTwitter.json';
         $this->swaggerBuild();
         $this->loadModel();
 
@@ -285,8 +277,6 @@ class SwaggerFaulsSmokeTest extends genericTestClass
             $this->assertArrayHasKey('type', $error);
             $this->assertEquals($expected, $error['type']);
         }
-
-        ob_end_clean();
     }
 
 }
