@@ -336,6 +336,24 @@ Methods
 
 
 
+### formatModel
+
+    mixed SwaggerValidator\DataType\TypeCommon::formatModel(\SwaggerValidator\Common\Context $context, $value)
+
+
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\DataType\TypeCommon](SwaggerValidator-DataType-TypeCommon.md)
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $value **mixed**
+
+
+
 ### enum
 
     mixed SwaggerValidator\DataType\TypeCommon::enum(\SwaggerValidator\Common\Context $context, $valueParams)

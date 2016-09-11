@@ -292,6 +292,23 @@ Methods
 
 
 
+### formatModel
+
+    mixed SwaggerValidator\DataType\TypeCommon::formatModel(\SwaggerValidator\Common\Context $context, $value)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $value **mixed**
+
+
+
 ### enum
 
     mixed SwaggerValidator\DataType\TypeCommon::enum(\SwaggerValidator\Common\Context $context, $valueParams)

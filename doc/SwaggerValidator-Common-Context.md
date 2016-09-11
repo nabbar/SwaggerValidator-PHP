@@ -230,7 +230,7 @@ Properties
 
 ### $config
 
-    protected array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'registerRef' => true, 'dropRef' => true, 'reference' => true, 'decode' => true, 'validate' => true, 'model' => true))
+    protected array $config = array('mode' => array(self::TYPE_REQUEST => self::MODE_DENY, self::TYPE_RESPONSE => self::MODE_PASS), 'log' => array('loadFile' => true, 'loadRef' => true, 'replaceRef' => true, 'registerRef' => true, 'dropRef' => true, 'reference' => true, 'decode' => true, 'validate' => true, 'model' => true, 'validation' => true, 'exception' => true, 'debug' => true))
 
 
 
@@ -650,6 +650,38 @@ Retrieve a config value
 
 
 
+### parseQueryAsPHP
+
+    mixed SwaggerValidator\Common\Context::parseQueryAsPHP($queryString)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $queryString **mixed**
+
+
+
+### parseQueryAsMulti
+
+    mixed SwaggerValidator\Common\Context::parseQueryAsMulti($queryString)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $queryString **mixed**
+
+
+
 ### loadRequestHeader
 
     mixed SwaggerValidator\Interfaces\ContextDataLoader::loadRequestHeader($paramName)
@@ -1029,6 +1061,26 @@ Used to clean params if validation error occured for mode PASS
 
 
 
+### logMessage
+
+    mixed SwaggerValidator\Common\Context::logMessage($type, string $message, string $method, \SwaggerValidator\Common\TypeInteger $line)
+
+Used to customizing log and more when a debug is send
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $type **mixed**
+* $message **string**
+* $method **string**
+* $line **SwaggerValidator\Common\TypeInteger**
+
+
+
 ### logValidationError
 
     mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $method, $line)
@@ -1043,6 +1095,26 @@ Used to clean params if validation error occured for mode PASS
 
 #### Arguments
 * $validationType **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logException
+
+    mixed SwaggerValidator\Common\Context::logException($messageException, $context, $method, $line)
+
+Used to customizing log and more when a validation error is occured
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $messageException **mixed**
+* $context **mixed**
 * $method **mixed**
 * $line **mixed**
 

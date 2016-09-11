@@ -95,9 +95,25 @@ Constants
 
 
 
+### KEY_ALLOWEMPTYVALUE
+
+    const KEY_ALLOWEMPTYVALUE = 'allowEmptyValue'
+
+
+
+
+
 ### KEY_ANYOF
 
     const KEY_ANYOF = 'anyOf'
+
+
+
+
+
+### KEY_COLLECTIONFORMAT
+
+    const KEY_COLLECTIONFORMAT = 'collectionFormat'
 
 
 
@@ -127,9 +143,33 @@ Constants
 
 
 
+### KEY_ENUM
+
+    const KEY_ENUM = 'enum'
+
+
+
+
+
 ### KEY_EXAMPLE
 
     const KEY_EXAMPLE = 'example'
+
+
+
+
+
+### KEY_EXCLUSIVEMINIMUM
+
+    const KEY_EXCLUSIVEMINIMUM = 'exclusiveMinimum'
+
+
+
+
+
+### KEY_EXCLUSIVEMAXIMUM
+
+    const KEY_EXCLUSIVEMAXIMUM = 'exclusiveMaximum'
 
 
 
@@ -183,6 +223,62 @@ Constants
 
 
 
+### KEY_MAXITEMS
+
+    const KEY_MAXITEMS = 'maxItems'
+
+
+
+
+
+### KEY_MAXLENGTH
+
+    const KEY_MAXLENGTH = 'maxLength'
+
+
+
+
+
+### KEY_MAXIMUM
+
+    const KEY_MAXIMUM = 'maximum'
+
+
+
+
+
+### KEY_MINITEMS
+
+    const KEY_MINITEMS = 'minItems'
+
+
+
+
+
+### KEY_MINLENGTH
+
+    const KEY_MINLENGTH = 'minLength'
+
+
+
+
+
+### KEY_MINIMUM
+
+    const KEY_MINIMUM = 'minimum'
+
+
+
+
+
+### KEY_MULTIPLEOF
+
+    const KEY_MULTIPLEOF = 'multipleOf'
+
+
+
+
+
 ### KEY_NAME
 
     const KEY_NAME = 'name'
@@ -218,6 +314,14 @@ Constants
 ### KEY_PATHS
 
     const KEY_PATHS = 'paths'
+
+
+
+
+
+### KEY_PATTERN
+
+    const KEY_PATTERN = 'pattern'
 
 
 
@@ -290,6 +394,14 @@ Constants
 ### KEY_TAGS
 
     const KEY_TAGS = 'tags'
+
+
+
+
+
+### KEY_UNIQUEITEMS
+
+    const KEY_UNIQUEITEMS = 'uniqueItems'
 
 
 

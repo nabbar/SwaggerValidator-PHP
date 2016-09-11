@@ -18,6 +18,28 @@ Properties
 ----------
 
 
+### $minItems
+
+    protected mixed $minItems = 1
+
+
+
+
+
+* Visibility: **protected**
+
+
+### $maxItems
+
+    protected mixed $maxItems = null
+
+
+
+
+
+* Visibility: **protected**
+
+
 ### $mandatoryKeys
 
     private array $mandatoryKeys = array()
@@ -67,6 +89,23 @@ Methods
 * This method is **abstract**.
 * This method is defined by [SwaggerValidator\Common\CollectionSwagger](SwaggerValidator-Common-CollectionSwagger.md)
 
+
+
+
+### setMinMaxItems
+
+    mixed SwaggerValidator\DataType\TypeArrayItems::setMinMaxItems($min, $max)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $min **mixed**
+* $max **mixed**
 
 
 
@@ -209,6 +248,39 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
+### getExampleTypeSchema
+
+    mixed SwaggerValidator\DataType\TypeArrayItems::getExampleTypeSchema(\SwaggerValidator\Common\Context $context)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
+### getExampleTypeValue
+
+    mixed SwaggerValidator\DataType\TypeArrayItems::getExampleTypeValue(\SwaggerValidator\Common\Context $context, $key)
+
+
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $key **mixed**
 
 
 
@@ -366,6 +438,24 @@ Methods
 
 #### Arguments
 * $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
+
+
+### formatModel
+
+    mixed SwaggerValidator\DataType\TypeCommon::formatModel(\SwaggerValidator\Common\Context $context, $value)
+
+
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\DataType\TypeCommon](SwaggerValidator-DataType-TypeCommon.md)
+
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $value **mixed**
 
 
 
