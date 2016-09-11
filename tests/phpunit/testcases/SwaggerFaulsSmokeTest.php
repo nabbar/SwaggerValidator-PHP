@@ -126,6 +126,7 @@ class SwaggerFaulsSmokeTest extends genericTestClass
     public function testSmokeFaulsModelRequest($expected, $basepath, $route, $method, $querystring, $headers, $postForm, $bodyRaw)
     {
         ob_start();
+        $this->assertTrue(set_time_limit(1800));
 
         if (version_compare(PHP_VERSION, "5.4", "<")) {
             $querystring = '?' . http_build_query($querystring, null, '&');
@@ -145,6 +146,134 @@ class SwaggerFaulsSmokeTest extends genericTestClass
         $this->basePath = $basepath;
 
         $context = $this->mockContextRequest($route, $querystring, $method, $headers, $bodyRaw, $postForm);
+        $context->setMode(\SwaggerValidator\Common\Context::MODE_DENY);
+
+        try {
+            $this->swaggerObject->validate($context);
+        }
+        catch (\SwaggerValidator\Exception $exc) {
+            $error = $exc->getContext();
+            $this->assertInternalType('array', $error);
+            $this->assertArrayHasKey('type', $error);
+            $this->assertEquals($expected, $error['type']);
+        }
+
+        ob_end_clean();
+    }
+
+    public function getTestCasesForResponse()
+    {
+        $contributor              = new \stdClass();
+        $contributor->id          = 234;
+        $contributor->id_str      = '234';
+        $contributor->screen_name = 'test';
+
+        $responseModel                 = new \stdClass();
+        $responseModel->contributors   = array($contributor);
+        $responseModel->favorite_count = 5643;
+        $responseModel->favorited      = false;
+        $responseModel->filter_level   = 'test';
+        $responseModel->id             = 112;
+        $responseModel->id_str         = 'id_str';
+
+        $responseTooMany1            = $responseModel;
+        $contributor->tooMany        = true;
+        $responseModel->contributors = array($contributor);
+
+        $responseTooMany2          = $responseModel;
+        $responseTooMany2->tooMany = true;
+
+        return array(
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_BASEPATH_ERROR,
+                'basepath' => '/error',
+                'route'    => '/statuses/update',
+                'method'   => 'post',
+                'status'   => 200,
+                'headers'  => array(),
+                'bodyRaw'  => $responseModel,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_ROUTE_ERROR,
+                'basepath' => '/1.1',
+                'route'    => '/test/me',
+                'method'   => 'post',
+                'status'   => 200,
+                'headers'  => array(),
+                'bodyRaw'  => $responseModel,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_METHOD_ERROR,
+                'basepath' => '/1.1',
+                'route'    => '/statuses/update',
+                'method'   => 'get',
+                'status'   => 200,
+                'headers'  => array(),
+                'bodyRaw'  => $responseModel,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_RESPONSE_ERROR,
+                'basepath' => '/1.1',
+                'route'    => '/statuses/update',
+                'method'   => 'post',
+                'status'   => 'error',
+                'headers'  => array(),
+                'bodyRaw'  => $responseTooMany2,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_NOTFOUND,
+                'basepath' => '/1.1',
+                'route'    => '/statuses/update',
+                'method'   => 'post',
+                'status'   => 200,
+                'headers'  => array(
+                    'header' => 'false',
+                ),
+                'bodyRaw'  => $responseModel,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY,
+                'basepath' => '/1.1',
+                'route'    => '/statuses/update',
+                'method'   => 'post',
+                'status'   => 200,
+                'headers'  => array(),
+                'bodyRaw'  => $responseTooMany1,
+            ),
+            array(
+                'error'    => \SwaggerValidator\Common\Context::VALIDATION_TYPE_TOOMANY,
+                'basepath' => '/1.1',
+                'route'    => '/statuses/update',
+                'method'   => 'post',
+                'status'   => 200,
+                'headers'  => array(),
+                'bodyRaw'  => $responseTooMany2,
+            ),
+        );
+    }
+
+    /**
+     *
+     * @dataProvider getTestCasesForResponse
+     * @small
+     */
+    public function testSmokeFaulsModelResponse($expected, $basepath, $route, $method, $status, $headers, $bodyRaw)
+    {
+        ob_start();
+        $this->assertTrue(set_time_limit(1800));
+
+        $this->swaggerFilePath = PHPUNIT_PATH_EXAMPLE . 'swaggerMultiFile.json';
+        $this->swaggerBuild();
+        $this->loadModel();
+
+        $this->assertInternalType('object', $this->swaggerObject);
+        $this->assertInternalType('array', $this->swaggerModel);
+        $this->assertGreaterThan(0, count($this->swaggerModel));
+
+        $this->basePath                = $basepath;
+        $headers["http_response_code"] = $status;
+
+        $context = $this->mockContextResponse($route, $method, $headers, $bodyRaw);
         $context->setMode(\SwaggerValidator\Common\Context::MODE_DENY);
 
         try {
