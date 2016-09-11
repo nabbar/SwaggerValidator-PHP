@@ -53,8 +53,6 @@ class SwaggerCacheTest extends genericTestClass
      */
     public function testCacheGenerate()
     {
-        ob_start();
-
         $time = time();
 
         $this->swaggerFileCache = PHPUNIT_PATH_TEMP . 'swaggerMultiFile.json.ser.tmp';
@@ -233,8 +231,6 @@ class SwaggerCacheTest extends genericTestClass
 
             $this->assertEquals($this->basePath, $basepath);
         }
-
-        ob_end_clean();
     }
 
 }

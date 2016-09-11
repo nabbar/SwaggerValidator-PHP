@@ -39,7 +39,7 @@ class Exception extends \Exception
         $this->setLine($line);
         $this->setContext($context);
 
-        \SwaggerValidator\Common\Context::logDebug('Exception find : ' . $message . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $file, $line);
+        \SwaggerValidator\Common\Context::logException($message, $context, $file, $line);
     }
 
     public static function newException($message, $context = null, $file = null, $line = null)
@@ -50,7 +50,7 @@ class Exception extends \Exception
         $e->setLine($line);
         $e->setContext($context);
 
-        \SwaggerValidator\Common\Context::logDebug('Exception find : ' . $message . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $file, $line);
+        \SwaggerValidator\Common\Context::logException($message, $context, $file, $line);
 
         return $e;
     }

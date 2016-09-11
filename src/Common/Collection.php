@@ -44,6 +44,10 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
      */
     public function __isset($key)
     {
+        if (!is_string($key) && !is_integer($key)) {
+            throw new \Exception('Error the key (' . gettype($key) . ') is not a string or an integer : ' . json_encode($key));
+        }
+
         return array_key_exists($key, $this->collection);
     }
 

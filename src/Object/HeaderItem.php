@@ -27,6 +27,8 @@ namespace SwaggerValidator\Object;
 class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 {
 
+    const KEY_ITEM = 'item';
+
     public function __construct()
     {
 
@@ -35,9 +37,15 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         $this->checkJsonObject($context, $jsonData);
+        $keyItem = self::KEY_ITEM;
 
-        $header     = $this->extractNonRecursiveReference($context, $jsonData);
-        $this->item = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath('header'), $this->getCleanClass(__CLASS__), $this->name, $header);
+        $header = $this->extractNonRecursiveReference($context, $jsonData);
+
+        $this->set(
+                $keyItem, \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize(
+                        $context->setDataPath('header'), $this->getCleanClass(__CLASS__), $this->name, $header
+                )
+        );
 
         \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
     }
@@ -49,12 +57,12 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function validate(\SwaggerValidator\Common\Context $context)
     {
-        if (isset($this->item)) {
+        if ($this->__isset(self::KEY_ITEM)) {
 
             $context->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER);
             $context->dataLoad();
 
-            return $this->item->validate($context);
+            return $this->get(self::KEY_ITEM)->validate($context);
         }
 
         $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);
@@ -62,12 +70,11 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 
     public function getModel(\SwaggerValidator\Common\Context $context)
     {
-        if (isset($this->item)) {
+        if ($this->__isset(self::KEY_ITEM)) {
 
             $context->setLocation(\SwaggerValidator\Common\FactorySwagger::LOCATION_HEADER);
-            $context->dataLoad();
 
-            return $this->item->getModel($context);
+            return $this->get(self::KEY_ITEM)->getModel($context);
         }
 
         $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);

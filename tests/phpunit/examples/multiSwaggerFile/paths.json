@@ -364,6 +364,70 @@
                     "format": "uri"
                 },
                 {
+                    "name": "exampleArraySsv",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "collectionFormat": "ssv",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "exampleArrayCsv",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "exampleArrayTsv",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "collectionFormat": "tsv",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "exampleArrayPipes",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "collectionFormat": "pipes",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "exampleArrayMulti",
+                    "in": "query",
+                    "description": "The text of your status update",
+                    "required": false,
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "collectionFormat": "multi",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
                     "name": "in_reply_to_status_id",
                     "in": "query",
                     "description": "The ID of an existing status",

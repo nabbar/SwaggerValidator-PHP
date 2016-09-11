@@ -52,3 +52,13 @@
       - b6f7010 Fix error found following test Add type validation in exception resturn 
       - b6f7010 Fix empty exception message when init exception
 
+#Version 1.2.3 - 2016-09-11 :
+      - e3bdd93 Fix minor bug
+      - 50de5b8 Add collectionFormat in array type for read query params 
+      - 50de5b8 Add collectionFormat managment in model constructor 
+      - 50de5b8 Add min/max items randamize for model creator 
+      - 50de5b8 Refactoring log message as debug, validation error and exception to add option for disabled it 
+      - 50de5b8 Refactoring message in validation 
+      - 50de5b8 Expand test for collection format as array
+      - 2069990 Add response test in false test
+

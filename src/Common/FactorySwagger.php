@@ -41,34 +41,48 @@ class FactorySwagger
     /**
      * Specific Key
      */
-    const KEY_ADDPROPERTIES = 'additionalProperties';
-    const KEY_ADDITEMS      = 'additionalItems';
-    const KEY_ALLOF         = 'allOf';
-    const KEY_ANYOF         = 'anyOf';
-    const KEY_CONSUMES      = 'consumes';
-    const KEY_DEFAULT       = 'default';
-    const KEY_DEFINITIONS   = 'definitions';
-    const KEY_EXAMPLE       = 'example';
-    const KEY_EXTERNALDOCS  = 'externalDocs';
-    const KEY_FLOW          = 'flow';
-    const KEY_FORMAT        = 'format';
-    const KEY_HEADERS       = 'headers';
-    const KEY_IN            = 'in';
-    const KEY_ITEMS         = 'items';
-    const KEY_NAME          = 'name';
-    const KEY_NOT           = 'not';
-    const KEY_ONEOF         = 'oneOf';
-    const KEY_PARAMETERS    = 'parameters';
-    const KEY_PATHS         = 'paths';
-    const KEY_PRODUCES      = 'produces';
-    const KEY_PROPERTIES    = 'properties';
-    const KEY_REQUIRED      = 'required';
-    const KEY_REFERENCE     = '$ref';
-    const KEY_RESPONSES     = 'responses';
-    const KEY_SCHEMA        = 'schema';
-    const KEY_SCOPE         = 'scopes';
-    const KEY_TYPE          = 'type';
-    const KEY_TAGS          = 'tags';
+    const KEY_ADDPROPERTIES    = 'additionalProperties';
+    const KEY_ADDITEMS         = 'additionalItems';
+    const KEY_ALLOF            = 'allOf';
+    const KEY_ALLOWEMPTYVALUE  = 'allowEmptyValue';
+    const KEY_ANYOF            = 'anyOf';
+    const KEY_COLLECTIONFORMAT = 'collectionFormat';
+    const KEY_CONSUMES         = 'consumes';
+    const KEY_DEFAULT          = 'default';
+    const KEY_DEFINITIONS      = 'definitions';
+    const KEY_ENUM             = 'enum';
+    const KEY_EXAMPLE          = 'example';
+    const KEY_EXCLUSIVEMINIMUM = 'exclusiveMinimum';
+    const KEY_EXCLUSIVEMAXIMUM = 'exclusiveMaximum';
+    const KEY_EXTERNALDOCS     = 'externalDocs';
+    const KEY_FLOW             = 'flow';
+    const KEY_FORMAT           = 'format';
+    const KEY_HEADERS          = 'headers';
+    const KEY_IN               = 'in';
+    const KEY_ITEMS            = 'items';
+    const KEY_MAXITEMS         = 'maxItems';
+    const KEY_MAXLENGTH        = 'maxLength';
+    const KEY_MAXIMUM          = 'maximum';
+    const KEY_MINITEMS         = 'minItems';
+    const KEY_MINLENGTH        = 'minLength';
+    const KEY_MINIMUM          = 'minimum';
+    const KEY_MULTIPLEOF       = 'multipleOf';
+    const KEY_NAME             = 'name';
+    const KEY_NOT              = 'not';
+    const KEY_ONEOF            = 'oneOf';
+    const KEY_PARAMETERS       = 'parameters';
+    const KEY_PATHS            = 'paths';
+    const KEY_PATTERN          = 'pattern';
+    const KEY_PRODUCES         = 'produces';
+    const KEY_PROPERTIES       = 'properties';
+    const KEY_REQUIRED         = 'required';
+    const KEY_REFERENCE        = '$ref';
+    const KEY_RESPONSES        = 'responses';
+    const KEY_SCHEMA           = 'schema';
+    const KEY_SCOPE            = 'scopes';
+    const KEY_TYPE             = 'type';
+    const KEY_TAGS             = 'tags';
+    const KEY_UNIQUEITEMS      = 'uniqueItems';
 
     /**
      * Constant for identify custom properties

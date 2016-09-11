@@ -12,6 +12,16 @@ Description of HeaderItem
 
 
 
+Constants
+----------
+
+
+### KEY_ITEM
+
+    const KEY_ITEM = 'item'
+
+
+
 
 
 Properties
