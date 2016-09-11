@@ -405,8 +405,12 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             // need to realy urldecode following code
             parse_str($oneParam, $qrs);
 
+            if (!is_array($qrs) || count($qrs) < 1) {
+                continue;
+            }
+
             $keys = array_keys($qrs);
-            $key  = $keys[0];
+            $key  = array_shift($keys);
 
             if (array_key_exists($key, $result)) {
                 if (!is_array($result[$key])) {
