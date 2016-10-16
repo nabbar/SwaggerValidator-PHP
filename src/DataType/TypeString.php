@@ -41,6 +41,30 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!$this->__isset('type')) {
@@ -80,7 +104,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         }
 
 // completer les test integer
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -164,7 +188,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return base64_encode($this->generateRandowString());
         }
 
@@ -172,7 +196,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @todo get an example or regex for validation format
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $this->generateRandowBinary();
         }
 
@@ -180,7 +204,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return date('Y-m-d');
         }
 
@@ -188,7 +212,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return date('c');
         }
 
@@ -196,7 +220,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $this->generateRandowSign();
         }
 
@@ -204,7 +228,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return 'http://localhost/path/script.php?query#fragment';
         }
 
@@ -212,7 +236,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return long2ip(rand(167772161, 4210752250));
         }
 
@@ -220,7 +244,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return '2001:' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . '::';
         }
 
@@ -229,7 +253,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $this->generateRandowString();
     }
 

@@ -182,6 +182,30 @@ class CollectionType extends \SwaggerValidator\Common\Collection
         return defined($this->normalizeType($type));
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        self::getInstance();
+
+        foreach ($properties as $key => $value) {
+            self::$instance->__storeData($key, $value);
+        }
+
+        return self::getInstance();
+    }
+
     public function jsonSerialize()
     {
 

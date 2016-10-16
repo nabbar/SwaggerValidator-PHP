@@ -52,6 +52,30 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     }
 
     /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
+    /**
      * @param string $jsonData The Json Data to be unserialized
      */
     abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
@@ -95,26 +119,26 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            parent::throwException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('External Object Reference cannot have more keys than the $ref key', __FILE__, __LINE__);
         }
 
         $key = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
         $ref = $jsonData->$key;
 
-        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($ref)->getJson($context->setExternalRef($ref));
+        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($context->setExternalRef($ref), $ref)->getJson($context->setExternalRef($ref));
     }
 
-    protected function registerRecursiveDefinitions(&$jsonData)
+    protected function registerRecursiveDefinitions(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (is_object($jsonData) && ($jsonData instanceof \stdClass)) {
-            return $this->registerRecursiveDefinitionsFromObject($jsonData);
+            return $this->registerRecursiveDefinitionsFromObject($context, $jsonData);
         }
         elseif (is_array($jsonData) && !empty($jsonData)) {
-            return $this->registerRecursiveDefinitionsFromArray($jsonData);
+            return $this->registerRecursiveDefinitionsFromArray($context, $jsonData);
         }
     }
 
-    protected function registerRecursiveDefinitionsFromObject(\stdClass &$jsonData)
+    protected function registerRecursiveDefinitionsFromObject(\SwaggerValidator\Common\Context $context, \stdClass &$jsonData)
     {
         if (!is_object($jsonData) || !($jsonData instanceof \stdClass)) {
             return;
@@ -122,18 +146,18 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 
         foreach (array_keys(get_object_vars($jsonData)) as $key) {
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
-                \SwaggerValidator\Common\CollectionReference::registerDefinition($jsonData->$key);
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($context, $jsonData->$key);
             }
             elseif (is_array($jsonData->$key)) {
-                return $this->registerRecursiveDefinitionsFromArray($jsonData->$key);
+                return $this->registerRecursiveDefinitionsFromArray($context->setDataPath($key), $jsonData->$key);
             }
             elseif (is_object($jsonData->$key)) {
-                return $this->registerRecursiveDefinitionsFromObject($jsonData->$key);
+                return $this->registerRecursiveDefinitionsFromObject($context->setDataPath($key), $jsonData->$key);
             }
         }
     }
 
-    protected function registerRecursiveDefinitionsFromArray(&$jsonData)
+    protected function registerRecursiveDefinitionsFromArray(\SwaggerValidator\Common\Context $context, array &$jsonData)
     {
         if (!is_array($jsonData) || empty($jsonData)) {
             return;
@@ -141,13 +165,13 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
 
         foreach (array_keys($jsonData) as $key) {
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
-                \SwaggerValidator\Common\CollectionReference::registerDefinition($jsonData[$key]);
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($context, $jsonData[$key]);
             }
             elseif (is_array($jsonData[$key])) {
-                return $this->registerRecursiveDefinitionsFromArray($jsonData[$key]);
+                return $this->registerRecursiveDefinitionsFromArray($context->setDataPath($key), $jsonData[$key]);
             }
             elseif (is_object($jsonData[$key])) {
-                return $this->registerRecursiveDefinitionsFromObject($jsonData[$key]);
+                return $this->registerRecursiveDefinitionsFromObject($context->setDataPath($key), $jsonData[$key]);
             }
         }
     }

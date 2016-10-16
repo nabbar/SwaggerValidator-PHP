@@ -36,21 +36,45 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     abstract protected function getExampleFormat(\SwaggerValidator\Common\Context $context);
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
             $this->$key = $value;
         }
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function isRequired()
@@ -104,7 +128,7 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function getDefault(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $this->__get(\SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT);
     }
 
@@ -115,7 +139,7 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
 
     public function getExample(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $this->__get(\SwaggerValidator\Common\FactorySwagger::KEY_EXAMPLE);
     }
 

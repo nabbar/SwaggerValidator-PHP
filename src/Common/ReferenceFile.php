@@ -37,7 +37,7 @@ class ReferenceFile
     private $basePath;
     private $baseType;
 
-    public function __construct($filepath)
+    public function __construct(\SwaggerValidator\Common\Context $context, $filepath)
     {
         $this->fileUri = $filepath;
 
@@ -88,7 +88,7 @@ class ReferenceFile
             $this->throwException('Cannot decode contents for file : ' . $filepath, null, __FILE__, __LINE__);
         }
 
-        \SwaggerValidator\Common\Context::logLoadFile($this->fileUri, __METHOD__, __LINE__);
+        $context->logLoadFile($this->fileUri, __METHOD__, __LINE__);
     }
 
     public function __get($name)
@@ -98,6 +98,27 @@ class ReferenceFile
         }
 
         return $this->getReference($name);
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
     }
 
     /**
@@ -172,15 +193,15 @@ class ReferenceFile
         return $obj;
     }
 
-    public function extractAllReference()
+    public function extractAllReference(\SwaggerValidator\Common\Context $context)
     {
         $refList = array();
 
         if (is_object($this->fileObj)) {
-            $refList = $this->extractReferenceObject($this->fileObj);
+            $refList = $this->extractReferenceObject($context, $this->fileObj);
         }
         elseif (is_array($this->fileObj)) {
-            $refList = $this->extractReferenceArray($this->fileObj);
+            $refList = $this->extractReferenceArray($context, $this->fileObj);
         }
 
         if (is_object($this->fileObj) && property_exists($this->fileObj, \SwaggerValidator\Common\FactorySwagger::KEY_DEFINITIONS)) {
@@ -189,16 +210,16 @@ class ReferenceFile
 
             foreach (array_keys(get_object_vars($this->fileObj->$keyDef)) as $key) {
                 $ref = $this->fileUri . '#/' . $keyDef . '/' . $key;
-                $id  = \SwaggerValidator\Common\CollectionReference::getIdFromRef($ref);
-                \SwaggerValidator\Common\CollectionReference::registerDefinition($ref);
-                \SwaggerValidator\Common\Context::logReference('replace', $id, $key, __METHOD__, __LINE__);
+                $id  = \SwaggerValidator\Common\CollectionReference::getIdFromRef($context, $ref);
+                \SwaggerValidator\Common\CollectionReference::registerDefinition($context, $ref);
+                $context->logReference('replace', $id, $key, __METHOD__, __LINE__);
             }
         }
 
         return array_unique($refList);
     }
 
-    private function extractReferenceArray(array &$array)
+    private function extractReferenceArray(\SwaggerValidator\Common\Context $context, array &$array)
     {
         $refList = array();
 
@@ -207,15 +228,15 @@ class ReferenceFile
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \SwaggerValidator\Common\Context::logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
+                $context->logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }
             elseif (is_array($value)) {
-                $refList = $refList + $this->extractReferenceArray($value);
+                $refList = $refList + $this->extractReferenceArray($context, $value);
             }
             elseif (is_object($value)) {
-                $refList = $refList + $this->extractReferenceObject($value);
+                $refList = $refList + $this->extractReferenceObject($context, $value);
             }
             else {
                 continue;
@@ -227,7 +248,7 @@ class ReferenceFile
         return $refList;
     }
 
-    private function extractReferenceObject(\stdClass &$stdClass)
+    private function extractReferenceObject(\SwaggerValidator\Common\Context $context, \stdClass &$stdClass)
     {
         $refList = array();
 
@@ -236,15 +257,15 @@ class ReferenceFile
                 $ref       = $this->getCanonical($value);
                 $refList[] = $ref;
 
-                \SwaggerValidator\Common\Context::logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
+                $context->logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
 
                 $value = $ref[0];
             }
             elseif (is_array($value)) {
-                $refList = $refList + $this->extractReferenceArray($value);
+                $refList = $refList + $this->extractReferenceArray($context, $value);
             }
             elseif (is_object($value)) {
-                $refList = $refList + $this->extractReferenceObject($value);
+                $refList = $refList + $this->extractReferenceObject($context, $value);
             }
             else {
                 continue;

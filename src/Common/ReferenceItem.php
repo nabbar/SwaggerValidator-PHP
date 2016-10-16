@@ -30,7 +30,12 @@ class ReferenceItem
     private $contents;
     private $object;
 
-    public function __construct($jsonData)
+    public function __construct()
+    {
+
+    }
+
+    public function setJsonData($jsonData)
     {
         $this->contents = $jsonData;
     }
@@ -44,21 +49,42 @@ class ReferenceItem
         return null;
     }
 
-    public function extractAllReferences()
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
+    public function extractAllReferences(\SwaggerValidator\Common\Context $context)
     {
         $refList = array();
 
         if (is_object($this->contents)) {
-            $refList = $this->extractReferenceObject($this->contents);
+            $refList = $this->extractReferenceObject($context, $this->contents);
         }
         elseif (is_array($this->contents)) {
-            $refList = $this->extractReferenceArray($this->contents);
+            $refList = $this->extractReferenceArray($context, $this->contents);
         }
 
         return array_unique($refList);
     }
 
-    private function extractReferenceArray(array &$array)
+    private function extractReferenceArray(\SwaggerValidator\Common\Context $context, array &$array)
     {
         $refList = array();
 
@@ -66,15 +92,15 @@ class ReferenceItem
 
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
-                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
-                \SwaggerValidator\Common\Context::logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
+                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($context, $value);
+                $context->logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {
-                $refList = $refList + $this->extractReferenceArray($value);
+                $refList = $refList + $this->extractReferenceArray($context->setDataPath($key), $value);
             }
             elseif (is_object($value)) {
-                $refList = $refList + $this->extractReferenceObject($value);
+                $refList = $refList + $this->extractReferenceObject($context->setDataPath($key), $value);
             }
             else {
                 continue;
@@ -86,7 +112,7 @@ class ReferenceItem
         return $refList;
     }
 
-    private function extractReferenceObject(\stdClass &$stdClass)
+    private function extractReferenceObject(\SwaggerValidator\Common\Context $context, \stdClass &$stdClass)
     {
         $refList = array();
 
@@ -94,15 +120,15 @@ class ReferenceItem
 
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
                 $oldRef    = $value;
-                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($value);
-                \SwaggerValidator\Common\Context::logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
+                $value     = \SwaggerValidator\Common\CollectionReference::getIdFromRef($context, $value);
+                $context->logReference('replace', $value, $oldRef, __METHOD__, __LINE__);
                 $refList[] = $value;
             }
             elseif (is_array($value)) {
-                $refList = $refList + $this->extractReferenceArray($value);
+                $refList = $refList + $this->extractReferenceArray($context->setDataPath($key), $value);
             }
             elseif (is_object($value)) {
-                $refList = $refList + $this->extractReferenceObject($value);
+                $refList = $refList + $this->extractReferenceObject($context->setDataPath($key), $value);
             }
             else {
                 continue;
@@ -123,6 +149,7 @@ class ReferenceItem
     {
         if (!is_object($this->object)) {
             $this->jsonUnSerialize($context, true);
+            $this->contents = null;
         }
 
         return $this->object;

@@ -32,6 +32,30 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
 
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         $this->checkJsonObject($context, $jsonData);
@@ -39,14 +63,14 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
         foreach (get_object_vars($jsonData) as $key => $value) {
 
             if (!preg_match('/^([0-9]{3})$|^(' . \SwaggerValidator\Common\FactorySwagger::KEY_DEFAULT . ')$/', $key)) {
-                $this->throwException('Invalid Key "' . $key . '" for a response item', array('context' => $context, 'JSON Data' => $jsonData), __METHOD__, __LINE__);
+                $context->throwException('Invalid Key "' . $key . '" for a response item', __METHOD__, __LINE__);
             }
 
             $value      = $this->extractNonRecursiveReference($context, $value);
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context)
@@ -87,7 +111,7 @@ class Responses extends \SwaggerValidator\Common\CollectionSwagger
             $listParameters[$key] = $response;
         }
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $listParameters;
     }
 

@@ -29,11 +29,34 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
 
     protected $referenceId;
     protected $reference;
-    protected $jsonData;
 
     public function __construct()
     {
 
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
     }
 
     public function jsonSerialize()
@@ -69,22 +92,21 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
         $keyRef = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
 
         $this->reference   = $jsonData->$keyRef;
-        $this->referenceId = \SwaggerValidator\Common\CollectionReference::getIdFromRef($this->reference);
+        $this->referenceId = \SwaggerValidator\Common\CollectionReference::getIdFromRef($context, $this->reference);
 
         if ($this->reference == $this->referenceId) {
             $this->reference = null;
         }
 
-        $object         = \SwaggerValidator\Common\CollectionReference::getInstance()->get($this->referenceId);
-        $this->jsonData = $object->getJson($context);
-        $this->registerRecursiveDefinitions($jsonData);
+        $object = \SwaggerValidator\Common\CollectionReference::getInstance()->get($context->setExternalRef($this->reference), $this->referenceId);
+        $this->registerRecursiveDefinitions($context, $jsonData);
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context)
     {
-        $object = \SwaggerValidator\Common\CollectionReference::getInstance()->get($this->referenceId);
+        $object = \SwaggerValidator\Common\CollectionReference::getInstance()->get($context->setExternalRef($this->reference), $this->referenceId);
         return $object->getObject($context->setExternalRef($this->referenceId))->validate($context->setExternalRef($this->referenceId));
     }
 
@@ -94,7 +116,7 @@ class Reference extends \SwaggerValidator\Common\CollectionSwagger
             return new \stdClass();
         }
 
-        $object = \SwaggerValidator\Common\CollectionReference::getInstance()->get($this->referenceId);
+        $object = \SwaggerValidator\Common\CollectionReference::getInstance()->get($context->setExternalRef($this->reference), $this->referenceId);
         return $object->getObject($context->setExternalRef($this->referenceId))->getModel($context->setExternalRef($this->referenceId));
     }
 
