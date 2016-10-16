@@ -163,16 +163,16 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
     {
         $valueInt32 = bcsub(bcpow(2, 31), 1);
         $valueInt64 = bcsub(bcpow(2, 63), 1);
-        $sign       = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign       = (random_int(0, 1) > 0.5) ? '' : '-';
 
         if ($this->format == 'int32') {
             $context->logModel(__METHOD__, __LINE__);
-            return $sign . rand(0, $valueInt32);
+            return $sign . random_int(0, (int) $valueInt32);
         }
 
         if ($this->format == 'int64') {
             $context->logModel(__METHOD__, __LINE__);
-            return $sign . rand(0, $valueInt64);
+            return $sign . bcadd(random_int(0, (int) $valueInt32), random_int(0, (int) $valueInt32));
         }
 
         return $this->getExampleType($context);
@@ -180,10 +180,10 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign = (random_int(0, 1) > 0.5) ? '' : '-';
 
         $context->logModel(__METHOD__, __LINE__);
-        return $sign . rand(0, bcsub(bcpow(2, 31), 1));
+        return $sign . random_int(0, (int) bcsub(bcpow(2, 31), 1));
     }
 
 }

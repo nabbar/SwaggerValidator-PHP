@@ -164,25 +164,25 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
-        $sige = (rand(0, 1) > 0.5) ? '0' : '-0';
+        $sign = (random_int(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (random_int(0, 1) > 0.5) ? '0' : '-0';
         $min  = (isset($this->minimum)) ? $this->minimum : 0;
         $max  = (isset($this->maximum)) ? $this->maximum : 0;
 
         if ($max > 0) {
-            return (float) rand($min, $max);
+            return (float) random_int($min, $max);
         }
 
         if ($this->format == 'double') {
             # Float val = 15 signs after . // limit the bcpow to 31 bit for miitation of rand function
             $context->logModel(__METHOD__, __LINE__);
-            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 31)) . 'e' . $sige . rand(0, pow(2, 11))));
+            return (float) bcsub(1, bcadd(1, $sign . '.' . random_int($min, pow(2, 31)) . 'e' . $sige . random_int(0, pow(2, 11))));
         }
 
         if ($this->format == 'float') {
             # Float val = 7 signs after .
             $context->logModel(__METHOD__, __LINE__);
-            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 23)) . 'e' . $sige . rand(0, pow(2, 8))));
+            return (float) bcsub(1, bcadd(1, $sign . '.' . random_int($min, pow(2, 23)) . 'e' . $sige . random_int(0, pow(2, 8))));
         }
 
         return $this->getExampleType($context);
@@ -190,17 +190,17 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
-        $sige = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign = (random_int(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (random_int(0, 1) > 0.5) ? '' : '-';
         $min  = (isset($this->minimum)) ? $this->minimum : 0;
         $max  = (isset($this->maximum)) ? $this->maximum : 0;
 
         if ($max > 0) {
-            return (float) rand($min, $max);
+            return (float) random_int($min, $max);
         }
 
-        $mantisse = $sign . '.' . rand($min, pow(2, 23));
-        $exposant = $sige . rand(0, pow(2, 8));
+        $mantisse = $sign . '.' . random_int($min, pow(2, 23));
+        $exposant = $sige . random_int(0, pow(2, 8));
 
         $context->logModel(__METHOD__, __LINE__);
         return (float) ($mantisse . 'E' . $exposant);

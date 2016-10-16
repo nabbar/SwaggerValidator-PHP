@@ -111,13 +111,13 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
         $context->logModel(__METHOD__, __LINE__);
-        return rand(0, 1);
+        return random_int(0, 1);
     }
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
         $context->logModel(__METHOD__, __LINE__);
-        return rand(0, 1);
+        return random_int(0, 1);
     }
 
 }

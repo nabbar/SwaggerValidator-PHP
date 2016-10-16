@@ -226,7 +226,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         }
 
         if ($max > $min) {
-            $count = rand($min, $max);
+            $count = random_int($min, $max);
         }
         else {
             $count = $min;

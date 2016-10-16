@@ -170,7 +170,7 @@ abstract class TypeCommon extends \SwaggerValidator\Common\CollectionSwagger
         }
         elseif ($this->hasEnum()) {
             $valEnum = $this->$key;
-            return $this->formatModel($context, $valEnum[rand(0, count($valEnum) - 1)]);
+            return $this->formatModel($context, $valEnum[random_int(0, count($valEnum) - 1)]);
         }
         elseif ($this->hasFormat()) {
             return $this->formatModel($context, $this->getExampleFormat($context));
