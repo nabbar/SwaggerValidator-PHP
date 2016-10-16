@@ -234,17 +234,4 @@ class Swagger
         \SwaggerValidator\Common\Sandbox::pruneInstance();
     }
 
-    /**
-     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
-     * @param string $message
-     * @param mixed $context
-     * @throws \SwaggerValidator\Exception
-     */
-    protected static function throwException($message, $context = null, $file = null, $line = null)
-    {
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $file, $line);
-        throw $e;
-    }
-
 }

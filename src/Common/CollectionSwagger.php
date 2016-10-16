@@ -257,11 +257,11 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObject(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (!is_object($jsonData)) {
-            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', get_class($this) . '::' . __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', get_class($this) . '::' . __METHOD__, __LINE__);
         }
 
         return true;
@@ -275,10 +275,10 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     protected function checkJsonObjectOrArray(\SwaggerValidator\Common\Context $context, &$jsonData)
     {
         if (is_object($jsonData) && !($jsonData instanceof \stdClass)) {
-            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', get_class($this) . '::' . __METHOD__, __LINE__);
         }
         elseif (!is_object($jsonData) && !is_array($jsonData)) {
-            parent::throwException('Mismatching type of JSON Data received', $context, get_class($this) . '::' . __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', get_class($this) . '::' . __METHOD__, __LINE__);
         }
 
         if (is_array($jsonData)) {

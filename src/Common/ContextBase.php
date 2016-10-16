@@ -144,6 +144,12 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      *
      * @var array
      */
+    protected $contextValidationCode = null;
+
+    /**
+     *
+     * @var array
+     */
     protected $mockedData = array();
 
     /**
@@ -675,6 +681,19 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     public function isDataEmpty()
     {
         return $this->__get('DataEmpty');
+    }
+
+    /**
+     * @param constant $code
+     */
+    public function setValidationErrorCode($code)
+    {
+        return $this->contextValidationCode = $code;
+    }
+
+    public function getValidationErrorCode()
+    {
+        return $this->__get('ValidationCode');
     }
 
 }

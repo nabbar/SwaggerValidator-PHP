@@ -105,7 +105,10 @@ class Factory extends \SwaggerValidator\Common\Collection
         $class    = $collType->get($type);
 
         if (empty($class)) {
-            parent::throwException('Cannot retrieve the callable for this type : ' . $type, __FILE__, __LINE__);
+            $e = new \SwaggerValidator\Exception('Cannot retrieve the callable for this type : ' . $type);
+            $e->setFile(__METHOD__);
+            $e->setLine(__LINE__);
+            throw $e;
         }
 
         return $class;
@@ -163,12 +166,7 @@ class Factory extends \SwaggerValidator\Common\Collection
      */
     public function __set($type, $object)
     {
-        $class = $this->getClass($type);
-        $name  = $this->normalizeType($type);
 
-        if (is_object($object) || ($object instanceof \Closure)) {
-            parent::__set($name, $object);
-        }
     }
 
     public function jsonSerialize()
@@ -201,9 +199,17 @@ class Factory extends \SwaggerValidator\Common\Collection
      * @param string $type
      * @param object|\Closure $object
      */
-    public function set($type, $object)
+    public function registerClosure($type, $object)
     {
-        return $this->__set($type, $object);
+        $class = $this->getClass($type);
+        $name  = $this->normalizeType($type);
+
+        if (is_object($object) || ($object instanceof \Closure)) {
+            parent::__set($name, $object);
+            return true;
+        }
+
+        return false;
     }
 
     public function normalizeType($type)

@@ -108,7 +108,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         \SwaggerValidator\Common\CollectionType::pruneInstance();
         \SwaggerValidator\Common\Factory::pruneInstance();
 
-        \SwaggerValidator\Common\CollectionType::getInstance()->set(\SwaggerValidator\Common\CollectionType::Swagger, '\SwaggerTest\OverrideSwagger');
+        \SwaggerValidator\Common\CollectionType::getInstance()->registerCallable($this->swaggerGetContext(), \SwaggerValidator\Common\CollectionType::Swagger, '\SwaggerTest\OverrideSwagger');
         $obj = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
         $this->assertInternalType('object', $obj);
         $this->assertInstanceOf('\SwaggerTest\OverrideSwagger', $obj);
@@ -131,7 +131,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         \SwaggerValidator\Common\FactorySwagger::setInstance(\SwaggerValidator\Common\FactorySwagger::getInstance());
         \SwaggerValidator\Common\Sandbox::setInstance(\SwaggerValidator\Common\Sandbox::getInstance());
 
-        \SwaggerValidator\Common\Factory::getInstance()->set('Swagger', new \SwaggerValidator\Object\Swagger());
+        \SwaggerValidator\Common\Factory::getInstance()->registerClosure('Swagger', new \SwaggerValidator\Object\Swagger());
 
         \SwaggerValidator\Swagger::cleanInstances();
     }

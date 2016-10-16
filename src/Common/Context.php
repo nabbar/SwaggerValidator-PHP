@@ -928,9 +928,9 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     {
         $this->logException($message, $method, $line);
 
-        $e = new \SwaggerValidator\Exception();
+        $e = new \SwaggerValidator\Exception($message);
 
-        $e->setFile($message);
+        $e->setFile($method);
         $e->setLine($line);
         $e->setContext($this);
 
@@ -956,46 +956,57 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
 
         switch ($valitionType) {
             case self::VALIDATION_TYPE_BASEPATH_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : BasePath ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_HOSTNAME_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : HostName ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_ROUTE_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Route ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_METHOD_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Method ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_NOTFOUND:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : NotFound ! This parameters ' . $this->getDataPath() . ' is not found ! ';
                 break;
 
             case self::VALIDATION_TYPE_TOOMANY:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : TooMany ! This path was found and not awaiting : ' . $this->getDataPath();
                 break;
 
             case self::VALIDATION_TYPE_RESPONSE_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Response Status Error in ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_PATTERN:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Pattern ! The pattern is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATATYPE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Type ! The Type is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATASIZE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Size ! The Size is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATAVALUE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Value ! The Value does not respect specification with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
@@ -1011,7 +1022,11 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             default:
                 $this->cleanParams();
                 $e = new \SwaggerValidator\Exception($messageException);
-                $e->init($messageException, array('type' => $valitionType, 'context' => $this), __FILE__, __LINE__);
+
+                $e->setFile($method);
+                $e->setLine($line);
+                $e->setContext($this);
+
                 throw $e;
         }
     }
