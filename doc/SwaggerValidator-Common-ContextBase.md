@@ -226,6 +226,17 @@ Properties
 * Visibility: **protected**
 
 
+### $contextValidationCode
+
+    protected array $contextValidationCode = null
+
+
+
+
+
+* Visibility: **protected**
+
+
 ### $mockedData
 
     protected array $mockedData = array()
@@ -369,6 +380,40 @@ Methods
 * Visibility: **public**
 * This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
 
+
+
+
+### __storeData
+
+    mixed SwaggerValidator\Common\ContextBase::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\ContextBase::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
 
 
 
@@ -972,6 +1017,35 @@ Methods
 
 * Visibility: **public**
 * This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setValidationErrorCode
+
+    mixed SwaggerValidator\Common\ContextBase::setValidationErrorCode(\SwaggerValidator\Common\constant $code)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $code **SwaggerValidator\Common\constant**
+
+
+
+### getValidationErrorCode
+
+    mixed SwaggerValidator\Common\ContextBase::getValidationErrorCode()
+
+
+
+
+
+* Visibility: **public**
 
 
 

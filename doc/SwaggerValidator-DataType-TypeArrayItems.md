@@ -92,6 +92,42 @@ Methods
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Collection::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Collection::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### setMinMaxItems
 
     mixed SwaggerValidator\DataType\TypeArrayItems::setMinMaxItems($min, $max)
@@ -741,7 +777,7 @@ Return true if all mandatory keys are defined or the missing key name
 
 ### registerRecursiveDefinitions
 
-    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitions($jsonData)
+    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitions(\SwaggerValidator\Common\Context $context, $jsonData)
 
 
 
@@ -752,13 +788,14 @@ Return true if all mandatory keys are defined or the missing key name
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $jsonData **mixed**
 
 
 
 ### registerRecursiveDefinitionsFromObject
 
-    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitionsFromObject(\stdClass $jsonData)
+    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitionsFromObject(\SwaggerValidator\Common\Context $context, \stdClass $jsonData)
 
 
 
@@ -769,13 +806,14 @@ Return true if all mandatory keys are defined or the missing key name
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $jsonData **stdClass**
 
 
 
 ### registerRecursiveDefinitionsFromArray
 
-    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitionsFromArray($jsonData)
+    mixed SwaggerValidator\Common\CollectionSwagger::registerRecursiveDefinitionsFromArray(\SwaggerValidator\Common\Context $context, array $jsonData)
 
 
 
@@ -786,7 +824,8 @@ Return true if all mandatory keys are defined or the missing key name
 
 
 #### Arguments
-* $jsonData **mixed**
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+* $jsonData **array**
 
 
 
@@ -1184,25 +1223,5 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $method **mixed**
-* $line **mixed**
 
 

@@ -571,6 +571,40 @@ prune the singleton of this collection
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\FactorySwagger::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\FactorySwagger::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### throwException
 
     mixed SwaggerValidator\Common\FactorySwagger::throwException(string $message, mixed $context, $file, $line)

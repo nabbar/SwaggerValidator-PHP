@@ -109,6 +109,40 @@ Property Overloading
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Collection::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Collection::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### offsetSet
 
     mixed SwaggerValidator\Common\Collection::offsetSet($key, $value)
@@ -357,24 +391,5 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $method **mixed**
-* $line **mixed**
 
 

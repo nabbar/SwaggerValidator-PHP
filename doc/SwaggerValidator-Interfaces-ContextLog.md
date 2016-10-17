@@ -28,11 +28,63 @@ Methods
 
 
 * Visibility: **public**
-* This method is **static**.
 
 
 #### Arguments
 * $file **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logDecode
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logDecode($className, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $className **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logValidate
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidate($className, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $className **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logModel
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logModel($method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
 * $method **mixed**
 * $line **mixed**
 
@@ -47,7 +99,6 @@ Methods
 
 
 * Visibility: **public**
-* This method is **static**.
 
 
 #### Arguments
@@ -59,78 +110,19 @@ Methods
 
 
 
-### logDecode
+### logMessage
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logDecode($decodePath, $decodeType, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $decodePath **mixed**
-* $decodeType **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logValidate
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logValidate($path, $type, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logMessage($type, $message, $method, $line)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
 
 
 #### Arguments
-* $path **mixed**
 * $type **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logModel
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logModel($path, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $path **mixed**
-* $method **mixed**
-* $line **mixed**
-
-
-
-### logDebug
-
-    mixed SwaggerValidator\Interfaces\ContextLog::logDebug($message, $method, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
 * $message **mixed**
 * $method **mixed**
 * $line **mixed**
@@ -139,7 +131,7 @@ Methods
 
 ### logValidationError
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $messageException, $method, $line)
 
 
 
@@ -150,6 +142,62 @@ Methods
 
 #### Arguments
 * $validationType **mixed**
+* $messageException **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### logException
+
+    mixed SwaggerValidator\Interfaces\ContextLog::logException($messageException, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $messageException **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### throwException
+
+    mixed SwaggerValidator\Interfaces\ContextLog::throwException($message, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $message **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### setValidationError
+
+    mixed SwaggerValidator\Interfaces\ContextLog::setValidationError($valitionType, $messageException, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $valitionType **mixed**
+* $messageException **mixed**
 * $method **mixed**
 * $line **mixed**
 

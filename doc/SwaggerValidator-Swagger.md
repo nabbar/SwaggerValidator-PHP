@@ -199,7 +199,7 @@ Return a Swagger Object new object
 
 ### loadCache
 
-    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::loadCache()
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::loadCache(\SwaggerValidator\Common\Context $context)
 
 load cache file or call regen file cache
 
@@ -209,11 +209,14 @@ load cache file or call regen file cache
 * This method is **static**.
 
 
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
 
 
 ### storeCache
 
-    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::storeCache(\SwaggerValidator\Object\Swagger $swagger)
+    \SwaggerValidator\Object\Swagger SwaggerValidator\Swagger::storeCache(\SwaggerValidator\Object\Swagger $swagger, \SwaggerValidator\Common\Context $context)
 
 store the new swagger object is available
 
@@ -225,6 +228,7 @@ store the new swagger object is available
 
 #### Arguments
 * $swagger **[SwaggerValidator\Object\Swagger](SwaggerValidator-Object-Swagger.md)**
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 
 
 
@@ -239,25 +243,5 @@ store the new swagger object is available
 * Visibility: **public**
 * This method is **static**.
 
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Swagger::throwException(string $message, mixed $context, $file, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-* This method is **static**.
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $file **mixed**
-* $line **mixed**
 
 

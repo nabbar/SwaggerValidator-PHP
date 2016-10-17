@@ -217,6 +217,42 @@ Property Overloading
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Collection::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Collection::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### jsonSerialize
 
     mixed SwaggerValidator\Common\Collection::jsonSerialize()
@@ -264,7 +300,7 @@ Property Overloading
 
 ### get
 
-    \SwaggerValidator\Common\ReferenceItem SwaggerValidator\Common\CollectionReference::get(string $ref)
+    \SwaggerValidator\Common\ReferenceItem SwaggerValidator\Common\CollectionReference::get(\SwaggerValidator\Common\Context $context, string $ref)
 
 Return the content of the reference as object or mixed data
 
@@ -274,13 +310,14 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $ref **string**
 
 
 
 ### set
 
-    mixed SwaggerValidator\Common\CollectionReference::set($ref, $value)
+    mixed SwaggerValidator\Common\CollectionReference::set(\SwaggerValidator\Common\Context $context, $ref, $value)
 
 
 
@@ -290,6 +327,7 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $ref **mixed**
 * $value **mixed**
 
@@ -297,7 +335,7 @@ Return the content of the reference as object or mixed data
 
 ### getIdFromRef
 
-    mixed SwaggerValidator\Common\CollectionReference::getIdFromRef($fullRef)
+    mixed SwaggerValidator\Common\CollectionReference::getIdFromRef(\SwaggerValidator\Common\Context $context, $fullRef)
 
 
 
@@ -308,6 +346,7 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $fullRef **mixed**
 
 
@@ -331,7 +370,7 @@ Return the content of the reference as object or mixed data
 
 ### registerDefinition
 
-    mixed SwaggerValidator\Common\CollectionReference::registerDefinition($fullRef)
+    mixed SwaggerValidator\Common\CollectionReference::registerDefinition(\SwaggerValidator\Common\Context $context, $fullRef)
 
 
 
@@ -342,13 +381,14 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $fullRef **mixed**
 
 
 
 ### cleanReferenceDefinitions
 
-    mixed SwaggerValidator\Common\CollectionReference::cleanReferenceDefinitions()
+    mixed SwaggerValidator\Common\CollectionReference::cleanReferenceDefinitions(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -356,6 +396,9 @@ Return the content of the reference as object or mixed data
 
 * Visibility: **public**
 
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 
 
 
@@ -625,25 +668,5 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $method **mixed**
-* $line **mixed**
 
 
