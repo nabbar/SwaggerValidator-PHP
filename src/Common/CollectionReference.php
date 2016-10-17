@@ -99,50 +99,36 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
 
     public function __get($ref)
     {
-        $id = self::getIdFromRef($ref);
 
-        if (!is_object(parent::__get($id))) {
-            $this->__set($ref);
-        }
-
-        \SwaggerValidator\Common\Context::logReference('load', self::getRefFromId($id), null, __METHOD__, __LINE__);
-        return parent::__get($id);
     }
 
     public function __set($ref, $value = null)
     {
-        $id = self::getIdFromRef($ref);
 
-        if ($id == $ref) {
-            $ref = self::getRefFromId($id);
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        self::getInstance();
+
+        foreach ($properties as $key => $value) {
+            self::$instance->__storeData($key, $value);
         }
 
-        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
-            $link = \SwaggerValidator\Common\CollectionFile::getReferenceFileLink($ref);
-            $fRef = \SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($ref);
-            $file = \SwaggerValidator\Common\CollectionFile::getInstance()->$link;
-
-            if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
-                parent::throwException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
-            }
-
-            $value = new \SwaggerValidator\Common\ReferenceItem($file->$fRef);
-        }
-
-        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
-            /**
-             * Register the item before cleanning ref, to prevent circular reference
-             */
-            parent::__set($id, $value);
-
-            foreach ($value->extractAllReferences() as $oneRef) {
-                $this->__get($oneRef);
-            }
-
-            return parent::__set($id, $value);
-        }
-
-        parent::throwException('Cannot register item from ref : ' . $ref, "", __FILE__, __LINE__);
+        return self::getInstance();
     }
 
     public function jsonSerialize()
@@ -150,8 +136,10 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         $result = new \stdClass();
 
         foreach (parent::keys() as $key) {
-            $name          = str_replace(':', '', $key);
-            $result->$name = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::__get($key)->getObject(new \SwaggerValidator\Common\Context())));
+            if (is_object(parent::__get($key)) && method_exists(parent::__get($key), 'getObject')) {
+                $name          = str_replace(':', '', $key);
+                $result->$name = json_decode(\SwaggerValidator\Common\Collection::jsonEncode(parent::__get($key)->getObject(new \SwaggerValidator\Common\Context())));
+            }
         }
 
         //$result->fullRealRef = array_flip(self::$refIdDefinitions);
@@ -174,7 +162,10 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         }
 
         if (!is_array($data)) {
-            parent::throwException('Cannot unserialize object ! ', array($base, $data), __FILE__, __LINE__);
+            $e = new \SwaggerValidator\Exception('Cannot unserialize object ! ');
+            $e->setFile(__METHOD__);
+            $e->setLine(__LINE__);
+            throw $e;
         }
 
         foreach ($data as $key => $value) {
@@ -188,24 +179,63 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
      * @return \SwaggerValidator\Common\ReferenceItem
      * @throws \SwaggerValidator\Exception
      */
-    public function get($ref)
+    public function get(\SwaggerValidator\Common\Context $context, $ref)
     {
-        return $this->__get($ref);
+        $id = self::getIdFromRef($context, $ref);
+
+        if (!is_object(parent::__get($id))) {
+            $this->set($context, $ref);
+        }
+
+        $context->logReference('load', self::getRefFromId($id), null, __METHOD__, __LINE__);
+        return parent::__get($id);
     }
 
-    public function set($ref, $value = null)
+    public function set(\SwaggerValidator\Common\Context $context, $ref, $value = null)
     {
-        return $this->__set($ref, $value);
+        $id = self::getIdFromRef($context, $ref);
+
+        if ($id == $ref) {
+            $ref = self::getRefFromId($id);
+        }
+
+        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
+            $link = \SwaggerValidator\Common\CollectionFile::getReferenceFileLink($ref);
+            $fRef = \SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($ref);
+            $file = \SwaggerValidator\Common\CollectionFile::getInstance()->get($context->setDataPath($link), $link);
+
+            if (!is_object($file) || !($file instanceof \SwaggerValidator\Common\ReferenceFile)) {
+                $context->throwException('Cannot retrieve contents for ref : ' . $ref, "", __FILE__, __LINE__);
+            }
+
+            $value = new \SwaggerValidator\Common\ReferenceItem();
+            $value->setJsonData($file->$fRef);
+        }
+
+        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
+            /**
+             * Register the item before cleanning ref, to prevent circular reference
+             */
+            parent::__set($id, $value);
+
+            foreach ($value->extractAllReferences($context) as $oneRef) {
+                $this->get($context, $oneRef);
+            }
+
+            return parent::__set($id, $value);
+        }
+
+        $context->throwException('Cannot register item from ref : ' . $ref, __FILE__, __LINE__);
     }
 
-    public static function getIdFromRef($fullRef)
+    public static function getIdFromRef(\SwaggerValidator\Common\Context $context, $fullRef)
     {
         if (!is_string($fullRef)) {
-            parent::throwException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
+            $context->throwException('Cannot load an non string fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (strlen($fullRef) < 1) {
-            parent::throwException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
+            $context->throwException('Cannot load an empty fullRef !', $fullRef, __METHOD__, __LINE__);
         }
 
         if (substr($fullRef, 0, 3) === self::ID_PREFIX) {
@@ -241,14 +271,14 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         return array_search($id, self::$refIdList);
     }
 
-    public static function registerDefinition($fullRef = null)
+    public static function registerDefinition(\SwaggerValidator\Common\Context $context, $fullRef = null)
     {
         if (substr($fullRef, 0, 3) === self::ID_PREFIX) {
             $id      = $fullRef;
             $fullRef = self::getRefFromId($id);
         }
         else {
-            $id = self::getIdFromRef($fullRef);
+            $id = self::getIdFromRef($context, $fullRef);
         }
 
         if (!is_array(self::$refIdDefinitions)) {
@@ -256,16 +286,16 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
         }
 
         if (!array_key_exists($fullRef, self::$refIdDefinitions)) {
-            \SwaggerValidator\Common\Context::logReference('register', $fullRef, null, __METHOD__, __LINE__);
+            $context->logReference('register', $fullRef, null, __METHOD__, __LINE__);
             self::$refIdDefinitions[$fullRef] = $id;
         }
     }
 
-    public function cleanReferenceDefinitions()
+    public function cleanReferenceDefinitions(\SwaggerValidator\Common\Context $context)
     {
         foreach (parent::keys() as $key) {
             if (!in_array($key, self::$refIdDefinitions)) {
-                \SwaggerValidator\Common\Context::logReference('drop', $key, null, __METHOD__, __LINE__);
+                $context->logReference('drop', $key, null, __METHOD__, __LINE__);
                 parent::__unset($key);
             }
         }

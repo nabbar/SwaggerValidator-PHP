@@ -34,6 +34,30 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
 
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         $this->checkJsonObject($context, $jsonData);
@@ -47,7 +71,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
                 )
         );
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function jsonSerialize()
@@ -65,7 +89,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
             return $this->get(self::KEY_ITEM)->validate($context);
         }
 
-        $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);
+        $context->throwException('Cannot find a well formed item in the headeritem object', __METHOD__, __LINE__);
     }
 
     public function getModel(\SwaggerValidator\Common\Context $context)
@@ -77,7 +101,7 @@ class HeaderItem extends \SwaggerValidator\Common\CollectionSwagger
             return $this->get(self::KEY_ITEM)->getModel($context);
         }
 
-        $this->throwException('Cannot find a well formed item in the headeritem object', $context, __METHOD__, __LINE__);
+        $context->throwException('Cannot find a well formed item in the headeritem object', __METHOD__, __LINE__);
     }
 
 }

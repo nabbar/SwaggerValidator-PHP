@@ -84,6 +84,30 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
     }
 
     /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            $this->collection[$key] = $value;
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $this->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
+    /**
      * Array Access
      */
     public function offsetSet($key, $value)
@@ -152,7 +176,10 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
 
     public function serialize()
     {
-        return serialize($this->collection);
+        return serialize(array(
+            'isArray'    => $this->originTypeArray,
+            'collection' => $this->collection
+        ));
     }
 
     public function unserialize($data)
@@ -161,7 +188,13 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
             $data = unserialize($data);
         }
 
-        $this->collection = $data;
+        if (is_array($data) && array_key_exists('isArray', $data) && array_key_exists('collection', $data)) {
+            $this->originTypeArray = $data['isArray'];
+            $this->originTypeArray = $data['collection'];
+        }
+        else {
+            $this->collection = $data;
+        }
     }
 
     /**
@@ -218,19 +251,6 @@ abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAcces
     public static function jsonEncodePretty($mixed)
     {
         return json_encode($mixed, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-    }
-
-    /**
-     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
-     * @param string $message
-     * @param mixed $context
-     * @throws \SwaggerValidator\Exception
-     */
-    protected function throwException($message, $context = null, $method = null, $line = null)
-    {
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $method, $line);
-        throw $e;
     }
 
 }

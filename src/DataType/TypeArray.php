@@ -33,14 +33,38 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('items');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
@@ -65,7 +89,7 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
             $this->$keyItems->setMinMaxItems($valMinItems, $valMaxItems);
         }
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context)
@@ -129,7 +153,7 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
             return false;
         }
 
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return $this->$keyItems->validate($context, $context->getDataValue());
     }
 
@@ -167,7 +191,7 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
         $keyIn   = \SwaggerValidator\Common\FactorySwagger::KEY_IN;
 
         if (!$this->__isset($keyIn) || $context->getType() == \SwaggerValidator\Common\Context::TYPE_RESPONSE) {
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $result;
         }
 
@@ -180,19 +204,19 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
 
             case 'ssv':
                 // Space separated values foo bar.
-                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $context->logModel(__METHOD__, __LINE__);
                 $result = implode(' ', $result);
                 break;
 
             case 'tsv':
                 // Tab separated values foo\tbar.
-                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $context->logModel(__METHOD__, __LINE__);
                 $result = implode("\t", $result);
                 break;
 
             case 'pipes':
                 // Pipe separated values foo|bar.
-                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $context->logModel(__METHOD__, __LINE__);
                 $result = implode('|', $result);
                 break;
 
@@ -203,13 +227,13 @@ class TypeArray extends \SwaggerValidator\DataType\TypeCommon
                     return $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_SWAGGER_ERROR, null, __METHOD__, __LINE__);
                 }
 
-                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $context->logModel(__METHOD__, __LINE__);
                 break;
 
             default:
             case 'csv':
                 // Comma separated values foo,bar.
-                \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+                $context->logModel(__METHOD__, __LINE__);
                 $result = implode(',', $result);
                 break;
         }

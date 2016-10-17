@@ -192,6 +192,30 @@ class FactorySwagger
     }
 
     /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        self::getInstance();
+
+        foreach ($properties as $key => $value) {
+            self::$instance->__storeData($key, $value);
+        }
+
+        return self::getInstance();
+    }
+
+    /**
      * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
      * @param string $message
      * @param mixed $context
@@ -411,7 +435,7 @@ class FactorySwagger
         $key = self::KEY_REFERENCE;
         $ref = $jsonData->$key;
 
-        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($ref);
+        return \SwaggerValidator\Common\CollectionReference::getInstance()->get($context->setExternalRef($ref), $ref);
     }
 
     protected function SecurityDefinition(\SwaggerValidator\Common\Context $context, &$jsonData)

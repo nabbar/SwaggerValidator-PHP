@@ -144,7 +144,7 @@ class Swagger
             return self::regenSwagger($context);
         }
 
-        return self::loadCache();
+        return self::loadCache($context);
     }
 
     /**
@@ -154,16 +154,16 @@ class Swagger
      */
     protected static function regenSwagger(\SwaggerValidator\Common\Context $context)
     {
-        $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get(self::$swaggerFile);
+        $fileObj = \SwaggerValidator\Common\CollectionFile::getInstance()->get($context, self::$swaggerFile);
 
         if (!is_object($fileObj) && ($fileObj instanceof \SwaggerValidator\Common\ReferenceFile)) {
-            self::throwException('Cannot load the given file "' . self::$swaggerFile . '"', $context, __METHOD__, __LINE__);
+            $context->throwException('Cannot load the given file "' . self::$swaggerFile . '"', __METHOD__, __LINE__);
         }
 
         $swagger = \SwaggerValidator\Common\Factory::getInstance()->get(\SwaggerValidator\Common\CollectionType::Swagger);
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
-            self::throwException('Cannot create the swagger object !!', $context, __METHOD__, __LINE__);
+            $context->throwException('Cannot create the swagger object !!', __METHOD__, __LINE__);
         }
 
         $swagger->jsonUnSerialize($context, $fileObj->fileObj);
@@ -172,7 +172,7 @@ class Swagger
             return $swagger;
         }
 
-        return self::storeCache($swagger);
+        return self::storeCache($swagger, $context);
     }
 
     /**
@@ -180,20 +180,20 @@ class Swagger
      * @param \SwaggerValidator\Common\Context $context
      * @return \SwaggerValidator\Object\Swagger
      */
-    protected static function loadCache()
+    protected static function loadCache(\SwaggerValidator\Common\Context $context)
     {
         self::cleanInstances();
 
-        $swagger = unserialize(base64_decode(file_get_contents(self::$cachePath)));
+        $swagger = include self::$cachePath;
 
         if (!is_array($swagger)) {
-            self::throwException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            $context->throwException('Cannot Load Cache file : ' . self::$cachePath, __METHOD__, __LINE__);
         }
 
         $swagger = $swagger['swg'];
 
         if (!is_object($swagger) && ($swagger instanceof \SwaggerValidator\Object\Swagger)) {
-            self::throwException('Cannot Load Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            $context->throwException('Cannot Load Cache file : ' . self::$cachePath, __METHOD__, __LINE__);
         }
 
         return $swagger;
@@ -204,7 +204,7 @@ class Swagger
      * @param \SwaggerValidator\Object\Swagger $swagger
      * @return \SwaggerValidator\Object\Swagger
      */
-    protected static function storeCache(\SwaggerValidator\Object\Swagger $swagger)
+    protected static function storeCache(\SwaggerValidator\Object\Swagger $swagger, \SwaggerValidator\Common\Context $context)
     {
         if (self::$cacheEnable !== true) {
             return $swagger;
@@ -212,7 +212,7 @@ class Swagger
 
         if (!file_exists(self::$cachePath) && !touch(self::$cachePath)) {
             self::$cacheEnable = false;
-            self::throwException('Cannot Write Cache file : ' . self::$cachePath, null, __METHOD__, __LINE__);
+            $context->throwException('Cannot Write Cache file : ' . self::$cachePath, __METHOD__, __LINE__);
         }
 
         $array = array(
@@ -220,7 +220,7 @@ class Swagger
             'swg' => $swagger,
         );
 
-        file_put_contents(self::$cachePath, base64_encode(serialize($array)));
+        file_put_contents(self::$cachePath, '<?php return ' . var_export($array, true) . ';');
         touch(self::$cachePath);
 
         return $swagger;
@@ -230,23 +230,8 @@ class Swagger
     {
         \SwaggerValidator\Common\CollectionReference::pruneInstance();
         \SwaggerValidator\Common\CollectionFile::pruneInstance();
-        \SwaggerValidator\Common\CollectionType::pruneInstance();
-        \SwaggerValidator\Common\Factory::pruneInstance();
         \SwaggerValidator\Common\FactorySwagger::pruneInstance();
         \SwaggerValidator\Common\Sandbox::pruneInstance();
-    }
-
-    /**
-     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
-     * @param string $message
-     * @param mixed $context
-     * @throws \SwaggerValidator\Exception
-     */
-    protected static function throwException($message, $context = null, $file = null, $line = null)
-    {
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $file, $line);
-        throw $e;
     }
 
 }

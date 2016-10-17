@@ -29,4 +29,23 @@ class OverrideSwagger extends \SwaggerValidator\Object\Swagger
 
     public $testProperties = true;
 
+    /**
+     * Var Export Method
+     */
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            if (property_exists(__CLASS__, $key)) {
+                $obj->$key = $value;
+            }
+            else {
+                $obj->__set($key, $value);
+            }
+        }
+
+        return $obj;
+    }
+
 }

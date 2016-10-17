@@ -107,7 +107,7 @@ Methods
 
 ### __construct
 
-    mixed SwaggerValidator\Common\ReferenceFile::__construct($filepath)
+    mixed SwaggerValidator\Common\ReferenceFile::__construct(\SwaggerValidator\Common\Context $context, $filepath)
 
 
 
@@ -117,6 +117,7 @@ Methods
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $filepath **mixed**
 
 
@@ -134,6 +135,40 @@ Methods
 
 #### Arguments
 * $name **mixed**
+
+
+
+### __storeData
+
+    mixed SwaggerValidator\Common\ReferenceFile::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\ReferenceFile::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
 
 
 
@@ -187,7 +222,7 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 ### extractAllReference
 
-    mixed SwaggerValidator\Common\ReferenceFile::extractAllReference()
+    mixed SwaggerValidator\Common\ReferenceFile::extractAllReference(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -196,11 +231,14 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 * Visibility: **public**
 
 
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
 
 
 ### extractReferenceArray
 
-    mixed SwaggerValidator\Common\ReferenceFile::extractReferenceArray(array $array)
+    mixed SwaggerValidator\Common\ReferenceFile::extractReferenceArray(\SwaggerValidator\Common\Context $context, array $array)
 
 
 
@@ -210,13 +248,14 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $array **array**
 
 
 
 ### extractReferenceObject
 
-    mixed SwaggerValidator\Common\ReferenceFile::extractReferenceObject(\stdClass $stdClass)
+    mixed SwaggerValidator\Common\ReferenceFile::extractReferenceObject(\SwaggerValidator\Common\Context $context, \stdClass $stdClass)
 
 
 
@@ -226,6 +265,7 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $stdClass **stdClass**
 
 

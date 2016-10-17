@@ -94,6 +94,30 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     );
 
     /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
+    /**
      * Set a configuration option
      * @param string $optionGroup
      * @param string $optionName
@@ -777,10 +801,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param int $line
      */
-    public static function logLoadFile($file, $method = null, $line = null)
+    public function logLoadFile($file, $method = null, $line = null)
     {
         if (self::getConfig('log', 'loadFile')) {
-            self::logMessage('LOAD FILE', 'Loading File : "' . $file . '"', $method, $line);
+            $this->logMessage('LOAD FILE', 'Loading File : "' . $file . '"', $method, $line);
         }
     }
 
@@ -791,10 +815,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param int $line
      */
-    public static function logDecode($decodePath, $decodeType, $method = null, $line = null)
+    public function logDecode($className, $method = null, $line = null)
     {
         if (self::getConfig('log', 'decode')) {
-            self::logMessage('DECODE', 'Decoding Path "' . $decodePath . '" As "' . $decodeType . '"', $method, $line);
+            $this->logMessage('DECODE', 'Decoding Path "' . $this->getDataPath() . '" As "' . $className . '"', $method, $line);
         }
     }
 
@@ -805,10 +829,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param int $line
      */
-    public static function logValidate($path, $type, $method = null, $line = null)
+    public function logValidate($className, $method = null, $line = null)
     {
         if (self::getConfig('log', 'validate')) {
-            self::logMessage('VALIDATE][OK', 'Success validate "' . $path . '" As "' . $type . '"', $method, $line);
+            $this->logMessage('VALIDATE][OK', 'Success validate "' . $this->getDataPath() . '" As "' . $className . '"', $method, $line);
         }
     }
 
@@ -818,10 +842,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param int $line
      */
-    public static function logModel($path, $method = null, $line = null)
+    public function logModel($method = null, $line = null)
     {
         if (self::getConfig('log', 'model')) {
-            self::logMessage('MODEL', 'Model Created "' . $path . '"', $method, $line);
+            $this->logMessage('MODEL', 'Model Created "' . $this->getDataPath() . '"', $method, $line);
         }
     }
 
@@ -833,21 +857,21 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param int $line
      */
-    public static function logReference($type, $ref, $oldRef = null, $method = null, $line = null)
+    public function logReference($type, $ref, $oldRef = null, $method = null, $line = null)
     {
         if (self::getConfig('log', 'reference') || self::getConfig('log', $type . 'Ref')) {
             switch ($type) {
                 case 'replace':
-                    self::logMessage('REPLACE REF', 'Replacing Reference From "' . $oldRef . '" to "' . $ref . '"', $method, $line);
+                    $this->logMessage('REPLACE REF', 'Replacing Reference From "' . $oldRef . '" to "' . $ref . '"', $method, $line);
                     break;
                 case 'load':
-                    self::logMessage('LOAD REF', 'Loading Reference : "' . $ref . '"', $method, $line);
+                    $this->logMessage('LOAD REF', 'Loading Reference : "' . $ref . '"', $method, $line);
                     break;
                 case 'register':
-                    self::logMessage('REGISTER REF', 'Registier Reference Definition : "' . $ref . '"', $method, $line);
+                    $this->logMessage('REGISTER REF', 'Registier Reference Definition : "' . $ref . '"', $method, $line);
                     break;
                 case 'drop':
-                    self::logMessage('DROP REF', 'Drop Reference : "' . $ref . '"', $method, $line);
+                    $this->logMessage('DROP REF', 'Drop Reference : "' . $ref . '"', $method, $line);
                     break;
             }
         }
@@ -861,22 +885,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param string $method
      * @param TypeInteger $line
      */
-    public static function logDebug($message, $method = null, $line = null)
-    {
-        if (self::getConfig('log', 'debug')) {
-            self::logMessage('DEBUG', $message, $method, $line);
-        }
-    }
-
-    /**
-     * Used to customizing log and more when a debug is send
-     *
-     * @param string $message
-     * @param mixed $context
-     * @param string $method
-     * @param TypeInteger $line
-     */
-    public static function logMessage($type, $message, $method = null, $line = null)
+    public function logMessage($type, $message, $method = null, $line = null)
     {
         print "[" . date('Y-m-d H:i:s') . "][{$type}][{{$method}#{$line}] - {$message} \n";
         //file_put_contents('php://stdout', "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n");
@@ -891,7 +900,7 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
     public function logValidationError($validationType, $messageException = null, $method = null, $line = null)
     {
         if (self::getConfig('log', 'validation')) {
-            self::logMessage("VALIDATE][KO][{$validationType}", "{$messageException} --- " . $this->__toString() . "\n", $method, $line);
+            $this->logMessage("VALIDATE][KO][{$validationType}", "{$messageException} --- " . $this->__toString() . "\n", $method, $line);
         }
         //file_put_contents('php://stderr', "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : {$messageException} --- " . $this->__toString() . "\n");
     }
@@ -902,12 +911,30 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      * @param const $validationType
      * @param \SwaggerValidator\Common\Context $swaggerContext
      */
-    public static function logException($messageException = null, $context = null, $method = null, $line = null)
+    public function logException($messageException = null, $method = null, $line = null)
     {
         if (self::getConfig('log', 'exception')) {
-            self::logMessage("EXCEPTION", "Exception find : {$messageException} --- " . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $method, $line);
+            $this->logMessage("EXCEPTION", "Exception find : {$messageException} --- " . $this->__toString(), $method, $line);
         }
-        //file_put_contents('php://stderr', "[" . date('Y-m-d H:i:s') . "][VALIDATION][KO][{{$method}#{$line}][{$validationType}] : {$messageException} --- " . $this->__toString() . "\n");
+    }
+
+    /**
+     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
+     * @param string $message
+     * @param mixed $context
+     * @throws \SwaggerValidator\Exception
+     */
+    public function throwException($message, $method = null, $line = null)
+    {
+        $this->logException($message, $method, $line);
+
+        $e = new \SwaggerValidator\Exception($message);
+
+        $e->setFile($method);
+        $e->setLine($line);
+        $e->setContext($this);
+
+        throw $e;
     }
 
     /**
@@ -929,46 +956,57 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
 
         switch ($valitionType) {
             case self::VALIDATION_TYPE_BASEPATH_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : BasePath ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_HOSTNAME_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : HostName ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_ROUTE_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Route ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_METHOD_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Method ! Value Find : ' . json_encode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_NOTFOUND:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : NotFound ! This parameters ' . $this->getDataPath() . ' is not found ! ';
                 break;
 
             case self::VALIDATION_TYPE_TOOMANY:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : TooMany ! This path was found and not awaiting : ' . $this->getDataPath();
                 break;
 
             case self::VALIDATION_TYPE_RESPONSE_ERROR:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Response Status Error in ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_PATTERN:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Pattern ! The pattern is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATATYPE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Type ! The Type is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATASIZE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Size ! The Size is not matching with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
             case self::VALIDATION_TYPE_DATAVALUE:
+                $this->setValidationErrorCode($valitionType);
                 $messageException = 'Swagger Validation Error : Value ! The Value does not respect specification with parameters : ' . $this->getDataPath() . ' ! ';
                 break;
 
@@ -984,7 +1022,11 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
             default:
                 $this->cleanParams();
                 $e = new \SwaggerValidator\Exception($messageException);
-                $e->init($messageException, array('type' => $valitionType, 'context' => $this), __FILE__, __LINE__);
+
+                $e->setFile($method);
+                $e->setLine($line);
+                $e->setContext($this);
+
                 throw $e;
         }
     }

@@ -62,3 +62,9 @@
       - 50de5b8 Expand test for collection format as array
       - 2069990 Add response test in false test
 
+#Version 1.3.0 - 2016-10-17 :
+      - f0e3169 Update composer version
+      - a37953a Replace rand() by random_int (or his equal function) for best practice
+      - 26d9358 Refactor Context : log / exception with problem if trying to override static
+      - a3b2fc9 Change serialize to var_export function
+

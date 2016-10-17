@@ -84,21 +84,31 @@ class genericTestClass extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         \SwaggerValidator\Swagger::cleanInstances();
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+
         \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
-        //\SwaggerValidator\Common\Context::setConfig('log', 'model', true);
+        \SwaggerValidator\Common\Context::setConfig('log', 'exception', true);
     }
 
     public static function tearDownAfterClass()
     {
         \SwaggerValidator\Swagger::cleanInstances();
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+
         \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
+        \SwaggerValidator\Common\Context::setConfig('log', 'exception', true);
     }
 
     public function swaggerCheck()
     {
         \SwaggerValidator\Swagger::cleanInstances();
 
-        \SwaggerValidator\Common\CollectionType::getInstance()->set(\SwaggerValidator\Common\CollectionType::Swagger, '\SwaggerTest\OverrideSwagger');
+        \SwaggerValidator\Common\CollectionType::pruneInstance();
+        \SwaggerValidator\Common\Factory::pruneInstance();
+
+        \SwaggerValidator\Common\CollectionType::getInstance()->registerCallable($this->swaggerGetContext(), \SwaggerValidator\Common\CollectionType::Swagger, '\SwaggerTest\OverrideSwagger');
         $obj = \SwaggerValidator\Common\Factory::getInstance()->get('Swagger');
         $this->assertInternalType('object', $obj);
         $this->assertInstanceOf('\SwaggerTest\OverrideSwagger', $obj);
@@ -121,7 +131,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         \SwaggerValidator\Common\FactorySwagger::setInstance(\SwaggerValidator\Common\FactorySwagger::getInstance());
         \SwaggerValidator\Common\Sandbox::setInstance(\SwaggerValidator\Common\Sandbox::getInstance());
 
-        \SwaggerValidator\Common\Factory::getInstance()->set('Swagger', new \SwaggerValidator\Object\Swagger());
+        \SwaggerValidator\Common\Factory::getInstance()->registerClosure('Swagger', new \SwaggerValidator\Object\Swagger());
 
         \SwaggerValidator\Swagger::cleanInstances();
     }
@@ -133,7 +143,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($this->swaggerFilePath);
         $this->assertFileExists($this->swaggerFilePath);
 
-        $this->swaggerFileObject = \SwaggerValidator\Common\CollectionFile::getInstance()->get($this->swaggerFilePath);
+        $this->swaggerFileObject = \SwaggerValidator\Common\CollectionFile::getInstance()->get(new \SwaggerValidator\Common\Context(), $this->swaggerFilePath);
 
         $this->assertInternalType('object', $this->swaggerFileObject);
         $this->assertInstanceOf('\SwaggerValidator\Common\ReferenceFile', $this->swaggerFileObject);

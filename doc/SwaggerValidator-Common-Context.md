@@ -449,6 +449,17 @@ Properties
 * Visibility: **protected**
 
 
+### $contextValidationCode
+
+    protected array $contextValidationCode = null
+
+
+
+
+
+* Visibility: **protected**
+
+
 ### $mockedData
 
     protected array $mockedData = array()
@@ -462,6 +473,42 @@ Properties
 
 Methods
 -------
+
+
+### __storeData
+
+    mixed SwaggerValidator\Common\ContextBase::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\ContextBase::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $properties **array**
+
 
 
 ### setConfig
@@ -946,7 +993,6 @@ Used to clean params if validation error occured for mode PASS
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
@@ -959,20 +1005,18 @@ Used to clean params if validation error occured for mode PASS
 
 ### logDecode
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logDecode($decodePath, $decodeType, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logDecode($className, $method, $line)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
-* $decodePath **mixed**
-* $decodeType **mixed**
+* $className **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -980,20 +1024,18 @@ Used to clean params if validation error occured for mode PASS
 
 ### logValidate
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logValidate($path, $type, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidate($className, $method, $line)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
-* $path **mixed**
-* $type **mixed**
+* $className **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -1001,19 +1043,17 @@ Used to clean params if validation error occured for mode PASS
 
 ### logModel
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logModel($path, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logModel($method, $line)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
-* $path **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -1028,7 +1068,6 @@ Used to clean params if validation error occured for mode PASS
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
@@ -1041,49 +1080,29 @@ Used to clean params if validation error occured for mode PASS
 
 
 
-### logDebug
+### logMessage
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logDebug($message, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logMessage($type, $message, $method, $line)
 
 
 
 
 
 * Visibility: **public**
-* This method is **static**.
 * This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
+* $type **mixed**
 * $message **mixed**
 * $method **mixed**
 * $line **mixed**
 
 
 
-### logMessage
-
-    mixed SwaggerValidator\Common\Context::logMessage($type, string $message, string $method, \SwaggerValidator\Common\TypeInteger $line)
-
-Used to customizing log and more when a debug is send
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $type **mixed**
-* $message **string**
-* $method **string**
-* $line **SwaggerValidator\Common\TypeInteger**
-
-
-
 ### logValidationError
 
-    mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logValidationError($validationType, $messageException, $method, $line)
 
 
 
@@ -1095,6 +1114,7 @@ Used to customizing log and more when a debug is send
 
 #### Arguments
 * $validationType **mixed**
+* $messageException **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -1102,19 +1122,37 @@ Used to customizing log and more when a debug is send
 
 ### logException
 
-    mixed SwaggerValidator\Common\Context::logException($messageException, $context, $method, $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::logException($messageException, $method, $line)
 
-Used to customizing log and more when a validation error is occured
+
 
 
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
 * $messageException **mixed**
-* $context **mixed**
+* $method **mixed**
+* $line **mixed**
+
+
+
+### throwException
+
+    mixed SwaggerValidator\Interfaces\ContextLog::throwException($message, $method, $line)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
+
+
+#### Arguments
+* $message **mixed**
 * $method **mixed**
 * $line **mixed**
 
@@ -1122,20 +1160,21 @@ Used to customizing log and more when a validation error is occured
 
 ### setValidationError
 
-    boolean SwaggerValidator\Common\Context::setValidationError(\SwaggerValidator\Common\const $valitionType, string $messageException, string $method, integer $line)
+    mixed SwaggerValidator\Interfaces\ContextLog::setValidationError($valitionType, $messageException, $method, $line)
 
 
 
 
 
 * Visibility: **public**
+* This method is defined by [SwaggerValidator\Interfaces\ContextLog](SwaggerValidator-Interfaces-ContextLog.md)
 
 
 #### Arguments
-* $valitionType **SwaggerValidator\Common\const**
-* $messageException **string**
-* $method **string**
-* $line **integer**
+* $valitionType **mixed**
+* $messageException **mixed**
+* $method **mixed**
+* $line **mixed**
 
 
 
@@ -1875,6 +1914,37 @@ Used to customizing log and more when a validation error is occured
 
 * Visibility: **public**
 * This method is defined by [SwaggerValidator\Interfaces\ContextBase](SwaggerValidator-Interfaces-ContextBase.md)
+
+
+
+
+### setValidationErrorCode
+
+    mixed SwaggerValidator\Common\ContextBase::setValidationErrorCode(\SwaggerValidator\Common\constant $code)
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
+
+
+#### Arguments
+* $code **SwaggerValidator\Common\constant**
+
+
+
+### getValidationErrorCode
+
+    mixed SwaggerValidator\Common\ContextBase::getValidationErrorCode()
+
+
+
+
+
+* Visibility: **public**
+* This method is defined by [SwaggerValidator\Common\ContextBase](SwaggerValidator-Common-ContextBase.md)
 
 
 

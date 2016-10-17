@@ -32,6 +32,30 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
 
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         $this->checkJsonObject($context, $jsonData);
@@ -42,7 +66,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context)
@@ -111,7 +135,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         $context->setRoutePath($findRoute);
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return $this->$findRoute->validate($context->setDataPath($findRoute));
     }
 
@@ -132,7 +156,7 @@ class Paths extends \SwaggerValidator\Common\CollectionSwagger
             $result[$key] = $this->$key->getModel($context->setDataPath($key), $generalItems);
         }
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $result;
     }
 

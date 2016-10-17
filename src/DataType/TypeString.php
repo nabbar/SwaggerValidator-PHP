@@ -41,6 +41,30 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!$this->__isset('type')) {
@@ -80,7 +104,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         }
 
 // completer les test integer
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -164,7 +188,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 4648 : http://www.ietf.org/rfc/rfc4648.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return base64_encode($this->generateRandowString());
         }
 
@@ -172,7 +196,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @todo get an example or regex for validation format
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $this->generateRandowBinary();
         }
 
@@ -180,7 +204,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return date('Y-m-d');
         }
 
@@ -188,7 +212,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * @see RFC 3339 : http://www.ietf.org/rfc/rfc3339.txt
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return date('c');
         }
 
@@ -196,7 +220,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $this->generateRandowSign();
         }
 
@@ -204,7 +228,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return 'http://localhost/path/script.php?query#fragment';
         }
 
@@ -212,16 +236,16 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return long2ip(rand(167772161, 4210752250));
+            $context->logModel(__METHOD__, __LINE__);
+            return long2ip(random_int(167772161, 4210752250));
         }
 
         if ($this->format == 'ipv6') {
             /**
              * Format specified only to obfucate input field
              */
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return '2001:' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(rand(0, pow(2, 16) - 1), 10, 16) . '::';
+            $context->logModel(__METHOD__, __LINE__);
+            return '2001:' . base_convert(random_int(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(random_int(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(random_int(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(random_int(0, pow(2, 16) - 1), 10, 16) . ':' . base_convert(random_int(0, pow(2, 16) - 1), 10, 16) . '::';
         }
 
         return $this->getExampleType($context);
@@ -229,7 +253,7 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $this->generateRandowString();
     }
 
@@ -238,13 +262,13 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         $min  = isset($this->minLength) ? $this->minLength : 0;
         $max  = isset($this->maxLength) ? $this->maxLength : 255;
         $char = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ipsum sapien, bibendum at placerat sit amet, volutpat sed lacus. Nulla justo arcu, sodales ac commodo quis, laoreet a ipsum. Duis sem elit, posuere eu facilisis nec, tempus ac ipsum. Ut molestie aliquet est, posuere tincidunt elit. Etiam convallis eu ligula non consequat. Pellentesque elit libero, faucibus luctus ante nec, volutpat dictum neque. Donec molestie, eros in pretium pulvinar, est leo vehicula lectus, a cursus neque erat vitae odio. Sed sed neque dignissim, imperdiet nunc maximus, finibus erat. Proin id scelerisque ipsum. Quisque porta mauris nec massa egestas, sed mollis est molestie. Aenean quam nisi, posuere sed varius sodales, sagittis sed ex. Vivamus id vulputate odio. Donec quis facilisis arcu, vel ultrices augue. Suspendisse potenti. Mauris vehicula ex lorem, ut ornare purus ultrices nec. Vestibulum elementum felis sit amet ipsum euismod ullamcorper. Phasellus sit amet vestibulum quam. Morbi tincidunt pretium sodales. Etiam dignissim risus non felis scelerisque aliquet. Phasellus faucibus urna arcu, et dignissim augue interdum sed. Vestibulum eget luctus metus, eu bibendum orci. Sed eros massa, vehicula quis condimentum eget, tristique ut quam. Maecenas et velit dignissim, tincidunt justo quis, iaculis odio. Mauris volutpat dignissim mi eget lacinia. In nisi odio, porta ut quam non, imperdiet varius orci. Donec consectetur sed ante sit amet sagittis. In non lectus eu nunc interdum laoreet a ut dui. Sed eu nulla malesuada, egestas velit id, semper felis. Fusce ac dui nisl. Donec ultricies nibh eu leo consectetur congue quis nec tellus. Morbi consequat mi id eros viverra ullamcorper. Fusce nec est quam. Pellentesque vulputate sapien at turpis molestie congue. Nunc et lorem eros. Suspendisse eget nibh pulvinar, vestibulum magna ut, suscipit est. Etiam varius lobortis porttitor. Mauris vel ultrices erat, at hendrerit enim. Sed leo ex, pulvinar vel metus et, molestie pretium tortor. Praesent interdum fringilla orci, gravida ornare nibh sollicitudin et. Curabitur pulvinar metus massa, malesuada facilisis sapien finibus at. Nullam finibus urna vel auctor fringilla. Mauris eu tortor blandit, bibendum tortor ac, congue eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse justo turpis, lacinia id tempor sed, dapibus vel elit. Sed efficitur, mi sit amet fermentum ultricies, felis felis aliquam enim, id feugiat magna elit in sapien. Sed malesuada, velit eu dapibus vehicula, sem tortor accumsan nibh, sed pellentesque enim metus in eros. Mauris sollicitudin varius purus, nec condimentum tellus sagittis at. Nullam vel metus ac quam gravida pellentesque. Nullam ultricies turpis nec dignissim aliquam. Nunc sed enim nec tellus accumsan tincidunt. Aliquam enim dui, consectetur sit amet dui sit amet, elementum congue neque.';
-        $size = ceil(rand($min, $max));
+        $size = ceil(random_int($min, $max));
 
         if ($min > 0) {
-            return substr($char, rand(0, strlen($char) - ($min * 2)), $min);
+            return substr($char, random_int(0, (int) (strlen($char) - ($min * 2))), $min);
         }
 
-        return substr($char, rand(0, strlen($char) - ($size * 2)), $size);
+        return substr($char, random_int(0, (int) (strlen($char) - ($size * 2))), $size);
     }
 
     private function generateRandowSign()
@@ -253,11 +277,11 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
         $max  = isset($this->maxLength) ? $this->maxLength : 255;
         $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ?,.;\/:§!*%µ$~#|`\\^@&{[(_)]}°+=\'-';
         $char = str_repeat($char . strrev($char), 25);
-        $size = ceil(rand($min, $max));
+        $size = ceil(random_int($min, $max));
         $text = '';
 
         for ($i = 0; $i < $size; $i++) {
-            $text .= substr($char, rand(0, strlen($char)), 1);
+            $text .= substr($char, random_int(0, strlen($char)), 1);
         }
 
         return $text;
@@ -267,11 +291,11 @@ class TypeString extends \SwaggerValidator\DataType\TypeCommon
     {
         $min  = isset($this->minLength) ? $this->minLength : 0;
         $max  = isset($this->maxLength) ? $this->maxLength : 512;
-        $size = ceil(rand($min, $max / 2));
+        $size = ceil(random_int($min, (int) ($max / 2)));
         $text = '';
 
         for ($i = 0; $i < $size; $i++) {
-            $text .= chr(rand(0, 254));
+            $text .= chr(random_int(0, 254));
         }
 
         $hexa   = unpack('H*', ($text));

@@ -35,6 +35,30 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
     }
 
     /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
+    /**
      * Unserialize the JSON mixed data to this swagger object type
      * @param \SwaggerValidator\Common\Context $context
      * @param \stdClass $jsonData
@@ -42,11 +66,11 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         if (!is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         if (!($jsonData instanceof \stdClass)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         foreach (get_object_vars($jsonData) as $key => $value) {
@@ -61,10 +85,10 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
 
         \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
         \SwaggerValidator\Common\CollectionReference::getInstance()->unserializeReferenceDefinitions($context);
-        \SwaggerValidator\Common\CollectionReference::getInstance()->cleanReferenceDefinitions();
+        \SwaggerValidator\Common\CollectionReference::getInstance()->cleanReferenceDefinitions($context);
         \SwaggerValidator\Common\CollectionReference::getInstance()->jsonUnSerialize($context);
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     /**
@@ -98,7 +122,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
 
         $keyPath = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         $result = $this->$keyPath->validate($context->setDataPath($keyPath));
 
         if (!$result) {
@@ -107,7 +131,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
 
         if ($context->getMode() === \SwaggerValidator\Common\Context::MODE_PASS) {
             $context->cleanParams();
-            \SwaggerValidator\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
+            $context->setDataPath('CheckTooMany')->logValidate(get_class($this), __METHOD__, __LINE__);
             return true;
         }
 
@@ -150,7 +174,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        \SwaggerValidator\Common\Context::logValidate($context->setDataPath('CheckTooMany')->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->setDataPath('CheckTooMany')->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -407,7 +431,7 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
         $generalItems = $this->getMethodGeneric($context, __FUNCTION__);
         $paths        = \SwaggerValidator\Common\FactorySwagger::KEY_PATHS;
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $this->$paths->getModel($context->setDataPath($paths), $generalItems);
     }
 

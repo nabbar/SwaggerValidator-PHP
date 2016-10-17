@@ -205,6 +205,42 @@ Property Overloading
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Collection::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Collection::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### jsonSerialize
 
     mixed SwaggerValidator\Common\Collection::jsonSerialize()
@@ -252,7 +288,7 @@ Property Overloading
 
 ### get
 
-    \SwaggerValidator\Common\ReferenceFile SwaggerValidator\Common\CollectionFile::get(string $fileLink)
+    \SwaggerValidator\Common\ReferenceFile SwaggerValidator\Common\CollectionFile::get(\SwaggerValidator\Common\Context $context, string $fileLink)
 
 Return the content of the reference as object or mixed data
 
@@ -262,13 +298,14 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $fileLink **string**
 
 
 
 ### set
 
-    mixed SwaggerValidator\Common\CollectionFile::set($ref, $value)
+    mixed SwaggerValidator\Common\CollectionFile::set(\SwaggerValidator\Common\Context $context, $ref, $value)
 
 
 
@@ -278,6 +315,7 @@ Return the content of the reference as object or mixed data
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $ref **mixed**
 * $value **mixed**
 
@@ -571,25 +609,5 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $method **mixed**
-* $line **mixed**
 
 

@@ -33,33 +33,6 @@ class Exception extends \Exception
      */
     private $contextError;
 
-    public function init($message, $context = null, $file = null, $line = null)
-    {
-        $this->setFile($file);
-        $this->setLine($line);
-        $this->setContext($context);
-
-        \SwaggerValidator\Common\Context::logException($message, $context, $file, $line);
-    }
-
-    public static function newException($message, $context = null, $file = null, $line = null)
-    {
-        $e = new static($message);
-
-        $e->setFile($file);
-        $e->setLine($line);
-        $e->setContext($context);
-
-        \SwaggerValidator\Common\Context::logException($message, $context, $file, $line);
-
-        return $e;
-    }
-
-    public static function throwNewException($message, $context = null, $file = null, $line = null)
-    {
-        throw self::newException($message, $context, $file, $line);
-    }
-
     public function setFile($file)
     {
         if (!empty($file) && is_string($file)) {
@@ -74,7 +47,7 @@ class Exception extends \Exception
         }
     }
 
-    public function setContext($context = null)
+    public function setContext(\SwaggerValidator\Common\Context $context)
     {
         $this->contextError = $context;
     }

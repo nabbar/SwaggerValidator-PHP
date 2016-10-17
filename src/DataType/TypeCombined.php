@@ -32,12 +32,36 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
     {
         parent::checkJsonObject($context, $jsonData);
 
         if (count(get_object_vars($jsonData)) > 1) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         $keyAnyOf = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
@@ -59,7 +83,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
         }
 
         if (empty($key)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         $result = array();
@@ -71,7 +95,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
 
         $this->$key = $result;
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context, $valueParams = null)
@@ -127,7 +151,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
             }
 
             if ($object->validate($context->setDataPath($key)->setCombined(true), $valueParams)) {
-                \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+                $context->logValidate(get_class($this), __METHOD__, __LINE__);
                 return true;
             }
         }
@@ -150,7 +174,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -176,7 +200,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return $check || $context->setValidationError(\SwaggerValidator\Common\Context::VALIDATION_TYPE_PATTERN, 'Value is not matching one of the ' . $keyOneOf . ' defnied type !', __METHOD__, __LINE__);
     }
 
@@ -242,7 +266,7 @@ class TypeCombined extends \SwaggerValidator\Common\CollectionSwagger
             }
         }
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $result;
     }
 

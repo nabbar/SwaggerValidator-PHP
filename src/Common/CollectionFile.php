@@ -95,39 +95,36 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
      */
     public function __get($fileLink)
     {
-        if (empty($fileLink)) {
-            parent::throwException('Cannot find file link from ref : ' . $fileLink, null, __FILE__, __LINE__);
-        }
 
-        $id = self::getIdFromRef($fileLink);
-
-        if (!is_object(parent::__get($id))) {
-            $this->__set($fileLink);
-        }
-
-        \SwaggerValidator\Common\Context::logLoadFile(self::getRefFromId($id), __METHOD__, __LINE__);
-
-        return parent::__get($id);
     }
 
     public function __set($ref, $value = null)
     {
-        $id = self::getIdFromRef($ref);
 
-        if ($id == $ref) {
-            $ref = self::getRefFromId($id);
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        self::getInstance();
+
+        foreach ($properties as $key => $value) {
+            self::$instance->__storeData($key, $value);
         }
 
-        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
-            $value = new \SwaggerValidator\Common\ReferenceFile($ref);
-        }
-
-        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
-            $value->extractAllReference();
-            return parent::__set($id, $value);
-        }
-
-        parent::throwException('Cannot register file from ref : ' . $ref, null, __FILE__, __LINE__);
+        return self::getInstance();
     }
 
     public function jsonSerialize()
@@ -151,14 +148,41 @@ class CollectionFile extends \SwaggerValidator\Common\Collection
      * @return \SwaggerValidator\Common\ReferenceFile
      * @throws \SwaggerValidator\Exception
      */
-    public function get($fileLink)
+    public function get(\SwaggerValidator\Common\Context $context, $fileLink)
     {
-        return $this->__get($fileLink);
+        if (empty($fileLink)) {
+            $context->throwException('Cannot find file link from ref : ' . $fileLink, __FILE__, __LINE__);
+        }
+
+        $id = self::getIdFromRef($fileLink);
+
+        if (!is_object(parent::__get($id))) {
+            $this->set($context, $fileLink);
+        }
+
+        $context->logLoadFile(self::getRefFromId($id), __METHOD__, __LINE__);
+
+        return parent::__get($id);
     }
 
-    public function set($ref, $value = null)
+    public function set(\SwaggerValidator\Common\Context $context, $ref, $value = null)
     {
-        return $this->__set($ref, $value);
+        $id = self::getIdFromRef($ref);
+
+        if ($id == $ref) {
+            $ref = self::getRefFromId($id);
+        }
+
+        if (!is_object($value) || !($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
+            $value = new \SwaggerValidator\Common\ReferenceFile($context, $ref);
+        }
+
+        if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceFile)) {
+            $value->extractAllReference($context);
+            return parent::__set($id, $value);
+        }
+
+        $context->throwException('Cannot register file from ref : ' . $ref, __FILE__, __LINE__);
     }
 
     public static function getReferenceFileLink($ref)

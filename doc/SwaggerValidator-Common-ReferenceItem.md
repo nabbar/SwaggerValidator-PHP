@@ -45,7 +45,20 @@ Methods
 
 ### __construct
 
-    mixed SwaggerValidator\Common\ReferenceItem::__construct($jsonData)
+    mixed SwaggerValidator\Common\ReferenceItem::__construct()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### setJsonData
+
+    mixed SwaggerValidator\Common\ReferenceItem::setJsonData($jsonData)
 
 
 
@@ -75,9 +88,43 @@ Methods
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\ReferenceItem::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\ReferenceItem::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### extractAllReferences
 
-    mixed SwaggerValidator\Common\ReferenceItem::extractAllReferences()
+    mixed SwaggerValidator\Common\ReferenceItem::extractAllReferences(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -86,11 +133,14 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
+
 
 
 ### extractReferenceArray
 
-    mixed SwaggerValidator\Common\ReferenceItem::extractReferenceArray(array $array)
+    mixed SwaggerValidator\Common\ReferenceItem::extractReferenceArray(\SwaggerValidator\Common\Context $context, array $array)
 
 
 
@@ -100,13 +150,14 @@ Methods
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $array **array**
 
 
 
 ### extractReferenceObject
 
-    mixed SwaggerValidator\Common\ReferenceItem::extractReferenceObject(\stdClass $stdClass)
+    mixed SwaggerValidator\Common\ReferenceItem::extractReferenceObject(\SwaggerValidator\Common\Context $context, \stdClass $stdClass)
 
 
 
@@ -116,6 +167,7 @@ Methods
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $stdClass **stdClass**
 
 

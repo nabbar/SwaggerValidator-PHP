@@ -35,6 +35,30 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
 
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function setMinMaxItems($min = null, $max = null)
     {
         if ($min !== null && is_integer($min) && $min > 0) {
@@ -85,21 +109,21 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         }
 
         if (property_exists($jsonData, $keyRef)) {
-            $this->registerRecursiveDefinitions($jsonData);
+            $this->registerRecursiveDefinitions($context, $jsonData);
             $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), null, $jsonData);
             return;
         }
 
         if (is_object($jsonData)) {
-            $this->throwException('Mismatching type of JSON Data received', $context, __METHOD__, __LINE__);
+            $context->throwException('Mismatching type of JSON Data received', __METHOD__, __LINE__);
         }
 
         foreach ($jsonData as $key => $value) {
-            $this->registerRecursiveDefinitions($value);
+            $this->registerRecursiveDefinitions($context, $value);
             $this->$key = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context->setDataPath($key), $this->getCleanClass(__CLASS__), $key, $value);
         }
 
-        \SwaggerValidator\Common\Context::logDecode($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logDecode(get_class($this), __METHOD__, __LINE__);
     }
 
     public function validate(\SwaggerValidator\Common\Context $context, $valueParams = null)
@@ -148,7 +172,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
             }
         }
 
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return $result;
     }
 
@@ -202,7 +226,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
         }
 
         if ($max > $min) {
-            $count = rand($min, $max);
+            $count = random_int($min, $max);
         }
         else {
             $count = $min;
@@ -221,7 +245,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
                     'cnt' => $i
                 )));
             }
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+            $context->logModel(__METHOD__, __LINE__);
             return $result;
         }
 
@@ -235,7 +259,7 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
             }
         }
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return $result;
     }
 

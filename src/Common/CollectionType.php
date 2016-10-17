@@ -154,32 +154,36 @@ class CollectionType extends \SwaggerValidator\Common\Collection
      */
     public function __set($type, $callable)
     {
-        if (!$this->__isset($type)) {
-            parent::throwException('Cannot find type : "' . $type . '" (Normalized : "' . $this->normalizeType($type) . '" ', "", __FILE__, __LINE__);
-        }
 
-        if (is_callable(array($callable, '__construct'))) {
-            return parent::__set($this->normalizeType($type), $callable);
-        }
-
-        if (is_string($callable) && class_exists($callable)) {
-            //there is a class. but can we instantiate it?
-            $class = new \ReflectionClass($callable);
-
-            if (!$class->isAbstract()) {
-                return parent::__set($this->normalizeType($type), $callable);
-            }
-            else {
-                parent::throwException('Callable is an abstract class : ' . $callable, "", __FILE__, __LINE__);
-            }
-        }
-
-        parent::throwException('Callable is not callable : ' . $callable, "", __FILE__, __LINE__);
     }
 
     public function __isset($type)
     {
         return defined($this->normalizeType($type));
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        self::getInstance();
+
+        foreach ($properties as $key => $value) {
+            self::$instance->__storeData($key, $value);
+        }
+
+        return self::getInstance();
     }
 
     public function jsonSerialize()
@@ -212,9 +216,29 @@ class CollectionType extends \SwaggerValidator\Common\Collection
      * @param string $type
      * @param callable $callable
      */
-    public function set($type, $callable)
+    public function registerCallable(\SwaggerValidator\Common\Context $context, $type, $callable)
     {
-        return $this->__set($type, $callable);
+        if (!$this->__isset($type)) {
+            $context->throwException('Cannot find type : "' . $type . '" (Normalized : "' . $this->normalizeType($type) . '" ', __FILE__, __LINE__);
+        }
+
+        if (is_callable(array($callable, '__construct'))) {
+            return parent::__set($this->normalizeType($type), $callable);
+        }
+
+        if (is_string($callable) && class_exists($callable)) {
+            //there is a class. but can we instantiate it?
+            $class = new \ReflectionClass($callable);
+
+            if (!$class->isAbstract()) {
+                return parent::__set($this->normalizeType($type), $callable);
+            }
+            else {
+                $context->throwException('Callable is an abstract class : ' . $callable, __FILE__, __LINE__);
+            }
+        }
+
+        $context->throwException('Callable is not callable : ' . $callable, __FILE__, __LINE__);
     }
 
     public function normalizeType($type)

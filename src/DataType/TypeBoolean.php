@@ -32,6 +32,30 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->type)) {
@@ -51,7 +75,7 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
         }
 
         // completer les test integer
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -86,14 +110,14 @@ class TypeBoolean extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return rand(0, 1);
+        $context->logModel(__METHOD__, __LINE__);
+        return random_int(0, 1);
     }
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return rand(0, 1);
+        $context->logModel(__METHOD__, __LINE__);
+        return random_int(0, 1);
     }
 
 }

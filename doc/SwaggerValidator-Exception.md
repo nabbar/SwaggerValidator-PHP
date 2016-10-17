@@ -33,65 +33,6 @@ Methods
 -------
 
 
-### init
-
-    mixed SwaggerValidator\Exception::init($message, $context, $file, $line)
-
-
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $message **mixed**
-* $context **mixed**
-* $file **mixed**
-* $line **mixed**
-
-
-
-### newException
-
-    mixed SwaggerValidator\Exception::newException($message, $context, $file, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $message **mixed**
-* $context **mixed**
-* $file **mixed**
-* $line **mixed**
-
-
-
-### throwNewException
-
-    mixed SwaggerValidator\Exception::throwNewException($message, $context, $file, $line)
-
-
-
-
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $message **mixed**
-* $context **mixed**
-* $file **mixed**
-* $line **mixed**
-
-
-
 ### setFile
 
     mixed SwaggerValidator\Exception::setFile($file)
@@ -126,7 +67,7 @@ Methods
 
 ### setContext
 
-    mixed SwaggerValidator\Exception::setContext($context)
+    mixed SwaggerValidator\Exception::setContext(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -136,7 +77,7 @@ Methods
 
 
 #### Arguments
-* $context **mixed**
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 
 
 

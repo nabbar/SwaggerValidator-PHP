@@ -144,6 +144,12 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
      *
      * @var array
      */
+    protected $contextValidationCode = null;
+
+    /**
+     *
+     * @var array
+     */
     protected $mockedData = array();
 
     /**
@@ -240,6 +246,27 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
         }
 
         return $properties;
+    }
+
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
     }
 
     public function setMode($value = null)
@@ -654,6 +681,19 @@ class ContextBase implements \SwaggerValidator\Interfaces\ContextBase
     public function isDataEmpty()
     {
         return $this->__get('DataEmpty');
+    }
+
+    /**
+     * @param constant $code
+     */
+    public function setValidationErrorCode($code)
+    {
+        return $this->contextValidationCode = $code;
+    }
+
+    public function getValidationErrorCode()
+    {
+        return $this->__get('ValidationCode');
     }
 
 }

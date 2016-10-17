@@ -122,6 +122,42 @@ Methods
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Collection::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Collection::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### __isset
 
     mixed SwaggerValidator\Common\Collection::__isset($key)
@@ -411,25 +447,5 @@ Clear all values
 
 #### Arguments
 * $mixed **mixed**
-
-
-
-### throwException
-
-    mixed SwaggerValidator\Common\Collection::throwException(string $message, mixed $context, $method, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-* This method is defined by [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $method **mixed**
-* $line **mixed**
 
 

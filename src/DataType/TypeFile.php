@@ -32,6 +32,30 @@ class TypeFile extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if ($context->getLocation() !== \SwaggerValidator\Common\FactorySwagger::LOCATION_FORM) {
@@ -51,7 +75,7 @@ class TypeFile extends \SwaggerValidator\DataType\TypeCommon
         if (is_array($value) && !empty($value['tmp_name']) && array_key_exists('error', $value)) {
 
             if ($value['error'] == UPLOAD_ERR_OK) {
-                \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+                $context->logValidate(get_class($this), __METHOD__, __LINE__);
                 return true;
             }
             else {
@@ -79,7 +103,7 @@ class TypeFile extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return array(
             'tmp_name' => uniqid('file_'),
             'error'    => UPLOAD_ERR_OK,

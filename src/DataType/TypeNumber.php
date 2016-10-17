@@ -32,6 +32,30 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->type)) {
@@ -73,7 +97,7 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
         }
 
         // completer les test integer
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -140,25 +164,25 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleFormat(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
-        $sige = (rand(0, 1) > 0.5) ? '0' : '-0';
+        $sign = (random_int(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (random_int(0, 1) > 0.5) ? '0' : '-0';
         $min  = (isset($this->minimum)) ? $this->minimum : 0;
         $max  = (isset($this->maximum)) ? $this->maximum : 0;
 
         if ($max > 0) {
-            return (float) rand($min, $max);
+            return (float) random_int($min, $max);
         }
 
         if ($this->format == 'double') {
             # Float val = 15 signs after . // limit the bcpow to 31 bit for miitation of rand function
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 31)) . 'e' . $sige . rand(0, pow(2, 11))));
+            $context->logModel(__METHOD__, __LINE__);
+            return (float) bcsub(1, bcadd(1, $sign . '.' . random_int($min, pow(2, 31)) . 'e' . $sige . random_int(0, pow(2, 11))));
         }
 
         if ($this->format == 'float') {
             # Float val = 7 signs after .
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return (float) bcsub(1, bcadd(1, $sign . '.' . rand($min, pow(2, 23)) . 'e' . $sige . rand(0, pow(2, 8))));
+            $context->logModel(__METHOD__, __LINE__);
+            return (float) bcsub(1, bcadd(1, $sign . '.' . random_int($min, pow(2, 23)) . 'e' . $sige . random_int(0, pow(2, 8))));
         }
 
         return $this->getExampleType($context);
@@ -166,19 +190,19 @@ class TypeNumber extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '0' : '-0';
-        $sige = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign = (random_int(0, 1) > 0.5) ? '0' : '-0';
+        $sige = (random_int(0, 1) > 0.5) ? '' : '-';
         $min  = (isset($this->minimum)) ? $this->minimum : 0;
         $max  = (isset($this->maximum)) ? $this->maximum : 0;
 
         if ($max > 0) {
-            return (float) rand($min, $max);
+            return (float) random_int($min, $max);
         }
 
-        $mantisse = $sign . '.' . rand($min, pow(2, 23));
-        $exposant = $sige . rand(0, pow(2, 8));
+        $mantisse = $sign . '.' . random_int($min, pow(2, 23));
+        $exposant = $sige . random_int(0, pow(2, 8));
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
+        $context->logModel(__METHOD__, __LINE__);
         return (float) ($mantisse . 'E' . $exposant);
     }
 

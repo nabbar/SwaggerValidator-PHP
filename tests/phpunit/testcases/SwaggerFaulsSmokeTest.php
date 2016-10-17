@@ -150,9 +150,10 @@ class SwaggerFaulsSmokeTest extends genericTestClass
         }
         catch (\SwaggerValidator\Exception $exc) {
             $error = $exc->getContext();
-            $this->assertInternalType('array', $error);
-            $this->assertArrayHasKey('type', $error);
-            $this->assertEquals($expected, $error['type']);
+
+            $this->assertInternalType('object', $error);
+            $this->assertInstanceOf('\SwaggerValidator\Common\Context', $error);
+            $this->assertEquals($expected, $error->getValidationErrorCode());
         }
     }
 
@@ -273,9 +274,10 @@ class SwaggerFaulsSmokeTest extends genericTestClass
         }
         catch (\SwaggerValidator\Exception $exc) {
             $error = $exc->getContext();
-            $this->assertInternalType('array', $error);
-            $this->assertArrayHasKey('type', $error);
-            $this->assertEquals($expected, $error['type']);
+
+            $this->assertInternalType('object', $error);
+            $this->assertInstanceOf('\SwaggerValidator\Common\Context', $error);
+            $this->assertEquals($expected, $error->getValidationErrorCode());
         }
     }
 

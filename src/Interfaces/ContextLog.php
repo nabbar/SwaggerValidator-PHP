@@ -26,17 +26,23 @@ namespace SwaggerValidator\Interfaces;
 interface ContextLog
 {
 
-    public static function logLoadFile($file, $method = null, $line = null);
+    public function logLoadFile($file, $method = null, $line = null);
 
-    public static function logReference($type, $ref, $oldRef = null, $method = null, $line = null);
+    public function logDecode($className, $method = null, $line = null);
 
-    public static function logDecode($decodePath, $decodeType, $method = null, $line = null);
+    public function logValidate($className, $method = null, $line = null);
 
-    public static function logValidate($path, $type, $method = null, $line = null);
+    public function logModel($method = null, $line = null);
 
-    public static function logModel($path, $method = null, $line = null);
+    public function logReference($type, $ref, $oldRef = null, $method = null, $line = null);
 
-    public static function logDebug($message, $method = null, $line = null);
+    public function logMessage($type, $message, $method = null, $line = null);
 
-    public function logValidationError($validationType, $method = null, $line = null);
+    public function logValidationError($validationType, $messageException = null, $method = null, $line = null);
+
+    public function logException($messageException = null, $method = null, $line = null);
+
+    public function throwException($message, $method = null, $line = null);
+
+    public function setValidationError($valitionType, $messageException = null, $method = null, $line = null);
 }

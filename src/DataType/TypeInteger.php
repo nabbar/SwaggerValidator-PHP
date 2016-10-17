@@ -32,6 +32,30 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
         parent::registerMandatoryKey('type');
     }
 
+    /**
+     * Var Export Method
+     */
+    protected function __storeData($key, $value = null)
+    {
+        if (property_exists($this, $key)) {
+            $this->$key = $value;
+        }
+        else {
+            parent::__storeData($key, $value);
+        }
+    }
+
+    public static function __set_state(array $properties)
+    {
+        $obj = new static;
+
+        foreach ($properties as $key => $value) {
+            $obj->__storeData($key, $value);
+        }
+
+        return $obj;
+    }
+
     public function validate(\SwaggerValidator\Common\Context $context)
     {
         if (!isset($this->type)) {
@@ -77,7 +101,7 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
         }
 
         // completer les test integer
-        \SwaggerValidator\Common\Context::logValidate($context->getDataPath(), get_class($this), __METHOD__, __LINE__);
+        $context->logValidate(get_class($this), __METHOD__, __LINE__);
         return true;
     }
 
@@ -139,16 +163,16 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
     {
         $valueInt32 = bcsub(bcpow(2, 31), 1);
         $valueInt64 = bcsub(bcpow(2, 63), 1);
-        $sign       = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign       = (random_int(0, 1) > 0.5) ? '' : '-';
 
         if ($this->format == 'int32') {
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return $sign . rand(0, $valueInt32);
+            $context->logModel(__METHOD__, __LINE__);
+            return $sign . random_int(0, (int) $valueInt32);
         }
 
         if ($this->format == 'int64') {
-            \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-            return $sign . rand(0, $valueInt64);
+            $context->logModel(__METHOD__, __LINE__);
+            return $sign . bcadd(random_int(0, (int) $valueInt32), random_int(0, (int) $valueInt32));
         }
 
         return $this->getExampleType($context);
@@ -156,10 +180,10 @@ class TypeInteger extends \SwaggerValidator\DataType\TypeCommon
 
     protected function getExampleType(\SwaggerValidator\Common\Context $context)
     {
-        $sign = (rand(0, 1) > 0.5) ? '' : '-';
+        $sign = (random_int(0, 1) > 0.5) ? '' : '-';
 
-        \SwaggerValidator\Common\Context::logModel($context->getDataPath(), __METHOD__, __LINE__);
-        return $sign . rand(0, bcsub(bcpow(2, 31), 1));
+        $context->logModel(__METHOD__, __LINE__);
+        return $sign . random_int(0, (int) bcsub(bcpow(2, 31), 1));
     }
 
 }

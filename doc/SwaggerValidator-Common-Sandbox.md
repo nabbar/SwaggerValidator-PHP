@@ -178,6 +178,40 @@ replace the singleton of this collection
 
 
 
+### __storeData
+
+    mixed SwaggerValidator\Common\Sandbox::__storeData($key, $value)
+
+Var Export Method
+
+
+
+* Visibility: **protected**
+
+
+#### Arguments
+* $key **mixed**
+* $value **mixed**
+
+
+
+### __set_state
+
+    mixed SwaggerValidator\Common\Sandbox::__set_state(array $properties)
+
+
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $properties **array**
+
+
+
 ### __get
 
     \SwaggerValidator\Common\ReferenceFile SwaggerValidator\Common\Sandbox::__get($name)
