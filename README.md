@@ -1,4 +1,4 @@
-[![Dependency Status](https://gemnasium.com/badges/github.com/njuhel/SwaggerValidator-PHP.svg)](https://gemnasium.com/github.com/njuhel/SwaggerValidator-PHP)  ~  [![Code Climate](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP)  ~  [![Test Coverage](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/badges/coverage.svg)](https://codeclimate.com/github/njuhel/SwaggerValidator-PHP/coverage)  ~  [![Travis branch](https://img.shields.io/travis/njuhel/SwaggerValidator-PHP/master.svg?maxAge=600&label=PHP%205.3%20--7.0)](https://travis-ci.org/njuhel/SwaggerValidator-PHP)
+[![Dependency Status](https://gemnasium.com/badges/github.com/nabbar/SwaggerValidator-PHP.svg)](https://gemnasium.com/github.com/nabbar/SwaggerValidator-PHP)  ~  [![Code Climate](https://codeclimate.com/github/nabbar/SwaggerValidator-PHP/badges/gpa.svg)](https://codeclimate.com/github/nabbar/SwaggerValidator-PHP)  ~  [![Test Coverage](https://codeclimate.com/github/nabbar/SwaggerValidator-PHP/badges/coverage.svg)](https://codeclimate.com/github/nabbar/SwaggerValidator-PHP/coverage)  ~  [![Travis branch](https://img.shields.io/travis/nabbar/SwaggerValidator-PHP/master.svg?maxAge=600&label=PHP%205.3%20--7.0)](https://travis-ci.org/nabbar/SwaggerValidator-PHP)
 
 # **Swagger Validator _PHP_**
 
@@ -52,30 +52,30 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
 - Install into a git repository as submodule : 
 ```sh
 git submodule init
-git submodule add http://srv01.https://github.com/njuhel/SwaggerValidator-PHP src/lib/SwaggerValidator
+git submodule add http://srv01.https://github.com/nabbar/SwaggerValidator-PHP src/lib/SwaggerValidator
 git submodule update
 ```
 
 - Install by cloning git : 
 ```sh
-git clone https://github.com/njuhel/SwaggerValidator-PHP SwaggerValidator
+git clone https://github.com/nabbar/SwaggerValidator-PHP SwaggerValidator
 ```
 
 - Install with composer (adding this in composer.json): 
 ```json
     "require": {
-        "njuhel/swagger-validator":">=1.2.0"
+        "nabbar/swagger-validator":">=1.2.0"
     },
 ```
 
 - Install with phar : 
 ```sh
-wget https://github.com/njuhel/SwaggerValidator-PHP/raw/master/bin/SwaggerValidator.phar 
+wget https://github.com/nabbar/SwaggerValidator-PHP/raw/master/bin/SwaggerValidator.phar 
 ```
 
   
 ## **Example & Docs**
- - **Examples** : [Example.php](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/src/SwaggerValidator/Example.php) 
- - **Documentation** : [generated](https://github.com/njuhel/SwaggerValidator-PHP/blob/master/doc/README.md)
+ - **Examples** : [Example.php](https://github.com/nabbar/SwaggerValidator-PHP/blob/master/src/SwaggerValidator/Example.php) 
+ - **Documentation** : [generated](https://github.com/nabbar/SwaggerValidator-PHP/blob/master/doc/README.md)
 
 
