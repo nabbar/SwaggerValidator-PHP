@@ -34,7 +34,7 @@ function prompt {
 git reset HEAD --hard
 git checkout . 2>&1
 git pull --all --prune --verbose --force
-git checkout develop
+git checkout master
 LASTTAG=$(git for-each-ref --format="%(refname:short)" refs/tags|tail -n 1)
 LASTTAGDATE=$(git for-each-ref --format="%(creatordate:short)" refs/tags|tail -n 1)
 LASTLOG=$(grep "Version " CHANGELOG.md | tail -n 1 | awk '{print $3}')
@@ -107,7 +107,7 @@ printEmpty ;
 git status
 printEmpty ;
 printEmpty ;
-printNoLine "Push to develop (Ctrl+C to cancel) ?";
+printNoLine "Push to master (Ctrl+C to cancel) ?";
 CANCEL=$(prompt)
 
 printClear ;
@@ -115,7 +115,7 @@ printEmpty ;
 printEmpty ;
 
 git commit -m "Prepare release v$RELEASE"
-git push origin develop
+git push origin master
 git reset HEAD --hard
 git branch v$RELEASE
 git checkout v$RELEASE
@@ -146,11 +146,11 @@ printEmpty ;
 git commit -m "Create release v$RELEASE"
 git push --set-upstream origin v$RELEASE
 
-git checkout develop
+git checkout master 
 git reset HEAD --hard
 git checkout . 2>&1
 git pull --all --prune --verbose --force
-git checkout develop 2>&1
+git checkout master 2>&1
 
 printEmpty ;
 printEmpty ;

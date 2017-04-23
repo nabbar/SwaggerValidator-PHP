@@ -172,28 +172,9 @@ Var Export Method
 
 
 
-### throwException
-
-    mixed SwaggerValidator\Common\ReferenceFile::throwException(string $message, mixed $context, $file, $line)
-
-Throw a new \SwaggerValidator\Exception with automatic find method, line, .
-
-..
-
-* Visibility: **protected**
-
-
-#### Arguments
-* $message **string**
-* $context **mixed**
-* $file **mixed**
-* $line **mixed**
-
-
-
 ### getFileTime
 
-    mixed SwaggerValidator\Common\ReferenceFile::getFileTime()
+    mixed SwaggerValidator\Common\ReferenceFile::getFileTime(\SwaggerValidator\Common\Context $context)
 
 
 
@@ -201,12 +182,15 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 * Visibility: **public**
 
+
+#### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 
 
 
 ### getReference
 
-    mixed SwaggerValidator\Common\ReferenceFile::getReference($ref)
+    mixed SwaggerValidator\Common\ReferenceFile::getReference(\SwaggerValidator\Common\Context $context, $ref)
 
 
 
@@ -216,6 +200,7 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $ref **mixed**
 
 
@@ -272,7 +257,7 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 ### getCanonical
 
-    mixed SwaggerValidator\Common\ReferenceFile::getCanonical($fullRef)
+    mixed SwaggerValidator\Common\ReferenceFile::getCanonical(\SwaggerValidator\Common\Context $context, $fullRef)
 
 
 
@@ -282,13 +267,14 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $fullRef **mixed**
 
 
 
 ### getFileLink
 
-    mixed SwaggerValidator\Common\ReferenceFile::getFileLink($uri)
+    mixed SwaggerValidator\Common\ReferenceFile::getFileLink(\SwaggerValidator\Common\Context $context, $uri)
 
 
 
@@ -298,13 +284,14 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $uri **mixed**
 
 
 
 ### getFilePath
 
-    mixed SwaggerValidator\Common\ReferenceFile::getFilePath($filepath)
+    mixed SwaggerValidator\Common\ReferenceFile::getFilePath(\SwaggerValidator\Common\Context $context, $filepath)
 
 
 
@@ -314,6 +301,7 @@ Throw a new \SwaggerValidator\Exception with automatic find method, line, .
 
 
 #### Arguments
+* $context **[SwaggerValidator\Common\Context](SwaggerValidator-Common-Context.md)**
 * $filepath **mixed**
 
 
