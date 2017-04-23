@@ -68,3 +68,9 @@
       - 26d9358 Refactor Context : log / exception with problem if trying to override static
       - a3b2fc9 Change serialize to var_export function
 
+#Version 1.3.1 - 2017-04-24 : 
+      - 593c7d2 Fix PHPUnit release to still be compatible to the full scope
+      - 94eba2c Fix still resident old github repos url
+      - deca968 Fix Exception::init call
+      - deca968 Add implicit object in arrayItems Schema if propeties key is find and type=object not find
+
