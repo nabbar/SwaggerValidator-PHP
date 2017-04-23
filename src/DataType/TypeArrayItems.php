@@ -91,14 +91,19 @@ class TypeArrayItems extends \SwaggerValidator\DataType\TypeCommon
     {
         $this->checkJsonObjectOrArray($context, $jsonData);
 
-        $keyType   = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
-        $keySchema = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
-        $keyRef    = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
-        $keyAllOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ALLOF;
-        $keyAnyOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
-        $keyOneOf  = \SwaggerValidator\Common\FactorySwagger::KEY_ONEOF;
+        $keyType       = \SwaggerValidator\Common\FactorySwagger::KEY_TYPE;
+        $keyProperties = \SwaggerValidator\Common\FactorySwagger::KEY_PROPERTIES;
+        $keySchema     = \SwaggerValidator\Common\FactorySwagger::KEY_SCHEMA;
+        $keyRef        = \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE;
+        $keyAllOf      = \SwaggerValidator\Common\FactorySwagger::KEY_ALLOF;
+        $keyAnyOf      = \SwaggerValidator\Common\FactorySwagger::KEY_ANYOF;
+        $keyOneOf      = \SwaggerValidator\Common\FactorySwagger::KEY_ONEOF;
 
         if (property_exists($jsonData, $keyType)) {
+            $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
+            return;
+        }
+        elseif (property_exists($jsonData, $keyProperties)) {
             $this->$keySchema = \SwaggerValidator\Common\FactorySwagger::getInstance()->jsonUnSerialize($context, $this->getCleanClass(__CLASS__), $keySchema, $jsonData);
             return;
         }

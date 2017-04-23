@@ -1,5 +1,6 @@
 vendor/
-tests/metric*/*/*
-tests/metric*/*
+tests/metric*
 composer.lock
 #build*/*
+nbproject/
+

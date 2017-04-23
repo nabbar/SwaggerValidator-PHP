@@ -215,19 +215,6 @@ class FactorySwagger
         return self::getInstance();
     }
 
-    /**
-     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
-     * @param string $message
-     * @param mixed $context
-     * @throws \SwaggerValidator\Exception
-     */
-    protected function throwException($message, $context = null, $file = null, $line = null)
-    {
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $file, $line);
-        throw $e;
-    }
-
     public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $originType, $originKey, &$jsonData)
     {
         $keyType   = self::KEY_TYPE;
@@ -260,7 +247,7 @@ class FactorySwagger
         }
 
         if (is_object($jsonData) && $originType !== 'Swagger' && $originType !== 'TypeObject') {
-            $this->throwException('Cannot identify the object builder for the given JSON Data', array('originType' => $originType, 'originKey' => $originKey, 'context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Cannot identify the object builder for the given JSON Data', array('originType' => $originType, 'originKey' => $originKey, 'context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
         elseif (is_object($jsonData) && $originType === 'TypeObject') {
             return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->TypeObject, $originType, $originKey, $jsonData);
@@ -275,7 +262,7 @@ class FactorySwagger
         $missingKey = $object->checkMandatoryKey();
 
         if ($missingKey !== true) {
-            $this->throwException('Missing Key "' . $missingKey . '" from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'SwaggerObject' => $object), __FILE__, __LINE__);
+            $context->throwException('Missing Key "' . $missingKey . '" from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'SwaggerObject' => $object), __FILE__, __LINE__);
         }
 
         return $object;
@@ -294,7 +281,7 @@ class FactorySwagger
         switch ($originType) {
             case 'Parameters':
                 if (!is_object($jsonData) || !property_exists($jsonData, $keyIn)) {
-                    $this->throwException('Parameters Item have no "in" keys', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    $context->throwException('Parameters Item have no "in" keys', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
 
                 if ($jsonData->$keyIn == self::LOCATION_BODY) {
@@ -327,7 +314,7 @@ class FactorySwagger
         }
 
         if (empty($object)) {
-            $this->throwException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         return $this->returnBuildObject($context, $object, $originType, $originKey, $jsonData);
@@ -344,7 +331,7 @@ class FactorySwagger
         switch ($originKey) {
             case self::KEY_SCHEMA:
                 if (!is_object($jsonData)) {
-                    $this->throwException('Cannot build an object schema with an non object JSON Data from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    $context->throwException('Cannot build an object schema with an non object JSON Data from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
                 if (property_exists($jsonData, self::KEY_ALLOF) || property_exists($jsonData, self::KEY_ANYOF) || property_exists($jsonData, self::KEY_ONEOF) || property_exists($jsonData, self::KEY_NOT)) {
                     $object = \SwaggerValidator\Common\Factory::getInstance()->TypeCombined;
@@ -368,7 +355,7 @@ class FactorySwagger
         }
 
         if (empty($object)) {
-            $this->throwException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Cannot build an empty object from this original type "' . $originType . '" and key "' . $originKey . '"', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         return $this->returnBuildObject($context, $object, $originType, $originKey, $jsonData);
@@ -379,7 +366,7 @@ class FactorySwagger
         $typeObj = $this->getPrimitiveType($context, $jsonData);
 
         if (empty($typeObj)) {
-            $this->throwException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->$typeObj, $originType, $originKey, $jsonData);
@@ -390,7 +377,7 @@ class FactorySwagger
         $keyType = self::KEY_TYPE;
 
         if (!is_object($jsonData) || !property_exists($jsonData, $keyType)) {
-            $this->throwException('Primitive type must have a "type" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Primitive type must have a "type" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $keyType = self::KEY_TYPE;
@@ -418,7 +405,7 @@ class FactorySwagger
                 return 'TypeString';
 
             default:
-                $this->throwException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                $context->throwException('Cannot build an empty primitive object', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
     }
 
@@ -429,7 +416,7 @@ class FactorySwagger
         }
 
         if (count(get_object_vars($jsonData)) > 1) {
-            $this->throwException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('External Object Reference cannot have more keys than the $ref key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         $key = self::KEY_REFERENCE;
@@ -444,7 +431,7 @@ class FactorySwagger
         $flowKey = self::KEY_FLOW;
 
         if (!is_object($jsonData) || !property_exists($jsonData, $typeKey)) {
-            $this->throwException('Security Definitions Items must having a "' . $typeKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+            $context->throwException('Security Definitions Items must having a "' . $typeKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
         }
 
         switch ($jsonData->$typeKey) {
@@ -456,7 +443,7 @@ class FactorySwagger
 
             case 'oauth2':
                 if (!property_exists($jsonData, $flowKey)) {
-                    $this->throwException('Security Definitions Items as type "' . $jsonData->$typeKey . '" must having a "' . $flowKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+                    $context->throwException('Security Definitions Items as type "' . $jsonData->$typeKey . '" must having a "' . $flowKey . '" key', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
                 }
 
                 switch ($jsonData->$flowKey) {
@@ -474,7 +461,7 @@ class FactorySwagger
                 }
         }
 
-        $this->throwException('Cannot build a non unknown security definition', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+        $context->throwException('Cannot build a non unknown security definition', array('context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
     }
 
 }

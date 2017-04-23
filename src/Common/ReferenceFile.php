@@ -71,21 +71,21 @@ class ReferenceFile
             $this->basePath .= $urlPart['path'];
         }
         else {
-            $this->throwException('Pathtype not well formatted : ' . $filepath, null, __FILE__, __LINE__);
+            $context->throwException('Pathtype not well formatted : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         $contents = file_get_contents($this->fileUri);
 
         if (empty($contents)) {
-            $this->throwException('Cannot read contents for file : ' . $filepath, null, __FILE__, __LINE__);
+            $context->throwException('Cannot read contents for file : ' . $filepath, null, __FILE__, __LINE__);
         }
 
-        $this->fileTime = $this->getFileTime();
+        $this->fileTime = $this->getFileTime($context);
         $this->fileHash = hash('SHA512', $contents . '#' . $this->fileTime, true);
         $this->fileObj  = json_decode($contents, false);
 
         if (empty($this->fileObj)) {
-            $this->throwException('Cannot decode contents for file : ' . $filepath, null, __FILE__, __LINE__);
+            $context->throwException('Cannot decode contents for file : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         $context->logLoadFile($this->fileUri, __METHOD__, __LINE__);
@@ -97,7 +97,8 @@ class ReferenceFile
             return $this->$name;
         }
 
-        return $this->getReference($name);
+        $ctx = new \SwaggerValidator\Common\Context();
+        return $this->getReference($ctx, $name);
     }
 
     /**
@@ -121,20 +122,7 @@ class ReferenceFile
         return $obj;
     }
 
-    /**
-     * Throw a new \SwaggerValidator\Exception with automatic find method, line, ...
-     * @param string $message
-     * @param mixed $context
-     * @throws \SwaggerValidator\Exception
-     */
-    protected function throwException($message, $context = null, $file = null, $line = null)
-    {
-        $e = new \SwaggerValidator\Exception();
-        $e->init($message, $context, $file, $line);
-        throw $e;
-    }
-
-    public function getFileTime()
+    public function getFileTime(\SwaggerValidator\Common\Context $context)
     {
         if ($this->baseType !== self::PATH_TYPE_URL) {
             return filemtime($this->fileUri);
@@ -149,7 +137,7 @@ class ReferenceFile
         $result = curl_exec($curl);
 
         if ($result === false) {
-            $this->throwException('CURL Error : ' . curl_errno($curl) . ' => ' . curl_error($curl), curl_getinfo($curl), __METHOD__, __LINE__);
+            $context->throwException('CURL Error : ' . curl_errno($curl) . ' => ' . curl_error($curl), curl_getinfo($curl), __METHOD__, __LINE__);
         }
 
         $timestamp = curl_getinfo($curl, CURLINFO_FILETIME);
@@ -163,7 +151,7 @@ class ReferenceFile
         return time();
     }
 
-    public function getReference($ref)
+    public function getReference(\SwaggerValidator\Common\Context $context, $ref)
     {
         $obj            = $this->fileObj;
         $propertiesList = explode('/', $ref);
@@ -176,7 +164,7 @@ class ReferenceFile
             }
 
             if (empty($obj)) {
-                $this->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
+                $context->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
             }
 
             if (is_object($obj) && isset($obj->$property)) {
@@ -186,7 +174,7 @@ class ReferenceFile
                 $obj = $obj[$property];
             }
             else {
-                $this->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
+                $context->throwException('Cannot find property "' . $property . '" from ref : ' . $this->fileUri . '#/' . $ref, null, __FILE__, __LINE__);
             }
         }
 
@@ -225,7 +213,7 @@ class ReferenceFile
 
         foreach ($array as $key => $value) {
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
-                $ref       = $this->getCanonical($value);
+                $ref       = $this->getCanonical($context, $value);
                 $refList[] = $ref;
 
                 $context->logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
@@ -254,7 +242,7 @@ class ReferenceFile
 
         foreach (get_object_vars($stdClass) as $key => $value) {
             if ($key === \SwaggerValidator\Common\FactorySwagger::KEY_REFERENCE) {
-                $ref       = $this->getCanonical($value);
+                $ref       = $this->getCanonical($context, $value);
                 $refList[] = $ref;
 
                 $context->logReference('replace', $ref[0], $value, __METHOD__, __LINE__);
@@ -277,13 +265,13 @@ class ReferenceFile
         return $refList;
     }
 
-    public function getCanonical($fullRef)
+    public function getCanonical(\SwaggerValidator\Common\Context $context, $fullRef)
     {
         $fileLink = \SwaggerValidator\Common\CollectionFile::getReferenceFileLink($fullRef);
         $innerRef = \SwaggerValidator\Common\CollectionFile::getReferenceInnerPath($fullRef);
 
         if (!empty($fileLink)) {
-            $fileLink = $this->getFileLink($fileLink);
+            $fileLink = $this->getFileLink($context, $fileLink);
         }
         else {
             $fileLink = $this->fileUri;
@@ -303,18 +291,18 @@ class ReferenceFile
         );
     }
 
-    private function getFileLink($uri)
+    private function getFileLink(\SwaggerValidator\Common\Context $context, $uri)
     {
         $scheme = parse_url($uri, PHP_URL_SCHEME);
 
         if (strtolower($scheme) == 'file') {
-            return $this->getFilePath(urldecode(substr($uri, 7)));
+            return $this->getFilePath($context, urldecode(substr($uri, 7)));
         }
 
         if ($this->baseType !== self::PATH_TYPE_URL) {
 
             if ($scheme === false || $scheme === null) {
-                return $this->getFilePath($uri);
+                return $this->getFilePath($context, $uri);
             }
             else {
                 return $this->getUrlLink($this->basePath . $uri);
@@ -325,7 +313,7 @@ class ReferenceFile
         }
     }
 
-    private function getFilePath($filepath)
+    private function getFilePath(\SwaggerValidator\Common\Context $context, $filepath)
     {
         $filepath = str_replace('/', DIRECTORY_SEPARATOR, $filepath);
 
@@ -337,7 +325,7 @@ class ReferenceFile
             return realpath($this->basePath . $filepath);
         }
         else {
-            $this->throwException('Cannot load file from ref : ' . $filepath, null, __FILE__, __LINE__);
+            $context->throwException('Cannot load file from ref : ' . $filepath, null, __FILE__, __LINE__);
         }
 
         return false;

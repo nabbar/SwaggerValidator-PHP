@@ -209,7 +209,7 @@ class CollectionReference extends \SwaggerValidator\Common\Collection
             }
 
             $value = new \SwaggerValidator\Common\ReferenceItem();
-            $value->setJsonData($file->$fRef);
+            $value->setJsonData($file->getReference($context->setDataPath($link), $fRef));
         }
 
         if (is_object($value) && ($value instanceof \SwaggerValidator\Common\ReferenceItem)) {
