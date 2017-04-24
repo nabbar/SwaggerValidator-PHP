@@ -74,3 +74,8 @@
       - deca968 Fix Exception::init call
       - deca968 Add implicit object in arrayItems Schema if propeties key is find and type=object not find
 
+#Version 1.3.2 - 2017-04-24 :
+      - ed1981c Fix Issue #20 : error in some definition class, error in some array to string convertion for log, error with basepath = / and paths start mandatory with / 
+      - ed1981c Fix Issue #18 : with some missing refactoring method in last releases 
+      - ed1981c Extand the implicit type=object understanding at last when json part is an object with propertie key and no type key
+

@@ -8,7 +8,6 @@ Description of CollectionSwagger
 
 * Class name: CollectionSwagger
 * Namespace: SwaggerValidator\Common
-* This is an **abstract** class
 * Parent class: [SwaggerValidator\Common\Collection](SwaggerValidator-Common-Collection.md)
 
 
@@ -65,7 +64,6 @@ Methods
 
 
 * Visibility: **public**
-* This method is **abstract**.
 
 
 
@@ -148,7 +146,6 @@ Var Export Method
 
 
 * Visibility: **public**
-* This method is **abstract**.
 
 
 #### Arguments

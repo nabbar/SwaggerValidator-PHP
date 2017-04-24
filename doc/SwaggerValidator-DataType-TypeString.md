@@ -122,7 +122,6 @@ Methods
 
 
 * Visibility: **public**
-* This method is **abstract**.
 * This method is defined by [SwaggerValidator\Common\CollectionSwagger](SwaggerValidator-Common-CollectionSwagger.md)
 
 
@@ -318,7 +317,6 @@ Var Export Method
 
 
 * Visibility: **public**
-* This method is **abstract**.
 * This method is defined by [SwaggerValidator\Common\CollectionSwagger](SwaggerValidator-Common-CollectionSwagger.md)
 
 
