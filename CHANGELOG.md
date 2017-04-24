@@ -52,7 +52,7 @@
       - b6f7010 Fix error found following test Add type validation in exception resturn 
       - b6f7010 Fix empty exception message when init exception
 
-#Version 1.2.3 - 2016-09-11 :
+# Version 1.2.3 - 2016-09-11 :
       - e3bdd93 Fix minor bug
       - 50de5b8 Add collectionFormat in array type for read query params 
       - 50de5b8 Add collectionFormat managment in model constructor 
@@ -62,19 +62,19 @@
       - 50de5b8 Expand test for collection format as array
       - 2069990 Add response test in false test
 
-#Version 1.3.0 - 2016-10-17 :
+# Version 1.3.0 - 2016-10-17 :
       - f0e3169 Update composer version
       - a37953a Replace rand() by random_int (or his equal function) for best practice
       - 26d9358 Refactor Context : log / exception with problem if trying to override static
       - a3b2fc9 Change serialize to var_export function
 
-#Version 1.3.1 - 2017-04-24 : 
+# Version 1.3.1 - 2017-04-24 : 
       - 593c7d2 Fix PHPUnit release to still be compatible to the full scope
       - 94eba2c Fix still resident old github repos url
       - deca968 Fix Exception::init call
       - deca968 Add implicit object in arrayItems Schema if propeties key is find and type=object not find
 
-#Version 1.3.2 - 2017-04-24 :
+# Version 1.3.2 - 2017-04-24 :
       - ed1981c Fix Issue #20 : error in some definition class, error in some array to string convertion for log, error with basepath = / and paths start mandatory with / 
       - ed1981c Fix Issue #18 : with some missing refactoring method in last releases 
       - ed1981c Extand the implicit type=object understanding at last when json part is an object with propertie key and no type key
