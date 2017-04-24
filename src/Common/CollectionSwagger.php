@@ -24,7 +24,7 @@ namespace SwaggerValidator\Common;
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
+class CollectionSwagger extends \SwaggerValidator\Common\Collection
 {
 
     /**
@@ -33,7 +33,10 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
      */
     private $mandatoryKeys = array();
 
-    abstract public function __construct();
+    public function __construct()
+    {
+        die("Method " . __METHOD__ . " must be override !!");
+    }
 
     /**
      * Return the content of the reference as object or mixed data
@@ -78,7 +81,10 @@ abstract class CollectionSwagger extends \SwaggerValidator\Common\Collection
     /**
      * @param string $jsonData The Json Data to be unserialized
      */
-    abstract public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData);
+    public function jsonUnSerialize(\SwaggerValidator\Common\Context $context, $jsonData)
+    {
+        die("Method " . __METHOD__ . " must be override !!");
+    }
 
     /**
      * List of keys mandatory for the current object type

@@ -887,6 +887,10 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
      */
     public function logMessage($type, $message, $method = null, $line = null)
     {
+        if (is_array($message) || is_object($message)) {
+            $message = \SwaggerValidator\Common\Collection::jsonEncode($message);
+        }
+
         print "[" . date('Y-m-d H:i:s') . "][{$type}][{{$method}#{$line}] - {$message} \n";
         //file_put_contents('php://stdout', "[" . date('Y-m-d H:i:s') . "][DEBUG][{{$method}#{$line}] - {$message} \n");
     }
@@ -957,22 +961,22 @@ class Context extends ContextBase implements \SwaggerValidator\Interfaces\Contex
         switch ($valitionType) {
             case self::VALIDATION_TYPE_BASEPATH_ERROR:
                 $this->setValidationErrorCode($valitionType);
-                $messageException = 'Swagger Validation Error : BasePath ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : BasePath ! Value Find : ' . \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_HOSTNAME_ERROR:
                 $this->setValidationErrorCode($valitionType);
-                $messageException = 'Swagger Validation Error : HostName ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : HostName ! Value Find : ' . \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_ROUTE_ERROR:
                 $this->setValidationErrorCode($valitionType);
-                $messageException = 'Swagger Validation Error : Route ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Route ! Value Find : ' . \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_METHOD_ERROR:
                 $this->setValidationErrorCode($valitionType);
-                $messageException = 'Swagger Validation Error : Method ! Value Find : ' . json_encode($this->getDataValue());
+                $messageException = 'Swagger Validation Error : Method ! Value Find : ' . \SwaggerValidator\Common\Collection::jsonEncode($this->getDataValue());
                 break;
 
             case self::VALIDATION_TYPE_NOTFOUND:

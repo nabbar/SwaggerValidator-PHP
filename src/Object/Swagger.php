@@ -274,7 +274,9 @@ class Swagger extends \SwaggerValidator\Common\CollectionSwagger
      */
     protected function checkBasePath(\SwaggerValidator\Common\Context $context)
     {
-        if (!isset($this->basePath)) {
+        if (!isset($this->basePath) || $this->basePath == '/') {
+            $context->setBasePath(null);
+            $context->setRequestPath($context->getDataValue());
             return $context;
         }
 

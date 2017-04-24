@@ -24,7 +24,7 @@ namespace SwaggerValidator\Common;
  * @author Nicolas JUHEL<swaggervalidator@nabbar.com>
  * @version 1.0.0
  */
-abstract class Collection implements \Countable, \IteratorAggregate, \ArrayAccess, \Serializable, \JsonSerializable
+class Collection implements \Countable, \IteratorAggregate, \ArrayAccess, \Serializable, \JsonSerializable
 {
 
     /**

@@ -89,6 +89,7 @@ class genericTestClass extends PHPUnit_Framework_TestCase
 
         \SwaggerValidator\Common\Context::setConfigDropAllDebugLog();
         \SwaggerValidator\Common\Context::setConfig('log', 'exception', true);
+        \SwaggerValidator\Common\Context::setConfig('log', 'validation', true);
     }
 
     public static function tearDownAfterClass()

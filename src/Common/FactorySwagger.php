@@ -246,14 +246,19 @@ class FactorySwagger
             return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->Reference, $originType, $originKey, $jsonData);
         }
 
-        if (is_object($jsonData) && $originType !== 'Swagger' && $originType !== 'TypeObject') {
-            $context->throwException('Cannot identify the object builder for the given JSON Data', array('originType' => $originType, 'originKey' => $originKey, 'context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
+        if (!is_object($jsonData)) {
+            return $jsonData;
         }
-        elseif (is_object($jsonData) && $originType === 'TypeObject') {
+
+        if ($originType === 'Swagger') {
+            return $jsonData;
+        }
+
+        if ($originType === 'TypeObject' || (empty($originType) && property_exists($jsonData, self::KEY_PROPERTIES))) {
             return $this->returnBuildObject($context, \SwaggerValidator\Common\Factory::getInstance()->TypeObject, $originType, $originKey, $jsonData);
         }
 
-        return $jsonData;
+        $context->throwException('Cannot identify the object builder for the given JSON Data', array('originType' => $originType, 'originKey' => $originKey, 'context' => $context, 'JsonData' => $jsonData), __FILE__, __LINE__);
     }
 
     protected function returnBuildObject(\SwaggerValidator\Common\Context $context, \SwaggerValidator\Common\CollectionSwagger $object, $originType, $originKey, &$jsonData)
