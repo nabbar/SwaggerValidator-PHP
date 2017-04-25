@@ -42,12 +42,14 @@ The Swagger Validator is doing all this. It validate your swagger file, validate
   - Unit test in your environnement for checking compatibility
 
 ## **Need to do**
-  - use PHP PSR-7 Querystring parsing
   - response building automaticly base on content type response, accept and produce
+  - reduce scope to PHP 7.1 (release >= 1.4)
+  - swagger / openapi version 3.0 (release >= 2.0)
 
 ## **Compatibility**
-  **_Help us to fix error with compatibilities_**
-  - scope PHP 5.3.10 (bug reported, need some more compatibilities) to PHP 7.0
+  - release <= 1.3 : scope PHP 5.3.10 (bug reported, need some more compatibilities) to PHP 7.0
+  - release >= 1.4 : scope PHP 7.1
+  - release >= 2.0 : openapi release 3.0 & PHP 7.1
 
   
 ## **Installation Guide**
