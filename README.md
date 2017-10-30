@@ -66,10 +66,8 @@ git clone https://github.com/nabbar/SwaggerValidator-PHP SwaggerValidator
 ```
 
 - Install with composer (adding this in composer.json): 
-```json
-    "require": {
-        "nabbar/swagger-validator":">=1.2.0"
-    },
+```sh
+composer require nabbar/swagger-validator
 ```
 
 - Install with phar : 
